@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Phone extends Model
+{
+    protected $fillable = [
+        'brands_id',
+        'model_series_id',
+        'stok',
+        'modal',
+        'harga_toko',
+        'harga_pelanggan',
+        'supplier',
+        'imei',
+        'warna',
+        'kapasitas',
+        'keterangan'
+    ];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brands_id', 'id');
+    }
+
+    public function modelserie()
+    {
+        return $this->belongsTo(ModelSerie::class, 'model_series_id', 'id');
+    }
+}
