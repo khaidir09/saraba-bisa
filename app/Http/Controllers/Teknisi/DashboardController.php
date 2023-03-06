@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\AdminToko;
+namespace App\Http\Controllers\Teknisi;
 
 use Carbon\Carbon;
 use App\Models\Budget;
@@ -23,10 +23,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // $servismasuk = ServiceTransaction::whereDay('created_at', '=', date("d", strtotime(now())))->count();
-        // $servisselesai = ServiceTransaction::whereDay('tgl_selesai', '=', date("d", strtotime(now())))->where('status_servis', 'Bisa Diambil')->count();
-        // $servisdiambil = ServiceTransaction::whereDay('tgl_ambil', '=', date("d", strtotime(now())))->where('status_servis', 'Sudah Diambil')->count();
-
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
@@ -47,7 +43,7 @@ class DashboardController extends Controller
         $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
         $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
 
-        return view('pages/admintoko/dashboard', compact(
+        return view('pages/teknisi/dashboard', compact(
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',

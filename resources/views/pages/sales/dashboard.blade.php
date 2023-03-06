@@ -1,8 +1,8 @@
 @section('title')
-    Dashboard Admin Toko
+    Dashboard Sales
 @endsection
 
-<x-admin-layout>
+<x-sales-layout>
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         
         <!-- Welcome banner -->
@@ -48,11 +48,11 @@
                         <span class="absolute text-xl text-blue-700">{{ $percent }}%</span>
                     </div>
                     <div class="text-xl font-bold text-slate-800 text-center">Rp. {{ number_format($totalprofit) }} / Rp. {{ number_format($totalbudgets) }}</div>
-                    <p class="text-center mt-2 text-xs text-blue-700">Tingkatkan profit hingga Rp. {{ number_format($totalbudgets - ($totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone)) }} lagi!</p>
+                    <p class="text-center mt-2 text-xs text-blue-700">Tingkatkan penjualanmu hingga Rp. {{ number_format($totalbudgets - ($totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone)) }} lagi!</p>
                 </div>
             </div>
 
         </div>
 
     </div>
-</x-admin-layout>
+</x-sales-layout>

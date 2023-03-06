@@ -58,7 +58,7 @@
                                         <span>Admin Toko</span>
                                     </div>
                                 </a>
-                                <a href="{{ route('teknisi-transaksi-servis.index') }}">
+                                <a href="{{ route('teknisi-dashboard') }}">
                                     <div class="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out mb-3">
                                         <svg class="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
                                             <path class="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
@@ -68,7 +68,7 @@
                                         <span>Teknisi</span>
                                     </div>
                                 </a>
-                                <a href="{{ route('sales-data-handphone.index') }}">
+                                <a href="{{ route('sales-dashboard') }}">
                                     <div class="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out mb-3">
                                         <svg class="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
                                             <path class="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />

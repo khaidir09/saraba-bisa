@@ -70,6 +70,7 @@ use App\Http\Controllers\AdminToko\InsidenController as AdminTokoInsidenControll
 use App\Http\Controllers\AdminToko\KasbonController as AdminTokoKasbonController;
 use App\Http\Controllers\AdminToko\AssemblyController as AdminTokoAssemblyController;
 // Teknisi
+use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
 use App\Http\Controllers\Teknisi\LaporanTeknisiController as TeknisiLaporanTeknisiController;
 use App\Http\Controllers\Teknisi\LaporanAssemblyController as TeknisiLaporanAssemblyController;
 use App\Http\Controllers\Teknisi\TindakanServisController as TeknisiTindakanServisController;
@@ -81,6 +82,7 @@ use App\Http\Controllers\Teknisi\UbahBisaDiambilController as TeknisiUbahBisaDia
 use App\Http\Controllers\Teknisi\UbahSudahDiambilController as TeknisiUbahSudahDiambilController;
 use App\Http\Controllers\Teknisi\AssemblyController as TeknisiAssemblyController;
 // Sales
+use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
 use App\Http\Controllers\Sales\PhoneController as SalesPhoneController;
 use App\Http\Controllers\Sales\PhoneTerjualController as SalesPhoneTerjualController;
 use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
@@ -193,6 +195,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
 });
 
 Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
+    Route::get('/teknisi-dashboard', [TeknisiDashboardController::class, 'index'])->name('teknisi-dashboard');
     Route::resource('teknisi-pelanggan', TeknisiPelangganController::class);
     Route::resource('teknisi-tindakan-servis', TeknisiTindakanServisController::class);
     Route::resource('teknisi-transaksi-servis', TeknisiTransaksiServisController::class);
@@ -211,6 +214,7 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
 
 Route::middleware('ensureSalesRole:Sales')->group(
     function () {
+        Route::get('/sales-dashboard', [SalesDashboardController::class, 'index'])->name('sales-dashboard');
         Route::resource('sales-pelanggan', SalesPelangganController::class);
         Route::resource('phone/sales-data-handphone', SalesPhoneController::class);
         Route::resource('phone/sales-phone-terjual', SalesPhoneTerjualController::class);
