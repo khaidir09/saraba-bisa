@@ -11,6 +11,7 @@ use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
 use App\Models\SparepartTransaction;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
@@ -23,6 +24,26 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $profitsparepart = SparepartTransaction::where('is_approve', 'Setuju')
+            ->where('users_id', Auth::user()->id)
+            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $bonussparepart = ($profitsparepart / 100) * Auth::user()->persen;
+        $profitaksesori = AccessoryTransaction::where('is_approve', 'Setuju')
+            ->where('users_id', Auth::user()->id)
+            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $bonusaksesori = ($profitaksesori / 100) * Auth::user()->persen;
+        $profithandphone = PhoneTransaction::where('is_approve', 'Setuju')
+            ->where('users_id', Auth::user()->id)
+            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $bonushandphone = ($profithandphone / 100) * Auth::user()->persen;
+        $totalbonus = $bonussparepart + $bonusaksesori + $bonushandphone;
+
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
@@ -50,7 +71,8 @@ class DashboardController extends Controller
             'totalpenjualan',
             'totalsparepart',
             'totalaksesoris',
-            'totalhandphone'
+            'totalhandphone',
+            'totalbonus'
         ));
     }
 }

@@ -11,6 +11,7 @@ use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
 use App\Models\SparepartTransaction;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
@@ -23,9 +24,27 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // $servismasuk = ServiceTransaction::whereDay('created_at', '=', date("d", strtotime(now())))->count();
-        // $servisselesai = ServiceTransaction::whereDay('tgl_selesai', '=', date("d", strtotime(now())))->where('status_servis', 'Bisa Diambil')->count();
-        // $servisdiambil = ServiceTransaction::whereDay('tgl_ambil', '=', date("d", strtotime(now())))->where('status_servis', 'Sudah Diambil')->count();
+        $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $profitsparepart = SparepartTransaction::where('is_admin_toko', 'Admin')
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $profitaksesoris = AccessoryTransaction::where('is_admin_toko', 'Admin')
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $profithandphone = PhoneTransaction::where('is_admin_toko', 'Admin')
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $totalbonus = ($biayaservis / 100 + $profitsparepart / 100 + $profitaksesoris / 100 + $profithandphone / 100) * Auth::user()->persen;
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
@@ -54,7 +73,8 @@ class DashboardController extends Controller
             'totalpenjualan',
             'totalsparepart',
             'totalaksesoris',
-            'totalhandphone'
+            'totalhandphone',
+            'totalbonus'
         ));
     }
 }

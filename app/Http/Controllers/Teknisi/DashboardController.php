@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teknisi;
 
 use Carbon\Carbon;
 use App\Models\Budget;
+use App\Models\Assembly;
 use App\Models\DataFeed;
 use Illuminate\Http\Request;
 use App\Models\PhoneTransaction;
@@ -11,6 +12,7 @@ use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
 use App\Models\SparepartTransaction;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
@@ -23,6 +25,21 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $profitservis = ServiceTransaction::with('serviceaction')
+            ->where('is_approve', 'Setuju')
+            ->where('users_id', Auth::user()->id)
+            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $bonusservis = ($profitservis / 100) * Auth::user()->persen;
+        $bonusassembly = Assembly::with('user')
+            ->where('is_approve', 'Setuju')
+            ->where('users_id', Auth::user()->id)
+            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('biaya');
+        $totalbonus = $bonusservis + $bonusassembly;
+
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
@@ -50,7 +67,8 @@ class DashboardController extends Controller
             'totalpenjualan',
             'totalsparepart',
             'totalaksesoris',
-            'totalhandphone'
+            'totalhandphone',
+            'totalbonus'
         ));
     }
 }
