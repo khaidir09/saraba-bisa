@@ -79,12 +79,12 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="created_at">Tgl. Terima <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="created_at">Tgl. Terima</label>
                                     <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
-                                    <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
+                                    <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
                                         @foreach ($customers as $customer)
                                             <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
@@ -92,8 +92,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang <span class="text-rose-500">*</span></label>
-                                    <select id="types_id" name="types_id" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang</label>
+                                    <select id="types_id" name="types_id" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->type->id }}">{{ $item->type->name }}</option>
                                         @foreach ($types as $type)
                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -101,8 +101,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
-                                    <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="brands_id">Merek</label>
+                                    <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->brand->id }}">{{ $item->brand->name }}</option>
                                         @foreach ($brands as $brand)
                                             <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -110,8 +110,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                    <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri</label>
+                                    <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->modelserie->id }}">{{ $item->modelserie->name }}</option>
                                         @foreach ($model_series as $model_serie)
                                             <option value="{{ $model_serie->id }}">{{ $model_serie->name }}</option>
@@ -119,16 +119,16 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>
-                                    <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" required value="{{ $item->imei }}"/>
+                                    <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei</label>
+                                    <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" value="{{ $item->imei }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="warna">Warna <span class="text-rose-500">*</span></label>
-                                    <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" required value="{{ $item->warna }}"/>
+                                    <label class="block text-sm font-medium mb-1" for="warna">Warna</label>
+                                    <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" value="{{ $item->warna }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="capacities_id">Kapasitas <span class="text-rose-500">*</span></label>
-                                    <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="capacities_id">Kapasitas</label>
+                                    <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->capacity->id }}">{{ $item->capacity->name }}</option>
                                         @foreach ($capacities as $capacity)
                                             <option value="{{ $capacity->id }}">{{ $capacity->name }}</option>
@@ -137,15 +137,37 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="kelengkapan">Kelengkapan</label>
-                                    <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika kelengkapannya hanya unit" value="{{ $item->kelengkapan }}"/>
+                                    <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika kelengkapannya hanya barang" value="{{ $item->kelengkapan }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan <span class="text-rose-500">*</span> </label>
-                                    <select id="kerusakan" name="kerusakan" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan</label>
+                                    <select id="kerusakan" name="kerusakan" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->kerusakan }}">{{ $item->kerusakan }}</option>
                                         @foreach ($service_actions as $serviceaction)
                                             <option value="{{ $serviceaction->nama_tindakan }}">{{ $serviceaction->nama_tindakan }}</option>
                                         @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi</label>
+                                    <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" value="{{ $item->qc_masuk }}"/>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
+                                    <select id="estimasi_pengerjaan" name="estimasi_pengerjaan" class="form-select text-sm py-2 w-full">
+                                        <option selected value="{{ $item->estimasi_pengerjaan }}">{{ $item->estimasi_pengerjaan }}</option>
+                                        <option value="1 Hari">1 Hari</option>
+                                        <option value="2 Hari">2 Hari</option>
+                                        <option value="3 Hari">3 Hari</option>
+                                        <option value="4 Hari">4 Hari</option>
+                                        <option value="5 Hari">5 Hari</option>
+                                        <option value="6 Hari">6 Hari</option>
+                                        <option value="1 Minggu">1 Minggu</option>
+                                        <option value="2 Minggu">2 Minggu</option>
+                                        <option value="3 Minggu">3 Minggu</option>
+                                        <option value="1 Bulan">1 Bulan</option>
+                                        <option value="2 Bulan">2 Bulan</option>
+                                        <option value="3 Bulan">3 Bulan</option>
                                     </select>
                                 </div>
                                 <div>

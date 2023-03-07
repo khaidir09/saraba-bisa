@@ -122,6 +122,28 @@
                                         <livewire:kerusakan-search></livewire:kerusakan-search>
                                     </div>
                                     <div>
+                                        <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi <span class="text-rose-500">*</span></label>
+                                        <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" required/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
+                                        <select id="estimasi_pengerjaan" name="estimasi_pengerjaan" class="form-select text-sm py-2 w-full">
+                                            <option selected value="">Pilih Estimasi Pengerjaan</option>
+                                            <option value="1 Hari">1 Hari</option>
+                                            <option value="2 Hari">2 Hari</option>
+                                            <option value="3 Hari">3 Hari</option>
+                                            <option value="4 Hari">4 Hari</option>
+                                            <option value="5 Hari">5 Hari</option>
+                                            <option value="6 Hari">6 Hari</option>
+                                            <option value="1 Minggu">1 Minggu</option>
+                                            <option value="2 Minggu">2 Minggu</option>
+                                            <option value="3 Minggu">3 Minggu</option>
+                                            <option value="1 Bulan">1 Bulan</option>
+                                            <option value="2 Bulan">2 Bulan</option>
+                                            <option value="3 Bulan">3 Bulan</option>
+                                        </select>
+                                    </div>
+                                    <div>
                                         <label class="block text-sm font-medium mb-1" for="estimasi_biaya">Estimasi Biaya Servis</label>
                                         <div class="relative">
                                             <input id="estimasi_biaya" name="estimasi_biaya" class="form-input w-full pl-10 px-2 py-1" type="number"/>
@@ -209,10 +231,16 @@
                             <div class="font-semibold text-left">Kerusakan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Fungsi</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">DP</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Est. Biaya</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Est. Pengerjaan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Status</div>
@@ -300,7 +328,7 @@
                                     @if ($process->kelengkapan != null)
                                         {{ $process->kelengkapan }}
                                     @else
-                                        Unit Only
+                                        Hanya Barang
                                     @endif
                                 </div>
                             </td>
@@ -308,10 +336,16 @@
                                 <div class="font-medium capitalize">{{ $process->kerusakan }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium capitalize">{{ $process->qc_masuk }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($process->uang_muka) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($process->estimasi_biaya) }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $process->estimasi_pengerjaan }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <a href="{{ route('admin-transaksi-servis.show', $process->id) }}">
@@ -334,7 +368,7 @@
                                             </svg>
                                         </button>
                                     </a>
-                                    <!-- Start -->
+                                    <!-- Start Printer -->
                                     <div x-data="{ modalOpen: false }">
                                         <button
                                             @click.prevent="modalOpen = true"
@@ -400,7 +434,7 @@
                                                     <div class="px-5 py-4">
                                                         <div class="flex flex-wrap justify-end space-x-2">
                                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <a href="{{ route('cetak-termal', $process->id) }}" target="__blank">
+                                                            <a href="{{ route('admin-cetak-termal', $process->id) }}" target="__blank">
                                                                 <button class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
                                                                     <span class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -413,7 +447,7 @@
                                                                     Printer Termal
                                                                 </button>
                                                             </a>
-                                                            <a href="{{ route('cetak-tanda-terima', $process->id) }}" target="__blank">
+                                                            <a href="#" target="__blank">
                                                                 <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
                                                                     <span class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -431,8 +465,8 @@
                                                 </div>
                                             </div>                                            
                                     </div>
-                                    <!-- End -->
-                                    <!-- Start -->
+                                    <!-- End Printer-->
+                                    <!-- Start Delete-->
                                     <div x-data="{ modalOpen: false }">
                                         <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="modalOpen = true" aria-controls="danger-modal">
                                             <span class="sr-only">Delete</span>
@@ -507,7 +541,7 @@
                                             </div>
                                         </div>                                            
                                     </div>
-                                    <!-- End -->
+                                    <!-- End Delete-->
                                 </div>
                             </td>
                         </tr>

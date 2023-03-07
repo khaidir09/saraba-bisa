@@ -74,7 +74,9 @@ class TransaksiServisController extends Controller
             'capacities_id' => $request->capacities_id,
             'kelengkapan' => $request->kelengkapan,
             'kerusakan' => $request->kerusakan,
+            'qc_masuk' => $request->qc_masuk,
             'estimasi_biaya' => $request->estimasi_biaya,
+            'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'uang_muka' => $request->uang_muka,
             'status_servis' => $request->status_servis,
             'is_admin_toko' => $request->is_admin_toko,
@@ -139,7 +141,7 @@ class TransaksiServisController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities
-        ])->setPaper('a4', 'potrait');
+        ]);
         return $pdf->stream();
     }
 

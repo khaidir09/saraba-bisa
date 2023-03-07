@@ -115,6 +115,14 @@
                                     <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ number_format($item->biaya) }}" disabled />
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1">Pengecekan Fungsi Masuk</label>
+                                    <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->qc_masuk }}" disabled />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="qc_keluar">Pengecekan Fungsi Keluar <span class="text-rose-500">*</span></label>
+                                    <input id="qc_keluar" name="qc_keluar" class="form-input w-full px-2 py-1" type="text" required/>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran <span class="text-rose-500">*</span></label>
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
                                         <option selected value="Tunai">Tunai</option>
@@ -166,6 +174,10 @@
                                         <option value="4 Tahun">4 Tahun</option>
                                         <option value="5 Tahun">5 Tahun</option>
                                     </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="pengambil">Pengambil <span class="text-rose-500">*</span></label>
+                                    <input id="pengambil" name="pengambil" class="form-input w-full px-2 py-1" type="text" required/>
                                 </div>
                             </div>
                         </div>

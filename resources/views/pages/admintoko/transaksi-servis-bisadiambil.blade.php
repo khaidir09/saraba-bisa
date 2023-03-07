@@ -101,6 +101,10 @@
                                     <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->kerusakan }}" disabled />
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1">Pengecekan Fungsi</label>
+                                    <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->qc_masuk }}" disabled />
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="users_id">Teknisi</label>
                                     <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
                                         @foreach ($users as $user)

@@ -184,8 +184,10 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('admin-insiden', AdminTokoInsidenController::class);
     Route::resource('admin-kasbon', AdminTokoKasbonController::class);
 
-    Route::get('tandaterima/{id}', [KepalaTokoTransaksiServisController::class, 'cetak'])->name('cetak-tanda-terima');
-    Route::get('tandaterima-termal/{id}', [KepalaTokoTransaksiServisController::class, 'cetaktermal'])->name('cetak-termal');
+    Route::get('tandaterima/{id}', [AdminTokoTransaksiServisController::class, 'cetak'])->name('admin-cetak-tanda-terima');
+    Route::get('tandaterima-termal/{id}', [AdminTokoTransaksiServisController::class, 'cetaktermal'])->name('admin-cetak-termal');
+
+    Route::get('nota-pengambilan-termal/{id}', [AdminTokoSudahDiambilController::class, 'cetaktermal'])->name('admin-termal-pengambilan');
 
     Route::get('servis/admin-ubah-bisa-diambil/{id}', [AdminTokoUbahBisaDiambilController::class, 'edit'])->name('admin-ubah-bisa-diambil-edit');
     Route::post('servis/admin-ubah-bisa-diambil{id}', [AdminTokoUbahBisaDiambilController::class, 'update'])->name('admin-ubah-bisa-diambil-update');

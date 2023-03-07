@@ -116,11 +116,13 @@ class UbahSudahDiambilController extends Controller
         $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
         // Transaction create
         $item->update([
+            'qc_keluar' => $request->qc_keluar,
             'cara_pembayaran' => $request->cara_pembayaran,
             'diskon' => $request->diskon,
             'garansi' => $request->garansi,
             'status_servis' => $request->status_servis,
             'tgl_ambil' => $request->tgl_ambil,
+            'pengambil' => $request->pengambil,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'persen_admin' => $request->persen_admin,
