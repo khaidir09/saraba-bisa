@@ -159,6 +159,9 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::post('/ubah-sudah-diambil{id}', [KepalaTokoUbahSudahDiambilController::class, 'update'])->name('ubah-sudah-diambil-update');
     Route::get('/transaksi-handphone/ajax', [KepalaTokoTransaksiHandphoneController::class, 'ajax']);
 
+    Route::get('nota-terima-termal/{id}', [KepalaTokoTransaksiServisController::class, 'cetaktermal'])->name('kepalatoko-cetak-termal');
+    Route::get('kepalatoko-nota-pengambilan-termal/{id}', [KepalaTokoSudahDiambilController::class, 'pengambilantermal'])->name('kepalatoko-nota-pengambilan-termal');
+
     Route::get('slip-gaji/{id}', [KepalaTokoKaryawanController::class, 'cetak'])->name('cetak-slip-gaji');
 });
 

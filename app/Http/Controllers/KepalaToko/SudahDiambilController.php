@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\Type;
+use App\Models\User;
+use App\Models\Brand;
+use App\Models\Capacity;
+use App\Models\Customer;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
@@ -61,6 +68,28 @@ class SudahDiambilController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function pengambilantermal($id)
+    {
+        $items = ServiceTransaction::findOrFail($id);
+        $customers = Customer::all();
+        $types = Type::all();
+        $brands = Brand::all();
+        $capacities = Capacity::all();
+        $model_series = ModelSerie::all();
+        $users = User::find(1);
+
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-termal-pengambilan', [
+            'users' => $users,
+            'items' => $items,
+            'customers' => $customers,
+            'types' => $types,
+            'brands' => $brands,
+            'model_series' => $model_series,
+            'capacities' => $capacities
+        ]);
+        return $pdf->stream();
     }
 
     /**
