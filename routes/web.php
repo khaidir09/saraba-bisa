@@ -214,6 +214,8 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::post('teknisi/servis-ubah-bisa-diambil{id}', [TeknisiUbahBisaDiambilController::class, 'update'])->name('teknisi-ubah-bisa-diambil-update');
     Route::get('teknisi/servis-ubah-sudah-diambil/{id}', [TeknisiUbahSudahDiambilController::class, 'edit'])->name('teknisi-ubah-sudah-diambil-edit');
     Route::post('teknisi/servis-ubah-sudah-diambil{id}', [TeknisiUbahSudahDiambilController::class, 'update'])->name('teknisi-ubah-sudah-diambil-update');
+
+    Route::get('teknisi-nota-pengambilan-termal/{id}', [TeknisiSudahDiambilController::class, 'cetaktermal'])->name('teknisi-termal-pengambilan');
 });
 
 Route::middleware('ensureSalesRole:Sales')->group(

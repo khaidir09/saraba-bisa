@@ -149,6 +149,28 @@
                                     </select>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi</label>
+                                    <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" value="{{ $item->qc_masuk }}"/>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
+                                    <select id="estimasi_pengerjaan" name="estimasi_pengerjaan" class="form-select text-sm py-2 w-full">
+                                        <option selected value="{{ $item->estimasi_pengerjaan }}">{{ $item->estimasi_pengerjaan }}</option>
+                                        <option value="1 Hari">1 Hari</option>
+                                        <option value="2 Hari">2 Hari</option>
+                                        <option value="3 Hari">3 Hari</option>
+                                        <option value="4 Hari">4 Hari</option>
+                                        <option value="5 Hari">5 Hari</option>
+                                        <option value="6 Hari">6 Hari</option>
+                                        <option value="1 Minggu">1 Minggu</option>
+                                        <option value="2 Minggu">2 Minggu</option>
+                                        <option value="3 Minggu">3 Minggu</option>
+                                        <option value="1 Bulan">1 Bulan</option>
+                                        <option value="2 Bulan">2 Bulan</option>
+                                        <option value="3 Bulan">3 Bulan</option>
+                                    </select>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="estimasi_biaya">Estimasi Biaya Servis</label>
                                     <div class="relative">
                                         <input id="estimasi_biaya" name="estimasi_biaya" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->estimasi_biaya }}"/>

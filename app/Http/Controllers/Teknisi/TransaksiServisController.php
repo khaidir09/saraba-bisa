@@ -6,7 +6,6 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Capacity;
-// use Barryvdh\DomPDF\PDF;
 use App\Models\Customer;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
@@ -73,7 +72,7 @@ class TransaksiServisController extends Controller
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
 
         // Transaction create
-        $transaction = ServiceTransaction::create([
+        ServiceTransaction::create([
             'nomor_servis' => $nomor_servis,
             'customers_id' => $request->customers_id,
             'types_id' => $request->types_id,
@@ -84,6 +83,8 @@ class TransaksiServisController extends Controller
             'capacities_id' => $request->capacities_id,
             'kelengkapan' => $request->kelengkapan,
             'kerusakan' => $request->kerusakan,
+            'qc_masuk' => $request->qc_masuk,
+            'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
             'uang_muka' => $request->uang_muka,
             'status_servis' => $request->status_servis,
@@ -137,15 +138,17 @@ class TransaksiServisController extends Controller
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $users = User::find(1);
 
         $pdf = PDF::loadView('pages.teknisi.cetak-termal', [
+            'users' => $users,
             'items' => $items,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities
-        ])->setPaper('a4', 'landscape');
+        ]);
         return $pdf->stream();
     }
 

@@ -12,8 +12,6 @@ use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use League\CommonMark\Node\Query\AndExpr;
 
 class UbahSudahDiambilController extends Controller
 {

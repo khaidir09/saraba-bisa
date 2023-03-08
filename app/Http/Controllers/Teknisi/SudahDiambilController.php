@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Brand;
 use App\Models\Capacity;
 use App\Models\Customer;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
@@ -66,6 +67,8 @@ class SudahDiambilController extends Controller
             'capacities_id' => $request->capacities_id,
             'kelengkapan' => $request->kelengkapan,
             'kerusakan' => $request->kerusakan,
+            'qc_masuk' => $request->qc_masuk,
+            'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
             'uang_muka' => $request->uang_muka,
             'status_servis' => $request->status_servis,
@@ -85,6 +88,28 @@ class SudahDiambilController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function cetaktermal($id)
+    {
+        $items = ServiceTransaction::findOrFail($id);
+        $customers = Customer::all();
+        $types = Type::all();
+        $brands = Brand::all();
+        $capacities = Capacity::all();
+        $model_series = ModelSerie::all();
+        $users = User::find(1);
+
+        $pdf = PDF::loadView('pages.teknisi.cetak-termal-pengambilan', [
+            'users' => $users,
+            'items' => $items,
+            'customers' => $customers,
+            'types' => $types,
+            'brands' => $brands,
+            'model_series' => $model_series,
+            'capacities' => $capacities
+        ]);
+        return $pdf->stream();
     }
 
     /**
@@ -138,6 +163,8 @@ class SudahDiambilController extends Controller
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
             'kerusakan' => $request->kerusakan,
+            'qc_masuk' => $request->qc_masuk,
+            'qc_keluar' => $request->qc_keluar,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
             'tindakan_servis' => $tindakan_servis->nama_tindakan,
@@ -147,6 +174,7 @@ class SudahDiambilController extends Controller
             'cara_pembayaran' => $request->cara_pembayaran,
             'garansi' => $request->garansi,
             'tgl_ambil' => $request->tgl_ambil,
+            'pengambil' => $request->pengambil,
             'persen_teknisi' => $persen_teknisi->persen,
             'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya - $request->diskon,

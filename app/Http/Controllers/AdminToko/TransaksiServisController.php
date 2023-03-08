@@ -6,7 +6,6 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Worker;
-// use Barryvdh\DomPDF\PDF;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;

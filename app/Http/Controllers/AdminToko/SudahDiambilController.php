@@ -186,6 +186,7 @@ class SudahDiambilController extends Controller
             'cara_pembayaran' => $request->cara_pembayaran,
             'garansi' => $request->garansi,
             'tgl_ambil' => $request->tgl_ambil,
+            'pengambil' => $request->pengambil,
             'persen_admin' => $request->persen_admin,
             'persen_teknisi' => $persen_teknisi->persen,
             'persen_backup' => $persen_backup->persen,

@@ -55,10 +55,10 @@ class BisaDiambilController extends Controller
     public function store(Request $request)
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
-        $user = Auth::user();
+        Auth::user();
 
         // Transaction create
-        $transaction = ServiceTransaction::create([
+        ServiceTransaction::create([
             'nomor_servis' => $nomor_servis,
             'customers_id' => $request->customers_id,
             'types_id' => $request->types_id,

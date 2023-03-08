@@ -129,6 +129,14 @@
                                     </select>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi Masuk</label>
+                                    <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" value="{{ $item->qc_masuk }}"/>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="qc_keluar">Pengecekan Fungsi Keluar</label>
+                                    <input id="qc_keluar" name="qc_keluar" class="form-input w-full px-2 py-1" type="text" value="{{ $item->qc_keluar }}"/>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="kondisi_servis">Kondisi Servis</label>
                                     <select id="kondisi_servis" name="kondisi_servis" class="form-select text-sm py-1 w-full">
                                             <option selected value="{{ $item->kondisi_servis }}">{{ $item->kondisi_servis }}</option>
@@ -218,6 +226,10 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="tgl_ambil">Tgl. Ambil</label>
                                     <input id="tgl_ambil" name="tgl_ambil" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('Y-m-d') }}"/>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="pengambil">Pengambil</label>
+                                    <input id="pengambil" name="pengambil" class="form-input w-full px-2 py-1" type="text" value="{{ $item->pengambil }}"/>
                                 </div>
                             </div>
                         </div>

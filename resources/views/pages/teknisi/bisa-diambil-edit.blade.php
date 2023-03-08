@@ -129,6 +129,10 @@
                                     </select>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi</label>
+                                    <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" value="{{ $item->qc_masuk }}"/>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="kondisi_servis">Kondisi Servis</label>
                                     <select id="kondisi_servis" name="kondisi_servis" class="form-select text-sm py-1 w-full">
                                             <option selected value="{{ $item->kondisi_servis }}">{{ $item->kondisi_servis }}</option>
