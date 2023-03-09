@@ -12,7 +12,6 @@
 		}
 		body {
 			font-size: 10px;
-			font-family: DejaVu Sans;
 			color: #000000;
 		}
 		.resi {
