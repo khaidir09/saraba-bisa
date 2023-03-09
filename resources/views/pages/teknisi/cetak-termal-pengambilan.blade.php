@@ -12,10 +12,20 @@
 		}
 		body {
 			font-size: 10px;
+			font-family: DejaVu Sans;
+			color: #000000;
 		}
 		.resi {
 			width: 155px;
     		max-width: 155px;
+		}
+
+		td,
+		th,
+		tr,
+		table {
+			border-collapse: collapse;
+			line-height: 1em;
 		}
 
 		td.title {
@@ -34,15 +44,15 @@
 </head>
 <body>
 	<div class="resi">
-		<p class="text-center">
+		<p class="text-center mb-1">
 			NOTA PENGAMBILAN SERVIS <br>
 			<strong>{{ $users->nama_toko }}</strong> <br>
 			Telp/WA +{{ $users->nomor_hp_toko }}
 		</p>
 
-		<hr>
+		<hr style="border-top: 1px solid; margin: 0px;">
 
-		<table class="table table-sm table-borderless">
+		<table>
 			<tbody>
 				<tr>
 				<td class="title">No. Servis</td>
@@ -121,10 +131,10 @@
 			</tbody>
 		</table>
 
-		<hr>
+		<hr style="border-top: 1px solid; margin: 0px;">
 
 		<div class="text-center">
-			<p>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d/m/Y H:i') }} WIB]</p>
+			<p class="mb-0">Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d/m/Y H:i') }} WIB]</p>
 			<p>Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</p>
 		</div>
 	</div>
