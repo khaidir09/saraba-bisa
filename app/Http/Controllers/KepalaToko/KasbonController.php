@@ -16,7 +16,7 @@ class KasbonController extends Controller
      */
     public function index()
     {
-        $debts = Debt::all();
+        $debts = Debt::orderByDesc('created_at')->get();
         $debts_count = Debt::all()->count();
         return view('pages/kepalatoko/kasbon', compact('debts', 'debts_count'));
     }

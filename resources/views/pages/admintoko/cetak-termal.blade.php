@@ -18,6 +18,14 @@
     		max-width: 155px;
 		}
 
+		td,
+		th,
+		tr,
+		table {
+			border-collapse: collapse;
+			line-height: 1em;
+		}
+
 		td.title {
 			width: 60px;
 			max-width: 60px;
@@ -34,15 +42,15 @@
 </head>
 <body>
 	<div class="resi">
-		<p class="text-center">
+		<p class="text-center mb-1">
 			TANDA TERIMA SERVIS <br>
 			<strong>{{ $users->nama_toko }}</strong> <br>
 			Telp/WA +{{ $users->nomor_hp_toko }}
 		</p>
 
-		<hr>
+		<hr style="border-top: 1px solid; margin: 0px;">
 
-		<table class="table table-sm table-borderless">
+		<table>
 			<tbody>
 				<tr>
 				<td class="title">No. Servis</td>
@@ -77,8 +85,12 @@
 				<td class="value">: {{ $items->imei }}</td>
 				</tr>
 				<tr>
-				<td class="title">Warna/Kapasitas</td>
-				<td class="value">: {{ $items->warna }}/{{ $items->capacity->name }}</td>
+				<td class="title">Warna</td>
+				<td class="value">: {{ $items->warna }}</td>
+				</tr>
+				<tr>
+				<td class="title">Kapasitas</td>
+				<td class="value">: {{ $items->capacity->name }}</td>
 				</tr>
 				<tr>
 				<td class="title">Pelanggan</td>
@@ -91,10 +103,10 @@
 			</tbody>
 		</table>
 
-		<hr>
+		<hr style="border-top: 1px solid; margin: 0px;">
 
-		<div class="text-center">
-			<p>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d/m/Y H:i') }} WIB]</p>
+		<div class="text-center mt-1">
+			<p class="mb-0">Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d/m/Y H:i') }} WIB]</p>
 			<p>Silahkan bawa Nota Tanda Terima Servis ini pada saat pengambilan barang. Terima kasih.</p>
 		</div>
 	</div>
