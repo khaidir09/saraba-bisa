@@ -109,6 +109,7 @@ use App\Http\Controllers\Sales\LaporanAksesorisController as SalesLaporanAksesor
 Route::redirect('/', 'login');
 Route::get('/hak-akses', [HakAksesController::class, 'index'])->name('hak-akses');
 Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
+Route::get('/tracking-data', [TrackingController::class, 'data'])->name('tracking-data');
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');

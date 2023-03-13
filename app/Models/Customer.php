@@ -16,4 +16,10 @@ class Customer extends Model
         'nomor_hp',
         'alamat'
     ];
+
+    // one to many
+    public function servicetransaction()
+    {
+        return $this->hasMany(ServiceTransaction::class, 'customers_id');
+    }
 }

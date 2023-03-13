@@ -29,14 +29,6 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 return redirect()->route('hak-akses');
-
-                // if (Auth::user()->role == 'Kepala Toko') {
-                //     return redirect()->route('kepalatoko-dashboard');
-                // } elseif (Auth::user()->role == 'Teknisi') {
-                //     return redirect()->route('teknisi-transaksi-servis.index');
-                // } elseif (Auth::user()->role == 'Sales') {
-                //     return redirect()->route('sales-dashboard');
-                // }
             }
         });
     }
