@@ -213,7 +213,14 @@
                         $i = 1
                     @endphp
                     @foreach($sparepart_transactions as $item)               
-                        <tr>
+                        @php
+                            if ($item->profit < '0') :
+                                $color = 'text-red-600';
+                            else :
+                                $color = '';
+                            endif;
+                        @endphp
+                        <tr class="{{ $color }}">
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $i++ }}</div>
                             </td>

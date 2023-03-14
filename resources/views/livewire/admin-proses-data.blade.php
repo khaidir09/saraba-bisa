@@ -297,7 +297,11 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex space-x-1">
-                                    <a href="https://api.whatsapp.com/send?phone={{ $process->customer->nomor_hp }}&text=
+                                    @php
+                                        $nomor = $process->customer->nomor_hp;
+                                        $nomorwa = str_replace('08','628',$nomor);
+                                    @endphp
+                                    <a href="https://api.whatsapp.com/send?phone={{$nomorwa}}&text=
                                         Isi teks disini">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

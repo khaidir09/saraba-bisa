@@ -236,6 +236,9 @@
                             <div class="font-semibold text-left">Tindakan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Modal Sparepart</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Biaya</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -268,7 +271,14 @@
                         $i = 1
                     @endphp
                     @foreach($service_transactions as $transaction)                 
-                        <tr>
+                        @php
+                            if ($transaction->profit < '0') :
+                                $color = 'text-red-600';
+                            else :
+                                $color = '';
+                            endif;
+                        @endphp
+                        <tr class="{{ $color }}">
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $i++ }}</div>
                             </td>
@@ -330,6 +340,9 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $transaction->tindakan_servis }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">Rp. {{ number_format($transaction->modal_sparepart) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($transaction->biaya) }}</div>

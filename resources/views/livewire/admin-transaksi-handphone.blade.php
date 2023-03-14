@@ -219,8 +219,15 @@
                     @php
                         $i = 1
                     @endphp
-                    @foreach($phone_transactions as $phone)               
-                        <tr>
+                    @foreach($phone_transactions as $phone)
+                        @php                    
+                            if ($phone->profit < '0') :
+                                $color = 'text-red-600';
+                            else :
+                                $color = '';
+                            endif;
+                        @endphp
+                        <tr class="{{ $color }}">
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $i++ }}</div>
                             </td>

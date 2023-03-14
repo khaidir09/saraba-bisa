@@ -122,7 +122,7 @@ class TransaksiHandphoneController extends Controller
         $item = PhoneTransaction::findOrFail($id);
         $persen_sales = User::find($request->users_id);
         $profittransaksi = $request->harga - $request->modal - $request->diskon;
-        $bagihasil = ($request->harga - $request->modal) / 100 - ($request->diskon) / 100;
+        $bagihasil = $profittransaksi / 100;
         $item->update([
             'customers_id' => $request->customers_id,
             'harga' => $request->harga,
