@@ -82,8 +82,9 @@
                                 <form action="{{ route('kasbon.update', $item->id) }}" method="post">
                                     @method('PUT')
                                     @csrf
-                                    <div class="space-y-3">
+                                    <div class="flex justify-center space-x-2">
                                         <input type="submit" name="is_approve" value="Setuju" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
+                                        <input type="submit" name="is_approve" value="Ditolak" class="btn-sm bg-red-500 hover:bg-red-600 text-white">
                                     </div>
                                 </form>
                             </div>

@@ -91,10 +91,10 @@
                                     @method('PUT')
                                     @csrf
                                     <div class="space-y-3">
-                                        <input type="submit" name="is_approve" value="Setuju" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
-                                        {{-- <div>
-                                            <a class="font-medium text-sm text-indigo-500 hover:text-indigo-600" href="{{ route('transaksi-servis-sudah-diambil.edit', $item->id) }}">Ubah Data Transaksi</a>
-                                        </div> --}}
+                                        <div class="flex justify-center space-x-2">
+                                            <input type="submit" name="is_approve" value="Setuju" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
+                                            <input type="submit" name="is_approve" value="Ditolak" class="btn-sm bg-red-500 hover:bg-red-600 text-white">
+                                        </div>
                                     </div>
                                 </form>
                             </div>
