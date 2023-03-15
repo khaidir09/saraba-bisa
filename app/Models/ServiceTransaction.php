@@ -25,6 +25,7 @@ class ServiceTransaction extends Model
         'qc_masuk',
         'qc_keluar',
         'garansi',
+        'exp_garansi',
         'estimasi_biaya',
         'estimasi_pengerjaan',
         'uang_muka',

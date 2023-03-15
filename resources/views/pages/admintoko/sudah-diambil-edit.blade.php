@@ -210,36 +210,12 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="garansi">Garansi  </label>
-                                    <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full" >
-                                        <option selected value="{{ $item->garansi }}">{{ $item->garansi }}</option>
-                                        <option value="Tidak Ada">Tidak Ada</option>
-                                        <option value="1 Hari">1 Hari</option>
-                                        <option value="2 Hari">2 Hari</option>
-                                        <option value="3 Hari">3 Hari</option>
-                                        <option value="4 Hari">4 Hari</option>
-                                        <option value="5 Hari">5 Hari</option>
-                                        <option value="6 Hari">6 Hari</option>
-                                        <option value="1 Minggu">1 Minggu</option>
-                                        <option value="2 Minggu">2 Minggu</option>
-                                        <option value="3 Minggu">3 Minggu</option>
-                                        <option value="1 Bulan">1 Bulan</option>
-                                        <option value="2 Bulan">2 Bulan</option>
-                                        <option value="3 Bulan">3 Bulan</option>
-                                        <option value="4 Bulan">4 Bulan</option>
-                                        <option value="5 Bulan">5 Bulan</option>
-                                        <option value="6 Bulan">6 Bulan</option>
-                                        <option value="7 Bulan">7 Bulan</option>
-                                        <option value="8 Bulan">8 Bulan</option>
-                                        <option value="9 Bulan">9 Bulan</option>
-                                        <option value="10 Bulan">10 Bulan</option>
-                                        <option value="11 Bulan">11 Bulan</option>
-                                        <option value="1 Tahun">1 Tahun</option>
-                                        <option value="2 Tahun">2 Tahun</option>
-                                        <option value="3 Tahun">3 Tahun</option>
-                                        <option value="4 Tahun">4 Tahun</option>
-                                        <option value="5 Tahun">5 Tahun</option>
-                                    </select>
+                                    <label class="block text-sm font-medium mb-1" for="exp_garansi">Masa Garansi</label>
+                                    @if ($item->exp_garansi != null)
+                                        <input id="exp_garansi" name="exp_garansi" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->exp_garansi)->format('Y-m-d') }}"/>
+                                    @else
+                                        <input id="exp_garansi" name="exp_garansi" class="form-input w-full px-2 py-1" type="date" value=""/>
+                                    @endif
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="tgl_ambil">Tgl. Ambil </label>

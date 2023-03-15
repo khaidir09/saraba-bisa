@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\Sparepart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Sparepart;
 use App\Models\SparepartTransaction;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +46,14 @@ class TransaksiSparepartController extends Controller
         $persen_sales = User::find($request->users_id);
         $profittransaksi = ($request->harga - $request->modal) * ($request->quantity) - ($request->diskon);
         $bagihasil = ($request->harga - $request->modal) / 100 * ($request->quantity) - ($request->diskon) / 100;
+        $garansi = Carbon::now();
+        if ($request->garansi != null) {
+            $expired = $garansi->addDays(
+                $request->garansi
+            );
+        } else {
+            $expired = null;
+        }
 
         // Transaction create
         SparepartTransaction::create([
@@ -56,6 +65,8 @@ class TransaksiSparepartController extends Controller
             'modal' => $request->modal,
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
+            'garansi' => $request->garansi,
+            'exp_garansi' => $expired,
             'is_admin_toko' => $request->is_admin_toko,
             'persen_admin' => $request->persen_admin,
             'users_id' => $request->users_id,
@@ -125,6 +136,7 @@ class TransaksiSparepartController extends Controller
             'modal' => $request->modal,
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
+            'exp_garansi' => $request->exp_garansi,
             'persen_admin' => $request->persen_admin,
             'users_id' => $request->users_id,
             'persen_sales' => $persen_sales->persen,

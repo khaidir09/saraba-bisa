@@ -18,6 +18,8 @@ class AccessoryTransaction extends Model
         'quantity',
         'harga',
         'modal',
+        'garansi',
+        'exp_garansi',
         'is_approve',
         'diskon',
         'created_at',

@@ -258,7 +258,7 @@
                             <div class="font-semibold text-left">Pengambil</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Garansi</div>
+                            <div class="font-semibold text-left">Masa Garansi</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Status</div>
@@ -367,7 +367,13 @@
                                 <div class="font-medium">{{ $transaction->pengambil }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $transaction->garansi }}</div>
+                                @if ($transaction->exp_garansi === null)
+                                    <div class="font-medium">Tidak Ada</div>
+                                @elseif ($transaction->exp_garansi < \Carbon\Carbon::now())
+                                    <div class="font-medium text-red-600">{{ \Carbon\Carbon::parse($transaction->exp_garansi)->format('d/m/Y') }}</div>
+                                @else
+                                    <div class="font-medium text-blue-600">{{ \Carbon\Carbon::parse($transaction->exp_garansi)->format('d/m/Y') }}</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($transaction->is_approve === null)

@@ -19,6 +19,8 @@ class PhoneTransaction extends Model
         'diskon',
         'created_at',
         'cara_pembayaran',
+        'garansi',
+        'exp_garansi',
         'is_admin_toko',
         'omzet',
         'profit',

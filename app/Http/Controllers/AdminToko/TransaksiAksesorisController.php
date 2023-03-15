@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\Accessory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Accessory;
 use App\Models\AccessoryTransaction;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +46,16 @@ class TransaksiAksesorisController extends Controller
         $persen_sales = User::find($request->users_id);
         $profittransaksi = ($request->harga - $request->modal) * ($request->quantity) - ($request->diskon);
         $bagihasil = ($request->harga - $request->modal) / 100 * ($request->quantity) - ($request->diskon) / 100;
+
+        $garansi = Carbon::now();
+        if ($request->garansi != null) {
+            $expired = $garansi->addDays(
+                $request->garansi
+            );
+        } else {
+            $expired = null;
+        }
+
         // Transaction create
         AccessoryTransaction::create([
             'nomor_transaksi' => $nomor_transaksi,
@@ -55,6 +66,8 @@ class TransaksiAksesorisController extends Controller
             'modal' => $request->modal,
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
+            'garansi' => $request->garansi,
+            'exp_garansi' => $expired,
             'is_admin_toko' => $request->is_admin_toko,
             'persen_admin' => $request->persen_admin,
             'persen_sales' => $persen_sales->persen,
@@ -124,6 +137,7 @@ class TransaksiAksesorisController extends Controller
             'modal' => $request->modal,
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
+            'exp_garansi' => $request->exp_garansi,
             'users_id' => $request->users_id,
             'persen_admin' => $request->persen_admin,
             'persen_sales' => $persen_sales->persen,

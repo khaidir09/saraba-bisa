@@ -40,7 +40,8 @@
                             </div>
                         </div>
                         <!-- Right side -->
-                        <div class="flex items-start space-x-3 md:space-x-4">
+                        <div class="flex flex-col md:flex-row items-start space-y-1 md:space-y-0 md:space-x-4">
+                            <div class="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 {{ $status_color }}">{{ $item->status_servis }}</div>
                             <div class="text-sm text-slate-500 italic whitespace-nowrap">
                                 @if ($item->status_servis === 'Sudah Diambil')
                                     Tgl. Ambil {{ \Carbon\Carbon::parse($item->tgl_ambil)->format('d M Y') }}
@@ -50,9 +51,8 @@
                                     Tgl. Masuk {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
                                 @endif
                             </div>
-                            <div class="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 {{ $status_color }}">{{ $item->status_servis }}</div>
                             @if ($item->status_servis === 'Sudah Diambil')
-                                <div class="text-sm text-blue-600 italic">Garansi {{ $item->garansi }}</div>
+                                <div class="text-sm text-blue-600 italic">Garansi {{ $item->garansi }} <span class="text-red-600">(Exp. 16 Mar 2023)</span></div>
                             @endif
                         </div>
                     </div>

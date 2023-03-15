@@ -20,14 +20,16 @@ class SparepartTransaction extends Model
         'modal',
         'is_approve',
         'diskon',
-        'created_at',
         'cara_pembayaran',
+        'garansi',
+        'exp_garansi',
         'is_admin_toko',
         'omzet',
         'profit',
         'profittoko',
         'persen_admin',
-        'persen_sales'
+        'persen_sales',
+        'created_at'
     ];
 
     public function user()

@@ -114,8 +114,8 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran <span class="text-rose-500">*</span></label>
-                                        <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full" required>
+                                        <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
+                                        <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
                                             <option value="Tunai">Tunai</option>
                                             <option value="Tempo 1 Hari">Tempo 1 Hari</option>
                                             <option value="Tempo 2 Hari">Tempo 2 Hari</option>
@@ -129,6 +129,37 @@
                                             <option value="Tempo 1 Bulan">Tempo 1 Bulan</option>
                                             <option value="Tempo 2 Bulan">Tempo 2 Bulan</option>
                                             <option value="Tempo 3 Bulan">Tempo 3 Bulan</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="garansi">Garansi</label>
+                                        <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
+                                            <option value="">Tidak Ada</option>
+                                            <option value="1">1 Hari</option>
+                                            <option value="2">2 Hari</option>
+                                            <option value="3">3 Hari</option>
+                                            <option value="4">4 Hari</option>
+                                            <option value="5">5 Hari</option>
+                                            <option value="6">6 Hari</option>
+                                            <option value="7">1 Minggu</option>
+                                            <option value="14">2 Minggu</option>
+                                            <option value="21">3 Minggu</option>
+                                            <option value="30">1 Bulan</option>
+                                            <option value="60">2 Bulan</option>
+                                            <option value="90">3 Bulan</option>
+                                            <option value="120">4 Bulan</option>
+                                            <option value="150">5 Bulan</option>
+                                            <option value="180">6 Bulan</option>
+                                            <option value="210">7 Bulan</option>
+                                            <option value="240">8 Bulan</option>
+                                            <option value="270">9 Bulan</option>
+                                            <option value="300">10 Bulan</option>
+                                            <option value="330">11 Bulan</option>
+                                            <option value="360">1 Tahun</option>
+                                            <option value="720">2 Tahun</option>
+                                            <option value="1080">3 Tahun</option>
+                                            <option value="1440">4 Tahun</option>
+                                            <option value="1800">5 Tahun</option>
                                         </select>
                                     </div>
                                     <div>
@@ -204,6 +235,9 @@
                             <div class="font-semibold text-left">Pembayaran</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Masa Garansi</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -265,6 +299,15 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->cara_pembayaran }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                @if ($item->exp_garansi === null)
+                                    <div class="font-medium">Tidak Ada</div>
+                                @elseif ($item->exp_garansi < \Carbon\Carbon::now())
+                                    <div class="font-medium text-red-600">{{ \Carbon\Carbon::parse($item->exp_garansi)->format('d/m/Y') }}</div>
+                                @else
+                                    <div class="font-medium text-blue-600">{{ \Carbon\Carbon::parse($item->exp_garansi)->format('d/m/Y') }}</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($item->is_approve === null)
@@ -340,7 +383,7 @@
                                                         </div>
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
-                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Cancel</button>
+                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
                                                             <form action="{{ route('admin-transaksi-aksesoris.destroy', $item->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use Carbon\Carbon;
 use App\Models\Type;
+use App\Models\User;
 use App\Models\Brand;
 use App\Models\Capacity;
 use App\Models\Customer;
@@ -11,7 +13,6 @@ use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 
 class UbahSudahDiambilController extends Controller
 {
@@ -112,12 +113,22 @@ class UbahSudahDiambilController extends Controller
         $persen_backup = User::find(1);
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
         $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
+
+        $garansi = Carbon::now();
+        if ($request->garansi != null) {
+            $expired = $garansi->addDays(
+                $request->garansi
+            );
+        } else {
+            $expired = null;
+        }
         // Transaction create
         $item->update([
             'qc_keluar' => $request->qc_keluar,
             'cara_pembayaran' => $request->cara_pembayaran,
             'diskon' => $request->diskon,
             'garansi' => $request->garansi,
+            'exp_garansi' => $expired,
             'status_servis' => $request->status_servis,
             'tgl_ambil' => $request->tgl_ambil,
             'pengambil' => $request->pengambil,
