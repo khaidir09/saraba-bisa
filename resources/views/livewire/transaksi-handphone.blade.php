@@ -204,6 +204,9 @@
                             <div class="font-semibold text-left">Pembayaran</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Masa Garansi</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -268,6 +271,15 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $phone->cara_pembayaran }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                @if ($phone->exp_garansi === null)
+                                    <div class="font-medium">Tidak Ada</div>
+                                @elseif ($phone->exp_garansi < \Carbon\Carbon::now())
+                                    <div class="font-medium text-red-600">{{ \Carbon\Carbon::parse($phone->exp_garansi)->format('d/m/Y') }}</div>
+                                @else
+                                    <div class="font-medium text-blue-600">{{ \Carbon\Carbon::parse($phone->exp_garansi)->format('d/m/Y') }}</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <a href="{{ route('transaksi-handphone-approve.edit', $phone->id) }}">
