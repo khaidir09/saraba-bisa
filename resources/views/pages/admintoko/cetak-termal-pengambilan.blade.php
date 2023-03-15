@@ -104,8 +104,13 @@
 				<td class="value">: {{ $items->cara_pembayaran }}</td>
 				</tr>
 				<tr>
-				<td class="title">Garansi</td>
-				<td class="value">: {{ $items->garansi }}</td>
+				@if ($items->exp_garansi === null)
+					<td class="title">Garansi</td>
+					<td class="value">: Tidak Ada</td>
+				@else
+					<td class="title">Masa Garansi</td>
+					<td class="value">: {{ \Carbon\Carbon::parse($items->exp_garansi)->locale('id')->translatedFormat('d/m/Y') }}</td>
+				@endif
 				</tr>
 				<tr>
 				<td class="title">Teknisi</td>
