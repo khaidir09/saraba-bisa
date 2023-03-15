@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Sales;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Phone;
 use App\Models\Capacity;
 use App\Models\Customer;
+use App\Models\Sparepart;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\PhoneTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\Sparepart;
 use App\Models\SparepartTransaction;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,6 +58,15 @@ class TransaksiSparepartController extends Controller
         $nomor_transaksi = 'SP-' . mt_rand(date('Ymd00'), date('Ymd99'));
         $profittransaksi = ($request->harga - $request->modal) * ($request->quantity) - ($request->diskon);
         $bagihasil = ($request->harga - $request->modal) / 100 * ($request->quantity) - ($request->diskon) / 100;
+
+        $garansi = Carbon::now();
+        if ($request->garansi != null) {
+            $expired = $garansi->addDays(
+                $request->garansi
+            );
+        } else {
+            $expired = null;
+        }
         // Transaction create
         SparepartTransaction::create([
             'nomor_transaksi' => $nomor_transaksi,
@@ -67,6 +77,8 @@ class TransaksiSparepartController extends Controller
             'modal' => $request->modal,
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
+            'garansi' => $request->garansi,
+            'exp_garansi' => $expired,
             'users_id' => Auth::user()->id,
             'persen_sales' => $request->persen_sales,
             'omzet' => ($request->harga * $request->quantity) - ($request->diskon),
@@ -131,6 +143,7 @@ class TransaksiSparepartController extends Controller
             'modal' => $request->modal,
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
+            'exp_garansi' => $request->exp_garansi,
             'users_id' => Auth::user()->id,
             'persen_sales' => $request->persen_sales,
             'omzet' => ($request->harga * $request->quantity) - ($request->diskon),

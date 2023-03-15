@@ -80,12 +80,12 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="created_at">Tgl. Terima <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="created_at">Tgl. Terima</label>
                                     <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
-                                    <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
+                                    <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
                                         @foreach ($customers as $customer)
                                             <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
@@ -125,8 +125,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran <span class="text-rose-500">*</span> </label>
-                                    <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
+                                    <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
                                             <option selected value="{{ $item->cara_pembayaran }}">{{ $item->cara_pembayaran }}</option>
                                             <option value="Tunai">Tunai</option>
                                             <option value="Tempo 1 Hari">Tempo 1 Hari</option>
@@ -142,6 +142,14 @@
                                             <option value="Tempo 2 Bulan">Tempo 2 Bulan</option>
                                             <option value="Tempo 3 Bulan">Tempo 3 Bulan</option>
                                     </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="exp_garansi">Masa Garansi</label>
+                                    @if ($item->exp_garansi != null)
+                                        <input id="exp_garansi" name="exp_garansi" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->exp_garansi)->format('Y-m-d') }}"/>
+                                    @else
+                                        <input id="exp_garansi" name="exp_garansi" class="form-input w-full px-2 py-1" type="date" value=""/>
+                                    @endif
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="users_id">Penerima/Sales</label>
