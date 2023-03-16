@@ -25,7 +25,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1" for="nomor_hp">HP <span class="text-rose-500">*</span></label>
-                    <input wire:model="nomor_hp" id="nomor_hp" name="nomor_hp" class="form-input w-full px-2 py-1 @error('nomor_hp') is-invalid @enderror" type="number" placeholder="Contoh 6281900001111" required />
+                    <input wire:model="nomor_hp" id="nomor_hp" name="nomor_hp" class="form-input w-full px-2 py-1 @error('nomor_hp') is-invalid @enderror" type="number" placeholder="Contoh 081900001111" required />
                     <div class="text-xs mt-2 text-slate-600">
                         Pastikan untuk menuliskan sesuai dengan contoh format
                     </div>
