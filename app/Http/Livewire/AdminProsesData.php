@@ -36,6 +36,7 @@ class AdminProsesData extends Component
 
     public function render()
     {
+        $toko = User::find(1);
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->count();
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
@@ -45,6 +46,7 @@ class AdminProsesData extends Component
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         return view('livewire.admin-proses-data', [
+            'toko' => $toko,
             'processes_count' => $processes_count,
             'users' => $users,
             'workers' => $workers,
