@@ -51,16 +51,20 @@
                                     Tgl. Masuk {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
                                 @endif
                             </div>
-                            @if ($item->exp_garansi === null)
-                                <div class="text-sm text-red-600 italic">
-                                    Garansi Tidak Ada
-                                </div>
-                            @elseif ($item->exp_garansi < \Carbon\Carbon::now())
-                                <div class="text-sm text-red-600 italic">
-                                    Garansi Sudah Kedaluwarsa {{ \Carbon\Carbon::parse($item->exp_garansi)->translatedFormat('d M Y') }}
-                                </div>
+                            @if ($item->status_servis === 'Sudah Diambil')
+                                @if ($item->exp_garansi === null)
+                                    <div class="text-sm text-red-600 italic">
+                                        Garansi Tidak Ada
+                                    </div>
+                                @elseif ($item->exp_garansi < \Carbon\Carbon::now())
+                                    <div class="text-sm text-red-600 italic">
+                                        Garansi Sudah Kedaluwarsa {{ \Carbon\Carbon::parse($item->exp_garansi)->translatedFormat('d M Y') }}
+                                    </div>
+                                @else
+                                    <div class="text-sm text-blue-600">Garansi Aktif s/d {{ \Carbon\Carbon::parse($item->exp_garansi)->translatedFormat('d M Y') }}</div>
+                                @endif
                             @else
-                                <div class="text-sm text-blue-600">Garansi Aktif s/d {{ \Carbon\Carbon::parse($item->exp_garansi)->translatedFormat('d M Y') }}</div>
+                                
                             @endif
                         </div>
                     </div>
