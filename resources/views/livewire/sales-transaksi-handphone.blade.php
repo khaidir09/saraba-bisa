@@ -151,11 +151,11 @@
                                             <option value="270">9 Bulan</option>
                                             <option value="300">10 Bulan</option>
                                             <option value="330">11 Bulan</option>
-                                            <option value="360">1 Tahun</option>
-                                            <option value="720">2 Tahun</option>
-                                            <option value="1080">3 Tahun</option>
-                                            <option value="1440">4 Tahun</option>
-                                            <option value="1800">5 Tahun</option>
+                                            <option value="365">1 Tahun</option>
+                                            <option value="730">2 Tahun</option>
+                                            <option value="1095">3 Tahun</option>
+                                            <option value="1460">4 Tahun</option>
+                                            <option value="1825">5 Tahun</option>
                                         </select>
                                     </div>
                                     <div>
