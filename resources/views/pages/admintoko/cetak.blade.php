@@ -36,7 +36,7 @@
   				<td>Tanggal</td>
   				<td>:</td>
   				<td></td>
-  				<td>{{ \Carbon\Carbon::parse($items->created_at)->format('d M Y') }}</td>
+  				<td>{{ \Carbon\Carbon::parse($items->created_at)->translatedFormat('d M Y') }}</td>
   				<td></td>
   			</tr>
   			<tr>

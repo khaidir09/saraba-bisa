@@ -4,7 +4,7 @@
             <!-- Icon -->
             <h2 class="text-lg font-semibold text-slate-800 mb-2">Hari Ini</h2>
             <!-- Menu button -->
-            <div class="text-sm font-semibold text-white px-1.5 bg-indigo-500 rounded-full">{{ \Carbon\Carbon::parse(strtotime(now()))->format('d F Y') }}</div>
+            <div class="text-sm font-semibold text-white px-1.5 bg-indigo-500 rounded-full">{{ \Carbon\Carbon::parse(strtotime(now()))->translatedFormat('d F Y') }}</div>
         </header>
         <div class="flex justify-between">
             <div>

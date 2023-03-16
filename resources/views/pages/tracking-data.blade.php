@@ -44,11 +44,11 @@
                             <div class="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 {{ $status_color }}">{{ $item->status_servis }}</div>
                             <div class="text-sm text-slate-500 italic whitespace-nowrap">
                                 @if ($item->status_servis === 'Sudah Diambil')
-                                    Tgl. Ambil {{ \Carbon\Carbon::parse($item->tgl_ambil)->format('d M Y') }}
+                                    Tgl. Ambil {{ \Carbon\Carbon::parse($item->tgl_ambil)->translatedFormat('d M Y') }}
                                 @elseif ($item->status_servis === 'Bisa Diambil')
-                                    Tgl. Selesai {{ \Carbon\Carbon::parse($item->tgl_selesai)->format('d M Y') }}
+                                    Tgl. Selesai {{ \Carbon\Carbon::parse($item->tgl_selesai)->translatedFormat('d M Y') }}
                                 @else
-                                    Tgl. Masuk {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
+                                    Tgl. Masuk {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d M Y') }}
                                 @endif
                             </div>
                             @if ($item->status_servis === 'Sudah Diambil')

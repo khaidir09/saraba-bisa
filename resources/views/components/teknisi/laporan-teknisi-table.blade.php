@@ -25,7 +25,7 @@
                 @foreach($services as $item)                  
                     <tr>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-medium">{{ \Carbon\Carbon::parse($item->updated_at)->format('d F Y') }}</div>
+                            <div class="font-medium">{{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('d F Y') }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium">{{ $item->user->name }}</div>
