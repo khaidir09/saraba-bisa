@@ -35,7 +35,6 @@ class TeknisiProsesData extends Component
     public function render()
     {
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', null)->count();
-        $toko = User::find(1);
         $users = User::whereIn('role', ['Kepala Toko', 'Teknisi'])->get();
         $customers = Customer::all();
         $types = Type::all();
@@ -44,7 +43,6 @@ class TeknisiProsesData extends Component
         $model_series = ModelSerie::all();
         return view('livewire.teknisi-proses-data', [
             'processes_count' => $processes_count,
-            'toko' => $toko,
             'users' => $users,
             'customers' => $customers,
             'types' => $types,

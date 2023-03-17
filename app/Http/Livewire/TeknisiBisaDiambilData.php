@@ -34,7 +34,6 @@ class TeknisiBisaDiambilData extends Component
     public function render()
     {
         $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->paginate(10);
-        $toko = User::find(1);
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
@@ -43,7 +42,6 @@ class TeknisiBisaDiambilData extends Component
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->count();
         return view('livewire.teknisi-bisa-diambil-data', [
             'bisadiambil' => $bisadiambil,
-            'toko' => $toko,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,
