@@ -93,13 +93,23 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan </label>
-                                    <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full" >
-                                        <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
-                                        @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
-                                        @endforeach
-                                    </select>
+                                    @if ($item->customer != null)
+                                        <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
+                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                            <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
+                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                            <option selected value="">Data pelanggan sudah dihapus</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang </label>

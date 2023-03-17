@@ -42,9 +42,6 @@
                             <div class="font-semibold text-left">Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Hubungi</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Nama Barang</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -119,35 +116,18 @@
                                 <div>{{ \Carbon\Carbon::parse($transaction->created_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $transaction->penerima }}</div>
+                                @if ($transaction->penerima != null)
+                                    <div class="font-medium">{{ $transaction->penerima }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data karyawan sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $transaction->customer->nama }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="flex space-x-1">
-                                    <a href="https://api.whatsapp.com/send?phone={{ $transaction->customer->nomor_hp }}&text=
-                                        Isi teks disini">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
-                                            <path d="M9 10a0.5 .5 0 0 0 1 0v-1a0.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a0.5 .5 0 0 0 0 -1h-1a0.5 .5 0 0 0 0 1" />
-                                        </svg>
-                                    </a>
-                                    <a href="https://api.whatsapp.com/send?phone={{ $transaction->customer->nomor_hp }}&text=
-                                        Isi teks disini">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report-search" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697" />
-                                        <path d="M18 12v-5a2 2 0 0 0 -2 -2h-2" />
-                                        <rect x="8" y="3" width="6" height="4" rx="2" />
-                                        <path d="M8 11h4" />
-                                        <path d="M8 15h3" />
-                                        <circle cx="16.5" cy="17.5" r="2.5" />
-                                        <path d="M18.5 19.5l2.5 2.5" />
-                                        </svg>
-                                    </a>
-                                </div>
+                                @if ($transaction->customer != null)
+                                    <div class="font-medium">{{ $transaction->customer->nama }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data pelanggan sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $transaction->type->name }} {{ $transaction->brand->name }} {{ $transaction->modelserie->name }}</div>
@@ -168,7 +148,11 @@
                                 <div class="font-medium">{{ $transaction->tindakan_servis }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $transaction->user->name }}</div>
+                                @if ($transaction->user != null)
+                                    <div class="font-medium">{{ $transaction->user->name }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data teknisi sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($transaction->modal_sparepart) }}</div>
