@@ -84,17 +84,31 @@
                                     <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
-                                    <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
-                                        @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
-                                        @endforeach
-                                    </select>
+                                    @if ($item->customer != null)
+                                        <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
+                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                            <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
+                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                            <option selected value="">Data pelanggan sudah dihapus</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="spareparts_id">Nama Sparepart</label>
-                                    <input disabled id="spareparts_id" name="spareparts_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->sparepart->name }}"/>
+                                    @if ($item->sparepart != null)
+                                        <input disabled id="spareparts_id" name="spareparts_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->sparepart->name }}"/>
+                                    @else
+                                        <input disabled id="spareparts_id" name="spareparts_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="Data sparepart sudah dihapus"/>
+                                    @endif
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="quantity">Jumlah</label>
@@ -155,13 +169,23 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="users_id">Penerima/Sales</label>
-                                    <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    @if ($item->user != null)
+                                        <label class="block text-sm font-medium mb-1" for="users_id">Penerima/Sales</label>
+                                        <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full">
+                                            <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <label class="block text-sm font-medium mb-1" for="users_id">Penerima/Sales</label>
+                                        <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full">
+                                            <option selected value="">Data sales sudah dihapus</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                                 <div>
                                     <small class="text-xs text-blue-600">Jika terdapat kesalahan penginputan item sparepart dan jumlah, silahkan hapus transaksi, kembalikan stok data sparepartnya dan input transaksi kembali</small>

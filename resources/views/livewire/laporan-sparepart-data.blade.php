@@ -61,10 +61,18 @@
                                 <div class="font-medium">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->user->name }}</div>
+                                @if ($item->user != null)
+                                    <div class="font-medium">{{ $item->user->name }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data sales sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->sparepart->name }}</div>
+                                @if ($item->sparepart != null)
+                                    <div class="font-medium">{{ $item->sparepart->name }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data sparepart sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->quantity }}</div>

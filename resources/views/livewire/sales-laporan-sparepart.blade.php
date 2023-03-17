@@ -55,7 +55,11 @@
                                 <div class="font-medium">{{ $item->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->sparepart->name }} {{ $item->sparepart->name }}</div>
+                                @if ($item->sparepart != null)
+                                    <div class="font-medium">{{ $item->sparepart->name }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data sparepart sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->quantity }}</div>
