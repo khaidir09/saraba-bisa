@@ -35,6 +35,7 @@ class AdminBisaDiambilData extends Component
     public function render()
     {
         $customers = Customer::all();
+        $toko = User::find(1);
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
         $types = Type::all();
@@ -46,6 +47,7 @@ class AdminBisaDiambilData extends Component
             ->count();
         return view('livewire.admin-bisa-diambil-data', [
             'users' => $users,
+            'toko' => $toko,
             'workers' => $workers,
             'customers' => $customers,
             'types' => $types,

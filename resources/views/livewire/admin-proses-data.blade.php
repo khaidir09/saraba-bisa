@@ -210,7 +210,7 @@
                             <div class="font-semibold text-left">Nomor Servis</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Tgl Terima</div>
+                            <div class="font-semibold text-left">Tgl. Terima</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Penerima</div>
@@ -446,7 +446,7 @@
                                                 x-transition:leave-end="opacity-0"
                                                 x-cloak
                                             >
-                                                <div class="text-xs text-slate-200 whitespace-nowrap">Ubah status menjadi bisa diambil</div>
+                                                <div class="text-xs text-slate-200 whitespace-nowrap">Ubah status menjadi Bisa Diambil</div>
                                             </div>
                                         </div>
                                     </div>
