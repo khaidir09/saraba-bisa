@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Type;
+use App\Models\User;
 use App\Models\Brand;
 use Livewire\Component;
 use App\Models\Capacity;
@@ -34,6 +35,7 @@ class TeknisiSudahDiambilData extends Component
     public function render()
     {
         $customers = Customer::all();
+        $toko = User::find(1);
         $types = Type::all();
         $brands = Brand::all();
         $capacities = Capacity::all();
@@ -41,6 +43,7 @@ class TeknisiSudahDiambilData extends Component
         $jumlahsudahdiambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
         return view('livewire.teknisi-sudah-diambil-data', [
             'jumlahsudahdiambil' => $jumlahsudahdiambil,
+            'toko' => $toko,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,

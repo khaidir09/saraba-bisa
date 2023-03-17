@@ -300,27 +300,89 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex space-x-1">
-                                    <a href="https://api.whatsapp.com/send?phone={{ $transaction->customer->nomor_hp }}&text=
-                                        Isi teks disini">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
-                                            <path d="M9 10a0.5 .5 0 0 0 1 0v-1a0.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a0.5 .5 0 0 0 0 -1h-1a0.5 .5 0 0 0 0 1" />
-                                        </svg>
-                                    </a>
-                                    <a href="https://api.whatsapp.com/send?phone={{ $transaction->customer->nomor_hp }}&text=
-                                        Isi teks disini">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report-search" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697" />
-                                        <path d="M18 12v-5a2 2 0 0 0 -2 -2h-2" />
-                                        <rect x="8" y="3" width="6" height="4" rx="2" />
-                                        <path d="M8 11h4" />
-                                        <path d="M8 15h3" />
-                                        <circle cx="16.5" cy="17.5" r="2.5" />
-                                        <path d="M18.5 19.5l2.5 2.5" />
-                                        </svg>
-                                    </a>
+                                    @php
+                                        $nomor = $transaction->customer->nomor_hp;
+                                        $nomorwa = preg_replace('/^08/', 628, $nomor);
+                                    @endphp
+                                    <!-- Start -->
+                                    <div
+                                        class="relative"
+                                        x-data="{ open: false }"
+                                        @mouseenter="open = true"
+                                        @mouseleave="open = false"
+                                    >
+                                        <a href="https://api.whatsapp.com/send?phone={{$nomorwa}}&text=" target="__blank">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                                                <path d="M9 10a0.5 .5 0 0 0 1 0v-1a0.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a0.5 .5 0 0 0 0 -1h-1a0.5 .5 0 0 0 0 1" />
+                                            </svg>
+                                        </a>
+                                        <div class="z-10 absolute bottom-full left-1/2 -translate-x-1/2">
+                                            <div
+                                                class="bg-slate-800 p-2 rounded overflow-hidden mb-2"
+                                                x-show="open"
+                                                x-transition:enter="transition ease-out duration-200 transform"
+                                                x-transition:enter-start="opacity-0 translate-y-2"
+                                                x-transition:enter-end="opacity-100 translate-y-0"
+                                                x-transition:leave="transition ease-out duration-200"
+                                                x-transition:leave-start="opacity-100"
+                                                x-transition:leave-end="opacity-0"
+                                                x-cloak
+                                            >
+                                                <div class="text-xs text-slate-200 whitespace-nowrap">Kirim pesan melalui Whatsapp</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End -->
+                                    
+                                    <!-- Start -->
+                                    <div
+                                        class="relative"
+                                        x-data="{ open: false }"
+                                        @mouseenter="open = true"
+                                        @mouseleave="open = false"
+                                    >
+                                        @if ($transaction->exp_garansi != null)
+                                            <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang Servis%20*{{ $transaction->type->name }}%20{{ $transaction->brand->name }}%20{{ $transaction->modelserie->name }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20{{ $transaction->status_servis }}%20dalam%20kondisi%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y h:i') }}%20WIB%20oleh%20*{{ $transaction->pengambil }}*%20dengan%20pembayaran%20*{{ $transaction->cara_pembayaran }}*.%20Garansi%20akan%20berakhir%20pada%20tanggal%20*{{ \Carbon\Carbon::parse($transaction->exp_garansi)->translatedFormat('d F Y') }}*.%20Untuk%20Cek%20Status%20Garansi%20Servis%20Anda,%20silahkan%20buka%20Link%20berikut%20ini%20{{ $toko->link_toko }}/tracking.%20Terima%20Kasih%20atas%20kepercayaan%20Anda%20telah%20melakukan%20Servis%20di%20*{{ $toko->nama_toko }}*." target="__blank">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                                <line x1="9" y1="7" x2="10" y2="7" />
+                                                <line x1="9" y1="13" x2="15" y2="13" />
+                                                <line x1="13" y1="17" x2="15" y2="17" />
+                                                </svg>
+                                            </a>
+                                        @else
+                                            <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang Servis%20*{{ $transaction->type->name }}%20{{ $transaction->brand->name }}%20{{ $transaction->modelserie->name }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20{{ $transaction->status_servis }}%20dalam%20kondisi%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y h:i') }}%20WIB%20oleh%20*{{ $transaction->pengambil }}*%20dengan%20pembayaran%20*{{ $transaction->cara_pembayaran }}*.%20Mohon%20maaf%20servis%20Anda%20Tidak%20Ada%20Garansi.%20Terima%20Kasih%20atas%20kepercayaan%20Anda%20telah%20melakukan%20Servis%20di%20*{{ $toko->nama_toko }}*." target="__blank">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                                <line x1="9" y1="7" x2="10" y2="7" />
+                                                <line x1="9" y1="13" x2="15" y2="13" />
+                                                <line x1="13" y1="17" x2="15" y2="17" />
+                                                </svg>
+                                            </a>
+                                        @endif
+                                        <div class="z-10 absolute bottom-full left-1/2 -translate-x-1/2">
+                                            <div
+                                                class="min-w-56 bg-slate-800 p-2 rounded overflow-hidden mb-2"
+                                                x-show="open"
+                                                x-transition:enter="transition ease-out duration-200 transform"
+                                                x-transition:enter-start="opacity-0 translate-y-2"
+                                                x-transition:enter-end="opacity-100 translate-y-0"
+                                                x-transition:leave="transition ease-out duration-200"
+                                                x-transition:leave-start="opacity-100"
+                                                x-transition:leave-end="opacity-0"
+                                                x-cloak
+                                            >
+                                                <div class="text-xs text-slate-200">Kirim Nota Pengambilan dan link untuk cek Status Garansi</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End -->
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
