@@ -54,6 +54,7 @@ class TransaksiHandphoneController extends Controller
             'customers_id' => $request->customers_id,
             'phones_id' => $request->phones_id,
             'quantity' => $request->quantity,
+            'qc' => $request->qc,
             'harga' => $request->harga,
             'modal' => $request->modal,
             'diskon' => $request->diskon,
@@ -125,6 +126,7 @@ class TransaksiHandphoneController extends Controller
         $bagihasil = $profittransaksi / 100;
         $item->update([
             'customers_id' => $request->customers_id,
+            'qc' => $request->qc,
             'harga' => $request->harga,
             'modal' => $request->modal,
             'diskon' => $request->diskon,

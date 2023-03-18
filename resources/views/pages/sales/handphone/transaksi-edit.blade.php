@@ -112,6 +112,10 @@
                                     <small>Jika terdapat kesalahan pemilihan item handphone, silahkan hapus transaksi dan input kembali</small>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="qc">Pengecekan Fungsi</label>
+                                    <input id="qc" name="qc" class="form-input w-full px-2 py-1" type="text" value="{{ $item->qc }}"/>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="modal">Modal</label>
                                     <div class="relative">
                                         <input id="modal" name="modal" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->modal }}"/>

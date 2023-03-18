@@ -13,6 +13,7 @@ class PhoneTransaction extends Model
         'phones_id',
         'nomor_transaksi',
         'quantity',
+        'qc',
         'harga',
         'modal',
         'is_approve',

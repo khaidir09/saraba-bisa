@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Phone;
 use App\Models\Capacity;
 use App\Models\Customer;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\PhoneTransaction;
@@ -64,6 +65,7 @@ class TransaksiHandphoneController extends Controller
             'customers_id' => $request->customers_id,
             'phones_id' => $request->phones_id,
             'quantity' => $request->quantity,
+            'qc' => $request->qc,
             'harga' => $request->harga,
             'modal' => $request->modal,
             'diskon' => $request->diskon,
@@ -93,6 +95,20 @@ class TransaksiHandphoneController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function cetaktermal($id)
+    {
+        $items = PhoneTransaction::findOrFail($id);
+        $customers = Customer::all();
+        $users = User::find(1);
+
+        $pdf = PDF::loadView('pages.sales.handphone.cetak-termal', [
+            'users' => $users,
+            'items' => $items,
+            'customers' => $customers
+        ]);
+        return $pdf->stream();
     }
 
     /**
@@ -136,6 +152,7 @@ class TransaksiHandphoneController extends Controller
         $bagihasil = ($request->harga - $request->modal) / 100 - ($request->diskon) / 100;
         $item->update([
             'customers_id' => $request->customers_id,
+            'qc' => $request->qc,
             'harga' => $request->harga,
             'modal' => $request->modal,
             'diskon' => $request->diskon,

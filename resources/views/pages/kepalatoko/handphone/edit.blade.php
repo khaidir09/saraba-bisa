@@ -79,7 +79,7 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="brands_id">Merek</label>
                                     <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full">
                                         <option value="{{ $item->brand->id }}" selected>{{ $item->brand->name }}</option>
                                         @foreach ($brands as $brand)
@@ -88,7 +88,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri</label>
                                     <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full">
                                         <option value="{{ $item->modelserie->id }}" selected>{{ $item->modelserie->name }}</option>
                                         @foreach ($model_series as $modelserie)
@@ -101,15 +101,19 @@
                                     <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" value="{{ $item->keterangan }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="imei">IMEI <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="kelengkapan">Kelengkapan</label>
+                                    <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" value="{{ $item->kelengkapan }}"/>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="imei">IMEI</label>
                                     <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" value="{{ $item->imei }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="warna">Warna <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="warna">Warna</label>
                                     <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" value="{{ $item->warna }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="kapasitas">Kapasitas <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="kapasitas">Kapasitas</label>
                                     <select id="kapasitas" name="kapasitas" class="form-select text-sm py-1 w-full">
                                         <option value="{{ $item->kapasitas }}" selected>{{ $item->kapasitas }}</option>
                                         @foreach ($capacities as $capacity)
@@ -119,7 +123,7 @@
                                 </div>
                                 {{-- <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="hidden" value="1"/> --}}
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="modal">Modal <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="modal">Modal</label>
                                     <div class="relative">
                                         <input id="modal" name="modal" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->modal }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -128,7 +132,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="harga_toko">Harga Toko <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="harga_toko">Harga Toko</label>
                                     <div class="relative">
                                         <input id="harga_toko" name="harga_toko" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->harga_toko }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -137,7 +141,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga Pelanggan <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga Pelanggan</label>
                                     <div class="relative">
                                         <input id="harga_pelanggan" name="harga_pelanggan" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->harga_pelanggan }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -146,7 +150,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="supplier">Agen <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="supplier">Agen</label>
                                     <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" value="{{ $item->supplier }}" />
                                 </div>
                             </div>

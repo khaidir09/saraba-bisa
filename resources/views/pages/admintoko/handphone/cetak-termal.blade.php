@@ -39,7 +39,7 @@
 			word-break: break-all;
 		}
 	</style>
-    <title>Nota Penjualan Sparepart #{{ $items->nomor_transaksi }}</title>
+    <title>Nota Penjualan Handphone #{{ $items->nomor_transaksi }}</title>
 </head>
 <body>
 	<div class="resi">
@@ -71,26 +71,24 @@
 				</tr>
 				<tr>
 				<td class="title">Nama Barang</td>
-				<td class="value">: {{ $items->sparepart->name }}</td>
+				<td class="value">: {{ $items->phone->brand->name }} {{ $items->phone->modelserie->name }} {{ $items->phone->keterangan }}</td>
 				</tr>
-				@if ($items->quantity === '1')<tr>
-					<td class="title">Harga</td>
-					<td class="value">: Rp. {{ number_format($items->harga) }}</td>
-					</tr>
-				@else
-					<tr>
-					<td class="title">Jumlah</td>
-					<td class="value">: {{ $items->quantity }} item</td>
-					</tr>
-					<tr>
-					<td class="title">Harga</td>
-					<td class="value">: Rp. {{ number_format($items->harga) }}</td>
-					</tr>
-					<tr>
-					<td class="title">Total Harga</td>
-					<td class="value">: Rp. {{ number_format($totalharga) }}</td>
-					</tr>
-				@endif
+				<tr>
+				<td class="title">IMEI</td>
+				<td class="value">: {{ $items->phone->imei }}</td>
+				</tr>
+				<tr>
+				<td class="title">Kelengkapan</td>
+				<td class="value">: {{ $items->phone->kelengkapan }}</td>
+				</tr>
+				<tr>
+				<td class="title">Pengecekan Fungsi</td>
+				<td class="value">: {{ $items->qc }}</td>
+				</tr>
+				<tr>
+				<td class="title">Harga</td>
+				<td class="value">: Rp. {{ number_format($items->harga) }}</td>
+				</tr>
 				@if ($items->diskon != null)
 					<tr>
 						<td class="title">Diskon</td>

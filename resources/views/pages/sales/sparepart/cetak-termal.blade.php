@@ -59,7 +59,7 @@
 				</tr>
 				<tr>
 				<td class="title">Tanggal</td>
-				<td class="value">: {{ \Carbon\Carbon::now()->translatedFormat('d/m/Y') }}</td>
+				<td class="value">: {{ \Carbon\Carbon::parse($items->created_at)->translatedFormat('d/m/Y') }}</td>
 				</tr>
 				<tr>
 				<td class="title">Pelanggan</td>

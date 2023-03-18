@@ -84,6 +84,10 @@
                                         <input id="quantity" name="quantity" class="form-input w-full px-2 py-1" type="hidden" value="1"/>
                                     </div>
                                     <div>
+                                        <label class="block text-sm font-medium mb-1" for="qc">Pengecekan Fungsi <span class="text-rose-500">*</span></label>
+                                        <input id="qc" name="qc" class="form-input w-full px-2 py-1" type="text" required/>
+                                    </div>
+                                    <div>
                                         <label class="block text-sm font-medium mb-1" for="modal">Modal <span class="text-rose-500">*</span></label>
                                         <div class="relative">
                                             <input id="modal" name="modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
@@ -192,6 +196,9 @@
                             <div class="font-semibold text-left">Kapasitas/Warna</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Pengecekan Fungsi</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -279,6 +286,9 @@
                                 @else
                                     <div class="font-medium text-red-600">Data handphone sudah dihapus</div>
                                 @endif
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $phone->qc }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($phone->modal) }}</div>
