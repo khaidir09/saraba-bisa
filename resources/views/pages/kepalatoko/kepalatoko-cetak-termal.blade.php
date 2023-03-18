@@ -107,7 +107,8 @@
 		<hr style="border-top: 1px solid; margin: 0px;">
 
 		<div class="text-center mt-1">
-			<p class="mb-0">Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d/m/Y H:i') }} WIB]</p>
+			<p>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d/m/Y H:i') }} WIB]</p>
+			<p class="mb-1">Cek status servis {{ $users->link_toko }}/tracking</p>
 			<p>Silahkan bawa Nota Tanda Terima Servis ini pada saat pengambilan barang. Terima kasih.</p>
 		</div>
 	</div>
