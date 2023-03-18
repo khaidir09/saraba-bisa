@@ -46,7 +46,7 @@
 		<p class="text-center mb-1">
 			NOTA PENGAMBILAN SERVIS <br>
 			<strong>{{ $users->nama_toko }}</strong> <br>
-			Telp/WA +{{ $users->nomor_hp_toko }}
+			Telp/WA {{ $users->nomor_hp_toko }}
 		</p>
 
 		<hr style="border-top: 1px solid; margin: 0px;">
