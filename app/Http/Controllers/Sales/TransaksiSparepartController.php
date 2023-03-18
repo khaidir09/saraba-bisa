@@ -4,14 +4,11 @@ namespace App\Http\Controllers\Sales;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Brand;
 use App\Models\Phone;
-use App\Models\Capacity;
 use App\Models\Customer;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Sparepart;
-use App\Models\ModelSerie;
 use Illuminate\Http\Request;
-use App\Models\PhoneTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\SparepartTransaction;
 use Illuminate\Support\Facades\Auth;
@@ -102,6 +99,22 @@ class TransaksiSparepartController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function cetaktermal($id)
+    {
+        $items = SparepartTransaction::findOrFail($id);
+        $customers = Customer::all();
+        $users = User::find(1);
+        $totalharga = $items->quantity * $items->harga;
+
+        $pdf = PDF::loadView('pages.sales.sparepart.cetak-termal', [
+            'users' => $users,
+            'items' => $items,
+            'customers' => $customers,
+            'totalharga' => $totalharga
+        ]);
+        return $pdf->stream();
     }
 
     /**

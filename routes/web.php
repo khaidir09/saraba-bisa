@@ -190,6 +190,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
 
     Route::get('tandaterima/{id}', [AdminTokoTransaksiServisController::class, 'cetak'])->name('admin-cetak-tanda-terima');
     Route::get('tandaterima-termal/{id}', [AdminTokoTransaksiServisController::class, 'cetaktermal'])->name('admin-cetak-termal');
+    Route::get('nota-sparepart-termal/{id}', [AdminTokoTransaksiSparepartController::class, 'cetaktermal'])->name('admin-nota-sparepart-termal');
 
     Route::get('nota-pengambilan-termal/{id}', [AdminTokoSudahDiambilController::class, 'cetaktermal'])->name('admin-termal-pengambilan');
 
@@ -233,6 +234,8 @@ Route::middleware('ensureSalesRole:Sales')->group(
         Route::resource('laporan/sales-laporan-handphone', SalesLaporanHandphoneController::class);
         Route::resource('laporan/sales-laporan-sparepart', SalesLaporanSparepartController::class);
         Route::resource('laporan/sales-laporan-aksesoris', SalesLaporanAksesorisController::class);
+
+        Route::get('sales-nota-sparepart-termal/{id}', [SalesTransaksiSparepartController::class, 'cetaktermal'])->name('sales-nota-sparepart-termal');
     }
 );
 
