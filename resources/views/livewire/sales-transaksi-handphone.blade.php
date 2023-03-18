@@ -107,7 +107,7 @@
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="diskon">Diskon</label>
                                         <div class="relative">
-                                            <input id="diskon" name="diskon" class="form-input w-full pl-10 px-2 py-1" type="number"/>
+                                            <input id="diskon" name="diskon" class="form-input w-full pl-10 px-2 py-1" type="number" placeholder="Kosongkan jika tidak ada diskon"/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
                                                 <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
                                             </div>
