@@ -275,10 +275,18 @@
                                 <div class="font-medium">{{ $item->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->customer->nama }}</div>
+                                @if ($item->customer != null)
+                                    <div class="font-medium">{{ $item->customer->nama }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data pelanggan sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->accessory->name }}</div>
+                                @if ($item->accessory != null)
+                                    <div class="font-medium">{{ $item->accessory->name }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data aksesori sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->quantity }}</div>
