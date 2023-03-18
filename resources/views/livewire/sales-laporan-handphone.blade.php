@@ -52,7 +52,11 @@
                                 <div class="font-medium">{{ $item->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->phone->brand->name }} {{ $item->phone->modelserie->name }}</div>
+                                @if ($item->phone != null)
+                                    <div class="font-medium">{{ $item->phone->brand->name }} {{ $item->phone->modelserie->name }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data handphone sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">

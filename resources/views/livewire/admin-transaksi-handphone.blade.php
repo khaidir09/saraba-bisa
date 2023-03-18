@@ -282,7 +282,11 @@
                                 <div class="font-medium">{{ $phone->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->customer->nama }}</div>
+                                @if ($phone->customer != null)
+                                    <div class="font-medium">{{ $phone->customer->nama }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data pelanggan sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($phone->phone != null)

@@ -275,16 +275,32 @@
                                 <div class="font-medium">{{ $phone->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->customer->nama }}</div>
+                                @if ($phone->customer != null)
+                                    <div class="font-medium">{{ $phone->customer->nama }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data pelanggan sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->phone->brand->name }} {{ $phone->phone->modelserie->name }}</div>
+                                @if ($phone->phone != null)
+                                    <div class="font-medium">{{ $phone->phone->brand->name }} {{ $phone->phone->modelserie->name }} {{ $phone->phone->keterangan }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data handphone sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->phone->imei }}</div>
+                                @if ($phone->phone != null)
+                                    <div class="font-medium">{{ $phone->phone->imei }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data handphone sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->phone->kapasitas }}/{{ $phone->phone->warna }}</div>
+                                @if ($phone->phone != null)
+                                    <div class="font-medium">{{ $phone->phone->kapasitas }}/{{ $phone->phone->warna }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data handphone sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($phone->modal) }}</div>

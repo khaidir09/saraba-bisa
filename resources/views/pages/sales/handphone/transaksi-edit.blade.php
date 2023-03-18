@@ -84,18 +84,32 @@
                                     <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
-                                    <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
-                                        @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
-                                        @endforeach
-                                    </select>
+                                    @if ($item->customer != null)
+                                        <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
+                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                            <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
+                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                            <option selected value="">Data pelanggan sudah dihapus</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="phones_id">Nama Handphone</label>
-                                    <input disabled id="phones_id" name="phones_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->phone->brand->name }} {{ $item->phone->modelserie->name }} | {{ $item->phone->warna }} {{ $item->phone->kapasitas }}"/>
-                                    <small class="text-xs text-blue-600">Jika terdapat kesalahan pemilihan item handphone, silahkan hapus transaksi, minta admin untuk mengembalikan stok data handphonenya dan input transaksi kembali</small>
+                                    @if ($item->phone != null)
+                                        <input disabled id="phones_id" name="phones_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->phone->brand->name }} {{ $item->phone->modelserie->name }} {{ $item->phone->keterangan }} | {{ $item->phone->warna }} {{ $item->phone->kapasitas }}"/>
+                                    @else
+                                        <input disabled id="phones_id" name="phones_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="Data handphone sudah dihapus"/>
+                                    @endif
+                                    <small>Jika terdapat kesalahan pemilihan item handphone, silahkan hapus transaksi dan input kembali</small>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="modal">Modal</label>

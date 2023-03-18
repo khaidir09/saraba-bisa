@@ -246,19 +246,39 @@
                                 <div>{{ \Carbon\Carbon::parse($phone->created_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->user->name }}</div>
+                                @if ($phone->user != null)
+                                    <div class="font-medium">{{ $phone->user->name }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data sales sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->customer->nama }}</div>
+                                @if ($phone->customer != null)
+                                    <div class="font-medium">{{ $phone->customer->nama }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data pelanggan sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->phone->brand->name }} {{ $phone->phone->modelserie->name }} {{ $phone->phone->keterangan }}</div>
+                                @if ($phone->phone != null)
+                                    <div class="font-medium">{{ $phone->phone->brand->name }} {{ $phone->phone->modelserie->name }} {{ $phone->phone->keterangan }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data handphone sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->phone->imei }}</div>
+                                @if ($phone->phone != null)
+                                    <div class="font-medium">{{ $phone->phone->imei }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data handphone sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->phone->kapasitas }}/{{ $phone->phone->warna }}</div>
+                                @if ($phone->phone != null)
+                                    <div class="font-medium">{{ $phone->phone->kapasitas }}/{{ $phone->phone->warna }}</div>
+                                @else
+                                    <div class="font-medium text-red-600">Data handphone sudah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($phone->modal) }}</div>
