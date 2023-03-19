@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminToko;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Customer;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Accessory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -93,6 +94,20 @@ class TransaksiAksesorisController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function cetaktermal($id)
+    {
+        $items = AccessoryTransaction::findOrFail($id);
+        $users = User::find(1);
+        $totalharga = $items->quantity * $items->harga;
+
+        $pdf = PDF::loadView('pages.admintoko.aksesoris.cetak-termal', [
+            'users' => $users,
+            'items' => $items,
+            'totalharga' => $totalharga
+        ]);
+        return $pdf->stream();
     }
 
     /**
