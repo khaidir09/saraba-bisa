@@ -113,11 +113,8 @@
 		<hr style="border-top: 1px solid; margin: 0px;">
 
 		<div class="text-center mt-1">
-			<p>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d/m/Y H:i') }} WIB]</p>
-			@if ($items->exp_garansi != null)
-				<p class="mb-1">Cek status garansi {{ $users->link_toko }}/tracking</p>
-			@endif
-			<p class="mb-0">Terima kasih atas kepercayaan Anda telah berbelanja di {{ $users->nama_toko }}.</p>
+			<p class="mb-0">Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</p>
+			<p class="mb-0">Terima kasih atas kepercayaan Anda telah berbelanja di <br> {{ $users->nama_toko }}</p>
 			<p>Barang yang sudah dibeli tidak bisa dikembalikan.</p>
 		</div>
 	</div>
