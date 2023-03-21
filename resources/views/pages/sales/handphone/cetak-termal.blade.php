@@ -104,9 +104,16 @@
 					</tr>
 				@endif
 				@if ($items->exp_garansi != null)
+					@php
+						$dt     = \Carbon\Carbon::now()->locale('id');
+						$past   = $dt->subDay();
+					@endphp
 					<tr>
 						<td class="title">Masa Garansi</td>
-						<td class="value">: {{ \Carbon\Carbon::parse($items->exp_garansi)->translatedFormat('d/m/Y') }}</td>
+						<td class="value">
+							: {{ \Carbon\Carbon::parse($items->exp_garansi)->diffForHumans($past, ['parts' => 1, 'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE]) }}
+							(Exp. {{ \Carbon\Carbon::parse($items->exp_garansi)->translatedFormat('d/m/Y') }})
+						</td>
 					</tr>
 				@endif
 				<tr>
