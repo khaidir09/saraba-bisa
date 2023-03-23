@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\AdminToko;
 
-use App\Models\ServiceAction;
 use Illuminate\Http\Request;
+use App\Models\ServiceAction;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\ServiceActionRequest;
+use App\Imports\ServiceActionImport;
 
 class TindakanServisController extends Controller
 {
@@ -23,6 +25,15 @@ class TindakanServisController extends Controller
         ServiceAction::create($data);
 
         return redirect()->route('admin-tindakan-servis.index');
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('ServiceActionData', $namafile);
+        Excel::import(new ServiceActionImport, \public_path('/ServiceActionData/' . $namafile));
+        return redirect()->route('admin-tindakan-servis.index')->with('success', 'All good!');
     }
 
     public function edit($id)
