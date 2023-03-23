@@ -202,6 +202,9 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::post('servis/admin-ubah-sudah-diambil{id}', [AdminTokoUbahSudahDiambilController::class, 'update'])->name('admin-ubah-sudah-diambil-update');
 
     Route::post('/importindakanservis', [AdminTokoTindakanServisController::class, 'import'])->name('admin-impor-tindakan-servis');
+    Route::post('/imporsparepart', [AdminTokoSparepartController::class, 'import'])->name('admin-impor-sparepart');
+    Route::post('/imporaksesori', [AdminTokoAksesorisController::class, 'import'])->name('admin-impor-aksesori');
+    Route::post('/imporhandphone', [AdminTokoPhoneController::class, 'import'])->name('admin-impor-handphone');
 });
 
 Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {

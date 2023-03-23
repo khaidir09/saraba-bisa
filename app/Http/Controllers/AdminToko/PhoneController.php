@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\AdminToko;
 
-use App\Models\Phone;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\KepalaToko\PhoneRequest;
 use App\Models\Brand;
+use App\Models\Phone;
 use App\Models\Capacity;
 use App\Models\ModelSerie;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\KepalaToko\PhoneRequest;
+use App\Imports\HandphoneImport;
 
 class PhoneController extends Controller
 {
@@ -27,6 +29,15 @@ class PhoneController extends Controller
         Phone::create($data);
 
         return redirect()->route('admin-data-handphone.index');
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('HandphoneData', $namafile);
+        Excel::import(new HandphoneImport, \public_path('/HandphoneData/' . $namafile));
+        return redirect()->route('admin-data-handphone.index')->with('success', 'All good!');
     }
 
     /**

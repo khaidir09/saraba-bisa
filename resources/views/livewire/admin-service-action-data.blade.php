@@ -70,7 +70,7 @@
                                     <div class="px-5 pt-4 pb-1">
                                         <div class="text-sm">
                                             <div class="space-y-2">
-                                                <p>Silahkan unduh terlebih dahulu formatnya, kemudian isi datanya dan unggah.</p>
+                                                <p>Silahkan download terlebih dahulu formatnya, kemudian isi datanya dan upload.</p>
                                                     <input type="file" name="file" id="file" class="btn-sm bg-slate-100 w-full" required>
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@
                                     <!-- Modal footer -->
                                     <div class="px-5 py-4">
                                         <div class="flex flex-wrap justify-end space-x-2">
-                                            <a href="{{ asset('storage/assets/formattindakanservis.xlsx') }}" class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
+                                            <a href="{{ asset('storage/assets/format-tindakan-servis.xlsx') }}" class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
                                                 <span class="mr-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-download" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -88,7 +88,7 @@
                                                     <polyline points="9 14 12 17 15 14" />
                                                     </svg>
                                                 </span>
-                                                Unduh Format
+                                                Download Format
                                             </a>
                                             <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
                                                 <span class="mr-1">
@@ -100,7 +100,7 @@
                                                     <polyline points="9 14 12 11 15 14" />
                                                     </svg>
                                                 </span>
-                                                Unggah Fail
+                                                Upload File
                                             </button>
                                         </div>
                                     </div>
