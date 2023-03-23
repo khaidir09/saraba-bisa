@@ -10,7 +10,6 @@
 
         <!-- Banner -->
         <div class="mb-6">
-            <h2 class="text-slate-800 font-bold mb-3">Menunggu Persetujuan</h2>
             <div class="space-y-3">
                 <!-- Start -->
                 @if ($approveservis != null)
