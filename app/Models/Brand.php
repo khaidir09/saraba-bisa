@@ -10,4 +10,9 @@ class Brand extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function modelserie()
+    {
+        return $this->hasMany(ModelSerie::class, 'brands_id', 'id');
+    }
 }
