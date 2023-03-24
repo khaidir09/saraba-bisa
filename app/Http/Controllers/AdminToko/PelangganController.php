@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\AdminToko;
 
-use App\Exports\PelangganExport;
 use App\Models\Customer;
+use Illuminate\Http\Request;
+use App\Exports\PelangganExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\CustomerRequest;
+use App\Imports\PelangganImport;
 
 class PelangganController extends Controller
 {
@@ -41,6 +43,15 @@ class PelangganController extends Controller
     public function store(CustomerRequest $request)
     {
         //
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('PelangganData', $namafile);
+        Excel::import(new PelangganImport, \public_path('/PelangganData/' . $namafile));
+        return redirect()->route('admin-pelanggan.index')->with('success', 'All good!');
     }
 
     public function export()
