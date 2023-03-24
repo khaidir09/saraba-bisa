@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use App\Exports\AksesorisExport;
 use App\Models\Accessory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -34,6 +35,11 @@ class AksesorisController extends Controller
         $data->move('AksesorisData', $namafile);
         Excel::import(new AksesorisImport, \public_path('/AksesorisData/' . $namafile));
         return redirect()->route('admin-data-aksesoris.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new AksesorisExport, 'data-aksesori.xlsx');
     }
 
     public function edit($id)
