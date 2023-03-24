@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use App\Exports\MerekExport;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -55,6 +56,11 @@ class MasterMerekController extends Controller
         $data->move('BrandData', $namafile);
         Excel::import(new BrandImport, \public_path('/BrandData/' . $namafile));
         return redirect()->route('admin-master-merek.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new MerekExport, 'data-merek.xlsx');
     }
 
     /**

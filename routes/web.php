@@ -212,6 +212,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::get('sparepart/export', [AdminTokoSparepartController::class, 'export'])->name('admin-sparepart-export');
     Route::get('aksesori/export', [AdminTokoAksesorisController::class, 'export'])->name('admin-aksesori-export');
     Route::get('modelseri/export', [AdminTokoMasterModelSeriController::class, 'export'])->name('admin-modelseri-export');
+    Route::get('merek/export', [AdminTokoMasterMerekController::class, 'export'])->name('admin-merek-export');
 });
 
 Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
