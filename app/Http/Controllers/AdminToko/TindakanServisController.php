@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use App\Exports\TindakanServisExport;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Http\Controllers\Controller;
@@ -34,6 +35,11 @@ class TindakanServisController extends Controller
         $data->move('ServiceActionData', $namafile);
         Excel::import(new ServiceActionImport, \public_path('/ServiceActionData/' . $namafile));
         return redirect()->route('admin-tindakan-servis.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new TindakanServisExport, 'tindakan-servis.xlsx');
     }
 
     public function edit($id)

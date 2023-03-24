@@ -207,6 +207,8 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::post('/imporhandphone', [AdminTokoPhoneController::class, 'import'])->name('admin-impor-handphone');
     Route::post('/imporbrand', [AdminTokoMasterMerekController::class, 'import'])->name('admin-impor-merek');
     Route::post('/impormodel', [AdminTokoMasterModelSeriController::class, 'import'])->name('admin-impor-model');
+
+    Route::get('tindakan/export', [AdminTokoTindakanServisController::class, 'export'])->name('admin-tindakan-servis-export');
 });
 
 Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
