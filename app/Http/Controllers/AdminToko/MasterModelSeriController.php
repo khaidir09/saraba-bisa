@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use App\Exports\ModelSeriExport;
 use App\Models\Brand;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
@@ -57,6 +58,11 @@ class MasterModelSeriController extends Controller
         $data->move('ModelData', $namafile);
         Excel::import(new ModelSeriImport, \public_path('/ModelData/' . $namafile));
         return redirect()->route('admin-master-model-seri.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new ModelSeriExport, 'data-model-seri.xlsx');
     }
 
     /**
