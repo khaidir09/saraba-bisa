@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\ServiceAction;
+use App\Models\Sparepart;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -11,35 +11,37 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 
-class TindakanServisExport implements FromCollection, WithMapping, WithHeadings, WithCustomStartCell, ShouldAutoSize, WithStyles
+class SparepartExport implements FromCollection, WithMapping, WithHeadings, WithCustomStartCell, ShouldAutoSize, WithStyles
 {
     /**
      * @return \Illuminate\Support\Collection
      */
     public function collection()
     {
-        return ServiceAction::all();
+        return Sparepart::all();
     }
 
-    public function map($serviceaction): array
+    public function map($sparepart): array
     {
         return [
-            $serviceaction->nama_tindakan,
-            $serviceaction->modal_sparepart,
-            $serviceaction->harga_toko,
-            $serviceaction->harga_pelanggan,
-            $serviceaction->garansi
+            $sparepart->name,
+            $sparepart->stok,
+            $sparepart->modal,
+            $sparepart->harga_toko,
+            $sparepart->harga_pelanggan,
+            $sparepart->supplier
         ];
     }
 
     public function headings(): array
     {
         return [
-            'Nama Tindakan',
-            'Modal Sparepart',
+            'Nama Sparepart',
+            'Stok',
+            'Modal',
             'Harga Pelanggan Toko',
             'Harga Pelanggan Biasa',
-            'Garansi'
+            'Supplier'
         ];
     }
 

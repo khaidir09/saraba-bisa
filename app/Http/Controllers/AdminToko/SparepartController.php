@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use App\Exports\SparepartExport;
 use App\Models\Sparepart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -34,6 +35,11 @@ class SparepartController extends Controller
         $data->move('SparepartData', $namafile);
         Excel::import(new SparepartImport, \public_path('/SparepartData/' . $namafile));
         return redirect()->route('admin-data-sparepart.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new SparepartExport, 'data-sparepart.xlsx');
     }
 
     public function edit($id)

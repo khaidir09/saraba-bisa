@@ -209,6 +209,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::post('/impormodel', [AdminTokoMasterModelSeriController::class, 'import'])->name('admin-impor-model');
 
     Route::get('tindakan/export', [AdminTokoTindakanServisController::class, 'export'])->name('admin-tindakan-servis-export');
+    Route::get('sparepart/export', [AdminTokoSparepartController::class, 'export'])->name('admin-sparepart-export');
 });
 
 Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
