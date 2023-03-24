@@ -3,8 +3,10 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\Customer;
+use Livewire\WithPagination;
+use App\Exports\PelangganExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminCustomerData extends Component
 {
@@ -38,6 +40,11 @@ class AdminCustomerData extends Component
                 Customer::latest()->paginate($this->paginate) :
                 Customer::latest()->where('nama', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new PelangganExport, 'data-pelanggan.xlsx');
     }
 
     public function handleStored($customer)

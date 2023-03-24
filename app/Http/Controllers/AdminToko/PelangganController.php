@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use App\Exports\PelangganExport;
 use App\Models\Customer;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\CustomerRequest;
 
 class PelangganController extends Controller
@@ -39,6 +41,11 @@ class PelangganController extends Controller
     public function store(CustomerRequest $request)
     {
         //
+    }
+
+    public function export()
+    {
+        return Excel::download(new PelangganExport, 'data-pelanggan.xlsx');
     }
 
     /**
