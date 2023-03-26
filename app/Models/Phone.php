@@ -22,7 +22,8 @@ class Phone extends Model
         'warna',
         'kapasitas',
         'keterangan',
-        'kelengkapan'
+        'kelengkapan',
+        'kondisi'
     ];
 
     public function brand()

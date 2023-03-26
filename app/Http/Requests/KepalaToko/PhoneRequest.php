@@ -30,6 +30,7 @@ class PhoneRequest extends FormRequest
             'model_series_id' => [
                 'exists:model_series,id'
             ],
+            'kondisi' => 'max:100',
             'keterangan' => 'max:100',
             'imei' => 'max:100|unique:phones',
             'stok' => 'max:100',

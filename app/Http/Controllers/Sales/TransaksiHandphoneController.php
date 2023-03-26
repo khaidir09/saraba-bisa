@@ -59,6 +59,15 @@ class TransaksiHandphoneController extends Controller
             $expired = null;
         }
 
+        $garansi_imei = Carbon::now();
+        if ($request->garansi_imei != null) {
+            $expired_imei = $garansi_imei->addDays(
+                $request->garansi_imei
+            );
+        } else {
+            $expired_imei = null;
+        }
+
         // Transaction create
         PhoneTransaction::create([
             'nomor_transaksi' => $nomor_transaksi,
@@ -72,6 +81,8 @@ class TransaksiHandphoneController extends Controller
             'cara_pembayaran' => $request->cara_pembayaran,
             'garansi' => $request->garansi,
             'exp_garansi' => $expired,
+            'garansi_imei' => $request->garansi_imei,
+            'exp_imei' => $expired_imei,
             'persen_sales' => $request->persen_sales,
             'users_id' => Auth::user()->id,
             'omzet' => $request->harga - $request->diskon,
@@ -158,6 +169,7 @@ class TransaksiHandphoneController extends Controller
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
             'exp_garansi' => $request->exp_garansi,
+            'exp_imei' => $request->exp_imei,
             'persen_sales' => $request->persen_sales,
             'users_id' => Auth::user()->id,
             'omzet' => $request->harga - $request->diskon,

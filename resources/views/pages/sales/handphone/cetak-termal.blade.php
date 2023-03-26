@@ -78,6 +78,10 @@
 				<td class="value">: {{ $items->phone->imei }}</td>
 				</tr>
 				<tr>
+				<td class="title">Kondisi</td>
+				<td class="value">: {{ $items->phone->kondisi }}</td>
+				</tr>
+				<tr>
 				<td class="title">Kelengkapan</td>
 				<td class="value">: {{ $items->phone->kelengkapan }}</td>
 				</tr>
@@ -116,6 +120,19 @@
 						</td>
 					</tr>
 				@endif
+				@if ($items->exp_imei != null)
+				@php
+					$dt     = \Carbon\Carbon::now()->locale('id');
+					$past   = $dt->subDay();
+				@endphp
+					<tr>
+						<td class="title">Garansi IMEI</td>
+						<td class="value">
+							: {{ \Carbon\Carbon::parse($items->exp_imei)->diffForHumans($past, ['parts' => 1, 'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE]) }}
+							(Exp. {{ \Carbon\Carbon::parse($items->exp_imei)->translatedFormat('d/m/Y') }})
+						</td>
+					</tr>
+				@endif
 				<tr>
 				<td class="title">Sales</td>
 				<td class="value">: {{ $items->user->name }}</td>
@@ -126,7 +143,7 @@
 		<hr style="border-top: 1px solid; margin: 0px;">
 
 		<div class="text-center mt-1">
-			<p class="mb-0">Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</p>
+			<small class="mb-0">Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
 			<p class="mb-0">Terima kasih atas kepercayaan Anda telah berbelanja di <br> {{ $users->nama_toko }}</p>
 			<p>Barang yang sudah dibeli tidak bisa dikembalikan.</p>
 		</div>

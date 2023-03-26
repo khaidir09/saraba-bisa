@@ -211,7 +211,10 @@
                             <div class="font-semibold text-left">Pembayaran</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Masa Garansi</div>
+                            <div class="font-semibold text-left">Masa Garansi HP</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Masa Garansi IMEI</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Status</div>
@@ -309,6 +312,15 @@
                                     <div class="font-medium text-red-600">{{ \Carbon\Carbon::parse($phone->exp_garansi)->format('d/m/Y') }}</div>
                                 @else
                                     <div class="font-medium text-blue-600">{{ \Carbon\Carbon::parse($phone->exp_garansi)->format('d/m/Y') }}</div>
+                                @endif
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                @if ($phone->exp_imei === null)
+                                    <div class="font-medium">Tidak Ada</div>
+                                @elseif ($phone->exp_imei < \Carbon\Carbon::now())
+                                    <div class="font-medium text-red-600">{{ \Carbon\Carbon::parse($phone->exp_imei)->format('d/m/Y') }}</div>
+                                @else
+                                    <div class="font-medium text-blue-600">{{ \Carbon\Carbon::parse($phone->exp_imei)->format('d/m/Y') }}</div>
                                 @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

@@ -162,11 +162,19 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="exp_garansi">Masa Garansi</label>
+                                    <label class="block text-sm font-medium mb-1" for="exp_garansi">Masa Garansi HP</label>
                                     @if ($item->exp_garansi != null)
                                         <input id="exp_garansi" name="exp_garansi" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->exp_garansi)->format('Y-m-d') }}"/>
                                     @else
                                         <input id="exp_garansi" name="exp_garansi" class="form-input w-full px-2 py-1" type="date" value=""/>
+                                    @endif
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="exp_imei">Masa Garansi IMEI</label>
+                                    @if ($item->exp_imei != null)
+                                        <input id="exp_imei" name="exp_imei" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->exp_imei)->format('Y-m-d') }}"/>
+                                    @else
+                                        <input id="exp_imei" name="exp_imei" class="form-input w-full px-2 py-1" type="date" value=""/>
                                     @endif
                                 </div>
                                 <div>

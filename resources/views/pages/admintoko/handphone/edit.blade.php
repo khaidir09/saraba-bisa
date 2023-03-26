@@ -101,8 +101,20 @@
                                     <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" value="{{ $item->keterangan }}"/>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="kelengkapan">Kelengkapan</label>
+                                    <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" value="{{ $item->kelengkapan }}"/>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="imei">IMEI</label>
                                     <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" value="{{ $item->imei }}"/>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="kondisi">Kondisi</label>
+                                    <select id="kondisi" name="kondisi" class="form-select text-sm py-1 w-full">
+                                        <option value="{{ $item->kondisi }}" selected>{{ $item->kondisi }}</option>
+                                        <option value="New">New</option>
+                                        <option value="Second">Second</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="kelengkapan">Kelengkapan</label>

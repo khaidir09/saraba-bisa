@@ -85,6 +85,14 @@
                                         </select>
                                     </div>
                                     <div>
+                                        <label class="block text-sm font-medium mb-1" for="kapasitas">Kondisi <span class="text-rose-500">*</span></label>
+                                        <select id="kondisi" name="kondisi" class="form-select text-sm py-1 w-full" required>
+                                            <option value="">Pilih Kondisi</option>
+                                            <option value="New">New</option>
+                                            <option value="Second">Second</option>
+                                        </select>
+                                    </div>
+                                    <div>
                                         <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan</label>
                                         <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
                                     </div>
@@ -176,6 +184,9 @@
                             <div class="font-semibold text-left">IMEI</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Kondisi</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Kelengkapan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -217,6 +228,9 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $phone->imei }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $phone->kondisi }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $phone->kelengkapan }}</div>
