@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\Brand;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
+use App\Exports\ModelSeriExport;
+use App\Imports\ModelSeriImport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\ModelSerieRequest;
 use App\Http\Requests\KepalaToko\Model_serieRequest;
-use App\Models\Brand;
 
 class MasterModelSeriController extends Controller
 {
@@ -47,6 +50,20 @@ class MasterModelSeriController extends Controller
         ModelSerie::create($data);
 
         return redirect()->route('master-model-seri.index');
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('ModelData', $namafile);
+        Excel::import(new ModelSeriImport, \public_path('/ModelData/' . $namafile));
+        return redirect()->route('master-model-seri.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new ModelSeriExport, 'data-model-seri.xlsx');
     }
 
     /**

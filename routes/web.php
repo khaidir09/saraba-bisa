@@ -164,6 +164,19 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('kepalatoko-nota-pengambilan-termal/{id}', [KepalaTokoSudahDiambilController::class, 'pengambilantermal'])->name('kepalatoko-nota-pengambilan-termal');
 
     Route::get('slip-gaji/{id}', [KepalaTokoKaryawanController::class, 'cetak'])->name('cetak-slip-gaji');
+
+    Route::post('/impor-pelanggan', [KepalaTokoPelangganController::class, 'import'])->name('impor-pelanggan');
+    Route::get('export-pelanggan', [KepalaTokoPelangganController::class, 'export'])->name('pelanggan-export');
+    Route::post('/impor-tindakan-servis', [KepalaTokoTindakanServisController::class, 'import'])->name('impor-tindakan-servis');
+    Route::get('export-tindakan', [KepalaTokoTindakanServisController::class, 'export'])->name('tindakan-servis-export');
+    Route::post('/impor-sparepart', [KepalaTokoSparepartController::class, 'import'])->name('impor-sparepart');
+    Route::get('export-sparepart', [KepalaTokoSparepartController::class, 'export'])->name('sparepart-export');
+    Route::post('/impor-aksesori', [KepalaTokoAksesorisController::class, 'import'])->name('impor-aksesori');
+    Route::get('export-aksesori', [KepalaTokoAksesorisController::class, 'export'])->name('aksesori-export');
+    Route::post('/impor-brand', [KepalaTokoMasterMerekController::class, 'import'])->name('impor-merek');
+    Route::get('export-merek', [KepalaTokoMasterMerekController::class, 'export'])->name('merek-export');
+    Route::post('/impor-model', [KepalaTokoMasterModelSeriController::class, 'import'])->name('impor-model');
+    Route::get('export-modelseri', [KepalaTokoMasterModelSeriController::class, 'export'])->name('modelseri-export');
 });
 
 Route::middleware('ensureAdminRole:AdminToko')->group(function () {

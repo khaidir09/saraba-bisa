@@ -4,7 +4,10 @@ namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Exports\PelangganExport;
+use App\Imports\PelangganImport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\CustomerRequest;
 
 class PelangganController extends Controller
@@ -44,6 +47,20 @@ class PelangganController extends Controller
         // Customer::create($data);
 
         // return redirect()->route('pelanggan.index');
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('PelangganData', $namafile);
+        Excel::import(new PelangganImport, \public_path('/PelangganData/' . $namafile));
+        return redirect()->route('pelanggan.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new PelangganExport, 'data-pelanggan.xlsx');
     }
 
     /**

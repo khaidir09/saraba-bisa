@@ -4,7 +4,10 @@ namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\Accessory;
 use Illuminate\Http\Request;
+use App\Exports\AksesorisExport;
+use App\Imports\AksesorisImport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\AksesorisRequest;
 
 class AksesorisController extends Controller
@@ -23,6 +26,20 @@ class AksesorisController extends Controller
         Accessory::create($data);
 
         return redirect()->route('data-aksesoris.index');
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('AksesorisData', $namafile);
+        Excel::import(new AksesorisImport, \public_path('/AksesorisData/' . $namafile));
+        return redirect()->route('data-aksesoris.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new AksesorisExport, 'data-aksesori.xlsx');
     }
 
     public function edit($id)

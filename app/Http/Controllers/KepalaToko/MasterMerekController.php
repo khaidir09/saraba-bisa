@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\KepalaToko\BrandRequest;
 use App\Models\Brand;
+use App\Exports\MerekExport;
+use App\Imports\BrandImport;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\KepalaToko\BrandRequest;
 
 class MasterMerekController extends Controller
 {
@@ -44,6 +47,20 @@ class MasterMerekController extends Controller
         Brand::create($data);
 
         return redirect()->route('master-merek.index');
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('BrandData', $namafile);
+        Excel::import(new BrandImport, \public_path('/BrandData/' . $namafile));
+        return redirect()->route('master-merek.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new MerekExport, 'data-merek.xlsx');
     }
 
     /**

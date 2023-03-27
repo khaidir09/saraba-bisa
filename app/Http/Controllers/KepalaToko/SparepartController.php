@@ -4,7 +4,10 @@ namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\Sparepart;
 use Illuminate\Http\Request;
+use App\Exports\SparepartExport;
+use App\Imports\SparepartImport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\SparepartRequest;
 
 class SparepartController extends Controller
@@ -23,6 +26,20 @@ class SparepartController extends Controller
         Sparepart::create($data);
 
         return redirect()->route('data-sparepart.index');
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('SparepartData', $namafile);
+        Excel::import(new SparepartImport, \public_path('/SparepartData/' . $namafile));
+        return redirect()->route('data-sparepart.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new SparepartExport, 'data-sparepart.xlsx');
     }
 
     public function edit($id)
