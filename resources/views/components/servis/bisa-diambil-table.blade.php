@@ -182,7 +182,7 @@
                                                     </div>
                                                     <!-- Modal footer -->
                                                     <div class="flex flex-wrap justify-end space-x-2">
-                                                        <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Cancel</button>
+                                                        <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
                                                         <form action="{{ route('transaksi-servis.destroy', $transaction->id) }}" method="post">
                                                             @method('delete')
                                                             @csrf
