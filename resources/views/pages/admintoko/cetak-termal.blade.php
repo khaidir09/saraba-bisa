@@ -69,10 +69,12 @@
 				<td class="title">Pengecekan Fungsi</td>
 				<td class="value">: {{ $items->qc_masuk }}</td>
 				</tr>
-				<tr>
-				<td class="title">Est. Biaya</td>
-				<td class="value">: Rp. {{ number_format($items->estimasi_biaya) }}</td>
-				</tr>
+				@if ($items->estimasi_biaya != null)
+					<tr>
+					<td class="title">Est. Biaya</td>
+					<td class="value">: Rp. {{ number_format($items->estimasi_biaya) }}</td>
+					</tr>
+				@endif
 				<tr>
 				<td class="title">Est. Pengerjaan</td>
 				<td class="value">: {{ $items->estimasi_pengerjaan }}</td>
@@ -107,7 +109,8 @@
 		<hr style="border-top: 1px solid; margin: 0px;">
 
 		<div class="text-center mt-1">
-			<p>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d/m/Y H:i') }} WIB]</p>
+			<small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
+			<p class="my-1">Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
 			<p class="mb-1">Cek status servis {{ $users->link_toko }}/tracking</p>
 			<p>Silahkan bawa Nota Tanda Terima Servis ini pada saat pengambilan barang. Terima kasih.</p>
 		</div>

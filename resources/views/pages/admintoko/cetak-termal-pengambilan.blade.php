@@ -155,7 +155,8 @@
 		<hr style="border-top: 1px solid; margin: 0px;">
 
 		<div class="text-center mt-1">
-			<p>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d/m/Y H:i') }} WIB]</p>
+			<small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
+			<p class="my-1">Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
 			<p class="mb-1">Cek status garansi {{ $users->link_toko }}/tracking</p>
 			<p>Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</p>
 		</div>

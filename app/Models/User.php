@@ -44,6 +44,9 @@ class User extends Authenticatable
         'alamat_toko',
         'nomor_hp_toko',
         'syarat_ketentuan_toko',
+        'bank',
+        'rekening',
+        'pemilik_rekening',
         'profile_photo_path'
     ];
 

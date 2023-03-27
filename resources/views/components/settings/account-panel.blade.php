@@ -36,6 +36,20 @@
                         <input name="kota" id="kota" class="form-input w-full" type="text" value="{{ Auth::user()->kota }}" />
                     </div>
                 </div>
+                <div class="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-5">
+                    <div class="sm:w-1/2">
+                        <label class="block text-sm font-medium mb-1" for="bank">Nama BANK</label>
+                        <input name="bank" id="bank" class="form-input w-full" type="text" value="{{ Auth::user()->bank }}" />
+                    </div>
+                    <div class="sm:w-1/2">
+                        <label class="block text-sm font-medium mb-1" for="rekening">Nomor Rekening</label>
+                        <input name="rekening" id="rekening" class="form-input w-full" type="number" value="{{ Auth::user()->rekening }}" />
+                    </div>
+                    <div class="sm:w-1/2">
+                        <label class="block text-sm font-medium mb-1" for="pemilik_rekening">Nama Pemilik Rekening</label>
+                        <input name="pemilik_rekening" id="pemilik_rekening" class="form-input w-full" type="text" value="{{ Auth::user()->pemilik_rekening }}" />
+                    </div>
+                </div>
                 <div class="mt-4">
                     <label class="block text-sm font-medium mb-1" for="deskripsi_toko">Deskripsi Toko/Usaha</label>
                     <textarea name="deskripsi_toko" id="deskripsi_toko" rows="2" class="w-full">
