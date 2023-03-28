@@ -2,7 +2,7 @@
     Pelacakan Status Servis
 @endsection
 
-<x-customer.header :users="$users" :customers="$customers"/>
+<x-customer.header :users="$users"/>
 
 <x-customer-layout>
     <!-- Content -->
