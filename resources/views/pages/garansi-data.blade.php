@@ -26,7 +26,7 @@
                         <div class="flex items-start space-x-3 md:space-x-4">                             
                             <div>
                                 <div class="text-xs font-semibold text-blue-600">{{ $item->nomor_transaksi }}</div>
-                                <div class="inline-flex font-semibold text-slate-800">{{ $item->phone->brand->name }} {{ $item->phone->modelserie->name }}</div>
+                                <div class="inline-flex font-semibold text-slate-800">{{ $item->phone->brand->name }} {{ $item->phone->modelserie->name }} ({{ $item->phone->warna }}/{{ $item->phone->kapasitas }})</div>
                                 <div class="text-sm">{{ $item->phone->kondisi }} @if ($item->phone->keterangan != null) • {{ $item->phone->keterangan }} @endif • {{ $item->phone->kelengkapan }}</div>
                                 <div class="text-sm">Fungsi {{ $item->qc }}</div>
                             </div>
