@@ -44,6 +44,7 @@ class ServiceTransaction extends Model
         'tgl_ambil',
         'pengambil',
         'tgl_selesai',
+        'tgl_disetujui',
         'is_admin_toko',
         'omzet',
         'profit',

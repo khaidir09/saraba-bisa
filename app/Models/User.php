@@ -84,7 +84,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(ServiceTransaction::class, 'users_id', 'id')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())));
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())));
     }
 
     public function spareparttransaction()

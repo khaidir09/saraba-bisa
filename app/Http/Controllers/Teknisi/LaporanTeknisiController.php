@@ -16,34 +16,34 @@ class LaporanTeknisiController extends Controller
         $servishari = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->count();
         $profithari = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profit');
         $servisbulan = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->count();
         $profitbulan = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
         $servistahun = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereYear('tgl_ambil', '=', date("Y", strtotime(now())))
+            ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
             ->count();
         $profittahun = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereYear('tgl_ambil', '=', date("Y", strtotime(now())))
+            ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
             ->get()
             ->sum('profit');
         return view('pages/teknisi/laporan-teknisi', compact('services', 'services_count', 'servishari', 'profithari', 'servisbulan', 'profitbulan', 'servistahun', 'profittahun'));

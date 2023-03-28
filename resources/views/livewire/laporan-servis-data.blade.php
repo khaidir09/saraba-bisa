@@ -27,7 +27,7 @@
                 <thead class="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
                     <tr>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Tanggal</div>
+                            <div class="font-semibold text-left">Tanggal Diambil</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Teknisi</div>
@@ -55,7 +55,7 @@
                     @foreach($services as $item)                  
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('d F Y') }}</div>
+                                <div class="font-medium">{{ \Carbon\Carbon::parse($item->tgl_ambil)->translatedFormat('d F Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($item->user != null)

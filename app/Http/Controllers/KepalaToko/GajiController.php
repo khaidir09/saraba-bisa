@@ -45,7 +45,7 @@ class GajiController extends Controller
     {
         $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
 

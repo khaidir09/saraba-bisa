@@ -29,7 +29,6 @@
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium">
-                                {{-- Rp. {{ $item->servicetransaction->sum('biaya') - $item->servicetransaction->sum('modal_sparepart') }} --}}
                                 @php
                                     $bonus = $item->servicetransaction->sum('profit')/100;
                                     $bonus *= $item->persen;

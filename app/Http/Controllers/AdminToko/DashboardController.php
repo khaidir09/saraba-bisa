@@ -26,7 +26,7 @@ class DashboardController extends Controller
     {
         $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
         $profitsparepart = SparepartTransaction::where('is_admin_toko', 'Admin')
@@ -48,7 +48,7 @@ class DashboardController extends Controller
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
