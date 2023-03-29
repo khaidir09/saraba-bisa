@@ -26,7 +26,7 @@ class DashboardController extends Controller
     {
         $profitsparepart = SparepartTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
         $bonussparepart = ($profitsparepart / 100) * Auth::user()->persen;
@@ -50,7 +50,7 @@ class DashboardController extends Controller
             ->get()
             ->sum('profittoko');
         $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')

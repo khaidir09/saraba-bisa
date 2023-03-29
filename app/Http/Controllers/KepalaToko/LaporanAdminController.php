@@ -27,11 +27,11 @@ class LaporanAdminController extends Controller
             ->sum('profit');
         $jumlahtransaksisparepart = SparepartTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->count();
         $profitsparepart = SparepartTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
         $jumlahtransaksiaksesoris = AccessoryTransaction::where('is_admin_toko', 'Admin')

@@ -17,7 +17,7 @@ class ApproveSparepartController extends Controller
      */
     public function index()
     {
-        return view('pages/kepalatoko/transaksi-sparepart');
+        return view('pages/kepalatoko/sparepart/transaksi');
     }
 
     /**
@@ -62,7 +62,7 @@ class ApproveSparepartController extends Controller
     {
         $item = SparepartTransaction::findOrFail($id);
 
-        return view('pages.kepalatoko.transaksi-sparepart-approve', [
+        return view('pages.kepalatoko.sparepart.transaksi-approve', [
             'item' => $item
         ]);
     }

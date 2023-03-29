@@ -19,6 +19,7 @@ class SparepartTransaction extends Model
         'harga',
         'modal',
         'is_approve',
+        'tgl_disetujui',
         'diskon',
         'cara_pembayaran',
         'garansi',
