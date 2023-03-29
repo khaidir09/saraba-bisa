@@ -5,8 +5,6 @@ namespace App\Http\Controllers\KepalaToko;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
-use Illuminate\Support\Facades\Auth;
-use League\CommonMark\Node\Query\AndExpr;
 
 class ApproveAksesorisController extends Controller
 {
@@ -17,7 +15,7 @@ class ApproveAksesorisController extends Controller
      */
     public function index()
     {
-        return view('pages/kepalatoko/transaksi-aksesoris');
+        return view('pages/kepalatoko/aksesoris/transaksi');
     }
 
     /**
@@ -62,7 +60,7 @@ class ApproveAksesorisController extends Controller
     {
         $item = AccessoryTransaction::findOrFail($id);
 
-        return view('pages.kepalatoko.transaksi-aksesoris-approve', [
+        return view('pages.kepalatoko.aksesoris.transaksi-approve', [
             'item' => $item
         ]);
     }

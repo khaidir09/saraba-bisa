@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AccessoryTransaction extends Model
 {
@@ -21,6 +20,7 @@ class AccessoryTransaction extends Model
         'garansi',
         'exp_garansi',
         'is_approve',
+        'tgl_disetujui',
         'diskon',
         'created_at',
         'cara_pembayaran',

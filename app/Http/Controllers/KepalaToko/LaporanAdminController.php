@@ -36,11 +36,11 @@ class LaporanAdminController extends Controller
             ->sum('profit');
         $jumlahtransaksiaksesoris = AccessoryTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->count();
         $profitaksesoris = AccessoryTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
         $jumlahtransaksihandphone = PhoneTransaction::where('is_admin_toko', 'Admin')

@@ -36,7 +36,7 @@ class DashboardController extends Controller
             ->sum('profit');
         $profitaksesoris = AccessoryTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
         $profithandphone = PhoneTransaction::where('is_admin_toko', 'Admin')
@@ -56,7 +56,7 @@ class DashboardController extends Controller
             ->get()
             ->sum('profittoko');
         $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalhandphone = PhoneTransaction::where('is_approve', 'Setuju')
