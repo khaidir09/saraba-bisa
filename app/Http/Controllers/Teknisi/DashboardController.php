@@ -35,7 +35,7 @@ class DashboardController extends Controller
         $bonusassembly = Assembly::with('user')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('biaya');
         $totalbonus = $bonusservis + $bonusassembly;

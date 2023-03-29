@@ -18,6 +18,7 @@ class Assembly extends Model
         'kapasitas',
         'biaya',
         'is_approve',
+        'tgl_disetujui',
         'created_at'
     ];
 

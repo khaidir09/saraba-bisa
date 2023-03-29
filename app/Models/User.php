@@ -112,6 +112,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Assembly::class, 'users_id', 'id')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())));
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())));
     }
 }

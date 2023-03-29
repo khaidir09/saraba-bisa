@@ -16,34 +16,34 @@ class LaporanAssemblyController extends Controller
         $assemblyhari = Assembly::with('user')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereDay('created_at', '=', date("d", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->count();
         $bonushari = Assembly::with('user')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereDay('created_at', '=', date("d", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->get()
             ->sum('biaya');
         $assemblybulan = Assembly::with('user')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->count();
         $bonusbulan = Assembly::with('user')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('biaya');
         $assemblytahun = Assembly::with('user')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereYear('created_at', '=', date("Y", strtotime(now())))
+            ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
             ->count();
         $bonustahun = Assembly::with('user')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereYear('created_at', '=', date("Y", strtotime(now())))
+            ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
             ->get()
             ->sum('biaya');
         return view('pages/teknisi/laporan-assembly', compact('assemblies', 'assemblies_count', 'assemblyhari', 'bonushari', 'assemblybulan', 'bonusbulan', 'assemblytahun', 'bonustahun'));
