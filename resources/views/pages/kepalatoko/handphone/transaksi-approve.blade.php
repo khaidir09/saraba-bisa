@@ -92,6 +92,7 @@
                                     @csrf
                                     <div class="space-y-3">
                                         <div class="flex justify-center space-x-2">
+                                            <input type="hidden" name="tgl_disetujui" value="<?php echo date('Y/m/d') ?>"/>
                                             <input type="submit" name="is_approve" value="Setuju" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
                                             <input type="submit" name="is_approve" value="Ditolak" class="btn-sm bg-red-500 hover:bg-red-600 text-white">
                                         </div>

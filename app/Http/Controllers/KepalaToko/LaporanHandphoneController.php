@@ -13,23 +13,23 @@ class LaporanHandphoneController extends Controller
         $phone_transactions = PhoneTransaction::with('user', 'customer', 'phone')->where('is_approve', 'Setuju')->orderByDesc('created_at')->get();
         $count = PhoneTransaction::where('is_approve', 'Setuju')->count();
         $omzethari = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereDay('created_at', '=', date("d", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->get()
             ->sum('omzet');
         $profithari = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereDay('created_at', '=', date("d", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $omzetbulan = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('omzet');
         $profitbulan = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $omzettahun = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereYear('created_at', '=', date("Y", strtotime(now())))
+            ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
             ->get()
             ->sum('omzet');
         $profittahun = PhoneTransaction::where('is_approve', 'Setuju')

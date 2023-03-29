@@ -14,31 +14,31 @@ class LaporanHandphoneController extends Controller
         $penjualanhari = PhoneTransaction::with('phone')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereDay('created_at', '=', date("d", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->count();
         $profithari = PhoneTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereDay('created_at', '=', date("d", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profit');
         $penjualanbulan = PhoneTransaction::with('phone')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->count();
         $profitbulan = PhoneTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
         $penjualantahun = PhoneTransaction::with('phone')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereYear('created_at', '=', date("Y", strtotime(now())))
+            ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
             ->count();
         $profittahun = PhoneTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereYear('created_at', '=', date("Y", strtotime(now())))
+            ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
             ->get()
             ->sum('profit');
         return view('pages/sales/handphone/laporan-handphone', compact('profithari', 'profitbulan', 'profittahun', 'penjualanhari', 'penjualanbulan', 'penjualantahun'));

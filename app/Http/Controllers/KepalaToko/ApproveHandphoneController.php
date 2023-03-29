@@ -2,18 +2,9 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
-use App\Models\Type;
-use App\Models\Brand;
-use App\Models\Capacity;
-use App\Models\Customer;
-use App\Models\ModelSerie;
 use Illuminate\Http\Request;
-use App\Models\ServiceAction;
-use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\PhoneTransaction;
-use Illuminate\Support\Facades\Auth;
-use League\CommonMark\Node\Query\AndExpr;
 
 class ApproveHandphoneController extends Controller
 {

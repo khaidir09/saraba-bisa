@@ -17,6 +17,7 @@ class PhoneTransaction extends Model
         'harga',
         'modal',
         'is_approve',
+        'tgl_disetujui',
         'diskon',
         'created_at',
         'cara_pembayaran',

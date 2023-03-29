@@ -38,7 +38,7 @@ class DashboardController extends Controller
         $bonusaksesori = ($profitaksesori / 100) * Auth::user()->persen;
         $profithandphone = PhoneTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
         $bonushandphone = ($profithandphone / 100) * Auth::user()->persen;
@@ -46,7 +46,7 @@ class DashboardController extends Controller
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
@@ -58,7 +58,7 @@ class DashboardController extends Controller
             ->get()
             ->sum('profittoko');
         $totalhandphone = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
