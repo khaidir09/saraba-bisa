@@ -69,7 +69,8 @@ class KaryawanController extends Controller
         $salaries = Salary::where('workers_id', $id)
             ->whereMonth('created_at', '=', date("m", strtotime(now())))
             ->get();
-        $bonus = Salary::where('workers_id', $id)->sum('bonus');
+        $bonus = Salary::where('workers_id', $id)->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->sum('bonus');
         $users = User::find(1);
         $debts = Debt::where('workers_id', $id)
             ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
