@@ -72,10 +72,10 @@ class KaryawanController extends Controller
         $bonus = Salary::where('workers_id', $id)->sum('bonus');
         $users = User::find(1);
         $debts = Debt::where('workers_id', $id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get();
         $totalkasbon = Debt::where('workers_id', $id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->sum('total');
 
         $pdf = PDF::loadView('pages.kepalatoko.karyawan.cetak', [
