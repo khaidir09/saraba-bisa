@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Worker extends Model
 {
@@ -38,6 +37,6 @@ class Worker extends Model
     {
         return $this->hasMany(Debt::class, 'workers_id')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())));
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())));
     }
 }

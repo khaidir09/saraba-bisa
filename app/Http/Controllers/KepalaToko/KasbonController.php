@@ -18,7 +18,7 @@ class KasbonController extends Controller
     {
         $debts = Debt::orderByDesc('created_at')->get();
         $debts_count = Debt::all()->count();
-        return view('pages/kepalatoko/kasbon', compact('debts', 'debts_count'));
+        return view('pages/kepalatoko/kasbon/index', compact('debts', 'debts_count'));
     }
 
     /**
@@ -63,7 +63,7 @@ class KasbonController extends Controller
     {
         $item = Debt::findOrFail($id);
 
-        return view('pages.kepalatoko.approve-kasbon', [
+        return view('pages.kepalatoko.kasbon.approve', [
             'item' => $item
         ]);
     }

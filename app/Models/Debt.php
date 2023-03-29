@@ -15,6 +15,7 @@ class Debt extends Model
         'item',
         'total',
         'is_approve',
+        'tgl_disetujui',
         'created_at'
     ];
 
