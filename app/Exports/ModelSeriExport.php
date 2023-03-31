@@ -9,9 +9,8 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 
-class ModelSeriExport implements FromCollection, WithMapping, WithHeadings, WithCustomStartCell, ShouldAutoSize, WithStyles
+class ModelSeriExport implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize, WithStyles
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -26,7 +25,6 @@ class ModelSeriExport implements FromCollection, WithMapping, WithHeadings, With
         return [
             $modelserie->name,
             $modelserie->brands_id,
-            $modelserie->brand->name
         ];
     }
 
@@ -34,8 +32,7 @@ class ModelSeriExport implements FromCollection, WithMapping, WithHeadings, With
     {
         return [
             'Nama Model Seri',
-            'ID Merek',
-            'Nama Merek'
+            'ID Merek'
         ];
     }
 
@@ -43,12 +40,7 @@ class ModelSeriExport implements FromCollection, WithMapping, WithHeadings, With
     {
         return [
             // Style the first row as bold text.
-            2    => ['font' => ['bold' => true]],
+            1    => ['font' => ['bold' => true]],
         ];
-    }
-
-    public function startCell(): string
-    {
-        return 'B2';
     }
 }

@@ -4,9 +4,11 @@ namespace App\Imports;
 
 use App\Models\Customer;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
-class PelangganImport implements ToModel, WithHeadingRow
+class PelangganImport implements ToModel, WithHeadingRow, WithBatchInserts, WithUpserts
 {
     public function model(array $row)
     {
@@ -16,5 +18,15 @@ class PelangganImport implements ToModel, WithHeadingRow
             'nomor_hp'    => $row['Nomor HP'],
             'alamat'    => $row['Alamat']
         ]);
+    }
+
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+
+    public function uniqueBy()
+    {
+        return 'nomor_hp';
     }
 }

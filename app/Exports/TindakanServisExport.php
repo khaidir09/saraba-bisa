@@ -9,9 +9,8 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 
-class TindakanServisExport implements FromCollection, WithMapping, WithHeadings, WithCustomStartCell, ShouldAutoSize, WithStyles
+class TindakanServisExport implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize, WithStyles
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -47,12 +46,7 @@ class TindakanServisExport implements FromCollection, WithMapping, WithHeadings,
     {
         return [
             // Style the first row as bold text.
-            2    => ['font' => ['bold' => true]],
+            1    => ['font' => ['bold' => true]],
         ];
-    }
-
-    public function startCell(): string
-    {
-        return 'B2';
     }
 }

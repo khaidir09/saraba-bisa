@@ -3,11 +3,12 @@
 namespace App\Imports;
 
 use App\Models\Accessory;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
-class AksesorisImport implements ToModel, WithHeadingRow
+class AksesorisImport implements ToModel, WithHeadingRow, WithBatchInserts, WithUpserts
 {
     public function model(array $row)
     {
@@ -19,5 +20,15 @@ class AksesorisImport implements ToModel, WithHeadingRow
             'harga_pelanggan'    => $row['Harga Pelanggan Biasa'],
             'supplier'    => $row['Supplier'],
         ]);
+    }
+
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+
+    public function uniqueBy()
+    {
+        return 'name';
     }
 }

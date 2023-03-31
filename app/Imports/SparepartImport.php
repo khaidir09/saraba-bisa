@@ -3,12 +3,12 @@
 namespace App\Imports;
 
 use App\Models\Sparepart;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Imports\HeadingRowFormatter;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
-class SparepartImport implements ToModel, WithHeadingRow
+class SparepartImport implements ToModel, WithHeadingRow, WithBatchInserts, WithUpserts
 {
     public function model(array $row)
     {
@@ -20,5 +20,15 @@ class SparepartImport implements ToModel, WithHeadingRow
             'harga_pelanggan'    => $row['Harga Pelanggan Biasa'],
             'supplier'    => $row['Supplier'],
         ]);
+    }
+
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+
+    public function uniqueBy()
+    {
+        return 'name';
     }
 }

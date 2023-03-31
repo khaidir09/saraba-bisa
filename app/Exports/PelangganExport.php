@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 
-class PelangganExport implements FromCollection, WithMapping, WithHeadings, WithCustomStartCell, ShouldAutoSize, WithStyles
+class PelangganExport implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize, WithStyles
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -45,12 +45,7 @@ class PelangganExport implements FromCollection, WithMapping, WithHeadings, With
     {
         return [
             // Style the first row as bold text.
-            2    => ['font' => ['bold' => true]],
+            1    => ['font' => ['bold' => true]],
         ];
-    }
-
-    public function startCell(): string
-    {
-        return 'B2';
     }
 }
