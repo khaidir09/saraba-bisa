@@ -91,7 +91,7 @@
                             <!-- Modal footer -->
                             <div class="px-5 py-4">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <a href="{{ asset('storage/assets/Format Aksesori.xlsx') }}" class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
+                                    <a href="{{ asset('storage/assets/format_aksesori.xlsx') }}" class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
                                         <span class="mr-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-download" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
