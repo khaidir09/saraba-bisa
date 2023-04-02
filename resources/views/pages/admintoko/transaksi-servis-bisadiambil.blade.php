@@ -122,7 +122,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1">Tindakan Servis</label>
-                                    <livewire:service-action-search></livewire:service-action-search>
+                                    <livewire:pencarian-tindakan></livewire:pencarian-tindakan>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>

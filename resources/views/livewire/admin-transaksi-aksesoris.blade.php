@@ -75,12 +75,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="accessories_id">Aksesori <span class="text-rose-500">*</span></label>
-                                        <select id="accessories_id" name="accessories_id" class="form-select text-sm py-1 w-full" required>
-                                            <option value="" hidden="">Pilih Aksesori</option>
-                                            @foreach ($accessories as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }} | Modal {{ number_format($item->modal) }} | Toko {{ number_format($item->harga_toko) }} | Pelanggan {{ number_format($item->harga_pelanggan) }}</option>
-                                            @endforeach
-                                        </select>
+                                        <livewire:pencarian-aksesori></livewire:pencarian-aksesori>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="quantity">Jumlah <span class="text-rose-500">*</span></label>

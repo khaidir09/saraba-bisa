@@ -104,7 +104,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="accessories_id">Nama Aksesori</label>
-                                    @if ($item->sparepart != null)
+                                    @if ($item->accessory != null)
                                         <input disabled id="accessories_id" name="accessories_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->accessory->name }}"/>
                                     @else
                                         <input disabled id="accessories_id" name="accessories_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="Data aksesori sudah dihapus"/>
