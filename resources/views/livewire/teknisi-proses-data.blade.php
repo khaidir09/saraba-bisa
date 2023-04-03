@@ -90,11 +90,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($model_series as $model_serie)
-                                                <option value="{{ $model_serie->id }}">{{ $model_serie->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <livewire:pencarian-model-seri></livewire:pencarian-model-seri>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>
@@ -118,7 +114,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan <span class="text-rose-500">*</span> </label>
-                                        <livewire:kerusakan-search></livewire:kerusakan-search>
+                                        <livewire:pencarian-kerusakan></livewire:pencarian-kerusakan>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi <span class="text-rose-500">*</span></label>

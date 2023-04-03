@@ -93,14 +93,6 @@
                                         <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
                                         <livewire:pencarian-model-seri></livewire:pencarian-model-seri>
                                     </div>
-                                    {{-- <div>
-                                        <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($model_series as $model_serie)
-                                                <option value="{{ $model_serie->id }}">{{ $model_serie->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div> --}}
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>
                                         <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" required/>
