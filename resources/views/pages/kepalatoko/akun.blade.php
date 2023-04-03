@@ -114,7 +114,6 @@
                                 <!-- Modal footer -->
                                 <div class="px-5 py-4 border-t border-slate-200">
                                     <div class="flex flex-wrap justify-end space-x-2">
-                                        <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
                                         <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
                                     </div>
                                 </div>
