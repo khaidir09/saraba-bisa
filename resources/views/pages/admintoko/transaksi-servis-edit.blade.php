@@ -141,17 +141,13 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan</label>
-                                    <livewire:pencarian-kerusakan></livewire:pencarian-kerusakan>
-                                </div>
-                                {{-- <div>
-                                    <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan</label>
                                     <select id="kerusakan" name="kerusakan" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->kerusakan }}">{{ $item->kerusakan }}</option>
                                         @foreach ($service_actions as $serviceaction)
                                             <option value="{{ $serviceaction->nama_tindakan }}">{{ $serviceaction->nama_tindakan }}</option>
                                         @endforeach
                                     </select>
-                                </div> --}}
+                                </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi</label>
                                     <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" value="{{ $item->qc_masuk }}"/>
