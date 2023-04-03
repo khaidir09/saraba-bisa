@@ -73,12 +73,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="phones_id">Handphone <span class="text-rose-500">*</span></label>
-                                        <select id="phones_id" name="phones_id" class="form-select text-sm py-1 w-full" required>
-                                            <option value="" hidden="">Pilih Handphone</option>
-                                            @foreach ($phones as $phone)
-                                                <option value="{{ $phone->id }}">{{ $phone->brand->name }} {{ $phone->modelserie->name }} {{ $phone->keterangan }} | Modal {{ number_format($phone->modal) }} | Toko {{ number_format($phone->harga_toko) }} | Pelanggan {{ number_format($phone->harga_pelanggan) }}</option>
-                                            @endforeach
-                                        </select>
+                                        <livewire:pencarian-handphone></livewire:pencarian-handphone>
                                     </div>
                                     <div>
                                         <input id="quantity" name="quantity" class="form-input w-full px-2 py-1" type="hidden" value="1"/>
