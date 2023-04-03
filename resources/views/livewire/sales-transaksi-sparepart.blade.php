@@ -74,12 +74,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="spareparts_id">Sparepart <span class="text-rose-500">*</span></label>
-                                        <select id="spareparts_id" name="spareparts_id" class="form-select text-sm py-1 w-full" required>
-                                            <option>Pilih Sparepart</option>
-                                            @foreach ($spareparts as $sparepart)
-                                                <option value="{{ $sparepart->id }}">{{ $sparepart->name }} | Modal {{ number_format($sparepart->modal) }} | Toko {{ number_format($sparepart->harga_toko) }} | Pelanggan {{ number_format($sparepart->harga_pelanggan) }}</option>
-                                            @endforeach
-                                        </select>
+                                        <livewire:pencarian-sparepart></livewire:pencarian-sparepart>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="quantity">Jumlah <span class="text-rose-500">*</span></label>
