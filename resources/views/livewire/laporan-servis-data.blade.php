@@ -1,19 +1,14 @@
 <div>
     <div class="sm:flex sm:justify-between sm:items-center mt-5">
-        <select wire:model="paginate" id="" class="form-select">
+        <select wire:model="paginate" id="" class="form-select mb-2 md:mb-0">
             <option value="10">10</option>
             <option value="25">25</option>
             <option value="50">50</option>
             <option value="100">100</option>
         </select>
 
-        <!-- Right: Actions -->
-        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-
-            <!-- Search form -->
-            <x-search-form placeholder="YYYY-MM-DD" />
-
-        </div>
+        <!-- Search form -->
+        <x-search-form placeholder="YYYY-MM-DD" />
     </div>
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
