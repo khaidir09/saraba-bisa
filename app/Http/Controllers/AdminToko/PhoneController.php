@@ -16,10 +16,7 @@ class PhoneController extends Controller
 {
     public function index()
     {
-        $phones = Phone::paginate(10);
-        $phones_count = Phone::where('stok', '1')->count();
-        $phones_terjual_count = Phone::where('stok', '0')->count();
-        return view('pages/admintoko/handphone/index', compact('phones', 'phones_count', 'phones_terjual_count'));
+        return view('pages/admintoko/handphone/index');
     }
 
     public function store(PhoneRequest $request)

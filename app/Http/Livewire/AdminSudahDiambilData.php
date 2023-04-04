@@ -45,7 +45,15 @@ class AdminSudahDiambilData extends Component
         $jumlahsudahdiambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->where('is_admin_toko', 'Admin')
             ->count();
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])
+            ->where('is_admin_toko', 'Admin')
+            ->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', 'Admin')->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('is_admin_toko', 'Admin')->count();
         return view('livewire.admin-sudah-diambil-data', [
+            'processes_count' => $processes_count,
+            'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
+            'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'jumlahsudahdiambil' => $jumlahsudahdiambil,
             'toko' => $toko,
             'users' => $users,

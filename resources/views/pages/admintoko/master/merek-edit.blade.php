@@ -10,7 +10,7 @@
 
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
-                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Master Merek ✨</h1>
+                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Merek ✨</h1>
             </div>
 
             <!-- Right: Actions -->

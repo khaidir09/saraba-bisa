@@ -34,11 +34,13 @@ class AdminPhoneData extends Component
         $model_series = ModelSerie::all();
         $capacities = Capacity::all();
         $phones_count = Phone::where('stok', '1')->count();
+        $phones_terjual_count = Phone::where('stok', '0')->count();
         return view('livewire.admin-phone-data', [
             'model_series' => $model_series,
             'brands' => $brands,
             'capacities' => $capacities,
             'phones_count' => $phones_count,
+            'phones_terjual_count' => $phones_terjual_count,
             'phones' => $this->search === null ?
                 Phone::latest()->where('stok', '1')->paginate($this->paginate) :
                 Phone::latest()->where('stok', '1')->where('imei', 'like', '%' . $this->search . '%')->paginate($this->paginate)
