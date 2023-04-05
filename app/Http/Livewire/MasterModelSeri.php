@@ -7,7 +7,7 @@ use App\Models\ModelSerie;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class AdminMasterModelSeri extends Component
+class MasterModelSeri extends Component
 {
     use WithPagination;
 
@@ -30,7 +30,7 @@ class AdminMasterModelSeri extends Component
     {
         $brands = Brand::all();
         $model_series_count = ModelSerie::all()->count();
-        return view('livewire.admin-master-model-seri', [
+        return view('livewire.master-model-seri', [
             'brands' => $brands,
             'model_series_count' => $model_series_count,
             'model_series' => $this->search === null ?

@@ -19,9 +19,7 @@ class MasterMerekController extends Controller
      */
     public function index()
     {
-        $brands = Brand::paginate(10);
-        $brands_count = Brand::all()->count();
-        return view('pages/master/merek', compact('brands', 'brands_count'));
+        return view('pages/kepalatoko/master/merek');
     }
 
     /**
@@ -84,7 +82,7 @@ class MasterMerekController extends Controller
     {
         $item = Brand::findOrFail($id);
 
-        return view('pages.master.merek-edit', [
+        return view('pages.kepalatoko.master.merek-edit', [
             'item' => $item
         ]);
     }

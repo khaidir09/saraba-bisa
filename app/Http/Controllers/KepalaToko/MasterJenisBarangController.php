@@ -16,9 +16,7 @@ class MasterJenisBarangController extends Controller
      */
     public function index()
     {
-        $types = Type::paginate(10);
-        $types_count = Type::all()->count();
-        return view('pages/master/jenis-barang', compact('types', 'types_count'));
+        return view('pages/kepalatoko/master/jenis-barang');
     }
 
     /**
@@ -67,7 +65,7 @@ class MasterJenisBarangController extends Controller
     {
         $item = Type::findOrFail($id);
 
-        return view('pages.master.jenis-barang-edit', [
+        return view('pages.kepalatoko.master.jenis-barang-edit', [
             'item' => $item
         ]);
     }
