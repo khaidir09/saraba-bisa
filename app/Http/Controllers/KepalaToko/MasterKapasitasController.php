@@ -16,7 +16,9 @@ class MasterKapasitasController extends Controller
      */
     public function index()
     {
-        return view('pages/kepalatoko/master/kapasitas');
+        $capacities = Capacity::paginate(10);
+        $capacities_count = Capacity::all()->count();
+        return view('pages/kepalatoko/master/kapasitas', compact('capacities', 'capacities_count'));
     }
 
     /**
