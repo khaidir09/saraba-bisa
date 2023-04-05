@@ -25,14 +25,7 @@ class SudahDiambilController extends Controller
      */
     public function index()
     {
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
-        return view('pages/teknisi/sudah-diambil', compact(
-            'processes_count',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil'
-        ));
+        return view('pages/teknisi/sudah-diambil');
     }
 
     /**
