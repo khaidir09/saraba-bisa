@@ -20,7 +20,6 @@ use App\Http\Controllers\AdminToko\KasbonController as AdminTokoKasbonController
 use App\Http\Controllers\KepalaToko\PhoneController as KepalaTokoPhoneController;
 use App\Http\Controllers\Teknisi\AssemblyController as TeknisiAssemblyController;
 use App\Http\Controllers\AdminToko\InsidenController as AdminTokoInsidenController;
-use App\Http\Controllers\KepalaToko\KasbonController as KepalaTokoKasbonController;
 use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
 use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganController;
 use App\Http\Controllers\AdminToko\AssemblyController as AdminTokoAssemblyController;
@@ -45,6 +44,7 @@ use App\Http\Controllers\AdminToko\MasterMerekController as AdminTokoMasterMerek
 use App\Http\Controllers\AdminToko\LaporanAdminController as AdminTokoLaporanAdminController;
 use App\Http\Controllers\AdminToko\PhoneTerjualController as AdminTokoPhoneTerjualController;
 use App\Http\Controllers\AdminToko\SudahDiambilController as AdminTokoSudahDiambilController;
+use App\Http\Controllers\KepalaToko\KasbonController as KepalaTokoKasbonController;
 // Admin Toko
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
@@ -147,6 +147,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('kasbon', KepalaTokoKasbonController::class);
     Route::resource('gaji/karyawan', KepalaTokoKaryawanController::class);
     Route::resource('gaji/bonus', KepalaTokoGajiController::class);
+    Route::resource('kasbon', KepalaTokoKasbonController::class);
 
     Route::get('laporan/laporan-servis', [KepalaTokoLaporanServisController::class, 'index'])->name('laporan-servis');
     Route::get('laporan/laporan-handphone', [KepalaTokoLaporanHandphoneController::class, 'index'])->name('laporan-handphone');

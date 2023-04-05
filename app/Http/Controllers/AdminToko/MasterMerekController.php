@@ -19,9 +19,7 @@ class MasterMerekController extends Controller
      */
     public function index()
     {
-        $brands = Brand::paginate(10);
-        $brands_count = Brand::all()->count();
-        return view('pages/admintoko/master/merek', compact('brands', 'brands_count'));
+        return view('pages/admintoko/master/merek');
     }
 
     /**

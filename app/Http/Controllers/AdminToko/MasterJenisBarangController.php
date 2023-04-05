@@ -16,9 +16,7 @@ class MasterJenisBarangController extends Controller
      */
     public function index()
     {
-        $types = Type::paginate(10);
-        $types_count = Type::all()->count();
-        return view('pages/admintoko/master/jenis-barang', compact('types', 'types_count'));
+        return view('pages/admintoko/master/jenis-barang');
     }
 
     /**

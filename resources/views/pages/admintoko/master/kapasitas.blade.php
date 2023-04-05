@@ -10,14 +10,11 @@
 
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
-                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Master Kapasitas ✨</h1>
+                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Kapasitas ✨</h1>
             </div>
 
             <!-- Right: Actions -->
-            <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-
-                <!-- Search form -->
-                <x-search-form placeholder="Cari berdasarkan nama kapasitas" />
+            <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end">
 
                 <!-- Create invoice button -->
                 <div x-data="{ modalOpen: false }">

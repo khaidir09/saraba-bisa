@@ -4,14 +4,14 @@
 
         <!-- Left: Title -->
         <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Handphone ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Kasbon ✨</h1>
         </div>
 
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="Cari berdasarkan nomor IMEI" />
+            <x-search-form placeholder="Masukkan nama item" />
 
             <!-- Create invoice button -->
             <div x-data="{ modalOpen: false }">
@@ -19,7 +19,7 @@
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
-                    <span class="hidden xs:block ml-2">Tambah Handphone</span>
+                    <span class="hidden xs:block ml-2">Tambah Kasbon</span>
                 </button>
                 <!-- Modal backdrop -->
                 <div
@@ -53,7 +53,7 @@
                         <!-- Modal header -->
                         <div class="px-5 py-3 border-b border-slate-200">
                             <div class="flex justify-between items-center">
-                                <div class="font-semibold text-slate-800">Tambah Handphone</div>
+                                <div class="font-semibold text-slate-800">Tambah Kasbon</div>
                                 <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
                                     <div class="sr-only">Close</div>
                                     <svg class="w-4 h-4 fill-current">
@@ -63,91 +63,39 @@
                             </div>
                         </div>
                         <!-- Modal content -->
-                        <form action="{{ route('admin-data-handphone.store') }}" method="post">
+                        <form action="{{ route('kasbon.store') }}" method="post">
                             @csrf
-                            {{-- <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="hidden" value="1" /> --}}
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
-                                        <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($brands as $brand)
-                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                        <label class="block text-sm font-medium mb-1" for="workers_id">Nama Karyawan<span class="text-rose-500">*</span></label>
+                                        <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full" required>
+                                            @foreach ($workers as $worker)
+                                                <option value="{{ $worker->id }}">{{ $worker->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <livewire:pencarian-model-seri></livewire:pencarian-model-seri>
+                                        <label class="block text-sm font-medium mb-1" for="item">Item Kasbon <span class="text-rose-500">*</span></label>
+                                        <input id="item" name="item" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="kapasitas">Kondisi <span class="text-rose-500">*</span></label>
-                                        <select id="kondisi" name="kondisi" class="form-select text-sm py-1 w-full" required>
-                                            <option value="">Pilih Kondisi</option>
-                                            <option value="New">New</option>
-                                            <option value="Second">Second</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan</label>
-                                        <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="kelengkapan">Kelengkapan <span class="text-rose-500">*</span></label>
-                                        <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" required/>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="imei">IMEI <span class="text-rose-500">*</span></label>
-                                        <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="number" required />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="warna">Warna <span class="text-rose-500">*</span></label>
-                                        <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" required />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="kapasitas">Kapasitas <span class="text-rose-500">*</span></label>
-                                        <select id="kapasitas" name="kapasitas" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($capacities as $capacity)
-                                                <option value="{{ $capacity->name }}">{{ $capacity->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="modal">Harga Modal <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="total">Total <span class="text-rose-500">*</span></label>
                                         <div class="relative">
-                                            <input id="modal" name="modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                            <input id="total" name="total" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
                                                 <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_toko">Harga ke Pelanggan Toko <span class="text-rose-500">*</span></label>
-                                        <div class="relative">
-                                            <input id="harga_toko" name="harga_toko" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
-                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga ke Pelanggan User <span class="text-rose-500">*</span></label>
-                                        <div class="relative">
-                                            <input id="harga_pelanggan" name="harga_pelanggan" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
-                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="supplier">Nama Supplier <span class="text-rose-500">*</span></label>
-                                        <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                 </div>
                             </div>
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200">
-                                <div class="flex flex-wrap justify-end">
+                                <div class="flex flex-wrap justify-end space-x-2">
+                                    <a href="{{ route('kasbon.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                        Batal
+                                    </a>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
                                 </div>
                             </div>
@@ -156,29 +104,13 @@
                 </div>
             </div>
             
-            
         </div>
 
     </div>
 
     <!-- More actions -->
     <div class="sm:flex sm:justify-between sm:items-center mb-5">
-    
         <!-- Left side -->
-        <div class="mb-4 sm:mb-0">
-            <ul class="flex flex-wrap -m-1">
-                <li class="m-1">
-                    <a href="{{ route('admin-data-handphone.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Tersedia <span class="ml-1 text-indigo-200">{{ $phones_count }}</span></button>
-                    </a>
-                </li>
-                <li class="m-1">
-                    <a href="{{ route('admin-phone-terjual.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Terjual <span class="ml-1 text-slate-400">{{ $phones_terjual_count }}</span></button>
-                    </a>
-                </li>
-            </ul>
-        </div>
         <div class="mb-0">
             <select wire:model="paginate" id="" class="form-select">
                 <option value="10">10</option>
@@ -187,12 +119,11 @@
                 <option value="100">100</option>
             </select>
         </div>
-    
     </div>
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Semua Handphone <span class="text-slate-400 font-medium">{{ $phones_count }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Semua Kasbon <span class="text-slate-400 font-medium">{{ $debts_count }}</span></h2>
         </header>
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -204,34 +135,19 @@
                             <div class="font-semibold text-left">No.</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nama HP</div>
+                            <div class="font-semibold text-left">Tanggal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">IMEI</div>
+                            <div class="font-semibold text-left">Nama</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Kondisi</div>
+                            <div class="font-semibold text-left">Item Kasbon</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Kelengkapan</div>
+                            <div class="font-semibold text-left">Total</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Warna</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Kapasitas</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Modal</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Harga Pelanggan Toko</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Biaya Pelanggan User</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nama Supplier</div>
+                            <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>
@@ -244,44 +160,37 @@
                     @php
                         $i = 1
                     @endphp
-                    @foreach($phones as $phone)                  
+                    @foreach($debts as $item)                  
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $i++ }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->brand->name }} {{ $phone->modelserie->name }} {{ $phone->keterangan }}</div>
+                                <div>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->imei }}</div>
+                                <div class="font-medium">{{ $item->worker->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->kondisi }}</div>
+                                <div class="font-medium">{{ $item->item }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->kelengkapan }}</div>
+                                <div class="font-medium">Rp. {{ number_format($item->total) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->warna }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->kapasitas }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($phone->modal) }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($phone->harga_toko) }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($phone->harga_pelanggan) }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $phone->supplier }}</div>
+                                <a href="{{ route('kasbon.show', $item->id) }}">
+                                    @if ($item->is_approve === null)
+                                        <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-amber-500 text-white">Belum Disetujui</div>
+                                    @elseif ($item->is_approve === 'Setuju')
+                                        <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-blue-500 text-white">Sudah Disetujui</div>
+                                    @else
+                                        <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-red-500 text-white">Ditolak</div>
+                                    @endif
+                                </a>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
-                                    <a href="{{ route('admin-data-handphone.edit', $phone->id) }}">
+                                    <a href="{{ route('kasbon.edit', $item->id) }}">
                                         <button class="text-slate-400 hover:text-slate-500 rounded-full">
                                             <span class="sr-only">Edit</span>
                                             <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
@@ -349,7 +258,7 @@
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
                                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <form action="{{ route('admin-data-handphone.destroy', $phone->id) }}" method="post">
+                                                            <form action="{{ route('kasbon.destroy', $item->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -367,11 +276,11 @@
                     @endforeach
                 </tbody>
             </table>
-
         </div>
     </div>
+    
     <!-- Pagination -->
     <div class="mt-8">
-        {{ $phones->links() }}
+        {{ $debts->links() }}
     </div>
 </div>

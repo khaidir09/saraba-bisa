@@ -1,20 +1,89 @@
 <div>
-    <div class="sm:flex sm:justify-between sm:items-center">
-        <select wire:model="paginate" id="" class="form-select">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
+    <!-- Page Headers -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-3">
+        <!-- Left: Title -->
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Daftar Pelanggan ✨</h1>
+        </div>
 
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-
             <!-- Search form -->
             <x-search-form placeholder="Masukkan nama pelanggan" />
-
+            
+            <!-- Create invoice button -->
+            <div x-data="{ modalOpen: false }">
+                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="modalOpen = true" aria-controls="tambah-modal">
+                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                    </svg>
+                    <span class="hidden xs:block ml-2">Tambah Pelanggan Baru</span>
+                </button>
+                <!-- Modal backdrop -->
+                <div
+                    class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                    x-show="modalOpen"
+                    x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-out duration-100"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    aria-hidden="true"
+                    x-cloak
+                ></div>
+                <!-- Modal dialog -->
+                <div
+                    id="tambah-modal"
+                    class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                    role="dialog"
+                    aria-modal="true"
+                    x-show="modalOpen"
+                    x-transition:enter="transition ease-in-out duration-200"
+                    x-transition:enter-start="opacity-0 translate-y-4"
+                    x-transition:enter-end="opacity-100 translate-y-0"
+                    x-transition:leave="transition ease-in-out duration-200"
+                    x-transition:leave-start="opacity-100 translate-y-0"
+                    x-transition:leave-end="opacity-0 translate-y-4"
+                    x-cloak
+                >
+                    <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                        <!-- Modal header -->
+                        <div class="px-5 py-3 border-b border-slate-200">
+                            <div class="flex justify-between items-center">
+                                <div class="font-semibold text-slate-800">Tambah Pelanggan Baru</div>
+                                <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
+                                    <div class="sr-only">Close</div>
+                                    <svg class="w-4 h-4 fill-current">
+                                        <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Modal content -->
+                        <livewire:admin-customer-create></livewire:admin-customer-create>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    
+    <!-- More actions -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-5">
+        <!-- Left side -->
+        <div class="mb-0">
+            <select wire:model="paginate" id="" class="form-select">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+    
+        <!-- Right side -->
+        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
             <!-- Start Export Excel -->
-            <a href="{{ route('admin-pelanggan-export') }}">
+            <a href="{{ route('admin-pelanggan-export') }}" class="hidden lg:block">
                 <button class="btn bg-white border-blue-200 hover:border-blue-300 text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-export" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2563eb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -27,7 +96,7 @@
             <!-- End Export Excel-->
 
             <!-- Start Import Excel -->
-            <div x-data="{ modalOpen: false }">
+            <div x-data="{ modalOpen: false }" class="hidden lg:block">
                 <button class="btn bg-white border-emerald-200 hover:border-emerald-300 text-emerald-700" @click.prevent="modalOpen = true" aria-controls="tambah-modal">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-import" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#047857" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -122,62 +191,6 @@
                 </div>                                            
             </div>
             <!-- End Import Excel-->
-
-            <!-- Create invoice button -->
-            <div x-data="{ modalOpen: false }">
-                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="modalOpen = true" aria-controls="tambah-modal">
-                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                    </svg>
-                    <span class="hidden xs:block ml-2">Tambah Pelanggan Baru</span>
-                </button>
-                <!-- Modal backdrop -->
-                <div
-                    class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                    x-show="modalOpen"
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="transition ease-out duration-100"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    aria-hidden="true"
-                    x-cloak
-                ></div>
-                <!-- Modal dialog -->
-                <div
-                    id="tambah-modal"
-                    class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                    role="dialog"
-                    aria-modal="true"
-                    x-show="modalOpen"
-                    x-transition:enter="transition ease-in-out duration-200"
-                    x-transition:enter-start="opacity-0 translate-y-4"
-                    x-transition:enter-end="opacity-100 translate-y-0"
-                    x-transition:leave="transition ease-in-out duration-200"
-                    x-transition:leave-start="opacity-100 translate-y-0"
-                    x-transition:leave-end="opacity-0 translate-y-4"
-                    x-cloak
-                >
-                    <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
-                        <!-- Modal header -->
-                        <div class="px-5 py-3 border-b border-slate-200">
-                            <div class="flex justify-between items-center">
-                                <div class="font-semibold text-slate-800">Tambah Pelanggan Baru</div>
-                                <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
-                                    <div class="sr-only">Close</div>
-                                    <svg class="w-4 h-4 fill-current">
-                                        <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Modal content -->
-                        <livewire:admin-customer-create></livewire:admin-customer-create>
-                    </div>
-                </div>
-            </div>                          
-            
         </div>
     </div>
 

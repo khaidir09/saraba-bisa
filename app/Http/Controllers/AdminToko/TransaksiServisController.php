@@ -25,20 +25,7 @@ class TransaksiServisController extends Controller
      */
     public function index()
     {
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])
-            ->where('is_admin_toko', 'Admin')
-            ->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')
-            ->where('is_admin_toko', 'Admin')
-            ->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->where('is_admin_toko', 'Admin')
-            ->count();
-        return view('pages/admintoko/transaksi-servis', compact(
-            'processes_count',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil',
-        ));
+        return view('pages/admintoko/transaksi-servis');
     }
 
     /**

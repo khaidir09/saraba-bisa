@@ -45,9 +45,17 @@ class AdminProsesData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')
+            ->where('is_admin_toko', 'Admin')
+            ->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->where('is_admin_toko', 'Admin')
+            ->count();
         return view('livewire.admin-proses-data', [
             'toko' => $toko,
             'processes_count' => $processes_count,
+            'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
+            'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'users' => $users,
             'workers' => $workers,
             'customers' => $customers,

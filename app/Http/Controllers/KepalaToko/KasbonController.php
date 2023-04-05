@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\Debt;
 use App\Models\User;
+use App\Models\Worker;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Debt;
 
 class KasbonController extends Controller
 {
@@ -39,7 +40,11 @@ class KasbonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        Debt::create($data);
+
+        return redirect()->route('kasbon.index');
     }
 
     /**
@@ -50,7 +55,11 @@ class KasbonController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Debt::findOrFail($id);
+
+        return view('pages.kepalatoko.kasbon.approve', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -61,10 +70,12 @@ class KasbonController extends Controller
      */
     public function edit($id)
     {
-        $item = Debt::findOrFail($id);
+        $item = Debt::with('worker')->findOrFail($id);
+        $workers = Worker::all();
 
-        return view('pages.kepalatoko.kasbon.approve', [
-            'item' => $item
+        return view('pages.kepalatoko.kasbon.edit', [
+            'item' => $item,
+            'workers' => $workers
         ]);
     }
 

@@ -42,9 +42,11 @@ class AdminBisaDiambilData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])
             ->where('is_admin_toko', 'Admin')
             ->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', 'Admin')->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('is_admin_toko', 'Admin')->count();
         return view('livewire.admin-bisa-diambil-data', [
             'users' => $users,
             'toko' => $toko,
@@ -54,6 +56,8 @@ class AdminBisaDiambilData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
+            'processes_count' => $processes_count,
+            'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'bisadiambil' => $this->search === null ?
                 ServiceTransaction::latest()->with('customer', 'serviceaction')
