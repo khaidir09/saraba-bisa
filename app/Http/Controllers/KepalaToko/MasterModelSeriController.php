@@ -21,10 +21,7 @@ class MasterModelSeriController extends Controller
      */
     public function index()
     {
-        $models = ModelSerie::with('brand')->paginate(10);
-        $models_count = ModelSerie::all()->count();
-        $brands = Brand::all();
-        return view('pages/master/model-seri', compact('models', 'models_count', 'brands'));
+        return view('pages/kepalatoko/master/model-seri');
     }
 
     /**
@@ -88,7 +85,7 @@ class MasterModelSeriController extends Controller
         $item = ModelSerie::with('brand')->findOrFail($id);
         $brands = Brand::all();
 
-        return view('pages.master.model-seri-edit', [
+        return view('pages.kepalatoko.master.model-seri-edit', [
             'item' => $item,
             'brands' => $brands
         ]);
