@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
+                                    <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Pembayaran</label>
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full" required>
                                             <option selected value="{{ $item->cara_pembayaran }}">{{ $item->cara_pembayaran }}</option>
                                             <option value="Tunai">Tunai</option>
@@ -178,7 +178,7 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="users_id">Penerima/Sales</label>
+                                    <label class="block text-sm font-medium mb-1" for="users_id">Penerima</label>
                                     <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
                                         <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
                                         @foreach ($users as $user)

@@ -83,7 +83,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_toko">Biaya ke Pelanggan Toko <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="harga_toko">Harga Toko <span class="text-rose-500">*</span></label>
                                         <div class="relative">
                                             <input id="harga_toko" name="harga_toko" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -92,7 +92,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Biaya ke Pelanggan User <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga Pelanggan <span class="text-rose-500">*</span></label>
                                         <div class="relative">
                                             <input id="harga_pelanggan" name="harga_pelanggan" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -293,16 +293,16 @@
                             <div class="font-semibold text-left">Modal Sparepart</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Biaya ke Pelanggan Toko</div>
+                            <div class="font-semibold text-left">Harga Toko</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Biaya ke Pelanggan User</div>
+                            <div class="font-semibold text-left">Harga Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Garansi Servis</div>
+                            <div class="font-semibold text-left">Garansi</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Actions</div>
+                            <div class="font-semibold text-left">Aksi</div>
                         </th>
                     </tr>
                 </thead>

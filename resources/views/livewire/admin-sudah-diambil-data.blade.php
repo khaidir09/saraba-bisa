@@ -244,7 +244,7 @@
                             <div class="font-semibold text-left">Nomor Servis</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Tgl. Terima</div>
+                            <div class="font-semibold text-left">Tgl Terima</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Penerima</div>
@@ -277,6 +277,9 @@
                             <div class="font-semibold text-left">Teknisi</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Modal Sparepart</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Biaya</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -286,7 +289,7 @@
                             <div class="font-semibold text-left">Cara Pembayaran</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Tgl. Ambil</div>
+                            <div class="font-semibold text-left">Tgl Ambil</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Pengambil</div>
@@ -529,6 +532,9 @@
                                 @else
                                     <div class="font-medium text-red-600">Data teknisi sudah dihapus</div>
                                 @endif
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">Rp. {{ number_format($transaction->modal_sparepart) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($transaction->biaya) }}</div>
