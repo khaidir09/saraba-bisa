@@ -231,7 +231,7 @@
                             <div class="font-semibold text-left">Harga Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Aggen</div>
+                            <div class="font-semibold text-left">Agen</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>

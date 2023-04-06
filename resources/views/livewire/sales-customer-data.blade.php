@@ -102,7 +102,7 @@
                             <div class="font-semibold text-left">Kategori</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nomor HP</div>
+                            <div class="font-semibold text-left">HP</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Alamat</div>

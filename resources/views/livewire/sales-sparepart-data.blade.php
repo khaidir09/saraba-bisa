@@ -52,13 +52,13 @@
                             <div class="font-semibold text-left">Modal Sparepart</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Harga Pelanggan Toko</div>
+                            <div class="font-semibold text-left">Harga Toko</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Biaya Pelanggan User</div>
+                            <div class="font-semibold text-left">Harga Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nama Supplier</div>
+                            <div class="font-semibold text-left">Agen</div>
                         </th>
                     </tr>
                 </thead>
