@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Pembayaran <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Pembayaran</label>
                                         <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full" required>
                                             <option value="Tunai">Tunai</option>
                                             <option value="Tempo 1 Hari">Tempo 1 Hari</option>
@@ -125,6 +125,68 @@
                                             <option value="Tempo 1 Bulan">Tempo 1 Bulan</option>
                                             <option value="Tempo 2 Bulan">Tempo 2 Bulan</option>
                                             <option value="Tempo 3 Bulan">Tempo 3 Bulan</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="garansi">Garansi HP</label>
+                                        <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
+                                            <option value="">Tidak Ada</option>
+                                            <option value="1">1 Hari</option>
+                                            <option value="2">2 Hari</option>
+                                            <option value="3">3 Hari</option>
+                                            <option value="4">4 Hari</option>
+                                            <option value="5">5 Hari</option>
+                                            <option value="6">6 Hari</option>
+                                            <option value="7">1 Minggu</option>
+                                            <option value="14">2 Minggu</option>
+                                            <option value="21">3 Minggu</option>
+                                            <option value="30">1 Bulan</option>
+                                            <option value="60">2 Bulan</option>
+                                            <option value="90">3 Bulan</option>
+                                            <option value="120">4 Bulan</option>
+                                            <option value="150">5 Bulan</option>
+                                            <option value="180">6 Bulan</option>
+                                            <option value="210">7 Bulan</option>
+                                            <option value="240">8 Bulan</option>
+                                            <option value="270">9 Bulan</option>
+                                            <option value="300">10 Bulan</option>
+                                            <option value="330">11 Bulan</option>
+                                            <option value="365">1 Tahun</option>
+                                            <option value="730">2 Tahun</option>
+                                            <option value="1095">3 Tahun</option>
+                                            <option value="1460">4 Tahun</option>
+                                            <option value="1825">5 Tahun</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="garansi_imei">Garansi IMEI</label>
+                                        <select id="garansi_imei" name="garansi_imei" class="form-select text-sm py-1 w-full">
+                                            <option value="">Tidak Ada</option>
+                                            <option value="1">1 Hari</option>
+                                            <option value="2">2 Hari</option>
+                                            <option value="3">3 Hari</option>
+                                            <option value="4">4 Hari</option>
+                                            <option value="5">5 Hari</option>
+                                            <option value="6">6 Hari</option>
+                                            <option value="7">1 Minggu</option>
+                                            <option value="14">2 Minggu</option>
+                                            <option value="21">3 Minggu</option>
+                                            <option value="30">1 Bulan</option>
+                                            <option value="60">2 Bulan</option>
+                                            <option value="90">3 Bulan</option>
+                                            <option value="120">4 Bulan</option>
+                                            <option value="150">5 Bulan</option>
+                                            <option value="180">6 Bulan</option>
+                                            <option value="210">7 Bulan</option>
+                                            <option value="240">8 Bulan</option>
+                                            <option value="270">9 Bulan</option>
+                                            <option value="300">10 Bulan</option>
+                                            <option value="330">11 Bulan</option>
+                                            <option value="365">1 Tahun</option>
+                                            <option value="730">2 Tahun</option>
+                                            <option value="1095">3 Tahun</option>
+                                            <option value="1460">4 Tahun</option>
+                                            <option value="1825">5 Tahun</option>
                                         </select>
                                     </div>
                                     <div>

@@ -97,6 +97,10 @@
                                     <small>Jika terdapat kesalahan pemilihan item handphone, silahkan hapus transaksi dan input kembali</small>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="qc">Pengecekan Fungsi</label>
+                                    <input id="qc" name="qc" class="form-input w-full px-2 py-1" type="text" value="{{ $item->qc }}"/>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="modal">Modal</label>
                                     <div class="relative">
                                         <input id="modal" name="modal" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->modal }}"/>
@@ -141,6 +145,22 @@
                                             <option value="Tempo 2 Bulan">Tempo 2 Bulan</option>
                                             <option value="Tempo 3 Bulan">Tempo 3 Bulan</option>
                                     </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="exp_garansi">Masa Garansi HP</label>
+                                    @if ($item->exp_garansi != null)
+                                        <input id="exp_garansi" name="exp_garansi" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->exp_garansi)->format('Y-m-d') }}"/>
+                                    @else
+                                        <input id="exp_garansi" name="exp_garansi" class="form-input w-full px-2 py-1" type="date" value=""/>
+                                    @endif
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="exp_imei">Masa Garansi IMEI</label>
+                                    @if ($item->exp_imei != null)
+                                        <input id="exp_imei" name="exp_imei" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->exp_imei)->format('Y-m-d') }}"/>
+                                    @else
+                                        <input id="exp_imei" name="exp_imei" class="form-input w-full px-2 py-1" type="date" value=""/>
+                                    @endif
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="users_id">Penerima</label>
