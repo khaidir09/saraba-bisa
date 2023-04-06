@@ -88,7 +88,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="model_series_id">Model Serie <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
                                     <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full">
                                         <option value="{{ $item->modelserie->id }}" selected>{{ $item->modelserie->name }}</option>
                                         @foreach ($model_series as $modelserie)
@@ -138,7 +138,7 @@
                                     <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" value="{{ $item->stok }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="modal">Harga Modal <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="modal">Modal <span class="text-rose-500">*</span></label>
                                     <div class="relative">
                                         <input id="modal" name="modal" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->modal }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -147,7 +147,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="harga_toko">Harga ke Pelanggan Toko <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="harga_toko">Harga Toko <span class="text-rose-500">*</span></label>
                                     <div class="relative">
                                         <input id="harga_toko" name="harga_toko" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->harga_toko }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -156,7 +156,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga ke Pelanggan User <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga Pelanggan <span class="text-rose-500">*</span></label>
                                     <div class="relative">
                                         <input id="harga_pelanggan" name="harga_pelanggan" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->harga_pelanggan }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -165,7 +165,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="supplier">Nama Supplier <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="supplier">Agen <span class="text-rose-500">*</span></label>
                                     <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" value="{{ $item->supplier }}" />
                                 </div>
                             </div>

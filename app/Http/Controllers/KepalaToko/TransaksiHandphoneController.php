@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Phone;
@@ -48,6 +49,25 @@ class TransaksiHandphoneController extends Controller
         $persen_sales = User::find($request->users_id);
         $profittransaksi = $request->harga - $request->modal - $request->diskon;
         $bagihasil = ($request->harga - $request->modal) / 100 - ($request->diskon) / 100;
+
+        $garansi = Carbon::now();
+        if ($request->garansi != null) {
+            $expired = $garansi->addDays(
+                $request->garansi
+            );
+        } else {
+            $expired = null;
+        }
+
+        $garansi_imei = Carbon::now();
+        if ($request->garansi_imei != null) {
+            $expired_imei = $garansi_imei->addDays(
+                $request->garansi_imei
+            );
+        } else {
+            $expired_imei = null;
+        }
+
         // Transaction create
         PhoneTransaction::create([
             'nomor_transaksi' => $nomor_transaksi,
@@ -59,6 +79,10 @@ class TransaksiHandphoneController extends Controller
             'modal' => $request->modal,
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
+            'garansi' => $request->garansi,
+            'garansi_imei' => $request->garansi_imei,
+            'exp_garansi' => $expired,
+            'exp_imei' => $expired_imei,
             'persen_sales' => $persen_sales->persen,
             'users_id' => $request->users_id,
             'omzet' => $request->harga - $request->diskon,
@@ -131,6 +155,8 @@ class TransaksiHandphoneController extends Controller
             'modal' => $request->modal,
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
+            'exp_garansi' => $request->exp_garansi,
+            'exp_imei' => $request->exp_imei,
             'persen_sales' => $persen_sales->persen,
             'users_id' => $request->users_id,
             'omzet' => $request->harga - $request->diskon,

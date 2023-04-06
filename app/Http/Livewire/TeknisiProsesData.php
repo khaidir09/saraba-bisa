@@ -12,6 +12,7 @@ use Barryvdh\DomPDF\PDF;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
+use Illuminate\Support\Facades\Auth;
 
 class TeknisiProsesData extends Component
 {
@@ -34,7 +35,9 @@ class TeknisiProsesData extends Component
 
     public function render()
     {
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', null)->count();
+        $processes_count = ServiceTransaction::where('users_id', Auth::user()->id)->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', null)->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
         $users = User::whereIn('role', ['Kepala Toko', 'Teknisi'])->get();
         $customers = Customer::all();
         $types = Type::all();
@@ -43,6 +46,8 @@ class TeknisiProsesData extends Component
         $model_series = ModelSerie::all();
         return view('livewire.teknisi-proses-data', [
             'processes_count' => $processes_count,
+            'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
+            'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'users' => $users,
             'customers' => $customers,
             'types' => $types,

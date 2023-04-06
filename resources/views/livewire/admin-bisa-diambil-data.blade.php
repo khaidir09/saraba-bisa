@@ -241,7 +241,7 @@
                             <div class="font-semibold text-left">Nomor Servis</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Tgl. Terima</div>
+                            <div class="font-semibold text-left">Tgl Terima</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Penerima</div>
@@ -277,7 +277,7 @@
                             <div class="font-semibold text-left">Modal Sparepart</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Tgl. Selesai</div>
+                            <div class="font-semibold text-left">Tgl Selesai</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>

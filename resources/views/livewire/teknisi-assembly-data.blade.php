@@ -1,15 +1,14 @@
 <div>
-    <div class="sm:flex sm:justify-between sm:items-center">
-        <select wire:model="paginate" id="" class="form-select">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
+    <!-- Page header -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-3">
+
+        <!-- Left: Title -->
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Perakitan & Pengecekan ✨</h1>
+        </div>
 
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-
             <!-- Search form -->
             <x-search-form placeholder="Cari berdasarkan IMEI" />
 
@@ -69,11 +68,11 @@
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="users_id">Teknisi</label>
+                                        <label class="block text-sm font-medium mb-1" for="users_id">Nama Teknisi</label>
                                         <input type="text" id="users_id" name="users_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" value="{{ Auth::user()->name }}" disabled>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="item">Item <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="item">Barang <span class="text-rose-500">*</span></label>
                                         <input id="item" name="item" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                     <div>
@@ -116,7 +115,20 @@
                     </div>
                 </div>
             </div>                         
-            
+        </div>
+
+    </div>
+
+    <!-- More actions -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-5">
+        <!-- Left side -->
+        <div class="mb-0">
+            <select wire:model="paginate" id="" class="form-select">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
         </div>
     </div>
 
@@ -137,10 +149,10 @@
                             <div class="font-semibold text-left">Tanggal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nama</div>
+                            <div class="font-semibold text-left">Nama Teknisi</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Item</div>
+                            <div class="font-semibold text-left">Barang</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">IMEI</div>

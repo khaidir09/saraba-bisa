@@ -1,11 +1,11 @@
 <div>
-    <div class="sm:flex sm:justify-between sm:items-center">
-        <select wire:model="paginate" id="" class="form-select">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
+    <!-- Page header -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-3">
+
+        <!-- Left: Title -->
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Transaksi Servis ✨</h1>
+        </div>
 
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
@@ -161,7 +161,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="users_id">Penerima/Teknisi</label>
+                                        <label class="block text-sm font-medium mb-1" for="users_id">Penerima</label>
                                         <input type="text" id="users_id" name="users_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" value="{{ Auth::user()->name }}" disabled>
                                     </div>
                                 </div>
@@ -186,6 +186,41 @@
             </div>
             
         </div>
+
+    </div>
+
+    <!-- More actions -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-5">
+    
+        <!-- Left side -->
+        <div class="mb-4 sm:mb-0">
+            <ul class="flex flex-wrap -m-1">
+                <li class="m-1">
+                    <a href="{{ route('teknisi-transaksi-servis.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Proses <span class="ml-1 text-indigo-200">{{ $processes_count }}</span></button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('teknisi-servis-bisa-diambil.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Bisa Diambil <span class="ml-1 text-slate-400">{{ $jumlah_bisa_diambil }}</span></button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('teknisi-servis-sudah-diambil.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Sudah Diambil <span class="ml-1 text-slate-400">{{ $jumlah_sudah_diambil }}</span></button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="mb-0">
+            <select wire:model="paginate" id="" class="form-select">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+    
     </div>
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
@@ -205,7 +240,7 @@
                             <div class="font-semibold text-left">Nomor Servis</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Tgl. Terima</div>
+                            <div class="font-semibold text-left">Tgl Terima</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Pelanggan</div>
@@ -232,7 +267,7 @@
                             <div class="font-semibold text-left">Modal Sparepart</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Tgl. Selesai</div>
+                            <div class="font-semibold text-left">Tgl Selesai</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>

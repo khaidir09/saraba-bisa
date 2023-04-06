@@ -183,7 +183,7 @@
                                     />
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
+                                    <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Pembayaran</label>
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
                                             <option selected value="{{ $item->cara_pembayaran }}">{{ $item->cara_pembayaran }}</option>
                                             <option value="Tunai">Tunai</option>

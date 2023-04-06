@@ -142,7 +142,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
+                                    <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Pembayaran</label>
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
                                             <option selected value="{{ $item->cara_pembayaran }}">{{ $item->cara_pembayaran }}</option>
                                             <option value="Tunai">Tunai</option>
@@ -169,7 +169,7 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="users_id">Penerima/Sales</label>
+                                    <label class="block text-sm font-medium mb-1" for="users_id">Penerima</label>
                                     <input type="text" id="users_id" name="users_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" value="{{ Auth::user()->name }}" disabled>
                                 </div>
                                 <div>

@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
+                                        <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Pembayaran</label>
                                         <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
                                             <option value="Tunai">Tunai</option>
                                             <option value="Tempo 1 Hari">Tempo 1 Hari</option>
@@ -220,7 +220,7 @@
                             <div class="font-semibold text-left">Tgl Transaksi</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Penerima/Sales</div>
+                            <div class="font-semibold text-left">Penerima</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Pelanggan</div>
@@ -229,7 +229,7 @@
                             <div class="font-semibold text-left">Nama Barang</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Kuantitas</div>
+                            <div class="font-semibold text-left">Jumlah</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal</div>

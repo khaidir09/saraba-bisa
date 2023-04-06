@@ -113,7 +113,7 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="modal">Harga Modal <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="modal">Modal <span class="text-rose-500">*</span></label>
                                         <div class="relative">
                                             <input id="modal" name="modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -122,7 +122,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_toko">Harga ke Pelanggan Toko <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="harga_toko">Harga Toko <span class="text-rose-500">*</span></label>
                                         <div class="relative">
                                             <input id="harga_toko" name="harga_toko" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -131,7 +131,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga ke Pelanggan User <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga Pelanggan <span class="text-rose-500">*</span></label>
                                         <div class="relative">
                                             <input id="harga_pelanggan" name="harga_pelanggan" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -140,7 +140,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="supplier">Nama Supplier <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="supplier">Agen <span class="text-rose-500">*</span></label>
                                         <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                 </div>
@@ -222,16 +222,13 @@
                             <div class="font-semibold text-left">Modal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Harga Pelanggan Toko</div>
+                            <div class="font-semibold text-left">Harga Toko</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Biaya Pelanggan User</div>
+                            <div class="font-semibold text-left">Harga Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nama Supplier</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Stok</div>
+                            <div class="font-semibold text-left">Agen</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>
@@ -278,9 +275,6 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $phone->supplier }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-red-500 text-white">Habis</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">

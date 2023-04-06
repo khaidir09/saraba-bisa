@@ -25,30 +25,7 @@ class TransaksiServisController extends Controller
      */
     public function index()
     {
-        $processes_count = ServiceTransaction::where('users_id', Auth::user()->id)->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', null)->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
-        return view('pages/teknisi/transaksi-servis', compact(
-            'processes_count',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil'
-        ));
-    }
-
-    public function bisadiambil()
-    {
-        $jumlah_proses = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
-        $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/teknisi/bisa-diambil', compact(
-            'transactions',
-            'transactions_count',
-            'jumlah_proses',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil',
-            'jumlah_semua'
-        ));
+        return view('pages/teknisi/transaksi-servis');
     }
 
     /**

@@ -10,7 +10,7 @@ use App\Models\Customer;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TeknisiBisaDiambilData extends Component
 {
@@ -33,7 +33,9 @@ class TeknisiBisaDiambilData extends Component
 
     public function render()
     {
-        $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->paginate(10);
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
@@ -41,13 +43,14 @@ class TeknisiBisaDiambilData extends Component
         $model_series = ModelSerie::all();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->count();
         return view('livewire.teknisi-bisa-diambil-data', [
-            'bisadiambil' => $bisadiambil,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
+            'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
+            'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'bisadiambil' => $this->search === null ?
                 ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->paginate($this->paginate) :
                 ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->where('nomor_servis', 'like', '%' . $this->search . '%')->paginate($this->paginate)

@@ -1,11 +1,11 @@
 <div>
-    <div class="sm:flex sm:justify-between sm:items-center">
-        <select wire:model="paginate" id="" class="form-select">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
+    <!-- Page header -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-3">
+
+        <!-- Left: Title -->
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Produk Handphone ✨</h1>
+        </div>
 
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
@@ -14,6 +14,36 @@
             <x-search-form placeholder="Cari berdasarkan nomor IMEI" />                        
             
         </div>
+
+    </div>
+
+    <!-- More actions -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-5">
+    
+        <!-- Left side -->
+        <div class="mb-4 sm:mb-0">
+            <ul class="flex flex-wrap -m-1">
+                <li class="m-1">
+                    <a href="{{ route('sales-data-handphone.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Tersedia <span class="ml-1 text-indigo-200">{{ $phones_count }}</span></button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('sales-phone-terjual.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Terjual <span class="ml-1 text-slate-400">{{ $phones_terjual_count }}</span></button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="mb-0">
+            <select wire:model="paginate" id="" class="form-select">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+    
     </div>
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
@@ -51,13 +81,13 @@
                             <div class="font-semibold text-left">Modal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Harga Pelanggan Toko</div>
+                            <div class="font-semibold text-left">Harga Toko</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Biaya Pelanggan User</div>
+                            <div class="font-semibold text-left">Harga Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nama Supplier</div>
+                            <div class="font-semibold text-left">Agen</div>
                         </th>
                     </tr>
                 </thead>

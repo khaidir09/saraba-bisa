@@ -1,11 +1,11 @@
 <div>
-    <div class="sm:flex sm:justify-between sm:items-center">
-        <select wire:model="paginate" id="" class="form-select">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
+    <!-- Page header -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-3">
+
+        <!-- Left: Title -->
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Transaksi Aksesori ✨</h1>
+        </div>
 
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
@@ -108,7 +108,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
+                                        <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Pembayaran</label>
                                         <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
                                             <option value="Tunai">Tunai</option>
                                             <option value="Tempo 1 Hari">Tempo 1 Hari</option>
@@ -157,7 +157,7 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="users_id">Penerima/Sales</label>
+                                        <label class="block text-sm font-medium mb-1" for="users_id">Penerima</label>
                                         <input type="text" id="users_id" name="users_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" value="{{ Auth::user()->name }}" disabled>
                                     </div>
                                 </div>
@@ -178,6 +178,18 @@
                 </div>
             </div>
             
+        </div>
+
+    </div>
+    <div class="sm:flex sm:justify-between sm:items-center">
+        <!-- Left side -->
+        <div class="mb-0">
+            <select wire:model="paginate" id="" class="form-select">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
         </div>
     </div>
 
@@ -201,7 +213,7 @@
                             <div class="font-semibold text-left">Tgl Transaksi</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Penerima/Sales</div>
+                            <div class="font-semibold text-left">Penerima</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Pelanggan</div>
@@ -210,7 +222,7 @@
                             <div class="font-semibold text-left">Nama Barang</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Kuantitas</div>
+                            <div class="font-semibold text-left">Jumlah</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal</div>
