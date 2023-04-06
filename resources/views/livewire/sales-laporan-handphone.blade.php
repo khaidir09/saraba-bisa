@@ -1,6 +1,6 @@
 <div>
     <div class="sm:flex sm:justify-between sm:items-center mt-5">
-        <select wire:model="paginate" id="" class="form-select">
+        <select wire:model="paginate" id="" class="form-select mb-2 md:mb-0">
             <option value="10">10</option>
             <option value="25">25</option>
             <option value="50">50</option>
