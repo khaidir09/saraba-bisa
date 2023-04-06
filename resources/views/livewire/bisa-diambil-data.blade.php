@@ -103,6 +103,9 @@
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal Sparepart</div>
                         </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Tgl Selesai</div>
+                        </th>
                     </tr>
                 </thead>
                 <!-- Table body -->
@@ -176,6 +179,9 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($transaction->modal_sparepart) }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div>{{ \Carbon\Carbon::parse($transaction->tgl_selesai)->format('d/m/Y') }}</div>
                             </td>
                         </tr>
                     @endforeach
