@@ -78,11 +78,11 @@
                                             <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" required />
                                         </div>
                                         <div>
-                                            <label class="block text-sm font-medium mb-1" for="username">Username <span class="text-rose-500">*</span></label>
+                                            <label class="block text-sm font-medium mb-1" for="username">Nama Pengguna <span class="text-rose-500">*</span></label>
                                             <input id="username" name="username" class="form-input w-full px-2 py-1" type="text" required />
                                         </div>
                                         <div>
-                                            <label class="block text-sm font-medium mb-1" for="password">Password <span class="text-rose-500">*</span></label>
+                                            <label class="block text-sm font-medium mb-1" for="password">Kata Sandi <span class="text-rose-500">*</span></label>
                                             <input id="password" name="password" class="form-input w-full px-2 py-1" type="password" required />
                                         </div>
                                         <div>
