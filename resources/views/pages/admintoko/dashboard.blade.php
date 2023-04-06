@@ -48,7 +48,11 @@
                         <span class="absolute text-xl text-blue-700">{{ $percent }}%</span>
                     </div>
                     <div class="text-xl font-bold text-slate-800 text-center">Rp. {{ number_format($totalprofit) }} / Rp. {{ number_format($totalbudgets) }}</div>
-                    <p class="text-center mt-2 text-xs text-blue-700">Tingkatkan profit hingga Rp. {{ number_format($totalbudgets - ($totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone)) }} lagi!</p>
+                    @if ($totalprofit < $totalbudgets)
+                        <p class="text-center mt-2 text-sm font-semibold text-blue-700">Tingkatkan profit hingga <span class="text-red-600">Rp. {{ number_format($totalbudgets - $totalprofit) }}</span> lagi!</p>
+                    @else
+                        <p class="text-center mt-2 text-sm font-semibold text-blue-700">Selamat kamu sudah <span class="text-green-600">BERHASIL</span> mencapai target! Profit toko sekarang lebih Rp. {{ number_format($totalprofit - $totalbudgets) }} dari target 👏🏻</p>
+                    @endif
                 </div>
             </div>
 
