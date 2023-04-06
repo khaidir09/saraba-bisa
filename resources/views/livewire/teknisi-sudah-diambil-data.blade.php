@@ -165,7 +165,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="users_id">Penerima/Teknisi</label>
+                                        <label class="block text-sm font-medium mb-1" for="users_id">Penerima</label>
                                         <input type="text" id="users_id" name="users_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" value="{{ Auth::user()->name }}" disabled>
                                     </div>
                                 </div>
@@ -277,7 +277,7 @@
                             <div class="font-semibold text-left">Diskon</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Cara Pembayaran</div>
+                            <div class="font-semibold text-left">Pembayaran</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Tgl Ambil</div>
