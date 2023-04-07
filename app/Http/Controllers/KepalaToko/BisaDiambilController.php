@@ -15,20 +15,8 @@ class BisaDiambilController extends Controller
      */
     public function index()
     {
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
-        $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
-        $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/kepalatoko/bisa-diambil', compact(
-            'processes_count',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil',
-            'jumlah_semua',
-            'bisadiambil',
-            'jumlahbisadiambil'
-        ));
+
+        return view('pages/kepalatoko/bisa-diambil');
     }
 
     /**
@@ -49,7 +37,29 @@ class BisaDiambilController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
+
+        // Transaction create
+        ServiceTransaction::create([
+            'nomor_servis' => $nomor_servis,
+            'customers_id' => $request->customers_id,
+            'types_id' => $request->types_id,
+            'brands_id' => $request->brands_id,
+            'model_series_id' => $request->model_series_id,
+            'imei' => $request->imei,
+            'warna' => $request->warna,
+            'capacities_id' => $request->capacities_id,
+            'kelengkapan' => $request->kelengkapan,
+            'kerusakan' => $request->kerusakan,
+            'qc_masuk' => $request->qc_masuk,
+            'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
+            'estimasi_biaya' => $request->estimasi_biaya,
+            'uang_muka' => $request->uang_muka,
+            'status_servis' => $request->status_servis,
+            'penerima' => $request->penerima
+        ]);
+
+        return redirect()->route('transaksi-servis.index');
     }
 
     /**
