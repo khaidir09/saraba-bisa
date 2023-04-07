@@ -1,5 +1,5 @@
 @section('title')
-    Perbarui Status Menjadi Sudah Diambil
+    Perbarui Status Menjadi Bisa Diambil
 @endsection
 
 <x-toko-layout>
@@ -60,12 +60,12 @@
                 x-transition:leave-end="opacity-0 translate-y-4"
                 x-cloak
             >
-                <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full">
+                <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full">
                     <!-- Modal header -->
                     <div class="px-5 py-3 border-b border-slate-200">
                         <div class="flex justify-between items-center">
-                            <div class="font-semibold text-sm text-slate-800">Ubah status untuk nomor servis #{{ $item->nomor_servis }} menjadi <strong>Sudah Diambil</strong></div>
-                            <a href="{{ route('transaksi-servis-bisa-diambil.index') }}">
+                            <div class="font-semibold text-sm text-slate-800">Ubah status untuk nomor servis #{{ $item->nomor_servis }} menjadi <strong>Bisa Diambil</strong></div>
+                            <a href="{{ route('transaksi-servis.index') }}">
                                 <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
                                     <div class="sr-only">Close</div>
                                     <svg class="w-4 h-4 fill-current">
@@ -76,13 +76,11 @@
                         </div>
                     </div>
                     <!-- Modal content -->
-                    <form action="{{ route('ubah-sudah-diambil-update', $item->id) }}" method="post">
+                    <form action="{{ route('ubah-bisa-diambil-update', $item->id) }}" method="post">
                         @csrf
-                        <input type="hidden" name="status_servis" value="Sudah Diambil"/>
-                        <input type="hidden" name="tgl_ambil" value="<?php echo date('Y/m/d') ?>"/>
-                        <input type="hidden" name="modal_sparepart" value="{{ $item->modal_sparepart }}"/>
-                        <input type="hidden" name="biaya" value="{{ $item->biaya }}"/>
-                        <input type="hidden" name="persen_teknisi" value="{{ $item->user->persen }}"/>
+                        <input type="hidden" name="status_servis" value="Bisa Diambil"/>
+                        <input type="hidden" name="tgl_selesai" value="<?php echo date('Y/m/d') ?>"/>
+
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
@@ -102,81 +100,40 @@
                                     <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->kerusakan }}" disabled />
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1">Kondisi Servis</label>
-                                    <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->kondisi_servis }}" disabled />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1">Tindakan</label>
-                                    <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->tindakan_servis }}" disabled />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1">Biaya</label>
-                                    <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ number_format($item->biaya) }}" disabled />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1">Pengecekan Fungsi Masuk</label>
+                                    <label class="block text-sm font-medium mb-1">Pengecekan Fungsi</label>
                                     <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->qc_masuk }}" disabled />
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="qc_keluar">Pengecekan Fungsi Keluar <span class="text-rose-500">*</span></label>
-                                    <input id="qc_keluar" name="qc_keluar" class="form-input w-full px-2 py-1" type="text" required/>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
-                                    <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
-                                        <option selected value="Tunai">Tunai</option>
-                                        <option value="Tempo 1 Hari">Tempo 1 Hari</option>
-                                        <option value="Tempo 2 Hari">Tempo 2 Hari</option>
-                                        <option value="Tempo 3 Hari">Tempo 3 Hari</option>
-                                        <option value="Tempo 4 Hari">Tempo 4 Hari</option>
-                                        <option value="Tempo 5 Hari">Tempo 5 Hari</option>
-                                        <option value="Tempo 6 Hari">Tempo 6 Hari</option>
-                                        <option value="Tempo 1 Minggu">Tempo 1 Minggu</option>
-                                        <option value="Tempo 2 Minggu">Tempo 2 Minggu</option>
-                                        <option value="Tempo 3 Minggu">Tempo 3 Minggu</option>
-                                        <option value="Tempo 1 Bulan">Tempo 1 Bulan</option>
-                                        <option value="Tempo 2 Bulan">Tempo 2 Bulan</option>
-                                        <option value="Tempo 3 Bulan">Tempo 3 Bulan</option>
+                                    <label class="block text-sm font-medium mb-1" for="users_id">Teknisi</label>
+                                    <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="diskon">Diskon</label>
-                                    <input id="diskon" name="diskon" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika tidak ada diskon"/>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="garansi">Garansi</label>
-                                    <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
-                                        <option value="">Tidak Ada</option>
-                                        <option value="1">1 Hari</option>
-                                        <option value="2">2 Hari</option>
-                                        <option value="3">3 Hari</option>
-                                        <option value="4">4 Hari</option>
-                                        <option value="5">5 Hari</option>
-                                        <option value="6">6 Hari</option>
-                                        <option value="7">1 Minggu</option>
-                                        <option value="14">2 Minggu</option>
-                                        <option value="21">3 Minggu</option>
-                                        <option value="30">1 Bulan</option>
-                                        <option value="60">2 Bulan</option>
-                                        <option value="90">3 Bulan</option>
-                                        <option value="120">4 Bulan</option>
-                                        <option value="150">5 Bulan</option>
-                                        <option value="180">6 Bulan</option>
-                                        <option value="210">7 Bulan</option>
-                                        <option value="240">8 Bulan</option>
-                                        <option value="270">9 Bulan</option>
-                                        <option value="300">10 Bulan</option>
-                                        <option value="330">11 Bulan</option>
-                                        <option value="365">1 Tahun</option>
-                                        <option value="730">2 Tahun</option>
-                                        <option value="1095">3 Tahun</option>
-                                        <option value="1460">4 Tahun</option>
-                                        <option value="1825">5 Tahun</option>
+                                    <label class="block text-sm font-medium mb-1" for="kondisi_servis">Kondisi Servis <span class="text-rose-500">*</span></label>
+                                    <select id="kondisi_servis" name="kondisi_servis" class="form-select text-sm py-1 w-full">
+                                        <option value="Sudah jadi">Sudah jadi</option>
+                                        <option value="Tidak bisa">Tidak bisa</option>
+                                        <option value="Dibatalkan">Dibatalkan</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="pengambil">Pengambil <span class="text-rose-500">*</span></label>
-                                    <input id="pengambil" name="pengambil" class="form-input w-full px-2 py-1" type="text" required/>
+                                    <label class="block text-sm font-medium mb-1">Tindakan Servis</label>
+                                    <livewire:pencarian-tindakan></livewire:pencarian-tindakan>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>
+                                    <input class="form-input w-full px-2 py-1" type="text" name="modal_sparepart" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="biaya">Biaya Servis <span class="text-rose-500">*</span></label>
+                                    <input class="form-input w-full px-2 py-1" type="text" name="biaya" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="catatan">Catatan</label>
+                                    <textarea id="catatan" name="catatan" class="form-textarea w-full px-2 py-1" rows="2"></textarea>
                                 </div>
                             </div>
                         </div>

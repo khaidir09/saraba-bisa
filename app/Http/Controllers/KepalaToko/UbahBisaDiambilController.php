@@ -5,17 +5,15 @@ namespace App\Http\Controllers\KepalaToko;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
-use App\Models\Worker;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 
-class TransaksiServisController extends Controller
+class UbahBisaDiambilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,12 +26,24 @@ class TransaksiServisController extends Controller
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
         $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
+        $users = User::where('role', 'Teknisi')->get();
+        $customers = Customer::all();
+        $types = Type::all();
+        $brands = Brand::all();
+        $capacities = Capacity::all();
+        $model_series = ModelSerie::all();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
         $jumlah_semua = ServiceTransaction::all()->count();
         return view('pages/kepalatoko/transaksi-servis', compact(
             'processes',
             'processes_count',
+            'users',
+            'customers',
+            'types',
+            'brands',
+            'model_series',
+            'capacities',
             'jumlah_bisa_diambil',
             'jumlah_sudah_diambil',
             'jumlah_semua',
@@ -60,29 +70,7 @@ class TransaksiServisController extends Controller
      */
     public function store(Request $request)
     {
-        $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
-
-        // Transaction create
-        ServiceTransaction::create([
-            'nomor_servis' => $nomor_servis,
-            'customers_id' => $request->customers_id,
-            'types_id' => $request->types_id,
-            'brands_id' => $request->brands_id,
-            'model_series_id' => $request->model_series_id,
-            'imei' => $request->imei,
-            'warna' => $request->warna,
-            'capacities_id' => $request->capacities_id,
-            'kelengkapan' => $request->kelengkapan,
-            'kerusakan' => $request->kerusakan,
-            'qc_masuk' => $request->qc_masuk,
-            'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
-            'estimasi_biaya' => $request->estimasi_biaya,
-            'uang_muka' => $request->uang_muka,
-            'status_servis' => $request->status_servis,
-            'penerima' => $request->penerima
-        ]);
-
-        return redirect()->route('transaksi-servis.index');
+        //
     }
 
     /**
@@ -93,33 +81,7 @@ class TransaksiServisController extends Controller
      */
     public function show($id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-
-        return view('pages.kepalatoko.transaksi-servis-status', [
-            'item' => $item
-        ]);
-    }
-
-    public function cetaktermal($id)
-    {
-        $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
-        $users = User::find(1);
-
-        $pdf = PDF::loadView('pages.kepalatoko.kepalatoko-cetak-termal', [
-            'users' => $users,
-            'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
-        ]);
-        return $pdf->stream();
+        //
     }
 
     /**
@@ -132,25 +94,13 @@ class TransaksiServisController extends Controller
     public function edit($id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $model_series = ModelSerie::all();
-        $service_actions = ServiceAction::all();
-        $capacities = Capacity::all();
         $users = User::where('role', 'Teknisi')->get();
-        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
+        $service_actions = ServiceAction::all();
 
-        return view('pages.kepalatoko.transaksi-servis-edit', [
+        return view('pages.kepalatoko.transaksi-servis-bisadiambil', [
             'item' => $item,
-            'types' => $types,
-            'customers' => $customers,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'service_actions' => $service_actions,
-            'capacities' => $capacities,
             'users' => $users,
-            'workers' => $workers
+            'service_actions' => $service_actions
         ]);
     }
 
@@ -163,11 +113,30 @@ class TransaksiServisController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
         $item = ServiceTransaction::findOrFail($id);
-
-        $item->update($data);
+        $persen_backup = User::find(1);
+        $persen_teknisi = User::find($request->users_id);
+        $tindakan_servis = ServiceAction::find($request->service_actions_id);
+        $profittransaksi = $request->biaya - $request->modal_sparepart;
+        $bagihasil = ($request->biaya - $request->modal_sparepart) / 100;
+        // Transaction create
+        $item->update([
+            'users_id' => $request->users_id,
+            'status_servis' => $request->status_servis,
+            'tgl_selesai' => $request->tgl_selesai,
+            'kondisi_servis' => $request->kondisi_servis,
+            'service_actions_id' => $request->service_actions_id,
+            'tindakan_servis' => $tindakan_servis->nama_tindakan,
+            'modal_sparepart' => $request->modal_sparepart,
+            'biaya' => $request->biaya,
+            'catatan' => $request->catatan,
+            'persen_teknisi' => $persen_teknisi->persen,
+            'persen_backup' => $persen_backup->persen,
+            'omzet' => $request->biaya,
+            'profit' => $profittransaksi,
+            'profittoko' => $profittransaksi - ($bagihasil * ($persen_teknisi->persen + $persen_backup->persen)),
+            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100) * $persen_backup->persen
+        ]);
 
         return redirect()->route('transaksi-servis.index');
     }
@@ -180,10 +149,6 @@ class TransaksiServisController extends Controller
      */
     public function destroy($id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-
-        $item->delete();
-
-        return redirect()->route('transaksi-servis.index');
+        //
     }
 }

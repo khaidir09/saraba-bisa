@@ -34,6 +34,7 @@ class BisaDiambilData extends Component
 
     public function render()
     {
+        $toko = User::find(1);
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
@@ -48,6 +49,7 @@ class BisaDiambilData extends Component
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
 
         return view('livewire.bisa-diambil-data', [
+            'toko' => $toko,
             'users' => $users,
             'workers' => $workers,
             'customers' => $customers,
