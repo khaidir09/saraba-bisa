@@ -93,12 +93,12 @@
                                         <input id="gaji" name="gaji" class="form-input w-full px-2 py-1" type="number" required />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="absen">Absen Harian</label>
-                                        <input id="absen" name="absen" class="form-input w-full px-2 py-1" type="number" />
+                                        <label class="block text-sm font-medium mb-1" for="absen">Absen Harian <span class="text-rose-500">*</span></label>
+                                        <input id="absen" name="absen" class="form-input w-full px-2 py-1" type="number" placeholder="Isikan 0 jika tidak ada" required />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="bpjs">BPJS</label>
-                                        <input id="bpjs" name="bpjs" class="form-input w-full px-2 py-1" type="number" />
+                                        <label class="block text-sm font-medium mb-1" for="bpjs">BPJS <span class="text-rose-500">*</span></label>
+                                        <input id="bpjs" name="bpjs" class="form-input w-full px-2 py-1" type="number" placeholder="Isikan 0 jika tidak ada" required />
                                     </div>
                                 </div>
                             </div>
