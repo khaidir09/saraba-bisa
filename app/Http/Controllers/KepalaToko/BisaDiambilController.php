@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\Type;
+use App\Models\User;
+use App\Models\Brand;
+use App\Models\Worker;
+use App\Models\Capacity;
+use App\Models\Customer;
+use App\Models\ModelSerie;
 use Illuminate\Http\Request;
+use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 
@@ -15,20 +23,8 @@ class BisaDiambilController extends Controller
      */
     public function index()
     {
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
-        $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
-        $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/kepalatoko/bisa-diambil', compact(
-            'processes_count',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil',
-            'jumlah_semua',
-            'bisadiambil',
-            'jumlahbisadiambil'
-        ));
+
+        return view('pages/kepalatoko/bisa-diambil');
     }
 
     /**
@@ -49,7 +45,29 @@ class BisaDiambilController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
+
+        // Transaction create
+        ServiceTransaction::create([
+            'nomor_servis' => $nomor_servis,
+            'customers_id' => $request->customers_id,
+            'types_id' => $request->types_id,
+            'brands_id' => $request->brands_id,
+            'model_series_id' => $request->model_series_id,
+            'imei' => $request->imei,
+            'warna' => $request->warna,
+            'capacities_id' => $request->capacities_id,
+            'kelengkapan' => $request->kelengkapan,
+            'kerusakan' => $request->kerusakan,
+            'qc_masuk' => $request->qc_masuk,
+            'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
+            'estimasi_biaya' => $request->estimasi_biaya,
+            'uang_muka' => $request->uang_muka,
+            'status_servis' => $request->status_servis,
+            'penerima' => $request->penerima
+        ]);
+
+        return redirect()->route('transaksi-servis.index');
     }
 
     /**
@@ -71,7 +89,27 @@ class BisaDiambilController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = ServiceTransaction::with('serviceaction')->findOrFail($id);
+        $customers = Customer::all();
+        $types = Type::all();
+        $brands = Brand::all();
+        $model_series = ModelSerie::all();
+        $service_actions = ServiceAction::all();
+        $capacities = Capacity::all();
+        $users = User::where('role', 'Teknisi')->get();
+        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
+
+        return view('pages.kepalatoko.bisa-diambil-edit', [
+            'item' => $item,
+            'types' => $types,
+            'customers' => $customers,
+            'brands' => $brands,
+            'model_series' => $model_series,
+            'service_actions' => $service_actions,
+            'capacities' => $capacities,
+            'users' => $users,
+            'workers' => $workers
+        ]);
     }
 
     /**
@@ -83,7 +121,38 @@ class BisaDiambilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = ServiceTransaction::findOrFail($id);
+        $persen_backup = User::find(1);
+        $persen_teknisi = User::find($request->users_id);
+        $tindakan_servis = ServiceAction::find($request->service_actions_id);
+        $profittransaksi = $request->biaya - $request->modal_sparepart;
+        $bagihasil = $profittransaksi / 100;
+        // Transaction create
+        $item->update([
+            'created_at' => $request->created_at,
+            'users_id' => $request->users_id,
+            'penerima' => $request->penerima,
+            'customers_id' => $request->customers_id,
+            'types_id' => $request->types_id,
+            'brands_id' => $request->brands_id,
+            'model_series_id' => $request->model_series_id,
+            'kerusakan' => $request->kerusakan,
+            'qc_masuk' => $request->qc_masuk,
+            'kondisi_servis' => $request->kondisi_servis,
+            'service_actions_id' => $request->service_actions_id,
+            'tindakan_servis' => $tindakan_servis->nama_tindakan,
+            'modal_sparepart' => $request->modal_sparepart,
+            'biaya' => $request->biaya,
+            'persen_admin' => $request->persen_admin,
+            'persen_teknisi' => $persen_teknisi->persen,
+            'persen_backup' => $persen_backup->persen,
+            'omzet' => $request->biaya,
+            'profit' => $profittransaksi,
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi->persen + $persen_backup->persen),
+            'danabackup' => $bagihasil * $persen_backup->persen
+        ]);
+
+        return redirect()->route('transaksi-servis-bisa-diambil.index');
     }
 
     /**
@@ -94,6 +163,10 @@ class BisaDiambilController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = ServiceTransaction::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->route('transaksi-servis-bisa-diambil.index');
     }
 }

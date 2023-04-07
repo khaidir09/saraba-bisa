@@ -82,6 +82,7 @@ use App\Http\Controllers\KepalaToko\ApproveSparepartController as KepalaTokoAppr
 use App\Http\Controllers\KepalaToko\LaporanAksesorisController as KepalaTokoLaporanAksesorisController;
 use App\Http\Controllers\KepalaToko\LaporanHandphoneController as KepalaTokoLaporanHandphoneController;
 use App\Http\Controllers\KepalaToko\LaporanSparepartController as KepalaTokoLaporanSparepartController;
+use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
 use App\Http\Controllers\AdminToko\TransaksiAksesorisController as AdminTokoTransaksiAksesorisController;
 use App\Http\Controllers\AdminToko\TransaksiHandphoneController as AdminTokoTransaksiHandphoneController;
@@ -155,9 +156,10 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('informasi-toko', [KepalaTokoInformasiTokoController::class, 'index'])->name('informasi-toko');
     Route::post('informasi-toko', [KepalaTokoInformasiTokoController::class, 'update'])->name('informasi-toko-update');
 
-    Route::get('/ubah-sudah-diambil/{id}', [KepalaTokoUbahSudahDiambilController::class, 'edit'])->name('ubah-sudah-diambil-edit');
-    Route::post('/ubah-sudah-diambil{id}', [KepalaTokoUbahSudahDiambilController::class, 'update'])->name('ubah-sudah-diambil-update');
-    Route::get('/transaksi-handphone/ajax', [KepalaTokoTransaksiHandphoneController::class, 'ajax']);
+    Route::get('servis/ubah-bisa-diambil/{id}', [KepalaTokoUbahBisaDiambilController::class, 'edit'])->name('ubah-bisa-diambil-edit');
+    Route::post('servis/ubah-bisa-diambil{id}', [KepalaTokoUbahBisaDiambilController::class, 'update'])->name('ubah-bisa-diambil-update');
+    Route::get('servis/ubah-sudah-diambil/{id}', [KepalaTokoUbahSudahDiambilController::class, 'edit'])->name('ubah-sudah-diambil-edit');
+    Route::post('servis/ubah-sudah-diambil{id}', [KepalaTokoUbahSudahDiambilController::class, 'update'])->name('ubah-sudah-diambil-update');
 
     Route::get('nota-terima-termal/{id}', [KepalaTokoTransaksiServisController::class, 'cetaktermal'])->name('kepalatoko-cetak-termal');
     Route::get('kepalatoko-nota-pengambilan-termal/{id}', [KepalaTokoSudahDiambilController::class, 'pengambilantermal'])->name('kepalatoko-nota-pengambilan-termal');
