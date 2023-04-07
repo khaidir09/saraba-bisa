@@ -3,7 +3,7 @@
 @endsection
 
 <x-authentication-layout>
-    <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('Welcome back!') }} ✨</h1>
+    <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('Selamat datang kembali!') }} ✨</h1>
     @if (session('status'))
         <div class="mb-4 font-medium text-sm text-green-600">
             {{ session('status') }}
@@ -14,11 +14,11 @@
         @csrf
         <div class="space-y-4">
             <div>
-                <x-jet-label for="username" value="{{ __('Username') }}" />
+                <x-jet-label for="username" value="{{ __('Nama Pengguna') }}" />
                 <x-jet-input id="username" type="text" name="username" :value="old('username')" required autofocus />                
             </div>
             <div>
-                <x-jet-label for="password" value="{{ __('Password') }}" />
+                <x-jet-label for="password" value="{{ __('Kata Sandi') }}" />
                 <x-jet-input id="password" type="password" name="password" required autocomplete="current-password" />                
             </div>
         </div>
@@ -26,12 +26,12 @@
             @if (Route::has('password.request'))
                 <div class="mr-1">
                     <a class="text-sm underline hover:no-underline" href="{{ route('password.request') }}">
-                        {{ __('Forgot Password?') }}
+                        {{ __('Lupa kata sandi?') }}
                     </a>
                 </div>
             @endif            
             <x-jet-button class="ml-3">
-                {{ __('Sign in') }}
+                {{ __('Masuk') }}
             </x-jet-button>            
         </div>
     </form>
