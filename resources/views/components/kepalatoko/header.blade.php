@@ -26,10 +26,10 @@
             <div class="flex items-center space-x-3">
 
                 <!-- Notifications button -->
-                <x-dropdown-notifications align="right" />
+                {{-- <x-dropdown-notifications align="right" /> --}}
 
                 <!-- Info button -->
-                <x-dropdown-help align="right" />
+                {{-- <x-dropdown-help align="right" /> --}}
 
                 <!-- Divider -->
                 <hr class="w-px h-6 bg-slate-200" />
