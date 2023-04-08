@@ -25,12 +25,19 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|max:100',
-            'username' => 'required|max:100',
+            'username' => 'required|max:100|unique:users,username',
             'role' => 'max:50',
             'nik' => 'max:100',
             'nomor_hp' => 'max:50',
             'alamat' => 'max:255',
             'persen' => 'max:50'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'username.unique' => 'Mohon maaf, inputan tidak dapat diproses karena akun dengan nama pengguna ini sudah tersedia.',
         ];
     }
 }

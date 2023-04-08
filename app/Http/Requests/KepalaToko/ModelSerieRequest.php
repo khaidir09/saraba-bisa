@@ -24,10 +24,17 @@ class ModelSerieRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:100',
+            'name' => 'max:100|required|unique:model_series,name',
             'brands_id' => [
                 'exists:brands,id'
             ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.unique' => 'Mohon maaf, inputan tidak dapat diproses karena model seri dengan nama ini sudah tersedia.',
         ];
     }
 }

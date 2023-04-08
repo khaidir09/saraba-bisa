@@ -24,7 +24,14 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:100',
+            'name' => 'max:100|required|unique:brands,name',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.unique' => 'Mohon maaf, inputan tidak dapat diproses karena merek dengan nama ini sudah tersedia.',
         ];
     }
 }
