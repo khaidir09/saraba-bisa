@@ -21,7 +21,13 @@ class TindakanServisController extends Controller
 
     public function store(ServiceActionRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'nama_tindakan' => 'required|unique:service_actions,nama_tindakan',
+            'modal_sparepart' => 'required',
+            'harga_toko' => 'required',
+            'harga_pelanggan' => 'required',
+            'garansi' => 'required',
+        ]);
 
         ServiceAction::create($data);
 

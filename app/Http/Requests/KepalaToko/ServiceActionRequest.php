@@ -24,11 +24,18 @@ class ServiceActionRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_tindakan' => 'max:100',
-            'modal_sparepart' => 'max:100',
-            'harga_toko' => 'max:50',
-            'harga_pelanggan' => 'max:100',
-            'garansi' => 'max:50',
+            'nama_tindakan' => 'required|unique:service_actions,nama_tindakan',
+            'modal_sparepart' => 'required',
+            'harga_toko' => 'required',
+            'harga_pelanggan' => 'required',
+            'garansi' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nama_tindakan.unique' => 'Maaf, nama tindakan servis ini sudah tersedia',
         ];
     }
 }
