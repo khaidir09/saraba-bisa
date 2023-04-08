@@ -1,4 +1,4 @@
-<div class="bg-white shadow-lg rounded-sm border border-slate-200 mb-8">
+<div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
     <header class="px-5 py-4">
         <h2 class="font-semibold text-slate-800">Semua Akun <span class="text-slate-400 font-medium">{{ $count }}</span></h2>
     </header>

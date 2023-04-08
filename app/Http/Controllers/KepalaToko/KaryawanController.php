@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use Carbon\Carbon;
 use App\Models\Debt;
 use App\Models\User;
 use App\Models\Budget;
 use App\Models\Salary;
 use App\Models\Worker;
+use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
-use Carbon\CarbonInterface;
+use App\Http\Requests\KepalaToko\WorkerRequest;
 
 class KaryawanController extends Controller
 {
@@ -43,7 +44,7 @@ class KaryawanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WorkerRequest $request)
     {
         $data = $request->all();
 

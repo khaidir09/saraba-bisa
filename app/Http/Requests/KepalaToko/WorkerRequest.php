@@ -4,7 +4,7 @@ namespace App\Http\Requests\KepalaToko;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class WorkerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,20 +24,20 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100',
-            'username' => 'required|max:100|unique:users,username',
-            'role' => 'max:50',
-            'nik' => 'max:100',
-            'nomor_hp' => 'max:50',
-            'alamat' => 'max:255',
-            'persen' => 'max:50'
+            'name' => 'required|max:100|unique:workers,name',
+            'jabatan' => 'required|max:100',
+            'status' => 'max:50',
+            'bulankerja' => 'required|date',
+            'gaji' => 'max:50',
+            'absen' => 'max:255',
+            'bpjs' => 'max:50'
         ];
     }
 
     public function messages()
     {
         return [
-            'username.unique' => 'Mohon maaf, inputan tidak dapat diproses karena akun dengan nama pengguna ini sudah tersedia.',
+            'name.unique' => 'Mohon maaf, inputan tidak dapat diproses karena karyawan dengan nama ini sudah tersedia.',
         ];
     }
 }
