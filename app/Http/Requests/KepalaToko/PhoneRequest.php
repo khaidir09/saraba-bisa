@@ -32,7 +32,7 @@ class PhoneRequest extends FormRequest
             ],
             'kondisi' => 'max:100',
             'keterangan' => 'max:100',
-            'imei' => 'max:100|unique:phones',
+            'imei' => 'max:100|unique:phones,imei',
             'stok' => 'max:100',
             'warna' => 'max:100',
             'kapasitas' => 'max:100',
@@ -40,6 +40,13 @@ class PhoneRequest extends FormRequest
             'harga_toko' => 'max:100',
             'harga_pelanggan' => 'max:100',
             'supplier' => 'max:100',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'imei.unique' => 'Mohon maaf, inputan tidak dapat diproses karena handphone dengan IMEI ini sudah tersedia.',
         ];
     }
 }

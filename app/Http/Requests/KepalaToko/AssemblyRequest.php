@@ -4,7 +4,7 @@ namespace App\Http\Requests\KepalaToko;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomerRequest extends FormRequest
+class AssemblyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,19 @@ class CustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required|max:100',
-            'kategori' => 'required|max:100',
-            'nomor_hp' => 'required|unique:customers,nomor_hp',
-            'alamat' => 'required|max:100',
+            'imei' => 'max:100|required|unique:assemblies,imei',
+            'item' => 'max:100',
+            'biaya' => 'max:100',
+            'warna' => 'max:100',
+            'kapasitas' => 'max:100',
+            'supplier' => 'max:100',
         ];
     }
 
     public function messages()
     {
         return [
-            'nomor_hp.unique' => 'Mohon maaf, inputan tidak dapat diproses karena pelanggan dengan nomor hp ini sudah tersedia.',
+            'imei.unique' => 'Mohon maaf, inputan tidak dapat diproses karena item perakitan dengan imei ini sudah tersedia.',
         ];
     }
 }

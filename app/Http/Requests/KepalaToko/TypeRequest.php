@@ -24,7 +24,14 @@ class TypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:100',
+            'name' => 'max:100|required|unique:types,name',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.unique' => 'Mohon maaf, inputan tidak dapat diproses karena jenis barang dengan nama ini sudah tersedia.',
         ];
     }
 }

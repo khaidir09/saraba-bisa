@@ -24,7 +24,14 @@ class CapacityRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:100',
+            'name' => 'max:100|required|unique:capacities,name',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.unique' => 'Mohon maaf, inputan tidak dapat diproses karena kapasitas dengan nama ini sudah tersedia.',
         ];
     }
 }

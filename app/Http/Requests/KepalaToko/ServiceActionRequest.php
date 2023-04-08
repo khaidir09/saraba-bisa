@@ -35,7 +35,7 @@ class ServiceActionRequest extends FormRequest
     public function messages()
     {
         return [
-            'nama_tindakan.unique' => 'Mohon maaf, inputan tidak dapat diproses karna tindakan servis dengan nama ini sudah tersedia.',
+            'nama_tindakan.unique' => 'Mohon maaf, inputan tidak dapat diproses karena tindakan servis dengan nama ini sudah tersedia.',
         ];
     }
 }
