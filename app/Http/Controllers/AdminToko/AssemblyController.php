@@ -7,7 +7,6 @@ use App\Models\Assembly;
 use App\Models\Capacity;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\KepalaToko\AssemblyRequest;
 
 class AssemblyController extends Controller
 {
@@ -40,7 +39,7 @@ class AssemblyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AssemblyRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
 
