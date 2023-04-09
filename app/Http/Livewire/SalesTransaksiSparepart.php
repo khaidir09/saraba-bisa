@@ -50,8 +50,8 @@ class SalesTransaksiSparepart extends Component
             'sparepart_transactions' => $sparepart_transactions,
             'sparepart_transactions_count' => $sparepart_transactions_count,
             'sparepart_transactions' => $this->search === null ?
-                SparepartTransaction::latest()->where('users_id', Auth::user()->id)->paginate($this->paginate) :
-                SparepartTransaction::latest()->where('users_id', Auth::user()->id)->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                SparepartTransaction::latest()->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->paginate($this->paginate) :
+                SparepartTransaction::latest()->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 
