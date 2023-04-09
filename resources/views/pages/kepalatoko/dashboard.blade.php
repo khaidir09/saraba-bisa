@@ -73,7 +73,7 @@
                 <!-- End -->
                 <!-- Start -->
                 @if ($approvekasbon != null)
-                    <div class="px-4 py-2 rounded-sm text-sm bg-indigo-500 text-white">
+                    <div class="px-4 py-2 rounded-sm text-sm bg-amber-500 text-white">
                         <div class="flex w-full justify-between items-start">
                             <div class="flex">
                                 <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
