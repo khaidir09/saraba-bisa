@@ -90,23 +90,15 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="gaji">Gaji Pokok <span class="text-rose-500">*</span></label>
-                                        <select id="gaji" name="gaji" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($budgets as $item)
-                                                <option value="{{ $item->total }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input id="gaji" name="gaji" class="form-input w-full px-2 py-1" type="number" required />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="absen">Absen Harian <span class="text-rose-500">*</span></label>
-                                        <input id="absen" name="absen" class="form-input w-full px-2 py-1" type="number" required />
+                                        <input id="absen" name="absen" class="form-input w-full px-2 py-1" type="number" placeholder="Isikan 0 jika tidak ada" required />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="bpjs">BPJS <span class="text-rose-500">*</span></label>
-                                        <select id="bpjs" name="bpjs" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($budgets as $item)
-                                                <option value="{{ $item->total }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input id="bpjs" name="bpjs" class="form-input w-full px-2 py-1" type="number" placeholder="Isikan 0 jika tidak ada" required />
                                     </div>
                                 </div>
                             </div>
