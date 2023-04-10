@@ -1,5 +1,5 @@
 @section('title')
-    Laporan Sales
+    Laporan Assembly
 @endsection
 
 <x-toko-layout>
@@ -10,7 +10,7 @@
 
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
-                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Laporan Sales ✨</h1>
+                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Laporan Assembly ✨</h1>
             </div>
 
             <!-- Right: Actions -->
@@ -24,7 +24,7 @@
         </div>
      
         <!-- Table -->
-        <x-kepalatoko.laporan-sales-table :users="$users" />
+        <x-servis.laporan-assembly-table :users="$users" />
 
     </div>
 </x-toko-layout>

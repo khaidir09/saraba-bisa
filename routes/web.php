@@ -18,9 +18,11 @@ use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
 use App\Http\Controllers\Sales\SparepartController as SalesSparepartController;
 use App\Http\Controllers\AdminToko\KasbonController as AdminTokoKasbonController;
 use App\Http\Controllers\KepalaToko\PhoneController as KepalaTokoPhoneController;
+use App\Http\Controllers\Teknisi\AssemblyController as TeknisiAssemblyController;
 use App\Http\Controllers\AdminToko\InsidenController as AdminTokoInsidenController;
 use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
 use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganController;
+use App\Http\Controllers\AdminToko\AssemblyController as AdminTokoAssemblyController;
 use App\Http\Controllers\KepalaToko\ApproveController as KepalaTokoApproveController;
 use App\Http\Controllers\KepalaToko\InsidenController as KepalaTokoInsidenController;
 use App\Http\Controllers\Sales\PhoneTerjualController as SalesPhoneTerjualController;
@@ -29,6 +31,7 @@ use App\Http\Controllers\AdminToko\DashboardController as AdminTokoDashboardCont
 use App\Http\Controllers\AdminToko\PelangganController as AdminTokoPelangganController;
 use App\Http\Controllers\AdminToko\SparepartController as AdminTokoSparepartController;
 use App\Http\Controllers\KepalaToko\AnggaranController as KepalaTokoAnggaranController;
+use App\Http\Controllers\KepalaToko\AssemblyController as KepalaTokoAssemblyController;
 use App\Http\Controllers\KepalaToko\KaryawanController as KepalaTokoKaryawanController;
 use App\Http\Controllers\Teknisi\BisaDiambilController as TeknisiBisaDiambilController;
 use App\Http\Controllers\KepalaToko\AksesorisController as KepalaTokoAksesorisController;
@@ -54,6 +57,7 @@ use App\Http\Controllers\KepalaToko\LaporanAdminController as KepalaTokoLaporanA
 use App\Http\Controllers\KepalaToko\LaporanSalesController as KepalaTokoLaporanSalesController;
 use App\Http\Controllers\KepalaToko\PhoneTerjualController as KepalaTokoPhoneTerjualController;
 use App\Http\Controllers\KepalaToko\SudahDiambilController as KepalaTokoSudahDiambilController;
+use App\Http\Controllers\Teknisi\LaporanAssemblyController as TeknisiLaporanAssemblyController;
 use App\Http\Controllers\Teknisi\TransaksiServisController as TeknisiTransaksiServisController;
 use App\Http\Controllers\Teknisi\UbahBisaDiambilController as TeknisiUbahBisaDiambilController;
 use App\Http\Controllers\AdminToko\TindakanServisController as AdminTokoTindakanServisController;
@@ -71,6 +75,7 @@ use App\Http\Controllers\AdminToko\UbahBisaDiambilController as AdminTokoUbahBis
 use App\Http\Controllers\KepalaToko\LaporanTeknisiController as KepalaTokoLaporanTeknisiController;
 use App\Http\Controllers\KepalaToko\TindakanServisController as KepalaTokoTindakanServisController;
 use App\Http\Controllers\AdminToko\UbahSudahDiambilController as AdminTokoUbahSudahDiambilController;
+use App\Http\Controllers\KepalaToko\LaporanAssemblyController as KepalaTokoLaporanAssemblyController;
 use App\Http\Controllers\KepalaToko\MasterKapasitasController as KepalaTokoMasterKapasitasController;
 use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
 use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTransaksiServisController;
@@ -123,7 +128,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('servis/transaksi-servis-approve', KepalaTokoApproveController::class);
     Route::resource('servis/transaksi-servis-bisa-diambil', KepalaTokoBisaDiambilController::class);
     Route::resource('servis/transaksi-servis-sudah-diambil', KepalaTokoSudahDiambilController::class);
-
+    Route::resource('servis/assembly', KepalaTokoAssemblyController::class);
     Route::resource('master/master-jenis-barang', KepalaTokoMasterJenisBarangController::class);
     Route::resource('master/master-merek', KepalaTokoMasterMerekController::class);
     Route::resource('master/master-kapasitas', KepalaTokoMasterKapasitasController::class);
@@ -150,7 +155,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('laporan/laporan-sparepart', [KepalaTokoLaporanSparepartController::class, 'index'])->name('laporan-sparepart');
     Route::get('laporan/laporan-aksesoris', [KepalaTokoLaporanAksesorisController::class, 'index'])->name('laporan-aksesoris');
     Route::get('laporan/laporan-teknisi', [KepalaTokoLaporanTeknisiController::class, 'index'])->name('laporan-teknisi');
-
+    Route::get('laporan/laporan-assembly', [KepalaTokoLaporanAssemblyController::class, 'index'])->name('laporan-assembly');
     Route::get('laporan/laporan-sales', [KepalaTokoLaporanSalesController::class, 'index'])->name('laporan-sales');
     Route::get('laporan/laporan-admin', [KepalaTokoLaporanAdminController::class, 'index'])->name('laporan-admin');
     Route::get('informasi-toko', [KepalaTokoInformasiTokoController::class, 'index'])->name('informasi-toko');
@@ -187,6 +192,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('servis/admin-transaksi-servis', AdminTokoTransaksiServisController::class);
     Route::resource('servis/admin-servis-bisa-diambil', AdminTokoBisaDiambilController::class);
     Route::resource('servis/admin-servis-sudah-diambil', AdminTokoSudahDiambilController::class);
+    Route::resource('servis/admin-assembly', AdminTokoAssemblyController::class);
     Route::resource('master/admin-master-jenis-barang', AdminTokoMasterJenisBarangController::class);
     Route::resource('master/admin-master-merek', AdminTokoMasterMerekController::class);
     Route::resource('master/admin-master-kapasitas', AdminTokoMasterKapasitasController::class);
@@ -237,9 +243,11 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::resource('teknisi-transaksi-servis', TeknisiTransaksiServisController::class);
     Route::resource('teknisi-servis-bisa-diambil', TeknisiBisaDiambilController::class);
     Route::resource('teknisi-servis-sudah-diambil', TeknisiSudahDiambilController::class);
+    Route::resource('teknisi-assembly', TeknisiAssemblyController::class);
     Route::get('teknisi/tandaterima/{id}', [TeknisiTransaksiServisController::class, 'cetak'])->name('teknisi-cetak-tanda-terima');
     Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');
     Route::get('/teknisi-laporan', [TeknisiLaporanTeknisiController::class, 'index'])->name('teknisi-laporan');
+    Route::get('/teknisi-laporan-assembly', [TeknisiLaporanAssemblyController::class, 'index'])->name('teknisi-laporan-assembly');
     Route::get('teknisi/servis-ubah-bisa-diambil/{id}', [TeknisiUbahBisaDiambilController::class, 'edit'])->name('teknisi-ubah-bisa-diambil-edit');
     Route::post('teknisi/servis-ubah-bisa-diambil{id}', [TeknisiUbahBisaDiambilController::class, 'update'])->name('teknisi-ubah-bisa-diambil-update');
     Route::get('teknisi/servis-ubah-sudah-diambil/{id}', [TeknisiUbahSudahDiambilController::class, 'edit'])->name('teknisi-ubah-sudah-diambil-edit');

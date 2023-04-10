@@ -4,14 +4,13 @@
 
         <!-- Left: Title -->
         <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Karyawan ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Perakitan & Pengecekan ✨</h1>
         </div>
 
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-
             <!-- Search form -->
-            <x-search-form placeholder="Masukkan nama karyawan" />
+            <x-search-form placeholder="Cari berdasarkan IMEI" />
 
             <!-- Create invoice button -->
             <div x-data="{ modalOpen: false }">
@@ -19,7 +18,7 @@
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
-                    <span class="hidden xs:block ml-2">Tambah Karyawan</span>
+                    <span class="hidden xs:block ml-2">Tambah Perakitan & Pengecekan</span>
                 </button>
                 <!-- Modal backdrop -->
                 <div
@@ -53,7 +52,7 @@
                         <!-- Modal header -->
                         <div class="px-5 py-3 border-b border-slate-200">
                             <div class="flex justify-between items-center">
-                                <div class="font-semibold text-slate-800">Tambah Karyawan</div>
+                                <div class="font-semibold text-slate-800">Tambah Perakitan & Pengecekan</div>
                                 <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
                                     <div class="sr-only">Close</div>
                                     <svg class="w-4 h-4 fill-current">
@@ -63,57 +62,50 @@
                             </div>
                         </div>
                         <!-- Modal content -->
-                        <form action="{{ route('karyawan.store') }}" method="post">
+                        <form action="{{ route('teknisi-assembly.store') }}" method="post">
                             @csrf
+                            <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="name">Nama Karyawan <span class="text-rose-500">*</span></label>
-                                        <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" required />
+                                        <label class="block text-sm font-medium mb-1" for="users_id">Nama Teknisi</label>
+                                        <input type="text" id="users_id" name="users_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" value="{{ Auth::user()->name }}" disabled>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="jabatan">Jabatan <span class="text-rose-500">*</span></label>
-                                        <input id="jabatan" name="jabatan" class="form-input w-full px-2 py-1" type="text" required />
+                                        <label class="block text-sm font-medium mb-1" for="item">Barang <span class="text-rose-500">*</span></label>
+                                        <input id="item" name="item" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="status">Status <span class="text-rose-500">*</span></label>
-                                        <select id="status" name="status" class="form-select text-sm py-1 w-full" required>
-                                            <option value="Karyawan Tetap">Karyawan Tetap</option>
-                                            <option value="Karyawan Kontrak">Karyawan Kontrak</option>
-                                            <option value="Magang">Magang</option>
-                                            <option value="Freelancer">Freelancer</option>
-                                        </select>
+                                        <label class="block text-sm font-medium mb-1" for="imei">IMEI <span class="text-rose-500">*</span></label>
+                                        <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="number" required />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="bulankerja">Bulan Kerja <span class="text-rose-500">*</span></label>
-                                        <input id="bulankerja" name="bulankerja" class="form-input w-full px-2 py-1" type="date" required />
+                                        <label class="block text-sm font-medium mb-1" for="warna">Warna <span class="text-rose-500">*</span></label>
+                                        <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="gaji">Gaji Pokok <span class="text-rose-500">*</span></label>
-                                        <select id="gaji" name="gaji" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($budgets as $item)
-                                                <option value="{{ $item->total }}">{{ $item->name }}</option>
+                                        <label class="block text-sm font-medium mb-1" for="kapasitas">Kapasitas <span class="text-rose-500">*</span></label>
+                                        <select id="kapasitas" name="kapasitas" class="form-select text-sm py-1 w-full" required>
+                                            @foreach ($capacities as $capacity)
+                                                <option value="{{ $capacity->name }}">{{ $capacity->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="absen">Absen Harian <span class="text-rose-500">*</span></label>
-                                        <input id="absen" name="absen" class="form-input w-full px-2 py-1" type="number" required />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="bpjs">BPJS <span class="text-rose-500">*</span></label>
-                                        <select id="bpjs" name="bpjs" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($budgets as $item)
-                                                <option value="{{ $item->total }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label class="block text-sm font-medium mb-1" for="biaya">Biaya <span class="text-rose-500">*</span></label>
+                                        <div class="relative">
+                                            <input id="biaya" name="biaya" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <a href="{{ route('karyawan.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                    <a href="{{ route('teknisi-assembly.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                         Batal
                                     </a>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
@@ -123,37 +115,26 @@
                     </div>
                 </div>
             </div>                         
-            
         </div>
 
     </div>
 
-    @if ($errors->any())
-        <div x-show="open" x-data="{ open: true }">
-            <div class="px-4 py-2 rounded-sm text-sm bg-rose-500 text-white">
-                <div class="flex w-full justify-between items-start">
-                    <div class="flex">
-                        <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                            <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                        </svg>
-                        @foreach ($errors->all() as $error)
-                            <div class="font-medium">{{ $error }}</div>
-                        @endforeach
-                    </div>
-                    <button class="opacity-70 hover:opacity-80 ml-3 mt-[3px]" @click="open = false">
-                        <div class="sr-only">Close</div>
-                        <svg class="w-4 h-4 fill-current">
-                            <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+    <!-- More actions -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-5">
+        <!-- Left side -->
+        <div class="mb-0">
+            <select wire:model="paginate" id="" class="form-select">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
         </div>
-    @endif
+    </div>
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Semua Karyawan <span class="text-slate-400 font-medium">{{ $workers_count }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Semua Perakitan & Pengecekan <span class="text-slate-400 font-medium">{{ $assemblies_count }}</span></h2>
         </header>
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -165,25 +146,28 @@
                             <div class="font-semibold text-left">No.</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nama</div>
+                            <div class="font-semibold text-left">Tanggal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Gaji Pokok</div>
+                            <div class="font-semibold text-left">Nama Teknisi</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Absen</div>
+                            <div class="font-semibold text-left">Barang</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">BPJS</div>
+                            <div class="font-semibold text-left">IMEI</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Bonus</div>
+                            <div class="font-semibold text-left">Warna</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Kasbon</div>
+                            <div class="font-semibold text-left">Kapasitas</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Total Gaji</div>
+                            <div class="font-semibold text-left">Biaya</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>
@@ -196,52 +180,44 @@
                     @php
                         $i = 1
                     @endphp
-                    @foreach($workers as $item)                  
+                    @foreach($assemblies as $item)                  
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $i++ }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->name }}</div>
+                                <div>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($item->gaji) }}</div>
+                                <div class="font-medium">{{ $item->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($item->absen) }}</div>
+                                <div class="font-medium">{{ $item->item }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($item->bpjs) }}</div>
+                                <div class="font-medium">{{ $item->imei }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">
-                                    Rp. {{ number_format($item->salary->sum('bonus')) }}
-                                </div>
+                                <div class="font-medium">{{ $item->warna }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">
-                                    Rp. {{ number_format($item->debt->sum('total')) }}
-                                </div>
+                                <div class="font-medium">{{ $item->kapasitas }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">
-                                    Rp. {{ number_format($item->gaji + $item->absen + $item->bpjs + $item->salary->sum('bonus') - $item->debt->sum('total')) }}
-                                </div>
+                                <div class="font-medium">Rp. {{ number_format($item->biaya) }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                @if ($item->is_approve === null)
+                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-amber-500 text-white">Belum Disetujui</div>
+                                @elseif ($item->is_approve === 'Setuju')
+                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-blue-500 text-white">Sudah Disetujui</div>
+                                @else
+                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-red-500 text-white">Ditolak</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
-                                    <a href="{{ route('cetak-slip-gaji', $item->id) }}" target="__blank">
-                                        <button class="text-slate-400 hover:text-slate-500 rounded-full">
-                                            <span class="sr-only">Cetak</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer w-6 h-6 mt-1" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
-                                                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
-                                                <rect x="7" y="13" width="10" height="8" rx="2" />
-                                            </svg>
-                                        </button>
-                                    </a>
-                                    <a href="{{ route('karyawan.edit', $item->id) }}">
+                                    <a href="{{ route('teknisi-assembly.edit', $item->id) }}">
                                         <button class="text-slate-400 hover:text-slate-500 rounded-full">
                                             <span class="sr-only">Edit</span>
                                             <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
@@ -309,7 +285,7 @@
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
                                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <form action="{{ route('karyawan.destroy', $item->id) }}" method="post">
+                                                            <form action="{{ route('teknisi-assembly.destroy', $item->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -327,11 +303,11 @@
                     @endforeach
                 </tbody>
             </table>
+
         </div>
     </div>
-
     <!-- Pagination -->
     <div class="mt-8">
-        {{ $workers->links() }}
+        {{ $assemblies->links() }}
     </div>
 </div>

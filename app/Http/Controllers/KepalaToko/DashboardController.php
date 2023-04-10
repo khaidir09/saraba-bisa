@@ -9,6 +9,7 @@ use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
+use App\Models\Assembly;
 use App\Models\Debt;
 use App\Models\SparepartTransaction;
 
@@ -34,6 +35,8 @@ class DashboardController extends Controller
         $approveaksesoris = AccessoryTransaction::where('is_approve', null)
             ->count();
         $approvesparepart = SparepartTransaction::where('is_approve', null)
+            ->count();
+        $approveassembly = Assembly::where('is_approve', null)
             ->count();
         $approvekasbon = Debt::where('is_approve', null)->count();
 
@@ -61,6 +64,7 @@ class DashboardController extends Controller
             'approvehandphone',
             'approveaksesoris',
             'approvesparepart',
+            'approveassembly',
             'approvekasbon',
             'users',
             'totalbiayaservis',

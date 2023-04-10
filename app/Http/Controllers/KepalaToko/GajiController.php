@@ -71,7 +71,7 @@ class GajiController extends Controller
         if ($user->role === 'Teknisi') {
             $hasil = $user->servicetransaction->sum('profit') / 100;
             $hasil *= $user->persen;
-            $bonus = $hasil;
+            $bonus = $hasil + $user->assembly->sum('biaya');
         } elseif ($user->role === 'Sales') {
             $bonus = ($user->phonetransaction->sum('profit') + $user->spareparttransaction->sum('profit') + $user->accessorytransaction->sum('profit')) / 100;
             $bonus *= $user->persen;

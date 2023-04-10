@@ -107,4 +107,11 @@ class User extends Authenticatable
             ->where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())));
     }
+
+    public function assembly()
+    {
+        return $this->hasMany(Assembly::class, 'users_id', 'id')
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())));
+    }
 }
