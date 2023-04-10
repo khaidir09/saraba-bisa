@@ -51,7 +51,7 @@ class AksesorisController extends Controller
         ]);
     }
 
-    public function update(AksesorisRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 

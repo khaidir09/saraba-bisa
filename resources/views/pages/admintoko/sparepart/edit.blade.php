@@ -79,43 +79,43 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="name">Nama Sparepart <span class="text-rose-500">*</span></label>
-                                    <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" required value="{{ $item->name }}"/>
+                                    <label class="block text-sm font-medium mb-1" for="name">Nama Sparepart</label>
+                                    <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" value="{{ $item->name }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="stok">Jumlah Stok <span class="text-rose-500">*</span></label>
-                                    <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" required value="{{ $item->stok }}"/>
+                                    <label class="block text-sm font-medium mb-1" for="stok">Jumlah Stok</label>
+                                    <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" value="{{ $item->stok }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="modal">Harga Modal <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="modal">Harga Modal</label>
                                     <div class="relative">
-                                        <input id="modal" name="modal" class="form-input w-full pl-10 px-2 py-1" type="number" required value="{{ $item->modal }}"/>
+                                        <input id="modal" name="modal" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->modal }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
                                             <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="harga_toko">Harga Toko <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="harga_toko">Harga Toko</label>
                                     <div class="relative">
-                                        <input id="harga_toko" name="harga_toko" class="form-input w-full pl-10 px-2 py-1" type="number" required value="{{ $item->harga_toko }}"/>
+                                        <input id="harga_toko" name="harga_toko" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->harga_toko }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
                                             <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga Pelanggan <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga Pelanggan</label>
                                     <div class="relative">
-                                        <input id="harga_pelanggan" name="harga_pelanggan" class="form-input w-full pl-10 px-2 py-1" type="number" required value="{{ $item->harga_pelanggan }}"/>
+                                        <input id="harga_pelanggan" name="harga_pelanggan" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->harga_pelanggan }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
                                             <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="supplier">Agen <span class="text-rose-500">*</span></label>
-                                    <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" required value="{{ $item->supplier }}" />
+                                    <label class="block text-sm font-medium mb-1" for="supplier">Agen</label>
+                                    <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" value="{{ $item->supplier }}" />
                                 </div>
                             </div>
                         </div>
