@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\Sparepart;
 
 class UbahBisaDiambilController extends Controller
 {
@@ -126,6 +127,7 @@ class UbahBisaDiambilController extends Controller
             'tgl_selesai' => $request->tgl_selesai,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
+            'spareparts_id' => $request->spareparts_id,
             'tindakan_servis' => $tindakan_servis->nama_tindakan,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
@@ -139,6 +141,10 @@ class UbahBisaDiambilController extends Controller
             'profittoko' => $profittransaksi - ($bagihasil *= $request->persen_admin + $request->persen_teknisi + $persen_backup->persen),
             'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100) * $persen_backup->persen
         ]);
+
+        $spareparts = Sparepart::find($request->spareparts_id);
+        $spareparts->stok -= 1;
+        $spareparts->save();
 
         return redirect()->route('admin-transaksi-servis.index');
     }

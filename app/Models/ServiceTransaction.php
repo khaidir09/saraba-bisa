@@ -37,6 +37,7 @@ class ServiceTransaction extends Model
         'biaya',
         'tindakan_servis',
         'service_actions_id',
+        'spareparts_id',
         'modal_sparepart',
         'is_approve',
         'diskon',
