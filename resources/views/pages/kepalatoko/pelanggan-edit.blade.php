@@ -79,11 +79,11 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="nama">Nama Pelanggan <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="nama">Nama Pelanggan </label>
                                     <input id="nama" name="nama" class="form-input w-full px-2 py-1" type="text" value="{{ $item->nama }}" />
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="kategori">Kategori Pelanggan <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="kategori">Kategori Pelanggan </label>
                                     <select id="kategori" name="kategori" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->kategori }}">{{ $item->kategori }}</option>
                                         <option value="User">User</option>
@@ -91,14 +91,14 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="nomor_hp">HP <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="nomor_hp">HP </label>
                                     <input id="nomor_hp" name="nomor_hp" class="form-input w-full px-2 py-1" type="number" placeholder="Contoh 6281900001111" value="{{ $item->nomor_hp }}" />
                                     <div class="text-xs mt-2 text-slate-600">
                                         Pastikan untuk menuliskan sesuai dengan contoh format
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="alamat">Alamat <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="alamat">Alamat </label>
                                     <textarea id="alamat" name="alamat" class="form-textarea w-full px-2 py-1" rows="2">{{ $item->alamat }}</textarea>
                                 </div>
                             </div>

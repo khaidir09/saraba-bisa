@@ -24,7 +24,7 @@ class SparepartRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:100|required|unique:spareparts,name',
+            'name' => 'max:100|unique:spareparts,name',
             'stok' => 'max:100',
             'modal' => 'max:100',
             'harga_toko' => 'max:100',
