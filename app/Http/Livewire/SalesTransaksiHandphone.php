@@ -48,8 +48,8 @@ class SalesTransaksiHandphone extends Component
             'phone_transactions' => $phone_transactions,
             'phone_transactions_count' => $phone_transactions_count,
             'phone_transactions' => $this->search === null ?
-                PhoneTransaction::latest()->where('users_id', Auth::user()->id)->paginate($this->paginate) :
-                PhoneTransaction::latest()->where('users_id', Auth::user()->id)->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                PhoneTransaction::latest()->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->paginate($this->paginate) :
+                PhoneTransaction::latest()->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 

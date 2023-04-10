@@ -44,7 +44,6 @@ class BisaDiambilData extends Component
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
 
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
 
@@ -57,7 +56,6 @@ class BisaDiambilData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
-            'bisadiambil' => $bisadiambil,
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,

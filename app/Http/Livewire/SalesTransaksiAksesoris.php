@@ -44,8 +44,8 @@ class SalesTransaksiAksesoris extends Component
             'accessory_transactions' => $accessory_transactions,
             'accessory_transactions_count' => $accessory_transactions_count,
             'accessory_transactions' => $this->search === null ?
-                AccessoryTransaction::latest()->where('users_id', Auth::user()->id)->paginate($this->paginate) :
-                AccessoryTransaction::latest()->where('users_id', Auth::user()->id)->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                AccessoryTransaction::latest()->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->paginate($this->paginate) :
+                AccessoryTransaction::latest()->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 

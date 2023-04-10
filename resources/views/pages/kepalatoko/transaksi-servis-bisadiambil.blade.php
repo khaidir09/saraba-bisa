@@ -106,6 +106,7 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="users_id">Teknisi</label>
                                     <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
+                                        <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
