@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Brand;
 use App\Models\Capacity;
 use App\Models\Customer;
+use App\Models\Sparepart;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;

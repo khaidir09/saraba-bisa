@@ -79,15 +79,15 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="name">Nama Jenis Barang <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="name">Nama Jenis Barang</label>
                                     <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" value="{{ $item->name }}" />
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="quantity">Kuantitas <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="quantity">Kuantitas</label>
                                     <input id="quantity" name="quantity" class="form-input w-full px-2 py-1" type="text" value="{{ $item->quantity }}" />
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="price">Biaya <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="price">Biaya</label>
                                     <input id="price" name="price" class="form-input w-full px-2 py-1" type="text" value="{{ $item->price }}" />
                                 </div>
                             </div>

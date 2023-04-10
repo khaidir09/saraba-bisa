@@ -80,11 +80,11 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="nama_tindakan">Nama Tindakan <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="nama_tindakan">Nama Tindakan</label>
                                     <input id="nama_tindakan" name="nama_tindakan" class="form-input w-full px-2 py-1" type="text" value="{{ $item->nama_tindakan }}" />
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart</label>
                                     <div class="relative">
                                         <input id="modal_sparepart" name="modal_sparepart" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->modal_sparepart }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -96,7 +96,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="harga_toko">Biaya ke Pelanggan Toko <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="harga_toko">Biaya ke Pelanggan Toko</label>
                                     <div class="relative">
                                         <input id="harga_toko" name="harga_toko" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->harga_toko }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Biaya ke Pelanggan User <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Biaya ke Pelanggan User</label>
                                     <div class="relative">
                                         <input id="harga_pelanggan" name="harga_pelanggan" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->harga_pelanggan }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -114,7 +114,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="garansi">Garansi <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="garansi">Garansi</label>
                                     <select id="garansi" name="garansi" class="form-select text-sm py-2 w-full">
                                         <option selected value="{{ $item->garansi }}">{{ $item->garansi }}</option>
                                         <option value="Tidak Ada">Tidak Ada</option>

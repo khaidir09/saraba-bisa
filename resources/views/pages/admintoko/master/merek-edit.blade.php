@@ -79,7 +79,7 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="name">Nama Merek <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="name">Nama Merek</label>
                                     <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" value="{{ $item->name }}" />
                                 </div>
                             </div>
