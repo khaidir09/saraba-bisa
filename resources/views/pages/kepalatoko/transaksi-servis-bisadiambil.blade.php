@@ -106,7 +106,9 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="users_id">Teknisi</label>
                                     <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
-                                        <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
+                                        @if ($item->users_id != null)
+                                            <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
+                                        @endif
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
@@ -123,6 +125,31 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1">Tindakan Servis</label>
                                     <livewire:pencarian-tindakan></livewire:pencarian-tindakan>
+                                </div>
+                                <div x-data="{ showDetails: false }">
+                                    <label class="block text-sm font-medium mb-1" for="modal_sparepart">Apakah menggunakan stok sparepart toko?</label>
+                                    <div class="flex flex-wrap items-center -m-3">
+                                        <div class="m-3">
+                                            <!-- Start -->
+                                            <label class="flex items-center">
+                                                <input type="radio" name="radio-buttons" class="form-radio" checked x-on:click="showDetails = false"/>
+                                                <span class="text-sm ml-2">Tidak</span>
+                                            </label>
+                                            <!-- End -->
+                                        </div>
+                                        <div class="m-3">
+                                            <!-- Start -->
+                                            <label class="flex items-center">
+                                                <input type="radio" name="radio-buttons" class="form-radio" x-on:click="showDetails = true"/>
+                                                <span class="text-sm ml-2">Ya</span>
+                                            </label>
+                                            <!-- End -->
+                                        </div>
+                                    </div>
+                                        <div x-show="showDetails" class="mt-3">
+                                        <label class="block text-sm font-medium mb-1" for="spareparts_id">Sparepart Toko yg Digunakan</label>
+                                        <livewire:pencarian-sparepart></livewire:pencarian-sparepart>
+                                    </div>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>

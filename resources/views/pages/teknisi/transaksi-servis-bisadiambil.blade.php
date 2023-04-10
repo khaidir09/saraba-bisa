@@ -60,7 +60,7 @@
                 x-transition:leave-end="opacity-0 translate-y-4"
                 x-cloak
             >
-                <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full">
+                <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" x-data="handleSelect">
                     <!-- Modal header -->
                     <div class="px-5 py-3 border-b border-slate-200">
                         <div class="flex justify-between items-center">
@@ -114,6 +114,31 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1">Tindakan Servis</label>
                                     <livewire:pencarian-tindakan></livewire:pencarian-tindakan>
+                                </div>
+                                <div x-data="{ showDetails: false }">
+                                    <label class="block text-sm font-medium mb-1" for="modal_sparepart">Apakah menggunakan stok sparepart toko?</label>
+                                    <div class="flex flex-wrap items-center -m-3">
+                                        <div class="m-3">
+                                            <!-- Start -->
+                                            <label class="flex items-center">
+                                                <input type="radio" name="radio-buttons" class="form-radio" checked x-on:click="showDetails = false"/>
+                                                <span class="text-sm ml-2">Tidak</span>
+                                            </label>
+                                            <!-- End -->
+                                        </div>
+                                        <div class="m-3">
+                                            <!-- Start -->
+                                            <label class="flex items-center">
+                                                <input type="radio" name="radio-buttons" class="form-radio" x-on:click="showDetails = true"/>
+                                                <span class="text-sm ml-2">Ya</span>
+                                            </label>
+                                            <!-- End -->
+                                        </div>
+                                    </div>
+                                        <div x-show="showDetails" class="mt-3">
+                                        <label class="block text-sm font-medium mb-1" for="spareparts_id">Sparepart Toko yg Digunakan</label>
+                                        <livewire:pencarian-sparepart></livewire:pencarian-sparepart>
+                                    </div>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>
