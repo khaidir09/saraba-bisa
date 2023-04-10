@@ -2,9 +2,9 @@
     <div class="px-5 p-5">
         <header class="flex justify-between items-start mb-2">
             <!-- Icon -->
-            <h2 class="text-lg font-semibold text-slate-800 mb-2">Bulan Ini</h2>
+            <h2 class="text-lg font-semibold text-slate-800 mb-2">Tahun Ini</h2>
             <!-- Menu button -->
-            <div class="text-sm font-semibold text-white px-1.5 bg-indigo-500 rounded-full">{{ \Carbon\Carbon::parse(strtotime(now()))->format('F') }}</div>
+            <div class="text-sm font-semibold text-white px-1.5 bg-indigo-500 rounded-full">{{ \Carbon\Carbon::parse(strtotime(now()))->format('Y') }}</div>
         </header>
         <div class="flex justify-between">
             <div>
