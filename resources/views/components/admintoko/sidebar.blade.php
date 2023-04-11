@@ -26,6 +26,10 @@
                     <path d="M10.7 18.7l1.4-1.4L7.8 13H20v-2H7.8l4.3-4.3-1.4-1.4L4 12z" />
                 </svg>
             </button>
+            <!-- Logo -->
+            <a class="block" href="#">
+                <img src="{{ asset('images/logo-saraba-bisa.png') }}" alt="Logo SarabaBisa" class="h-8">
+            </a>
         </div>
 
         <!-- Links -->
@@ -274,6 +278,12 @@
                     </li>
                 </ul>
             </div>
+
+            <footer>
+                <div class="pl-3 text-xs text-slate-500 font-semibold fixed bottom-0 pb-5">
+                    © 2023 Saraba Bisa
+                </div>
+            </footer>
         </div>
 
         <!-- Expand / collapse button -->
