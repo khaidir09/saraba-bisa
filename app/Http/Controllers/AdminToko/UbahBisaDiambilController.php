@@ -143,9 +143,11 @@ class UbahBisaDiambilController extends Controller
             'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100) * $persen_backup->persen
         ]);
 
-        $spareparts = Sparepart::find($request->spareparts_id);
-        $spareparts->stok -= 1;
-        $spareparts->save();
+        if ($request->spareparts_id != null) {
+            $spareparts = Sparepart::find($request->spareparts_id);
+            $spareparts->stok -= 1;
+            $spareparts->save();
+        }
 
         return redirect()->route('admin-transaksi-servis.index');
     }
