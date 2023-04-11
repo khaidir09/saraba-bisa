@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\Sparepart;
 
 class UbahBisaDiambilController extends Controller
 {
