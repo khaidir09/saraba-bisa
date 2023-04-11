@@ -84,9 +84,9 @@
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(1), ['teknisi-transaksi-servis', 'teknisi-servis-bisa-diambil', 'teknisi-servis-sudah-diambil'])){{ 'hover:text-slate-200' }}@endif" href="{{ route('teknisi-transaksi-servis.index') }}">
                             <div class="flex items-center">
                                 <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                    <path class="fill-current @if(in_array(Request::segment(1), ['teknisi-transaksi-servis', 'teknisi-servis-bisa-diambil', 'teknisi-servis-sudah-diambil'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" d="M13 6.068a6.035 6.035 0 0 1 4.932 4.933H24c-.486-5.846-5.154-10.515-11-11v6.067Z" />
-                                    <path class="fill-current @if(in_array(Request::segment(1), ['teknisi-transaksi-servis', 'teknisi-servis-bisa-diambil', 'teknisi-servis-sudah-diambil'])){{ 'text-indigo-500' }}@else{{ 'text-slate-700' }}@endif" d="M18.007 13c-.474 2.833-2.919 5-5.864 5a5.888 5.888 0 0 1-3.694-1.304L4 20.731C6.131 22.752 8.992 24 12.143 24c6.232 0 11.35-4.851 11.857-11h-5.993Z" />
-                                    <path class="fill-current @if(in_array(Request::segment(1), ['teknisi-transaksi-servis', 'teknisi-servis-bisa-diambil', 'teknisi-servis-sudah-diambil'])){{ 'text-indigo-600' }}@else{{ 'text-slate-600' }}@endif" d="M6.939 15.007A5.861 5.861 0 0 1 6 11.829c0-2.937 2.167-5.376 5-5.85V0C4.85.507 0 5.614 0 11.83c0 2.695.922 5.174 2.456 7.17l4.483-3.993Z" />
+                                    <path class="fill-current @if(in_array(Request::segment(1), ['tasks'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" d="M8 1v2H3v19h18V3h-5V1h7v23H1V1z" />
+                                    <path class="fill-current @if(in_array(Request::segment(1), ['tasks'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" d="M1 1h22v23H1z" />
+                                    <path class="fill-current @if(in_array(Request::segment(1), ['tasks'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" d="M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z" />
                                 </svg>
                                 <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Transaksi Servis</span>
                             </div>
@@ -110,10 +110,9 @@
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(1), ['teknisi-laporan'])){{ 'hover:text-slate-200' }}@endif" href="{{ route('teknisi-laporan') }}">
                             <div class="flex items-center">
                                 <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                    <circle class="fill-current @if(in_array(Request::segment(1), ['teknisi-laporan'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" cx="18.5" cy="5.5" r="4.5" />
-                                    <circle class="fill-current @if(in_array(Request::segment(1), ['teknisi-laporan'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" cx="5.5" cy="5.5" r="4.5" />
-                                    <circle class="fill-current @if(in_array(Request::segment(1), ['teknisi-laporan'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" cx="18.5" cy="18.5" r="4.5" />
-                                    <circle class="fill-current @if(in_array(Request::segment(1), ['teknisi-laporan'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" cx="5.5" cy="18.5" r="4.5" />
+                                    <path class="fill-current @if(in_array(Request::segment(1), ['ecommerce'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
+                                    <path class="fill-current @if(in_array(Request::segment(1), ['ecommerce'])){{ 'text-indigo-600' }}@else{{ 'text-slate-700' }}@endif" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
+                                    <path class="fill-current @if(in_array(Request::segment(1), ['ecommerce'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
                                 </svg>
                                 <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Laporan Servis</span>
                             </div>
