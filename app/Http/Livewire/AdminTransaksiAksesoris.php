@@ -33,7 +33,7 @@ class AdminTransaksiAksesoris extends Component
     public function render()
     {
         $accessories = Accessory::all();
-        $users = User::where('role', 'Sales')->get();
+        $users = User::all();
         $accessory_transactions_count = AccessoryTransaction::where('is_admin_toko', 'Admin')
             ->count();
 

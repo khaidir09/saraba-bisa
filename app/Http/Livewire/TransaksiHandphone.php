@@ -37,7 +37,7 @@ class TransaksiHandphone extends Component
     public function render()
     {
         $phones = Phone::with('brand', 'modelserie')->where('stok', '1')->get();
-        $users = User::where('role', 'Sales')->get();
+        $users = User::all();
         $phone_transactions = PhoneTransaction::with('user', 'customer', 'phone')->paginate(10);
         $phone_transactions_count = PhoneTransaction::all()->count();
 

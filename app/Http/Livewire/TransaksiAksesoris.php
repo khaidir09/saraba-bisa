@@ -33,7 +33,7 @@ class TransaksiAksesoris extends Component
     public function render()
     {
         $accessories = Accessory::all();
-        $users = User::where('role', 'Sales')->get();
+        $users = User::all();
         $accessory_transactions = AccessoryTransaction::with('user', 'customer', 'accessory')->paginate(10);
         $accessory_transactions_count = AccessoryTransaction::all()->count();
 

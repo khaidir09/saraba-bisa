@@ -39,7 +39,7 @@ class AdminTransaksiSparepart extends Component
     public function render()
     {
         $spareparts = Sparepart::all();
-        $users = User::where('role', 'Sales')->get();
+        $users = User::all();
         $sparepart_transactions_count = SparepartTransaction::where('is_admin_toko', 'Admin')
             ->count();
 

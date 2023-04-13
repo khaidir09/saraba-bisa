@@ -37,7 +37,7 @@ class AdminTransaksiHandphone extends Component
     public function render()
     {
         $phones = Phone::with('brand', 'modelserie')->where('stok', '1')->get();
-        $users = User::where('role', 'Sales')->get();
+        $users = User::all();
         $phone_transactions_count = PhoneTransaction::where('is_admin_toko', 'Admin')
             ->count();
 
