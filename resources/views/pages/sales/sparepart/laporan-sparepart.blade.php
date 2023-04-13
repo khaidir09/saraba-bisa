@@ -17,7 +17,7 @@
 
         <div class="grid grid-cols-12 gap-6">
             <x-sales.card-laporan-hari :profithari="$profithari"  :penjualanhari="$penjualanhari" />
-            <x-sales.card-laporan-bulan :profitbulan="$profitbulan"  :penjualanbulan="$penjualanbulan" />
+            <x-sales.card-laporan-bulan :profitbulan="$profitbulan"  :penjualanbulan="$penjualanbulan" :spareparttransactions="$spareparttransactions" />
             <x-sales.card-laporan-tahun :profittahun="$profittahun"  :penjualantahun="$penjualantahun" />
         </div>
      

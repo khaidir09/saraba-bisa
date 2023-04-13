@@ -68,7 +68,7 @@
                                 <div class="font-medium">
                                     @php
                                         $bonus = $item->profit/100;
-                                        $bonus *= $item->user->persen;
+                                        $bonus *= $item->persen_sales;
                                     @endphp
                                     Rp. {{ number_format($bonus) }}
                                 </div>

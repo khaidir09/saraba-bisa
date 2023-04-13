@@ -40,6 +40,15 @@ class LaporanSparepartController extends Controller
             ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
             ->get()
             ->sum('profit');
-        return view('pages/sales/sparepart/laporan-sparepart', compact('profithari', 'profitbulan', 'profittahun', 'penjualanhari', 'penjualanbulan', 'penjualantahun'));
+        $spareparttransactions = SparepartTransaction::where('users_id', Auth::user()->id)->get();
+        return view('pages/sales/sparepart/laporan-sparepart', compact(
+            'profithari',
+            'profitbulan',
+            'profittahun',
+            'penjualanhari',
+            'penjualanbulan',
+            'penjualantahun',
+            'spareparttransactions'
+        ));
     }
 }
