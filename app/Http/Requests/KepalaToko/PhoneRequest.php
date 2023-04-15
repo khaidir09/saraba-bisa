@@ -35,6 +35,7 @@ class PhoneRequest extends FormRequest
             'imei' => 'max:100|unique:phones,imei',
             'stok' => 'max:100',
             'warna' => 'max:100',
+            'ram' => 'max:100',
             'kapasitas' => 'max:100',
             'modal' => 'max:100',
             'harga_toko' => 'max:100',

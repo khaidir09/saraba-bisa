@@ -21,6 +21,7 @@ class Phone extends Model
         'imei',
         'warna',
         'kapasitas',
+        'ram',
         'keterangan',
         'kelengkapan',
         'kondisi'
