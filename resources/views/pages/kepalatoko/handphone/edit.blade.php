@@ -105,7 +105,7 @@
                                     <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" value="{{ $item->kelengkapan }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="imei">IMEI</label>
+                                    <label class="block text-sm font-medium mb-1" for="imei">IMEI / SN</label>
                                     <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" value="{{ $item->imei }}"/>
                                 </div>
                                 <div>
@@ -119,6 +119,18 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="warna">Warna</label>
                                     <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" value="{{ $item->warna }}"/>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="ram">RAM (<span class="text-xs">Tidak perlu dipilih jika tidak diperlukan</span>)</label>
+                                    <select id="ram" name="ram" class="form-select text-sm py-1 w-full">
+                                            <option value="{{ $item->ram }}" selected>{{ $item->ram }}</option>
+                                            <option value="1 GB">1 GB</option>
+                                            <option value="2 GB">2 GB</option>
+                                            <option value="4 GB">4 GB</option>
+                                            <option value="8 GB">8 GB</option>
+                                            <option value="16 GB">16 GB</option>
+                                            <option value="32 GB">32 GB</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="kapasitas">Kapasitas</label>
