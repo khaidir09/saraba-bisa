@@ -8,46 +8,45 @@ use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
 // Kepala Toko
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Sales\PhoneController as SalesPhoneController;
-use App\Http\Controllers\AdminToko\PhoneController as AdminTokoPhoneController;
+use App\Http\Controllers\KepalaToko\ApproveHandphoneController as KepalaTokoApproveHandphoneController;
+use App\Http\Controllers\KepalaToko\ApproveSparepartController as KepalaTokoApproveSparepartController;
+use App\Http\Controllers\KepalaToko\LaporanAksesorisController as KepalaTokoLaporanAksesorisController;
+use App\Http\Controllers\KepalaToko\LaporanHandphoneController as KepalaTokoLaporanHandphoneController;
+use App\Http\Controllers\KepalaToko\LaporanSparepartController as KepalaTokoLaporanSparepartController;
+use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
+use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\AkunController as KepalaTokoAkunController;
 use App\Http\Controllers\KepalaToko\GajiController as KepalaTokoGajiController;
-use App\Http\Controllers\Sales\AksesorisController as SalesAksesorisController;
-use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
-use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
-use App\Http\Controllers\Sales\SparepartController as SalesSparepartController;
-use App\Http\Controllers\AdminToko\KasbonController as AdminTokoKasbonController;
+use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
+use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
 use App\Http\Controllers\KepalaToko\PhoneController as KepalaTokoPhoneController;
-use App\Http\Controllers\AdminToko\InsidenController as AdminTokoInsidenController;
-use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
-use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganController;
 use App\Http\Controllers\KepalaToko\ApproveController as KepalaTokoApproveController;
 use App\Http\Controllers\KepalaToko\InsidenController as KepalaTokoInsidenController;
-use App\Http\Controllers\Sales\PhoneTerjualController as SalesPhoneTerjualController;
-use App\Http\Controllers\AdminToko\AksesorisController as AdminTokoAksesorisController;
-use App\Http\Controllers\AdminToko\DashboardController as AdminTokoDashboardController;
-use App\Http\Controllers\AdminToko\PelangganController as AdminTokoPelangganController;
-use App\Http\Controllers\AdminToko\SparepartController as AdminTokoSparepartController;
 use App\Http\Controllers\KepalaToko\AnggaranController as KepalaTokoAnggaranController;
 use App\Http\Controllers\KepalaToko\KaryawanController as KepalaTokoKaryawanController;
-use App\Http\Controllers\Teknisi\BisaDiambilController as TeknisiBisaDiambilController;
 use App\Http\Controllers\KepalaToko\AksesorisController as KepalaTokoAksesorisController;
 use App\Http\Controllers\KepalaToko\DashboardController as KepalaTokoDashboardController;
 use App\Http\Controllers\KepalaToko\PelangganController as KepalaTokoPelangganController;
 use App\Http\Controllers\KepalaToko\SparepartController as KepalaTokoSparepartController;
-use App\Http\Controllers\Teknisi\SudahDiambilController as TeknisiSudahDiambilController;
+use App\Http\Controllers\KepalaToko\KasbonController as KepalaTokoKasbonController;
+use App\Http\Controllers\KepalaToko\MasterJenisBarangController as KepalaTokoMasterJenisBarangController;
+use App\Http\Controllers\KepalaToko\TransaksiAksesorisController as KepalaTokoTransaksiAksesorisController;
+use App\Http\Controllers\KepalaToko\TransaksiHandphoneController as KepalaTokoTransaksiHandphoneController;
+use App\Http\Controllers\KepalaToko\TransaksiSparepartController as KepalaTokoTransaksiSparepartController;
+// Admin Toko
 use App\Http\Controllers\AdminToko\BisaDiambilController as AdminTokoBisaDiambilController;
 use App\Http\Controllers\AdminToko\MasterMerekController as AdminTokoMasterMerekController;
 use App\Http\Controllers\AdminToko\LaporanAdminController as AdminTokoLaporanAdminController;
 use App\Http\Controllers\AdminToko\PhoneTerjualController as AdminTokoPhoneTerjualController;
 use App\Http\Controllers\AdminToko\SudahDiambilController as AdminTokoSudahDiambilController;
-use App\Http\Controllers\KepalaToko\KasbonController as KepalaTokoKasbonController;
-// Admin Toko
-use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
-use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
-use App\Http\Controllers\Sales\LaporanAksesorisController as SalesLaporanAksesorisController;
-use App\Http\Controllers\Sales\LaporanHandphoneController as SalesLaporanHandphoneController;
-use App\Http\Controllers\Sales\LaporanSparepartController as SalesLaporanSparepartController;
+use App\Http\Controllers\AdminToko\PhoneController as AdminTokoPhoneController;
+use App\Http\Controllers\AdminToko\KasbonController as AdminTokoKasbonController;
+use App\Http\Controllers\AdminToko\InsidenController as AdminTokoInsidenController;
+use App\Http\Controllers\AdminToko\AksesorisController as AdminTokoAksesorisController;
+use App\Http\Controllers\AdminToko\DashboardController as AdminTokoDashboardController;
+use App\Http\Controllers\AdminToko\PelangganController as AdminTokoPelangganController;
+use App\Http\Controllers\AdminToko\SparepartController as AdminTokoSparepartController;
+
 use App\Http\Controllers\Teknisi\LaporanTeknisiController as TeknisiLaporanTeknisiController;
 use App\Http\Controllers\Teknisi\TindakanServisController as TeknisiTindakanServisController;
 use App\Http\Controllers\KepalaToko\LaporanAdminController as KepalaTokoLaporanAdminController;
@@ -66,6 +65,10 @@ use App\Http\Controllers\Teknisi\UbahSudahDiambilController as TeknisiUbahSudahD
 use App\Http\Controllers\AdminToko\MasterKapasitasController as AdminTokoMasterKapasitasController;
 use App\Http\Controllers\AdminToko\MasterModelSeriController as AdminTokoMasterModelSeriController;
 // Teknisi
+use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
+use App\Http\Controllers\Teknisi\SudahDiambilController as TeknisiSudahDiambilController;
+use App\Http\Controllers\Teknisi\BisaDiambilController as TeknisiBisaDiambilController;
+use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganController;
 use App\Http\Controllers\AdminToko\TransaksiServisController as AdminTokoTransaksiServisController;
 use App\Http\Controllers\AdminToko\UbahBisaDiambilController as AdminTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\LaporanTeknisiController as KepalaTokoLaporanTeknisiController;
@@ -76,21 +79,21 @@ use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMaste
 use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTransaksiServisController;
 use App\Http\Controllers\AdminToko\MasterJenisBarangController as AdminTokoMasterJenisBarangController;
 use App\Http\Controllers\KepalaToko\ApproveAksesorisController as KepalaTokoApproveAksesorisController;
+use App\Http\Controllers\Teknisi\MasterModelSeriController as TeknisiMasterModelSeriController;
 // Sales
-use App\Http\Controllers\KepalaToko\ApproveHandphoneController as KepalaTokoApproveHandphoneController;
-use App\Http\Controllers\KepalaToko\ApproveSparepartController as KepalaTokoApproveSparepartController;
-use App\Http\Controllers\KepalaToko\LaporanAksesorisController as KepalaTokoLaporanAksesorisController;
-use App\Http\Controllers\KepalaToko\LaporanHandphoneController as KepalaTokoLaporanHandphoneController;
-use App\Http\Controllers\KepalaToko\LaporanSparepartController as KepalaTokoLaporanSparepartController;
-use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
-use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
+use App\Http\Controllers\Sales\LaporanAksesorisController as SalesLaporanAksesorisController;
+use App\Http\Controllers\Sales\LaporanHandphoneController as SalesLaporanHandphoneController;
+use App\Http\Controllers\Sales\LaporanSparepartController as SalesLaporanSparepartController;
+use App\Http\Controllers\Sales\PhoneTerjualController as SalesPhoneTerjualController;
+use App\Http\Controllers\Sales\PhoneController as SalesPhoneController;
+use App\Http\Controllers\Sales\AksesorisController as SalesAksesorisController;
+use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
+use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
+use App\Http\Controllers\Sales\SparepartController as SalesSparepartController;
 use App\Http\Controllers\AdminToko\TransaksiAksesorisController as AdminTokoTransaksiAksesorisController;
 use App\Http\Controllers\AdminToko\TransaksiHandphoneController as AdminTokoTransaksiHandphoneController;
 use App\Http\Controllers\AdminToko\TransaksiSparepartController as AdminTokoTransaksiSparepartController;
-use App\Http\Controllers\KepalaToko\MasterJenisBarangController as KepalaTokoMasterJenisBarangController;
-use App\Http\Controllers\KepalaToko\TransaksiAksesorisController as KepalaTokoTransaksiAksesorisController;
-use App\Http\Controllers\KepalaToko\TransaksiHandphoneController as KepalaTokoTransaksiHandphoneController;
-use App\Http\Controllers\KepalaToko\TransaksiSparepartController as KepalaTokoTransaksiSparepartController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -237,6 +240,7 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::resource('teknisi-transaksi-servis', TeknisiTransaksiServisController::class);
     Route::resource('teknisi-servis-bisa-diambil', TeknisiBisaDiambilController::class);
     Route::resource('teknisi-servis-sudah-diambil', TeknisiSudahDiambilController::class);
+    Route::resource('master/teknisi-master-model-seri', TeknisiMasterModelSeriController::class);
     Route::get('teknisi/tandaterima/{id}', [TeknisiTransaksiServisController::class, 'cetak'])->name('teknisi-cetak-tanda-terima');
     Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');
     Route::get('/teknisi-laporan', [TeknisiLaporanTeknisiController::class, 'index'])->name('teknisi-laporan');
