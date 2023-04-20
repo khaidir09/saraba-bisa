@@ -56,6 +56,37 @@ class DashboardController extends Controller
             ->sum('profittoko');
         $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
         $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
+
+        $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('omzet');
+        $omzetsparepart = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('omzet');
+        $omzetaksesori = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('omzet');
+        $omzethandphone = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('omzet');
+        $totalomzet = $omzetservis + $omzetsparepart + $omzetaksesori + $omzethandphone;
+
+        $profitservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $profitsparepart = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $profitaksesori = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $profithandphone = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $totalprofit = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;
+
         return view('pages/kepalatoko/dashboard', compact(
             'approveservis',
             'approvehandphone',
@@ -69,7 +100,9 @@ class DashboardController extends Controller
             'totalpenjualan',
             'totalsparepart',
             'totalaksesoris',
-            'totalhandphone'
+            'totalhandphone',
+            'totalomzet',
+            'totalprofit'
         ));
     }
 }
