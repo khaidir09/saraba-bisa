@@ -85,7 +85,7 @@ class DashboardController extends Controller
         $profithandphone = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profit');
-        $totalprofit = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;
+        $totalprofitutuh = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;
 
         return view('pages/kepalatoko/dashboard', compact(
             'approveservis',
@@ -102,7 +102,7 @@ class DashboardController extends Controller
             'totalaksesoris',
             'totalhandphone',
             'totalomzet',
-            'totalprofit'
+            'totalprofitutuh'
         ));
     }
 }
