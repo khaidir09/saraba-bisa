@@ -130,6 +130,8 @@ class UbahSudahDiambilController extends Controller
             'garansi' => $request->garansi,
             'exp_garansi' => $expired,
             'status_servis' => $request->status_servis,
+            'is_approve' => 'Setuju',
+            'tgl_disetujui' => $request->tgl_disetujui,
             'tgl_ambil' => $request->tgl_ambil,
             'pengambil' => $request->pengambil,
             'modal_sparepart' => $request->modal_sparepart,

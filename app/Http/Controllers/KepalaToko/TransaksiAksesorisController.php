@@ -59,6 +59,8 @@ class TransaksiAksesorisController extends Controller
         // Transaction create
         AccessoryTransaction::create([
             'nomor_transaksi' => $nomor_transaksi,
+            'is_approve' => 'Setuju',
+            'tgl_disetujui' => $request->tgl_disetujui,
             'customers_id' => $request->customers_id,
             'accessories_id' => $request->accessories_id,
             'quantity' => $request->quantity,

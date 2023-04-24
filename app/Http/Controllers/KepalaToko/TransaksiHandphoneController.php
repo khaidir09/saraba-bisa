@@ -71,6 +71,8 @@ class TransaksiHandphoneController extends Controller
         // Transaction create
         PhoneTransaction::create([
             'nomor_transaksi' => $nomor_transaksi,
+            'is_approve' => 'Setuju',
+            'tgl_disetujui' => $request->tgl_disetujui,
             'customers_id' => $request->customers_id,
             'phones_id' => $request->phones_id,
             'quantity' => $request->quantity,
