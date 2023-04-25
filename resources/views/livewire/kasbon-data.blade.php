@@ -65,6 +65,8 @@
                         <!-- Modal content -->
                         <form action="{{ route('kasbon.store') }}" method="post">
                             @csrf
+                            <input type="hidden" name="tgl_disetujui" value="<?php echo date('Y/m/d') ?>"/>
+                            <input type="hidden" name="is_approve" value="Setuju"/>
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>

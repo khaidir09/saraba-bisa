@@ -65,6 +65,7 @@
                         <!-- Modal content -->
                         <form action="{{ route('transaksi-aksesoris.store') }}" method="post">
                             @csrf
+                            <input type="hidden" name="tgl_disetujui" value="<?php echo date('Y/m/d') ?>"/>
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>

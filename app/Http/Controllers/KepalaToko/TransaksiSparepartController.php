@@ -49,6 +49,8 @@ class TransaksiSparepartController extends Controller
         // Transaction create
         SparepartTransaction::create([
             'nomor_transaksi' => $nomor_transaksi,
+            'is_approve' => 'Setuju',
+            'tgl_disetujui' => $request->tgl_disetujui,
             'customers_id' => $request->customers_id,
             'spareparts_id' => $request->spareparts_id,
             'quantity' => $request->quantity,

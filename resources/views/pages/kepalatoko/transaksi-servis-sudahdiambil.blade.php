@@ -80,6 +80,7 @@
                         @csrf
                         <input type="hidden" name="status_servis" value="Sudah Diambil"/>
                         <input type="hidden" name="tgl_ambil" value="<?php echo date('Y/m/d') ?>"/>
+                        <input type="hidden" name="tgl_disetujui" value="<?php echo date('Y/m/d') ?>"/>
                         <input type="hidden" name="modal_sparepart" value="{{ $item->modal_sparepart }}"/>
                         <input type="hidden" name="biaya" value="{{ $item->biaya }}"/>
                         <input type="hidden" name="persen_teknisi" value="{{ $item->user->persen }}"/>
