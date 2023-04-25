@@ -67,7 +67,7 @@
 				</tr>
 				<tr>
 				<td class="title">Tgl. Masuk</td>
-				<td class="value">: {{ \Carbon\Carbon::parse($items->created_at)->locale('id')->translatedFormat('d/m/Y') }} [{{ $items->penerima }}]</td>
+				<td class="value">: {{ \Carbon\Carbon::parse($items->created_at)->locale('id')->translatedFormat('d/m/Y') }}</td>
 				</tr>
 				<tr>
 				<td class="title">Nama Barang</td>
@@ -111,10 +111,6 @@
 					<td class="title">Masa Garansi</td>
 					<td class="value">: {{ \Carbon\Carbon::parse($items->exp_garansi)->locale('id')->translatedFormat('d/m/Y') }}</td>
 				@endif
-				</tr>
-				<tr>
-				<td class="title">Teknisi</td>
-				<td class="value">: {{ $items->user->name }}</td>
 				</tr>
 				<tr>
 				<td class="title">Pengecekan Masuk</td>
