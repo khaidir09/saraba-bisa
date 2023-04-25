@@ -46,9 +46,7 @@ class TransaksiHandphoneController extends Controller
     public function store(Request $request)
     {
         $nomor_transaksi = 'HP-' . mt_rand(date('Ymd00'), date('Ymd99'));
-        $persen_sales = User::find($request->users_id);
         $profittransaksi = $request->harga - $request->modal - $request->diskon;
-        $bagihasil = ($request->harga - $request->modal) / 100 - ($request->diskon) / 100;
 
         $garansi = Carbon::now();
         if ($request->garansi != null) {
@@ -71,8 +69,6 @@ class TransaksiHandphoneController extends Controller
         // Transaction create
         PhoneTransaction::create([
             'nomor_transaksi' => $nomor_transaksi,
-            'is_approve' => 'Setuju',
-            'tgl_disetujui' => $request->tgl_disetujui,
             'customers_id' => $request->customers_id,
             'phones_id' => $request->phones_id,
             'quantity' => $request->quantity,
@@ -85,11 +81,8 @@ class TransaksiHandphoneController extends Controller
             'garansi_imei' => $request->garansi_imei,
             'exp_garansi' => $expired,
             'exp_imei' => $expired_imei,
-            'persen_sales' => $persen_sales->persen,
-            'users_id' => $request->users_id,
             'omzet' => $request->harga - $request->diskon,
-            'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_sales->persen)
+            'profit' => $profittransaksi
         ]);
 
         $phones = Phone::find($request->phones_id);
@@ -120,7 +113,6 @@ class TransaksiHandphoneController extends Controller
     {
         $item = PhoneTransaction::findOrFail($id);
         $phones = Phone::with('brand', 'modelserie')->get();
-        $users = User::where('role', 'Sales')->get();
         $customers = Customer::all();
         $brands = Brand::all();
         $model_series = ModelSerie::all();
@@ -132,8 +124,7 @@ class TransaksiHandphoneController extends Controller
             'customers' => $customers,
             'brands' => $brands,
             'model_series' => $model_series,
-            'capacities' => $capacities,
-            'users' => $users
+            'capacities' => $capacities
         ]);
     }
 
@@ -147,9 +138,7 @@ class TransaksiHandphoneController extends Controller
     public function update(Request $request, $id)
     {
         $item = PhoneTransaction::findOrFail($id);
-        $persen_sales = User::find($request->users_id);
         $profittransaksi = $request->harga - $request->modal - $request->diskon;
-        $bagihasil = $profittransaksi / 100;
         $item->update([
             'customers_id' => $request->customers_id,
             'qc' => $request->qc,
@@ -159,11 +148,8 @@ class TransaksiHandphoneController extends Controller
             'cara_pembayaran' => $request->cara_pembayaran,
             'exp_garansi' => $request->exp_garansi,
             'exp_imei' => $request->exp_imei,
-            'persen_sales' => $persen_sales->persen,
-            'users_id' => $request->users_id,
             'omzet' => $request->harga - $request->diskon,
-            'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_sales->persen)
+            'profit' => $profittransaksi
         ]);
 
         return redirect()->route('transaksi-handphone.index');

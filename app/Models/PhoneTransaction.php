@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class PhoneTransaction extends Model
 {
     protected $fillable = [
-        'users_id',
         'customers_id',
         'phones_id',
         'nomor_transaksi',
@@ -16,8 +15,6 @@ class PhoneTransaction extends Model
         'qc',
         'harga',
         'modal',
-        'is_approve',
-        'tgl_disetujui',
         'diskon',
         'created_at',
         'cara_pembayaran',
@@ -25,12 +22,8 @@ class PhoneTransaction extends Model
         'garansi_imei',
         'exp_garansi',
         'exp_imei',
-        'is_admin_toko',
         'omzet',
-        'profit',
-        'profittoko',
-        'persen_admin',
-        'persen_sales'
+        'profit'
     ];
 
     public function user()

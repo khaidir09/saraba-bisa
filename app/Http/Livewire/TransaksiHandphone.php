@@ -37,13 +37,11 @@ class TransaksiHandphone extends Component
     public function render()
     {
         $phones = Phone::with('brand', 'modelserie')->where('stok', '1')->get();
-        $users = User::all();
-        $phone_transactions = PhoneTransaction::with('user', 'customer', 'phone')->paginate(10);
+        $phone_transactions = PhoneTransaction::with('customer', 'phone')->paginate(10);
         $phone_transactions_count = PhoneTransaction::all()->count();
 
         return view('livewire.transaksi-handphone', [
             'phones' => $phones,
-            'users' => $users,
             'phone_transactions' => $phone_transactions,
             'phone_transactions_count' => $phone_transactions_count,
             'phone_transactions' => $this->search === null ?

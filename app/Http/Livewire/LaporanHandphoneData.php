@@ -35,18 +35,16 @@ class LaporanHandphoneData extends Component
 
     public function render()
     {
-        $users = User::all();
         $customers = Customer::all();
         $phones = Phone::all();
-        $jumlah = PhoneTransaction::where('is_approve', 'Setuju')->count();
+        $jumlah = PhoneTransaction::all()->count();
         return view('livewire.laporan-handphone-data', [
             'jumlah' => $jumlah,
             'phones' => $phones,
-            'users' => $users,
             'customers' => $customers,
             'phone_transactions' => $this->search === null ?
-                PhoneTransaction::latest()->where('is_approve', 'Setuju')->paginate($this->paginate) :
-                PhoneTransaction::latest()->where('is_approve', 'Setuju')->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                PhoneTransaction::latest()->paginate($this->paginate) :
+                PhoneTransaction::latest()->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }
