@@ -43,9 +43,7 @@ class TransaksiAksesorisController extends Controller
     public function store(Request $request)
     {
         $nomor_transaksi = 'AC-' . mt_rand(date('Ymd00'), date('Ymd99'));
-        $persen_sales = User::find($request->users_id);
         $profittransaksi = ($request->harga - $request->modal) * ($request->quantity) - ($request->diskon);
-        $bagihasil = ($request->harga - $request->modal) / 100 * ($request->quantity) - ($request->diskon) / 100;
 
         $garansi = Carbon::now();
         if ($request->garansi != null) {
@@ -59,8 +57,6 @@ class TransaksiAksesorisController extends Controller
         // Transaction create
         AccessoryTransaction::create([
             'nomor_transaksi' => $nomor_transaksi,
-            'is_approve' => 'Setuju',
-            'tgl_disetujui' => $request->tgl_disetujui,
             'customers_id' => $request->customers_id,
             'accessories_id' => $request->accessories_id,
             'quantity' => $request->quantity,
@@ -70,11 +66,8 @@ class TransaksiAksesorisController extends Controller
             'cara_pembayaran' => $request->cara_pembayaran,
             'garansi' => $request->garansi,
             'exp_garansi' => $expired,
-            'users_id' => $request->users_id,
-            'persen_sales' => $persen_sales->persen,
             'omzet' => ($request->harga * $request->quantity) - ($request->diskon),
-            'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_sales->persen)
+            'profit' => $profittransaksi
         ]);
 
         $accessories = Accessory::find($request->accessories_id);
@@ -105,14 +98,12 @@ class TransaksiAksesorisController extends Controller
     {
         $item = AccessoryTransaction::findOrFail($id);
         $accessories = Accessory::all();
-        $users = User::where('role', 'Sales')->get();
         $customers = Customer::all();
 
         return view('pages.kepalatoko.aksesoris.transaksi-edit', [
             'item' => $item,
             'accessories' => $accessories,
-            'customers' => $customers,
-            'users' => $users
+            'customers' => $customers
         ]);
     }
 
@@ -126,9 +117,7 @@ class TransaksiAksesorisController extends Controller
     public function update(Request $request, $id)
     {
         $item = AccessoryTransaction::findOrFail($id);
-        $persen_sales = User::find($request->users_id);
         $profittransaksi = ($request->harga - $request->modal) * ($request->quantity) - ($request->diskon);
-        $bagihasil = ($request->harga - $request->modal) / 100 * ($request->quantity) - ($request->diskon) / 100;
         // Transaction create
         $item->update([
             'customers_id' => $request->customers_id,
@@ -138,11 +127,8 @@ class TransaksiAksesorisController extends Controller
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
             'exp_garansi' => $request->exp_garansi,
-            'users_id' => $request->users_id,
-            'persen_sales' => $persen_sales->persen,
             'omzet' => ($request->harga * $request->quantity) - ($request->diskon),
-            'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_sales->persen)
+            'profit' => $profittransaksi
         ]);
 
         return redirect()->route('transaksi-aksesoris.index');

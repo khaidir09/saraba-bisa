@@ -30,18 +30,16 @@ class LaporanAksesorisData extends Component
 
     public function render()
     {
-        $users = User::all();
         $customers = Customer::all();
         $accessories = Accessory::all();
-        $jumlah = AccessoryTransaction::where('is_approve', 'Setuju')->sum('quantity');
+        $jumlah = AccessoryTransaction::all()->sum('quantity');
         return view('livewire.laporan-aksesoris-data', [
             'jumlah' => $jumlah,
             'accessories' => $accessories,
-            'users' => $users,
             'customers' => $customers,
             'accessory_transactions' => $this->search === null ?
-                AccessoryTransaction::latest()->where('is_approve', 'Setuju')->paginate($this->paginate) :
-                AccessoryTransaction::latest()->where('is_approve', 'Setuju')->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                AccessoryTransaction::latest()->paginate($this->paginate) :
+                AccessoryTransaction::latest()->where('nomor_transaksi', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

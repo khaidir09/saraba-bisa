@@ -33,13 +33,11 @@ class TransaksiAksesoris extends Component
     public function render()
     {
         $accessories = Accessory::all();
-        $users = User::all();
-        $accessory_transactions = AccessoryTransaction::with('user', 'customer', 'accessory')->paginate(10);
+        $accessory_transactions = AccessoryTransaction::with('customer', 'accessory')->paginate(10);
         $accessory_transactions_count = AccessoryTransaction::all()->count();
 
         return view('livewire.transaksi-aksesoris', [
             'accessories' => $accessories,
-            'users' => $users,
             'accessory_transactions' => $accessory_transactions,
             'accessory_transactions_count' => $accessory_transactions_count,
             'accessory_transactions' => $this->search === null ?

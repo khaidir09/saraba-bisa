@@ -28,10 +28,9 @@ class DashboardController extends Controller
         $totalsparepart = SparepartTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
-        $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+        $totalaksesoris = AccessoryTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
             ->get()
-            ->sum('profittoko');
+            ->sum('profit');
         $totalhandphone = PhoneTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()

@@ -10,7 +10,6 @@ class AccessoryTransaction extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'users_id',
         'customers_id',
         'accessories_id',
         'nomor_transaksi',
@@ -19,17 +18,11 @@ class AccessoryTransaction extends Model
         'modal',
         'garansi',
         'exp_garansi',
-        'is_approve',
-        'tgl_disetujui',
         'diskon',
         'created_at',
         'cara_pembayaran',
-        'is_admin_toko',
-        'persen_admin',
-        'persen_sales',
         'omzet',
-        'profit',
-        'profittoko'
+        'profit'
     ];
 
     public function user()

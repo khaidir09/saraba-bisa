@@ -65,7 +65,6 @@
                         <!-- Modal content -->
                         <form action="{{ route('transaksi-aksesoris.store') }}" method="post">
                             @csrf
-                            <input type="hidden" name="tgl_disetujui" value="<?php echo date('Y/m/d') ?>"/>
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>
@@ -156,14 +155,6 @@
                                             <option value="1825">5 Tahun</option>
                                         </select>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="users_id">Penerima <span class="text-rose-500">*</span></label>
-                                        <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
                             <!-- Modal footer -->
@@ -219,9 +210,6 @@
                             <div class="font-semibold text-left">Tgl Transaksi</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Penerima</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -244,9 +232,6 @@
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Masa Garansi</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>
@@ -285,13 +270,6 @@
                                 <div>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if ($item->user != null)
-                                    <div class="font-medium">{{ $item->user->name }}</div>
-                                @else
-                                    <div class="font-medium text-red-600">Data sales sudah dihapus</div>
-                                @endif
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($item->customer != null)
                                     <div class="font-medium">{{ $item->customer->nama }}</div>
                                 @else
@@ -328,17 +306,6 @@
                                 @else
                                     <div class="font-medium text-blue-600">{{ \Carbon\Carbon::parse($item->exp_garansi)->format('d/m/Y') }}</div>
                                 @endif
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <a href="{{ route('transaksi-aksesoris-approve.edit', $item->id) }}">
-                                    @if ($item->is_approve === null)
-                                        <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-amber-500 text-white">Belum Disetujui</div>
-                                    @elseif ($item->is_approve === 'Setuju')
-                                        <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-blue-500 text-white">Sudah Disetujui</div>
-                                    @else
-                                        <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-red-500 text-white">Ditolak</div>
-                                    @endif
-                                </a>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
