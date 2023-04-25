@@ -8,7 +8,6 @@ use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
-use App\Models\Debt;
 use App\Models\SparepartTransaction;
 
 class DashboardController extends Controller
@@ -26,10 +25,9 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
-        $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+        $totalsparepart = SparepartTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
             ->get()
-            ->sum('profittoko');
+            ->sum('profit');
         $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()

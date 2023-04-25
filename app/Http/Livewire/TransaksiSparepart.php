@@ -10,8 +10,6 @@ use App\Models\Capacity;
 use App\Models\Customer;
 use Barryvdh\DomPDF\PDF;
 use App\Models\ModelSerie;
-use App\Models\Phone;
-use App\Models\PhoneTransaction;
 use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
 use App\Models\Sparepart;
@@ -39,13 +37,11 @@ class TransaksiSparepart extends Component
     public function render()
     {
         $spareparts = Sparepart::all();
-        $users = User::all();
         $sparepart_transactions = SparepartTransaction::with('user', 'customer', 'sparepart')->paginate(10);
         $sparepart_transactions_count = SparepartTransaction::all()->count();
 
         return view('livewire.transaksi-sparepart', [
             'spareparts' => $spareparts,
-            'users' => $users,
             'sparepart_transactions' => $sparepart_transactions,
             'sparepart_transactions_count' => $sparepart_transactions_count,
             'sparepart_transactions' => $this->search === null ?

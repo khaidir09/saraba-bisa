@@ -11,25 +11,18 @@ class SparepartTransaction extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'users_id',
         'customers_id',
         'spareparts_id',
         'nomor_transaksi',
         'quantity',
         'harga',
         'modal',
-        'is_approve',
-        'tgl_disetujui',
         'diskon',
         'cara_pembayaran',
         'garansi',
         'exp_garansi',
-        'is_admin_toko',
         'omzet',
         'profit',
-        'profittoko',
-        'persen_admin',
-        'persen_sales',
         'created_at'
     ];
 
