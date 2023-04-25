@@ -47,28 +47,16 @@ use App\Http\Controllers\AdminToko\DashboardController as AdminTokoDashboardCont
 use App\Http\Controllers\AdminToko\PelangganController as AdminTokoPelangganController;
 use App\Http\Controllers\AdminToko\SparepartController as AdminTokoSparepartController;
 
-use App\Http\Controllers\Teknisi\LaporanTeknisiController as TeknisiLaporanTeknisiController;
-use App\Http\Controllers\Teknisi\TindakanServisController as TeknisiTindakanServisController;
 use App\Http\Controllers\KepalaToko\LaporanAdminController as KepalaTokoLaporanAdminController;
 use App\Http\Controllers\KepalaToko\LaporanSalesController as KepalaTokoLaporanSalesController;
 use App\Http\Controllers\KepalaToko\PhoneTerjualController as KepalaTokoPhoneTerjualController;
 use App\Http\Controllers\KepalaToko\SudahDiambilController as KepalaTokoSudahDiambilController;
-use App\Http\Controllers\Teknisi\TransaksiServisController as TeknisiTransaksiServisController;
-use App\Http\Controllers\Teknisi\UbahBisaDiambilController as TeknisiUbahBisaDiambilController;
 use App\Http\Controllers\AdminToko\TindakanServisController as AdminTokoTindakanServisController;
 use App\Http\Controllers\KepalaToko\InformasiTokoController as KepalaTokoInformasiTokoController;
 use App\Http\Controllers\KepalaToko\LaporanServisController as KepalaTokoLaporanServisController;
-use App\Http\Controllers\Sales\TransaksiAksesorisController as SalesTransaksiAksesorisController;
-use App\Http\Controllers\Sales\TransaksiHandphoneController as SalesTransaksiHandphoneController;
-use App\Http\Controllers\Sales\TransaksiSparepartController as SalesTransaksiSparepartController;
-use App\Http\Controllers\Teknisi\UbahSudahDiambilController as TeknisiUbahSudahDiambilController;
 use App\Http\Controllers\AdminToko\MasterKapasitasController as AdminTokoMasterKapasitasController;
 use App\Http\Controllers\AdminToko\MasterModelSeriController as AdminTokoMasterModelSeriController;
 // Teknisi
-use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
-use App\Http\Controllers\Teknisi\SudahDiambilController as TeknisiSudahDiambilController;
-use App\Http\Controllers\Teknisi\BisaDiambilController as TeknisiBisaDiambilController;
-use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganController;
 use App\Http\Controllers\AdminToko\TransaksiServisController as AdminTokoTransaksiServisController;
 use App\Http\Controllers\AdminToko\UbahBisaDiambilController as AdminTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\LaporanTeknisiController as KepalaTokoLaporanTeknisiController;
@@ -79,17 +67,7 @@ use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMaste
 use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTransaksiServisController;
 use App\Http\Controllers\AdminToko\MasterJenisBarangController as AdminTokoMasterJenisBarangController;
 use App\Http\Controllers\KepalaToko\ApproveAksesorisController as KepalaTokoApproveAksesorisController;
-use App\Http\Controllers\Teknisi\MasterModelSeriController as TeknisiMasterModelSeriController;
 // Sales
-use App\Http\Controllers\Sales\LaporanAksesorisController as SalesLaporanAksesorisController;
-use App\Http\Controllers\Sales\LaporanHandphoneController as SalesLaporanHandphoneController;
-use App\Http\Controllers\Sales\LaporanSparepartController as SalesLaporanSparepartController;
-use App\Http\Controllers\Sales\PhoneTerjualController as SalesPhoneTerjualController;
-use App\Http\Controllers\Sales\PhoneController as SalesPhoneController;
-use App\Http\Controllers\Sales\AksesorisController as SalesAksesorisController;
-use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
-use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
-use App\Http\Controllers\Sales\SparepartController as SalesSparepartController;
 use App\Http\Controllers\AdminToko\TransaksiAksesorisController as AdminTokoTransaksiAksesorisController;
 use App\Http\Controllers\AdminToko\TransaksiHandphoneController as AdminTokoTransaksiHandphoneController;
 use App\Http\Controllers\AdminToko\TransaksiSparepartController as AdminTokoTransaksiSparepartController;
@@ -232,46 +210,6 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::get('merek/export', [AdminTokoMasterMerekController::class, 'export'])->name('admin-merek-export');
     Route::get('customer/export', [AdminTokoPelangganController::class, 'export'])->name('admin-pelanggan-export');
 });
-
-Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
-    Route::get('/teknisi-dashboard', [TeknisiDashboardController::class, 'index'])->name('teknisi-dashboard');
-    Route::resource('teknisi-pelanggan', TeknisiPelangganController::class);
-    Route::resource('teknisi-tindakan-servis', TeknisiTindakanServisController::class);
-    Route::resource('teknisi-transaksi-servis', TeknisiTransaksiServisController::class);
-    Route::resource('teknisi-servis-bisa-diambil', TeknisiBisaDiambilController::class);
-    Route::resource('teknisi-servis-sudah-diambil', TeknisiSudahDiambilController::class);
-    Route::resource('master/teknisi-master-model-seri', TeknisiMasterModelSeriController::class);
-    Route::get('teknisi/tandaterima/{id}', [TeknisiTransaksiServisController::class, 'cetak'])->name('teknisi-cetak-tanda-terima');
-    Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');
-    Route::get('/teknisi-laporan', [TeknisiLaporanTeknisiController::class, 'index'])->name('teknisi-laporan');
-    Route::get('teknisi/servis-ubah-bisa-diambil/{id}', [TeknisiUbahBisaDiambilController::class, 'edit'])->name('teknisi-ubah-bisa-diambil-edit');
-    Route::post('teknisi/servis-ubah-bisa-diambil{id}', [TeknisiUbahBisaDiambilController::class, 'update'])->name('teknisi-ubah-bisa-diambil-update');
-    Route::get('teknisi/servis-ubah-sudah-diambil/{id}', [TeknisiUbahSudahDiambilController::class, 'edit'])->name('teknisi-ubah-sudah-diambil-edit');
-    Route::post('teknisi/servis-ubah-sudah-diambil{id}', [TeknisiUbahSudahDiambilController::class, 'update'])->name('teknisi-ubah-sudah-diambil-update');
-
-    Route::get('teknisi-nota-pengambilan-termal/{id}', [TeknisiSudahDiambilController::class, 'cetaktermal'])->name('teknisi-termal-pengambilan');
-});
-
-Route::middleware('ensureSalesRole:Sales')->group(
-    function () {
-        Route::get('/sales-dashboard', [SalesDashboardController::class, 'index'])->name('sales-dashboard');
-        Route::resource('sales-pelanggan', SalesPelangganController::class);
-        Route::resource('phone/sales-data-handphone', SalesPhoneController::class);
-        Route::resource('phone/sales-phone-terjual', SalesPhoneTerjualController::class);
-        Route::resource('phone/sales-transaksi-handphone', SalesTransaksiHandphoneController::class);
-        Route::resource('sparepart/sales-data-sparepart', SalesSparepartController::class);
-        Route::resource('sparepart/sales-transaksi-sparepart', SalesTransaksiSparepartController::class);
-        Route::resource('aksesoris/sales-data-aksesoris', SalesAksesorisController::class);
-        Route::resource('aksesoris/sales-transaksi-aksesoris', SalesTransaksiAksesorisController::class);
-        Route::resource('laporan/sales-laporan-handphone', SalesLaporanHandphoneController::class);
-        Route::resource('laporan/sales-laporan-sparepart', SalesLaporanSparepartController::class);
-        Route::resource('laporan/sales-laporan-aksesoris', SalesLaporanAksesorisController::class);
-
-        Route::get('sales-nota-sparepart-termal/{id}', [SalesTransaksiSparepartController::class, 'cetaktermal'])->name('sales-nota-sparepart-termal');
-        Route::get('sales-nota-handphone-termal/{id}', [SalesTransaksiHandphoneController::class, 'cetaktermal'])->name('sales-nota-handphone-termal');
-        Route::get('sales-nota-aksesori-termal/{id}', [SalesTransaksiAksesorisController::class, 'cetaktermal'])->name('sales-nota-aksesori-termal');
-    }
-);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
