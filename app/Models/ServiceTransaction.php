@@ -11,8 +11,6 @@ class ServiceTransaction extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'users_id',
-        'penerima',
         'nomor_servis',
         'customers_id',
         'types_id',
@@ -39,21 +37,13 @@ class ServiceTransaction extends Model
         'service_actions_id',
         'spareparts_id',
         'modal_sparepart',
-        'is_approve',
         'diskon',
         'created_at',
         'tgl_ambil',
         'pengambil',
         'tgl_selesai',
-        'tgl_disetujui',
-        'is_admin_toko',
         'omzet',
-        'profit',
-        'profittoko',
-        'danabackup',
-        'persen_admin',
-        'persen_teknisi',
-        'persen_backup'
+        'profit'
     ];
 
     public function user()

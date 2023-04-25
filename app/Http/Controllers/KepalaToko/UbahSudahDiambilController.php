@@ -27,7 +27,6 @@ class UbahSudahDiambilController extends Controller
         $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
         $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
         $customers = Customer::all();
-        $users = User::all();
         $types = Type::all();
         $brands = Brand::all();
         $capacities = Capacity::all();
@@ -38,7 +37,6 @@ class UbahSudahDiambilController extends Controller
         return view('pages/kepalatoko/bisa-diambil', compact(
             'processes_count',
             'customers',
-            'users',
             'types',
             'brands',
             'model_series',
@@ -110,9 +108,7 @@ class UbahSudahDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $persen_backup = User::find(1);
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
-        $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
 
         $garansi = Carbon::now();
         if ($request->garansi != null) {
@@ -130,18 +126,12 @@ class UbahSudahDiambilController extends Controller
             'garansi' => $request->garansi,
             'exp_garansi' => $expired,
             'status_servis' => $request->status_servis,
-            'is_approve' => 'Setuju',
-            'tgl_disetujui' => $request->tgl_disetujui,
             'tgl_ambil' => $request->tgl_ambil,
             'pengambil' => $request->pengambil,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
-            'persen_teknisi' => $request->persen_teknisi,
-            'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya - $request->diskon,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $request->persen_teknisi + $persen_backup->persen),
-            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100 - $request->diskon / 100) * $persen_backup->persen
         ]);
 
         return redirect()->route('transaksi-servis-bisa-diambil.index');

@@ -188,15 +188,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="penerima">Penerima</label>
-                                    <select id="penerima" name="penerima" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->penerima }}">{{ $item->penerima }}</option>
-                                        @foreach ($workers as $worker)
-                                            <option value="{{ $worker->name }}">{{ $worker->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
                             </div>
                         </div>
                         <!-- Modal footer -->

@@ -23,11 +23,10 @@ class UbahBisaDiambilController extends Controller
      */
     public function index()
     {
-        $processes = ServiceTransaction::with('customer')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orderByDesc('updated_at')->paginate(10);
+        $processes = ServiceTransaction::with('customer')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orderByDesc('created_at')->paginate(10);
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
         $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
-        $users = User::where('role', 'Teknisi')->get();
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
@@ -39,7 +38,6 @@ class UbahBisaDiambilController extends Controller
         return view('pages/kepalatoko/transaksi-servis', compact(
             'processes',
             'processes_count',
-            'users',
             'customers',
             'types',
             'brands',
@@ -95,12 +93,10 @@ class UbahBisaDiambilController extends Controller
     public function edit($id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $users = User::where('role', 'Teknisi')->get();
         $service_actions = ServiceAction::all();
 
         return view('pages.kepalatoko.transaksi-servis-bisadiambil', [
             'item' => $item,
-            'users' => $users,
             'service_actions' => $service_actions
         ]);
     }
@@ -115,14 +111,10 @@ class UbahBisaDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $persen_backup = User::find(1);
-        $persen_teknisi = User::find($request->users_id);
         $tindakan_servis = ServiceAction::find($request->service_actions_id);
         $profittransaksi = $request->biaya - $request->modal_sparepart;
-        $bagihasil = ($request->biaya - $request->modal_sparepart) / 100;
         // Transaction create
         $item->update([
-            'users_id' => $request->users_id,
             'status_servis' => $request->status_servis,
             'tgl_selesai' => $request->tgl_selesai,
             'kondisi_servis' => $request->kondisi_servis,
@@ -132,12 +124,8 @@ class UbahBisaDiambilController extends Controller
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'catatan' => $request->catatan,
-            'persen_teknisi' => $persen_teknisi->persen,
-            'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya,
-            'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil * ($persen_teknisi->persen + $persen_backup->persen)),
-            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100) * $persen_backup->persen
+            'profit' => $profittransaksi
         ]);
 
         if ($request->spareparts_id != null) {

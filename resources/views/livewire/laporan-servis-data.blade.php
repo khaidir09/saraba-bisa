@@ -30,9 +30,6 @@
                             <div class="font-semibold text-left">Tanggal Diambil</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Teknisi</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Tindakan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -45,7 +42,7 @@
                             <div class="font-semibold text-left">Diskon</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Profit Toko</div>
+                            <div class="font-semibold text-left">Profit</div>
                         </th>
                     </tr>
                 </thead>
@@ -56,13 +53,6 @@
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ \Carbon\Carbon::parse($item->tgl_ambil)->translatedFormat('d F Y') }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if ($item->user != null)
-                                    <div class="font-medium">{{ $item->user->name }}</div>
-                                @else
-                                    <div class="font-medium text-red-600">Data teknisi sudah dihapus</div>
-                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->tindakan_servis }}</div>
@@ -78,7 +68,7 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">
-                                    {{ number_format($item->profittoko) }}
+                                    {{ number_format($item->profit) }}
                                 </div>
                             </td>
                         </tr>

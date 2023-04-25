@@ -24,7 +24,7 @@ class TransaksiServisController extends Controller
      */
     public function index()
     {
-        $processes = ServiceTransaction::with('customer')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orderByDesc('updated_at')->paginate(10);
+        $processes = ServiceTransaction::with('customer')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orderByDesc('created_at')->paginate(10);
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
         $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
@@ -78,8 +78,7 @@ class TransaksiServisController extends Controller
             'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
             'uang_muka' => $request->uang_muka,
-            'status_servis' => $request->status_servis,
-            'penerima' => $request->penerima
+            'status_servis' => $request->status_servis
         ]);
 
         return redirect()->route('transaksi-servis.index');
@@ -138,8 +137,6 @@ class TransaksiServisController extends Controller
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
         $capacities = Capacity::all();
-        $users = User::where('role', 'Teknisi')->get();
-        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
 
         return view('pages.kepalatoko.transaksi-servis-edit', [
             'item' => $item,
@@ -148,9 +145,7 @@ class TransaksiServisController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'service_actions' => $service_actions,
-            'capacities' => $capacities,
-            'users' => $users,
-            'workers' => $workers
+            'capacities' => $capacities
         ]);
     }
 

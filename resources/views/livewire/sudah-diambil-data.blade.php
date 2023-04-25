@@ -156,14 +156,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="penerima">Penerima</label>
-                                        <select id="penerima" name="penerima" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($workers as $worker)
-                                                <option value="{{ $worker->name }}">{{ $worker->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
                             <!-- Modal footer -->
@@ -243,9 +235,6 @@
                             <div class="font-semibold text-left">Tgl Terima</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Penerima</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -270,9 +259,6 @@
                             <div class="font-semibold text-left">Tindakan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Teknisi</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal Sparepart</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -292,9 +278,6 @@
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Masa Garansi</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>
@@ -331,13 +314,6 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div>{{ \Carbon\Carbon::parse($transaction->created_at)->format('d/m/Y') }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if ($transaction->penerima != null)
-                                    <div class="font-medium">{{ $transaction->penerima }}</div>
-                                @else
-                                    <div class="font-medium text-red-600">Data karyawan sudah dihapus</div>
-                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($transaction->customer != null)
@@ -523,13 +499,6 @@
                                 <div class="font-medium">{{ $transaction->tindakan_servis }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if ($transaction->user != null)
-                                    <div class="font-medium">{{ $transaction->user->name }}</div>
-                                @else
-                                    <div class="font-medium text-red-600">Data teknisi sudah dihapus</div>
-                                @endif
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($transaction->modal_sparepart) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -555,17 +524,6 @@
                                 @else
                                     <div class="font-medium text-blue-600">{{ \Carbon\Carbon::parse($transaction->exp_garansi)->format('d/m/Y') }}</div>
                                 @endif
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <a href="{{ route('transaksi-servis-approve.edit', $transaction->id) }}">
-                                    @if ($transaction->is_approve === null)
-                                        <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-amber-500 text-white">Belum Disetujui</div>
-                                    @elseif ($transaction->is_approve === 'Setuju')
-                                        <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-blue-500 text-white">Sudah Disetujui</div>
-                                    @else
-                                        <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-red-500 text-white">Ditolak</div>
-                                    @endif
-                                </a>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">

@@ -63,8 +63,7 @@ class BisaDiambilController extends Controller
             'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
             'uang_muka' => $request->uang_muka,
-            'status_servis' => $request->status_servis,
-            'penerima' => $request->penerima
+            'status_servis' => $request->status_servis
         ]);
 
         return redirect()->route('transaksi-servis.index');
@@ -96,8 +95,6 @@ class BisaDiambilController extends Controller
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
         $capacities = Capacity::all();
-        $users = User::where('role', 'Teknisi')->get();
-        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
 
         return view('pages.kepalatoko.bisa-diambil-edit', [
             'item' => $item,
@@ -106,9 +103,7 @@ class BisaDiambilController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'service_actions' => $service_actions,
-            'capacities' => $capacities,
-            'users' => $users,
-            'workers' => $workers
+            'capacities' => $capacities
         ]);
     }
 
@@ -122,16 +117,11 @@ class BisaDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $persen_backup = User::find(1);
-        $persen_teknisi = User::find($request->users_id);
         $tindakan_servis = ServiceAction::find($request->service_actions_id);
         $profittransaksi = $request->biaya - $request->modal_sparepart;
-        $bagihasil = $profittransaksi / 100;
         // Transaction create
         $item->update([
             'created_at' => $request->created_at,
-            'users_id' => $request->users_id,
-            'penerima' => $request->penerima,
             'customers_id' => $request->customers_id,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
@@ -143,13 +133,8 @@ class BisaDiambilController extends Controller
             'tindakan_servis' => $tindakan_servis->nama_tindakan,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
-            'persen_admin' => $request->persen_admin,
-            'persen_teknisi' => $persen_teknisi->persen,
-            'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya,
-            'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi->persen + $persen_backup->persen),
-            'danabackup' => $bagihasil * $persen_backup->persen
+            'profit' => $profittransaksi
         ]);
 
         return redirect()->route('transaksi-servis-bisa-diambil.index');

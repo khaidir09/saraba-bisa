@@ -63,8 +63,7 @@ class SudahDiambilController extends Controller
             'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
             'uang_muka' => $request->uang_muka,
-            'status_servis' => $request->status_servis,
-            'penerima' => $request->penerima
+            'status_servis' => $request->status_servis
         ]);
 
         return redirect()->route('transaksi-servis.index');
@@ -118,8 +117,6 @@ class SudahDiambilController extends Controller
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
         $capacities = Capacity::all();
-        $users = User::where('role', 'Teknisi')->get();
-        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
 
         return view('pages.kepalatoko.sudah-diambil-edit', [
             'item' => $item,
@@ -128,9 +125,7 @@ class SudahDiambilController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'service_actions' => $service_actions,
-            'capacities' => $capacities,
-            'users' => $users,
-            'workers' => $workers
+            'capacities' => $capacities
         ]);
     }
 
@@ -145,15 +140,10 @@ class SudahDiambilController extends Controller
     {
         $item = ServiceTransaction::findOrFail($id);
         $tindakan_servis = ServiceAction::find($request->service_actions_id);
-        $persen_backup = User::find(1);
-        $persen_teknisi = User::find($request->users_id);
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
-        $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
         // Transaction create
         $item->update([
             'created_at' => $request->created_at,
-            'users_id' => $request->users_id,
-            'penerima' => $request->penerima,
             'customers_id' => $request->customers_id,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
@@ -171,12 +161,8 @@ class SudahDiambilController extends Controller
             'exp_garansi' => $request->exp_garansi,
             'tgl_ambil' => $request->tgl_ambil,
             'pengambil' => $request->pengambil,
-            'persen_teknisi' => $persen_teknisi->persen,
-            'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya - $request->diskon,
-            'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi->persen + $persen_backup->persen),
-            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100 - $request->diskon / 100) * $persen_backup->persen
+            'profit' => $profittransaksi
         ]);
 
         return redirect()->route('transaksi-servis-sudah-diambil.index');

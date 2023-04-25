@@ -156,14 +156,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="penerima">Penerima</label>
-                                        <select id="penerima" name="penerima" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($penerima as $worker)
-                                                <option value="{{ $worker->name }}">{{ $worker->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
                             <!-- Modal footer -->
@@ -243,9 +235,6 @@
                             <div class="font-semibold text-left">Tgl Terima</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Penerima</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -318,9 +307,6 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div>{{ \Carbon\Carbon::parse($process->created_at)->format('d/m/Y') }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $process->penerima }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $process->customer->nama }}</div>
