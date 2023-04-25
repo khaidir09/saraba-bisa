@@ -21,7 +21,7 @@ class DashboardController extends Controller
     public function index()
     {
         $totalbudgets = Budget::all()->sum('total');
-        $totalbiayaservis = ServiceTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
+        $totalbiayaservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')->whereMonth('created_at', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profit');
         $totalsparepart = SparepartTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
