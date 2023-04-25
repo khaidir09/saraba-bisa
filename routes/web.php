@@ -15,7 +15,6 @@ use App\Http\Controllers\KepalaToko\LaporanHandphoneController as KepalaTokoLapo
 use App\Http\Controllers\KepalaToko\LaporanSparepartController as KepalaTokoLaporanSparepartController;
 use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
-use App\Http\Controllers\KepalaToko\AkunController as KepalaTokoAkunController;
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
 use App\Http\Controllers\KepalaToko\PhoneController as KepalaTokoPhoneController;
@@ -30,13 +29,10 @@ use App\Http\Controllers\KepalaToko\TransaksiAksesorisController as KepalaTokoTr
 use App\Http\Controllers\KepalaToko\TransaksiHandphoneController as KepalaTokoTransaksiHandphoneController;
 use App\Http\Controllers\KepalaToko\TransaksiSparepartController as KepalaTokoTransaksiSparepartController;
 
-use App\Http\Controllers\KepalaToko\LaporanAdminController as KepalaTokoLaporanAdminController;
-use App\Http\Controllers\KepalaToko\LaporanSalesController as KepalaTokoLaporanSalesController;
 use App\Http\Controllers\KepalaToko\PhoneTerjualController as KepalaTokoPhoneTerjualController;
 use App\Http\Controllers\KepalaToko\SudahDiambilController as KepalaTokoSudahDiambilController;
 use App\Http\Controllers\KepalaToko\InformasiTokoController as KepalaTokoInformasiTokoController;
 use App\Http\Controllers\KepalaToko\LaporanServisController as KepalaTokoLaporanServisController;
-use App\Http\Controllers\KepalaToko\LaporanTeknisiController as KepalaTokoLaporanTeknisiController;
 use App\Http\Controllers\KepalaToko\TindakanServisController as KepalaTokoTindakanServisController;
 use App\Http\Controllers\KepalaToko\MasterKapasitasController as KepalaTokoMasterKapasitasController;
 use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
@@ -64,11 +60,6 @@ Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-d
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
-    Route::get('/akun', [KepalaTokoAkunController::class, 'index'])->name('akun');
-    Route::post('/akun', [KepalaTokoAkunController::class, 'store'])->name('akun-store');
-    Route::get('/akun/{id}', [KepalaTokoAkunController::class, 'edit'])->name('akun-edit');
-    Route::post('/akun{id}', [KepalaTokoAkunController::class, 'update'])->name('akun-update');
-    Route::delete('/akun/{id}', [KepalaTokoAkunController::class, 'destroy'])->name('akun-destroy');
     Route::resource('servis/tindakan-servis', KepalaTokoTindakanServisController::class);
     Route::resource('pelanggan', KepalaTokoPelangganController::class);
     Route::resource('servis/transaksi-servis', KepalaTokoTransaksiServisController::class);
@@ -97,10 +88,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('laporan/laporan-handphone', [KepalaTokoLaporanHandphoneController::class, 'index'])->name('laporan-handphone');
     Route::get('laporan/laporan-sparepart', [KepalaTokoLaporanSparepartController::class, 'index'])->name('laporan-sparepart');
     Route::get('laporan/laporan-aksesoris', [KepalaTokoLaporanAksesorisController::class, 'index'])->name('laporan-aksesoris');
-    Route::get('laporan/laporan-teknisi', [KepalaTokoLaporanTeknisiController::class, 'index'])->name('laporan-teknisi');
 
-    Route::get('laporan/laporan-sales', [KepalaTokoLaporanSalesController::class, 'index'])->name('laporan-sales');
-    Route::get('laporan/laporan-admin', [KepalaTokoLaporanAdminController::class, 'index'])->name('laporan-admin');
     Route::get('informasi-toko', [KepalaTokoInformasiTokoController::class, 'index'])->name('informasi-toko');
     Route::post('informasi-toko', [KepalaTokoInformasiTokoController::class, 'update'])->name('informasi-toko-update');
 

@@ -14,6 +14,22 @@
                 </div>
             </section>
 
+            <!-- Akun -->
+            <section>
+                <h3 class="text-xl leading-snug text-slate-800 font-bold mb-1">Akun Pengguna</h3>
+                <div class="text-sm">Data ini digunakan untuk masuk sistem, Anda bisa mengubah nama pengguna dan kata sandi.</div>
+                <div class="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-5">
+                    <div class="sm:w-1/2">
+                        <label class="block text-sm font-medium mb-1" for="username">Nama Pengguna</label>
+                        <input name="username" id="username" class="form-input w-full" type="text" value="{{ Auth::user()->username }}" />
+                    </div>
+                    <div class="sm:w-1/2">
+                        <label class="block text-sm font-medium mb-1" for="password">Kata Sandi</label>
+                        <input name="password" id="password" class="form-input w-full" type="password" placeholder="Kosongkan jika tidak ingin mengganti kata sandi" />
+                    </div>
+                </div>
+            </section>
+
             <!-- Business Profile -->
             <section>
                 <h3 class="text-xl leading-snug text-slate-800 font-bold mb-1">Profil Toko</h3>

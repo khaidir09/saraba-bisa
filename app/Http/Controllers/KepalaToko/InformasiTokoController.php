@@ -24,6 +24,12 @@ class InformasiTokoController extends Controller
             $data['profile_photo_path'] = $request->file('profile_photo_path')->store('assets/user', 'public');
         }
 
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        } else {
+            unset($data['password']);
+        }
+
         $item->update($data);
 
         return redirect()->route('informasi-toko');
