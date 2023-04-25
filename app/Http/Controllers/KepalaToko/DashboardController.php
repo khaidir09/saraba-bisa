@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\KepalaToko;
 
 use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Budget;
 use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
@@ -22,21 +21,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $users = User::with('servicetransaction')
-            ->where('role', 'Teknisi')
-            ->get();
-
-        $approveservis = ServiceTransaction::where('is_approve', null)
-            ->where('status_servis', 'Sudah Diambil')
-            ->count();
-        $approvehandphone = PhoneTransaction::where('is_approve', null)
-            ->count();
-        $approveaksesoris = AccessoryTransaction::where('is_approve', null)
-            ->count();
-        $approvesparepart = SparepartTransaction::where('is_approve', null)
-            ->count();
-        $approvekasbon = Debt::where('is_approve', null)->count();
-
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
@@ -88,12 +72,6 @@ class DashboardController extends Controller
         $totalprofitutuh = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;
 
         return view('pages/kepalatoko/dashboard', compact(
-            'approveservis',
-            'approvehandphone',
-            'approveaksesoris',
-            'approvesparepart',
-            'approvekasbon',
-            'users',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',

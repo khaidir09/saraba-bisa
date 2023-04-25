@@ -8,87 +8,6 @@
         <!-- Welcome banner -->
         <x-dashboard.welcome-banner :totalomzet="$totalomzet" :totalprofitutuh="$totalprofitutuh"/>
 
-        <!-- Banner -->
-        <div class="mb-6">
-            <div class="space-y-3">
-                <!-- Start -->
-                @if ($approveservis != null)
-                    <div class="px-4 py-2 rounded-sm text-sm bg-emerald-500 text-white">
-                        <div class="flex w-full justify-between items-start">
-                            <div class="flex">
-                                <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                                </svg>
-                                <div class="font-medium">Hore! Ada {{ $approveservis }} transaksi servis selesai nih, cek sekarang!</div>
-                            </div>
-                            <a class="font-medium text-white ml-4 mt-[3px]" href="{{ route('transaksi-servis-sudah-diambil.index') }}">-&gt;</a>
-                        </div>
-                    </div>
-                @endif
-                <!-- End -->
-                <!-- Start -->
-                @if ($approvehandphone != null)
-                    <div class="px-4 py-2 rounded-sm text-sm bg-indigo-500 text-white">
-                        <div class="flex w-full justify-between items-start">
-                            <div class="flex">
-                                <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                                </svg>
-                                <div class="font-medium">Hore! Ada {{ $approvehandphone }} transaksi handphone baru nih, cek sekarang!</div>
-                            </div>
-                            <a class="font-medium text-white ml-3 mt-[3px]" href="{{ route('transaksi-handphone.index') }}">-&gt;</a>
-                        </div>
-                    </div>
-                @endif
-                <!-- End -->
-                <!-- Start -->
-                @if ($approveaksesoris != null)
-                    <div class="px-4 py-2 rounded-sm text-sm bg-indigo-500 text-white">
-                        <div class="flex w-full justify-between items-start">
-                            <div class="flex">
-                                <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                                </svg>
-                                <div class="font-medium">Hore! Ada {{ $approveaksesoris }} transaksi aksesori baru nih, cek sekarang!</div>
-                            </div>
-                            <a class="font-medium text-white ml-3 mt-[3px]" href="{{ route('transaksi-aksesoris.index') }}">-&gt;</a>
-                        </div>
-                    </div>
-                @endif
-                <!-- End -->
-                <!-- Start -->
-                @if ($approvesparepart != null)
-                    <div class="px-4 py-2 rounded-sm text-sm bg-indigo-500 text-white">
-                        <div class="flex w-full justify-between items-start">
-                            <div class="flex">
-                                <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                                </svg>
-                                <div class="font-medium">Hore! Ada {{ $approvesparepart }} transaksi sparepart baru nih, cek sekarang!</div>
-                            </div>
-                            <a class="font-medium text-white ml-3 mt-[3px]" href="{{ route('transaksi-sparepart.index') }}">-&gt;</a>
-                        </div>
-                    </div>
-                @endif
-                <!-- End -->
-                <!-- Start -->
-                @if ($approvekasbon != null)
-                    <div class="px-4 py-2 rounded-sm text-sm bg-amber-500 text-white">
-                        <div class="flex w-full justify-between items-start">
-                            <div class="flex">
-                                <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                                </svg>
-                                <div class="font-medium">Ada {{ $approvekasbon }} kasbon menunggu persetujuan, cek sekarang!</div>
-                            </div>
-                            <a class="font-medium text-white ml-3 mt-[3px]" href="{{ route('kasbon.index') }}">-&gt;</a>
-                        </div>
-                    </div>
-                @endif
-                <!-- End -->
-            </div>
-        </div>
-
         {{-- Progres --}}
         <div class="grid grid-cols-12 gap-6">
             <div class="flex flex-col col-span-full xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
@@ -150,34 +69,6 @@
                             <div>
                                 <div class="text-xl font-bold text-slate-800 mr-2">Rp. {{ number_format($totalbiayaservis) }}</div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="grow px-5 pt-0 pb-1">
-                        <div class="overflow-x-auto">
-                            <table class="table-auto w-full">
-                                <thead class="text-xs uppercase text-slate-400">
-                                <tr>
-                                    <th class="py-2">
-                                        <div class="font-semibold text-left">Teknisi</div>
-                                    </th>
-                                    <th class="py-2">
-                                        <div class="font-semibold text-right">Jumlah Servis</div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody class="text-sm divide-y divide-slate-100">
-                                @foreach ($users as $item)
-                                    <tr>
-                                        <td class="py-2">
-                                            <div class="text-left">{{ $item->name }}</div>
-                                        </td>
-                                        <td class="py-2">
-                                            <div class="font-medium text-right text-slate-800">{{ $item->servicetransaction->count() }}</div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
