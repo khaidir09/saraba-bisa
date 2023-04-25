@@ -161,56 +161,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('export-modelseri', [KepalaTokoMasterModelSeriController::class, 'export'])->name('modelseri-export');
 });
 
-Route::middleware('ensureAdminRole:AdminToko')->group(function () {
-    Route::get('/admin-dashboard', [AdminTokoDashboardController::class, 'index'])->name('admintoko-dashboard');
-    Route::resource('servis/admin-tindakan-servis', AdminTokoTindakanServisController::class);
-    Route::resource('admin-pelanggan', AdminTokoPelangganController::class);
-    Route::resource('servis/admin-transaksi-servis', AdminTokoTransaksiServisController::class);
-    Route::resource('servis/admin-servis-bisa-diambil', AdminTokoBisaDiambilController::class);
-    Route::resource('servis/admin-servis-sudah-diambil', AdminTokoSudahDiambilController::class);
-    Route::resource('master/admin-master-jenis-barang', AdminTokoMasterJenisBarangController::class);
-    Route::resource('master/admin-master-merek', AdminTokoMasterMerekController::class);
-    Route::resource('master/admin-master-kapasitas', AdminTokoMasterKapasitasController::class);
-    Route::resource('master/admin-master-model-seri', AdminTokoMasterModelSeriController::class);
-    Route::resource('sparepart/admin-data-sparepart', AdminTokoSparepartController::class);
-    Route::resource('sparepart/admin-transaksi-sparepart', AdminTokoTransaksiSparepartController::class);
-    Route::resource('aksesoris/admin-data-aksesoris', AdminTokoAksesorisController::class);
-    Route::resource('aksesoris/admin-transaksi-aksesoris', AdminTokoTransaksiAksesorisController::class);
-    Route::resource('phone/admin-data-handphone', AdminTokoPhoneController::class);
-    Route::resource('phone/admin-phone-terjual', AdminTokoPhoneTerjualController::class);
-    Route::resource('phone/admin-transaksi-handphone', AdminTokoTransaksiHandphoneController::class);
-    Route::resource('admin-insiden', AdminTokoInsidenController::class);
-    Route::resource('admin-kasbon', AdminTokoKasbonController::class);
-
-    Route::get('tandaterima/{id}', [AdminTokoTransaksiServisController::class, 'cetak'])->name('admin-cetak-tanda-terima');
-    Route::get('tandaterima-termal/{id}', [AdminTokoTransaksiServisController::class, 'cetaktermal'])->name('admin-cetak-termal');
-    Route::get('nota-sparepart-termal/{id}', [AdminTokoTransaksiSparepartController::class, 'cetaktermal'])->name('admin-nota-sparepart-termal');
-    Route::get('nota-handphone-termal/{id}', [AdminTokoTransaksiHandphoneController::class, 'cetaktermal'])->name('admin-nota-handphone-termal');
-    Route::get('nota-aksesori-termal/{id}', [AdminTokoTransaksiAksesorisController::class, 'cetaktermal'])->name('admin-nota-aksesori-termal');
-
-    Route::get('nota-pengambilan-termal/{id}', [AdminTokoSudahDiambilController::class, 'cetaktermal'])->name('admin-termal-pengambilan');
-
-    Route::get('servis/admin-ubah-bisa-diambil/{id}', [AdminTokoUbahBisaDiambilController::class, 'edit'])->name('admin-ubah-bisa-diambil-edit');
-    Route::post('servis/admin-ubah-bisa-diambil{id}', [AdminTokoUbahBisaDiambilController::class, 'update'])->name('admin-ubah-bisa-diambil-update');
-    Route::get('servis/admin-ubah-sudah-diambil/{id}', [AdminTokoUbahSudahDiambilController::class, 'edit'])->name('admin-ubah-sudah-diambil-edit');
-    Route::post('servis/admin-ubah-sudah-diambil{id}', [AdminTokoUbahSudahDiambilController::class, 'update'])->name('admin-ubah-sudah-diambil-update');
-
-    Route::post('/importindakanservis', [AdminTokoTindakanServisController::class, 'import'])->name('admin-impor-tindakan-servis');
-    Route::post('/imporsparepart', [AdminTokoSparepartController::class, 'import'])->name('admin-impor-sparepart');
-    Route::post('/imporaksesori', [AdminTokoAksesorisController::class, 'import'])->name('admin-impor-aksesori');
-    Route::post('/imporhandphone', [AdminTokoPhoneController::class, 'import'])->name('admin-impor-handphone');
-    Route::post('/imporbrand', [AdminTokoMasterMerekController::class, 'import'])->name('admin-impor-merek');
-    Route::post('/impormodel', [AdminTokoMasterModelSeriController::class, 'import'])->name('admin-impor-model');
-    Route::post('/imporpelanggan', [AdminTokoPelangganController::class, 'import'])->name('admin-impor-pelanggan');
-
-    Route::get('tindakan/export', [AdminTokoTindakanServisController::class, 'export'])->name('admin-tindakan-servis-export');
-    Route::get('sparepart/export', [AdminTokoSparepartController::class, 'export'])->name('admin-sparepart-export');
-    Route::get('aksesori/export', [AdminTokoAksesorisController::class, 'export'])->name('admin-aksesori-export');
-    Route::get('modelseri/export', [AdminTokoMasterModelSeriController::class, 'export'])->name('admin-modelseri-export');
-    Route::get('merek/export', [AdminTokoMasterMerekController::class, 'export'])->name('admin-merek-export');
-    Route::get('customer/export', [AdminTokoPelangganController::class, 'export'])->name('admin-pelanggan-export');
-});
-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     // Route for the getting the data feed
