@@ -26,8 +26,8 @@ class PencarianAksesori extends Component
     {
         return view('livewire.pencarian-aksesori', [
             'accessories' => $this->search === null ?
-                Accessory::latest()->get() :
-                Accessory::latest()->where('name', 'like', '%' . $this->search . '%')->get()
+                Accessory::latest()->where('stok', '>=', '1')->get() :
+                Accessory::latest()->where('stok', '>=', '1')->where('name', 'like', '%' . $this->search . '%')->get()
         ]);
     }
 }
