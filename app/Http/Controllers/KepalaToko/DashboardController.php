@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
 use App\Models\Debt;
 use App\Models\SparepartTransaction;
+use App\Models\Type;
 
 class DashboardController extends Controller
 {
@@ -22,9 +23,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $users = User::with('servicetransaction')
-            ->where('role', 'Teknisi')
-            ->get();
+        $types = Type::with('service')->get();
 
         $approveservis = ServiceTransaction::where('is_approve', null)
             ->where('status_servis', 'Sudah Diambil')
@@ -93,7 +92,7 @@ class DashboardController extends Controller
             'approveaksesoris',
             'approvesparepart',
             'approvekasbon',
-            'users',
+            'types',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
