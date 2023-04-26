@@ -9,6 +9,7 @@ use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
 use App\Models\SparepartTransaction;
+use App\Models\Type;
 
 class DashboardController extends Controller
 {
@@ -20,6 +21,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $types = Type::with('service')->get();
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')->whereMonth('created_at', '=', date("m", strtotime(now())))
             ->get()
@@ -67,6 +69,7 @@ class DashboardController extends Controller
         $totalprofitutuh = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;
 
         return view('pages/kepalatoko/dashboard', compact(
+            'types',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
