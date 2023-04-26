@@ -14,7 +14,7 @@ class Type extends Model
     public function service()
     {
         return $this->hasMany(ServiceTransaction::class, 'types_id', 'id')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())));
+            ->where('status_servis', 'Sudah Diambil')
+            ->whereMonth('tgl_ambil', '=', date("m", strtotime(now())));
     }
 }
