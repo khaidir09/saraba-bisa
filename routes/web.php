@@ -118,6 +118,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
-
-    Route::get('/old-dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
