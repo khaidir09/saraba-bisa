@@ -59,7 +59,7 @@ Route::get('/garansi', [GaransiController::class, 'index'])->name('garansi');
 Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-data');
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
-    Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
+    Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('dashboard');
     Route::resource('servis/tindakan-servis', KepalaTokoTindakanServisController::class);
     Route::resource('pelanggan', KepalaTokoPelangganController::class);
     Route::resource('servis/transaksi-servis', KepalaTokoTransaksiServisController::class);

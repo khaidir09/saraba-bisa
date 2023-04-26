@@ -24,13 +24,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->instance(LoginResponse::class, new class implements LoginResponse
-        {
-            public function toResponse($request)
-            {
-                return redirect()->route('hak-akses');
-            }
-        });
+        //
     }
 
     /**
