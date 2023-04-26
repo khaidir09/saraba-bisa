@@ -259,67 +259,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- Menunggu Persetujuan --}}
-            {{-- <div class="flex flex-col col-span-full xl:col-span-2 bg-white shadow-lg rounded-sm border border-slate-200">
-                <header class="px-5 py-4 border-b border-slate-100 flex items-center">
-                    <h2 class="font-semibold text-slate-800">Menunggu Persetujuan</h2>
-                </header>
-                <div class="px-5 py-1">
-                    <div class="flex flex-wrap justify-between">
-                        @if ($approvehandphone != null)
-                            <div class="flex items-center py-2">
-                                <div class="mr-5">
-                                    <div class="flex items-center">
-                                        <div class="text-3xl font-bold text-slate-800 mr-2">{{ $approvehandphone }}</div>
-                                    </div>
-                                    <div class="text-sm text-slate-500">Handphone</div>
-                                </div>
-                            </div>
-                        @endif
-                        @if ($approveaksesoris != null)
-                            <div class="flex items-center py-2">
-                                <div class="mr-5">
-                                    <div class="flex items-center">
-                                        <div class="text-3xl font-bold text-slate-800 mr-2">{{ $approveaksesoris }}</div>
-                                    </div>
-                                    <div class="text-sm text-slate-500">Aksesoris</div>
-                                </div>
-                            </div>
-                        @endif
-                        @if ($approvesparepart != null)
-                            <div class="flex items-center py-2">
-                                <div class="mr-5">
-                                    <div class="flex items-center">
-                                        <div class="text-3xl font-bold text-slate-800 mr-2">{{ $approvesparepart }}</div>
-                                    </div>
-                                    <div class="text-sm text-slate-500">Sparepart</div>
-                                </div>
-                            </div>
-                        @endif
-                        @if ($approveassembly != null)
-                            <div class="flex items-center py-2">
-                                <div class="mr-5">
-                                    <div class="flex items-center">
-                                        <div class="text-3xl font-bold text-slate-800 mr-2">{{ $approveassembly }}</div>
-                                    </div>
-                                    <div class="text-sm text-slate-500">Perakitan</div>
-                                </div>
-                            </div>
-                        @endif
-                        @if ($approvekasbon != null)
-                            <div class="flex items-center">
-                                <div class="mr-5">
-                                    <div class="flex items-center">
-                                        <div class="text-3xl font-bold text-slate-800 mr-2">{{ $approvekasbon }}</div>
-                                    </div>
-                                    <div class="text-sm text-slate-500">Kasbon</div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
 </x-toko-layout>
