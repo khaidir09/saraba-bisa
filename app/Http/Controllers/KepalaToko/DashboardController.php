@@ -42,53 +42,53 @@ class DashboardController extends Controller
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
-            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalhandphone = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
         $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
 
-        $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $omzetservistoday = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
             ->get()
             ->sum('omzet');
-        $omzetsparepart = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $omzetspareparttoday = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
             ->get()
             ->sum('omzet');
-        $omzetaksesori = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $omzetaksesoritoday = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
             ->get()
             ->sum('omzet');
-        $omzethandphone = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $omzethandphonetoday = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
             ->get()
             ->sum('omzet');
-        $totalomzet = $omzetservis + $omzetsparepart + $omzetaksesori + $omzethandphone;
+        $totalomzettoday = $omzetservistoday + $omzetspareparttoday + $omzetaksesoritoday + $omzethandphonetoday;
 
-        $profitservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $profitservistoday = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profit');
-        $profitsparepart = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $profitspareparttoday = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profit');
-        $profitaksesori = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $profitaksesoritoday = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profit');
-        $profithandphone = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $profithandphonetoday = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profit');
-        $totalprofitutuh = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;
+        $totalprofittoday = $profitservistoday + $profitspareparttoday + $profitaksesoritoday + $profithandphonetoday;
 
         return view('pages/kepalatoko/dashboard', compact(
             'approveservis',
@@ -105,8 +105,8 @@ class DashboardController extends Controller
             'totalsparepart',
             'totalaksesoris',
             'totalhandphone',
-            'totalomzet',
-            'totalprofitutuh'
+            'totalomzettoday',
+            'totalprofittoday'
         ));
     }
 }

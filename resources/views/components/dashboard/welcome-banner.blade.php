@@ -15,7 +15,7 @@
             <div class="flex items-center py-2">
                 <div class="mr-5">
                     <div class="flex items-center">
-                        <div class="text-3xl font-bold text-blue-600 mr-2">Rp. {{ number_format($totalprofit) }}</div>
+                        <div class="text-3xl font-bold text-blue-600 mr-2">Rp. {{ number_format($totalomzettoday) }}</div>
                     </div>
                     <div class="text-sm font-semibold text-slate-800">Omzet</div>
                 </div>
@@ -24,7 +24,7 @@
             <div class="flex items-center py-2">
                 <div class="mr-5">
                     <div class="flex items-center">
-                        <div class="text-3xl font-bold text-green-800 mr-2">Rp. {{ number_format($totalprofit) }}</div>
+                        <div class="text-3xl font-bold text-green-800 mr-2">Rp. {{ number_format($totalprofittoday) }}</div>
                     </div>
                     <div class="text-sm font-semibold text-slate-800">Profit</div>
                 </div>
