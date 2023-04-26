@@ -79,21 +79,21 @@
                                 <thead class="text-xs uppercase text-slate-400">
                                 <tr>
                                     <th class="py-2">
-                                        <div class="font-semibold text-left">Teknisi</div>
+                                        <div class="font-semibold text-left">Item</div>
                                     </th>
                                     <th class="py-2">
-                                        <div class="font-semibold text-right">Jumlah Servis</div>
+                                        <div class="font-semibold text-right">Profit</div>
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody class="text-sm divide-y divide-slate-100">
-                                @foreach ($users as $item)
+                                @foreach ($types as $item)
                                     <tr>
                                         <td class="py-2">
                                             <div class="text-left">{{ $item->name }}</div>
                                         </td>
                                         <td class="py-2">
-                                            <div class="font-medium text-right text-slate-800">{{ $item->servicetransaction->count() }}</div>
+                                            <div class="font-medium text-right text-slate-800">Rp. {{ number_format($item->service->sum('profittoko')) }}</div>
                                         </td>
                                     </tr>
                                 @endforeach

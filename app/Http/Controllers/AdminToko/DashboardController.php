@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminToko;
 
 use Carbon\Carbon;
+use App\Models\Type;
 use App\Models\User;
 use App\Models\Budget;
 use App\Models\DataFeed;
@@ -25,10 +26,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $users = User::with('servicetransaction')
-        ->where('role', 'Teknisi')
-        ->get();
-        
+        $types = Type::with('service')->get();
+
         $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
@@ -72,7 +71,7 @@ class DashboardController extends Controller
         $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
 
         return view('pages/admintoko/dashboard', compact(
-            'users',
+            'types',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
