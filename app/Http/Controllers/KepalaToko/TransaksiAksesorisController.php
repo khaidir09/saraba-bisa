@@ -20,7 +20,7 @@ class TransaksiAksesorisController extends Controller
      */
     public function index()
     {
-        $accessories = Accessory::all();
+        $accessories = Accessory::where('stok', '>=', '1')->get();
         return view('pages/kepalatoko/aksesoris/transaksi', compact('accessories'));
     }
 

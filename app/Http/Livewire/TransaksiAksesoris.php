@@ -32,7 +32,7 @@ class TransaksiAksesoris extends Component
 
     public function render()
     {
-        $accessories = Accessory::all();
+        $accessories = Accessory::where('stok', '>=', '1')->get();
         $accessory_transactions = AccessoryTransaction::with('customer', 'accessory')->paginate(10);
         $accessory_transactions_count = AccessoryTransaction::all()->count();
 

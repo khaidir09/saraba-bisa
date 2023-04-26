@@ -17,7 +17,7 @@ class TransaksiSparepartController extends Controller
      */
     public function index()
     {
-        $spareparts = Sparepart::all();
+        $spareparts = Sparepart::where('stok', '>=', '1')->get();
         return view('pages/kepalatoko/sparepart/transaksi', compact('spareparts'));
     }
 

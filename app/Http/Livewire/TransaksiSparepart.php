@@ -36,7 +36,7 @@ class TransaksiSparepart extends Component
 
     public function render()
     {
-        $spareparts = Sparepart::all();
+        $spareparts = Sparepart::where('stok', '>=', '1')->get();
         $sparepart_transactions = SparepartTransaction::with('user', 'customer', 'sparepart')->paginate(10);
         $sparepart_transactions_count = SparepartTransaction::all()->count();
 
