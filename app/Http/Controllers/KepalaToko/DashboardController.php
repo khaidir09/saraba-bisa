@@ -42,19 +42,19 @@ class DashboardController extends Controller
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalhandphone = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
             ->get()
             ->sum('profittoko');
         $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
