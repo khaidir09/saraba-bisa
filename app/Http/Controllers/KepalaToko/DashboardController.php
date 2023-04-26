@@ -23,6 +23,36 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $omzetservistoday = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('omzet');
+        $omzetspareparttoday = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('omzet');
+        $omzetaksesoritoday = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('omzet');
+        $omzethandphonetoday = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('omzet');
+        $totalomzettoday = $omzetservistoday + $omzetspareparttoday + $omzetaksesoritoday + $omzethandphonetoday;
+
+        $profitservistoday = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $profitspareparttoday = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $profitaksesoritoday = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $profithandphonetoday = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $totalprofittoday = $profitservistoday + $profitspareparttoday + $profitaksesoritoday + $profithandphonetoday;
+
         $users = User::with('servicetransaction')
             ->where('role', 'Teknisi')
             ->get();
@@ -60,37 +90,9 @@ class DashboardController extends Controller
         $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
         $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
 
-        $omzetservistoday = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
-            ->get()
-            ->sum('omzet');
-        $omzetspareparttoday = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
-            ->get()
-            ->sum('omzet');
-        $omzetaksesoritoday = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
-            ->get()
-            ->sum('omzet');
-        $omzethandphonetoday = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
-            ->get()
-            ->sum('omzet');
-        $totalomzettoday = $omzetservistoday + $omzetspareparttoday + $omzetaksesoritoday + $omzethandphonetoday;
-
-        $profitservistoday = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
-            ->get()
-            ->sum('profit');
-        $profitspareparttoday = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
-            ->get()
-            ->sum('profit');
-        $profitaksesoritoday = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
-            ->get()
-            ->sum('profit');
-        $profithandphonetoday = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
-            ->get()
-            ->sum('profit');
-        $totalprofittoday = $profitservistoday + $profitspareparttoday + $profitaksesoritoday + $profithandphonetoday;
-
         return view('pages/kepalatoko/dashboard', compact(
+            'totalomzettoday',
+            'totalprofittoday',
             'approveservis',
             'approvehandphone',
             'approveaksesoris',
@@ -105,8 +107,6 @@ class DashboardController extends Controller
             'totalsparepart',
             'totalaksesoris',
             'totalhandphone',
-            'totalomzettoday',
-            'totalprofittoday'
         ));
     }
 }
