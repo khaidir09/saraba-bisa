@@ -26,8 +26,8 @@ class PencarianSparepart extends Component
     {
         return view('livewire.pencarian-sparepart', [
             'spareparts' => $this->search === null ?
-                Sparepart::latest()->get() :
-                Sparepart::latest()->where('name', 'like', '%' . $this->search . '%')->get()
+                Sparepart::latest()->where('stok', '>=', '1')->get() :
+                Sparepart::latest()->where('stok', '>=', '1')->where('name', 'like', '%' . $this->search . '%')->get()
         ]);
     }
 }
