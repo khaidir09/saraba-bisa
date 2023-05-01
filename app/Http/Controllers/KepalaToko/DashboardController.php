@@ -23,38 +23,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $today = now()->format('d');
-
-        $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->whereDay('tgl_ambil', '=', $today)
-            ->get()
-            ->sum('omzet');
-        $omzetsparepart = SparepartTransaction::whereDay('created_at', '=', $today)
-            ->get()
-            ->sum('omzet');
-        $omzetaksesori = AccessoryTransaction::whereDay('created_at', '=', $today)
-            ->get()
-            ->sum('omzet');
-        $omzethandphone = PhoneTransaction::whereDay('created_at', '=', $today)
-            ->get()
-            ->sum('omzet');
-        $totalomzet = $omzetservis + $omzetsparepart + $omzetaksesori + $omzethandphone;
-
-        $profitservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->whereDay('tgl_ambil', '=', $today)
-            ->get()
-            ->sum('profit');
-        $profitsparepart = SparepartTransaction::whereDay('created_at', '=', $today)
-            ->get()
-            ->sum('profit');
-        $profitaksesori = AccessoryTransaction::whereDay('created_at', '=', $today)
-            ->get()
-            ->sum('profit');
-        $profithandphone = PhoneTransaction::whereDay('created_at', '=', $today)
-            ->get()
-            ->sum('profit');
-        $totalprofitutuh = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;
-
         $users = User::with('servicetransaction')
             ->where('role', 'Teknisi')
             ->get();
@@ -106,9 +74,7 @@ class DashboardController extends Controller
             'totalpenjualan',
             'totalsparepart',
             'totalaksesoris',
-            'totalhandphone',
-            'totalomzet',
-            'totalprofitutuh'
+            'totalhandphone'
         ));
     }
 }
