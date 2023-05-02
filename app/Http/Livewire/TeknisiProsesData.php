@@ -35,6 +35,7 @@ class TeknisiProsesData extends Component
 
     public function render()
     {
+        $toko = User::find(1);
         $processes_count = ServiceTransaction::where('users_id', Auth::user()->id)->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', null)->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
@@ -45,6 +46,7 @@ class TeknisiProsesData extends Component
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         return view('livewire.teknisi-proses-data', [
+            'toko' => $toko,
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,

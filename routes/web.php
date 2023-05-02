@@ -80,6 +80,7 @@ use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTrans
 use App\Http\Controllers\AdminToko\MasterJenisBarangController as AdminTokoMasterJenisBarangController;
 use App\Http\Controllers\KepalaToko\ApproveAksesorisController as KepalaTokoApproveAksesorisController;
 use App\Http\Controllers\Teknisi\MasterModelSeriController as TeknisiMasterModelSeriController;
+use App\Http\Controllers\Teknisi\SparepartController as TeknisiSparepartController;
 // Sales
 use App\Http\Controllers\Sales\LaporanAksesorisController as SalesLaporanAksesorisController;
 use App\Http\Controllers\Sales\LaporanHandphoneController as SalesLaporanHandphoneController;
@@ -241,6 +242,7 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::resource('teknisi-servis-bisa-diambil', TeknisiBisaDiambilController::class);
     Route::resource('teknisi-servis-sudah-diambil', TeknisiSudahDiambilController::class);
     Route::resource('master/teknisi-master-model-seri', TeknisiMasterModelSeriController::class);
+    Route::resource('sparepart/teknisi-data-sparepart', TeknisiSparepartController::class);
     Route::get('teknisi/tandaterima/{id}', [TeknisiTransaksiServisController::class, 'cetak'])->name('teknisi-cetak-tanda-terima');
     Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');
     Route::get('/teknisi-laporan', [TeknisiLaporanTeknisiController::class, 'index'])->name('teknisi-laporan');

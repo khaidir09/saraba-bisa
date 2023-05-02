@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Type;
+use App\Models\User;
 use App\Models\Brand;
 use Livewire\Component;
 use App\Models\Capacity;
@@ -33,6 +34,7 @@ class TeknisiBisaDiambilData extends Component
 
     public function render()
     {
+        $toko = User::find(1);
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
@@ -43,6 +45,7 @@ class TeknisiBisaDiambilData extends Component
         $model_series = ModelSerie::all();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->count();
         return view('livewire.teknisi-bisa-diambil-data', [
+            'toko' => $toko,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,

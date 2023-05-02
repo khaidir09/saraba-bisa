@@ -66,6 +66,19 @@
                             </div>
                         </a>
                     </li>
+                    <!-- Sparepart -->
+                    <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(1), ['sparepart'])){{ 'bg-slate-900' }}@endif">
+                        <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(Route::is('teknisi-data-sparepart.index', 'teknisi-data-sparepart.edit')){{ '!text-indigo-500' }}@endif" href="{{ route('teknisi-data-sparepart.index') }}">
+                            <div class="flex items-center">
+                                <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['teknisi-data-sparepart'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" d="M13 6.068a6.035 6.035 0 0 1 4.932 4.933H24c-.486-5.846-5.154-10.515-11-11v6.067Z" />
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['teknisi-data-sparepart'])){{ 'text-indigo-500' }}@else{{ 'text-slate-700' }}@endif" d="M18.007 13c-.474 2.833-2.919 5-5.864 5a5.888 5.888 0 0 1-3.694-1.304L4 20.731C6.131 22.752 8.992 24 12.143 24c6.232 0 11.35-4.851 11.857-11h-5.993Z" />
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['teknisi-data-sparepart'])){{ 'text-indigo-600' }}@else{{ 'text-slate-600' }}@endif" d="M6.939 15.007A5.861 5.861 0 0 1 6 11.829c0-2.937 2.167-5.376 5-5.85V0C4.85.507 0 5.614 0 11.83c0 2.695.922 5.174 2.456 7.17l4.483-3.993Z" />
+                                    </svg>
+                                    <span class="text-sm text-slate-200 font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sparepart</span>
+                            </div>
+                        </a>
+                    </li>
                     <!-- Tindakan Servis -->
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(1), ['teknisi-tindakan-servis'])){{ 'bg-slate-900' }}@endif">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(1), ['teknisi-tindakan-servis'])){{ 'hover:text-slate-200' }}@endif" href="{{ route('teknisi-tindakan-servis.index') }}">
