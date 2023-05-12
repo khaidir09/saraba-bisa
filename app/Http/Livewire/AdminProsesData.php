@@ -37,35 +37,31 @@ class AdminProsesData extends Component
     public function render()
     {
         $toko = User::find(1);
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->count();
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $users = User::where('role', 'Teknisi')->get();
-        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
+        $penerima = User::all();
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')
-            ->where('is_admin_toko', 'Admin')
-            ->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->where('is_admin_toko', 'Admin')
-            ->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
         return view('livewire.admin-proses-data', [
             'toko' => $toko,
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'users' => $users,
-            'workers' => $workers,
+            'penerima' => $penerima,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
             'processes' => $this->search === null ?
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->paginate($this->paginate) :
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->where('nomor_servis', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->paginate($this->paginate) :
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nomor_servis', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 
