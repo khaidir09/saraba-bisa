@@ -40,7 +40,7 @@ class TeknisiSudahDiambilData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
         return view('livewire.teknisi-sudah-diambil-data', [
