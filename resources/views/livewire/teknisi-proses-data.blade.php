@@ -316,7 +316,7 @@
                                 <div>{{ \Carbon\Carbon::parse($process->created_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $process->penerima }}</div>
+                                <div class="font-medium">{{ $process->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $process->customer->nama }}</div>

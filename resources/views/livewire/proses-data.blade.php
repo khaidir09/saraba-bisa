@@ -159,8 +159,8 @@
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="penerima">Penerima</label>
                                         <select id="penerima" name="penerima" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($penerima as $user)
-                                                <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @foreach ($penerima as $worker)
+                                                <option value="{{ $worker->name }}">{{ $worker->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

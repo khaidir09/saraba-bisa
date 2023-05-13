@@ -42,13 +42,19 @@ class AdminSudahDiambilData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
+        $jumlahsudahdiambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->where('is_admin_toko', 'Admin')
+            ->count();
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])
+            ->where('is_admin_toko', 'Admin')
+            ->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', 'Admin')->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('is_admin_toko', 'Admin')->count();
         return view('livewire.admin-sudah-diambil-data', [
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
+            'jumlahsudahdiambil' => $jumlahsudahdiambil,
             'toko' => $toko,
             'users' => $users,
             'workers' => $workers,
@@ -59,8 +65,10 @@ class AdminSudahDiambilData extends Component
             'model_series' => $model_series,
             'service_transactions' => $this->search === null ?
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')
+                ->where('is_admin_toko', 'Admin')
                 ->paginate($this->paginate) :
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')
+                ->where('is_admin_toko', 'Admin')
                 ->where('nomor_servis', 'like', '%' . $this->search . '%')
                 ->paginate($this->paginate)
         ]);

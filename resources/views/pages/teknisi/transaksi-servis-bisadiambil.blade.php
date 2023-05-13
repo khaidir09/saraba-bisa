@@ -80,7 +80,7 @@
                         @csrf
                         <input type="hidden" name="status_servis" value="Bisa Diambil"/>
                         <input type="hidden" name="tgl_selesai" value="<?php echo date('Y/m/d') ?>"/>
-                        <input type="hidden" name="persen_teknisi" value="{{ Auth::user()->persen }}"/>
+                        <input type="hidden" name="persen_teknisi" value="{{ $item->user->persen }}"/>
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
