@@ -43,7 +43,6 @@ class TeknisiBisaDiambilData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->count();
         return view('livewire.teknisi-bisa-diambil-data', [
             'toko' => $toko,
             'customers' => $customers,
