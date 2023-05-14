@@ -11,7 +11,7 @@
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="Masukkan nomor servis" />
+            <x-search-form placeholder="Masukkan nama pelanggan" />
 
             <!-- Create invoice button -->
             <div x-data="{ modalOpen: false }">
@@ -159,8 +159,8 @@
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="penerima">Penerima</label>
                                         <select id="penerima" name="penerima" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($penerima as $user)
-                                                <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                            @foreach ($penerima as $worker)
+                                                <option value="{{ $worker->name }}">{{ $worker->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

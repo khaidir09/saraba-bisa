@@ -11,7 +11,7 @@
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="Masukkan nomor servis" />
+            <x-search-form placeholder="Masukkan nama pelanggan" />
             
             <!-- Create invoice button -->
             <div x-data="{ modalOpen: false }">
@@ -229,7 +229,7 @@
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Sudah Diambil <span class="text-slate-400 font-medium">{{ $jumlah_sudah_diambil }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Sudah Diambil <span class="text-slate-400 font-medium">{{ $jumlahsudahdiambil }}</span></h2>
         </header>
         <!-- Table -->
         <div class="overflow-x-auto">

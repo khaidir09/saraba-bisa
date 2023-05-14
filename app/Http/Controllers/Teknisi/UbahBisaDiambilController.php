@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class UbahBisaDiambilController extends Controller
 {
@@ -129,7 +128,6 @@ class UbahBisaDiambilController extends Controller
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'catatan' => $request->catatan,
-            'users_id' => Auth::user()->id,
             'persen_teknisi' => $request->persen_teknisi,
             'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya,
