@@ -69,7 +69,7 @@ class AdminSudahDiambilData extends Component
                 ->paginate($this->paginate) :
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')
                 ->where('is_admin_toko', 'Admin')
-                ->where('nomor_servis', 'like', '%' . $this->search . '%')
+                ->where('nama_pelanggan', 'like', '%' . $this->search . '%')
                 ->paginate($this->paginate)
         ]);
     }

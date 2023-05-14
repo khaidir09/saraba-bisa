@@ -9,7 +9,7 @@
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
             <!-- Search form -->
-            <x-search-form placeholder="Masukkan nomor servis" />
+            <x-search-form placeholder="Masukkan nama pelanggan" />
 
             <!-- Create invoice button -->
             <div x-data="{ modalOpen: false }">

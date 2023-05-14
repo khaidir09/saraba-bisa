@@ -48,11 +48,13 @@ class SudahDiambilController extends Controller
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         Auth::user();
+        $nama_pelanggan = Customer::find($request->customers_id);
 
         // Transaction create
         ServiceTransaction::create([
             'nomor_servis' => $nomor_servis,
             'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
@@ -152,12 +154,15 @@ class SudahDiambilController extends Controller
         $persen_teknisi = User::find($request->users_id);
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
         $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
+        $nama_pelanggan = Customer::find($request->customers_id);
+
         // Transaction create
         $item->update([
             'created_at' => $request->created_at,
             'users_id' => $request->users_id,
             'penerima' => $request->penerima,
             'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
