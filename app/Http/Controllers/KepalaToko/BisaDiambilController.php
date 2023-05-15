@@ -46,11 +46,13 @@ class BisaDiambilController extends Controller
     public function store(Request $request)
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
+        $nama_pelanggan = Customer::find($request->customers_id);
 
         // Transaction create
         ServiceTransaction::create([
             'nomor_servis' => $nomor_servis,
             'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
@@ -119,10 +121,13 @@ class BisaDiambilController extends Controller
         $item = ServiceTransaction::findOrFail($id);
         $tindakan_servis = ServiceAction::find($request->service_actions_id);
         $profittransaksi = $request->biaya - $request->modal_sparepart;
+        $nama_pelanggan = Customer::find($request->customers_id);
+
         // Transaction create
         $item->update([
             'created_at' => $request->created_at,
             'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,

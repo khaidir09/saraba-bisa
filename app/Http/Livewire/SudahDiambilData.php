@@ -58,7 +58,7 @@ class SudahDiambilData extends Component
             'jumlahsudahdiambil' => $jumlahsudahdiambil,
             'service_transactions' => $this->search === null ?
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->paginate($this->paginate) :
-                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('nomor_servis', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

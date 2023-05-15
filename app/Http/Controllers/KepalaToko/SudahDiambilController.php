@@ -141,10 +141,13 @@ class SudahDiambilController extends Controller
         $item = ServiceTransaction::findOrFail($id);
         $tindakan_servis = ServiceAction::find($request->service_actions_id);
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
+        $nama_pelanggan = Customer::find($request->customers_id);
+
         // Transaction create
         $item->update([
             'created_at' => $request->created_at,
             'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,

@@ -13,6 +13,7 @@ class ServiceTransaction extends Model
     protected $fillable = [
         'nomor_servis',
         'customers_id',
+        'nama_pelanggan',
         'types_id',
         'brands_id',
         'model_series_id',
