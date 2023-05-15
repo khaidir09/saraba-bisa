@@ -52,7 +52,7 @@ class TeknisiSudahDiambilData extends Component
             'model_series' => $model_series,
             'service_transactions' => $this->search === null ?
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->paginate($this->paginate) :
-                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->where('nomor_servis', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

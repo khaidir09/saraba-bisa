@@ -56,7 +56,7 @@ class TeknisiProsesData extends Component
             'capacities' => $capacities,
             'processes' => $this->search === null ?
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', null)->where('users_id', Auth::user()->id)->paginate($this->paginate) :
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', null)->where('users_id', Auth::user()->id)->where('nomor_servis', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', null)->where('users_id', Auth::user()->id)->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 

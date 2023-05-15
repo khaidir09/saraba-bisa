@@ -61,11 +61,13 @@ class TransaksiServisController extends Controller
     public function store(Request $request)
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
+        $nama_pelanggan = Customer::find($request->customers_id);
 
         // Transaction create
         ServiceTransaction::create([
             'nomor_servis' => $nomor_servis,
             'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
@@ -163,11 +165,27 @@ class TransaksiServisController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
         $item = ServiceTransaction::findOrFail($id);
+        $nama_pelanggan = Customer::find($request->customers_id);
 
-        $item->update($data);
+        // Transaction update
+        $item->update([
+            'created_at' => $request->created_at,
+            'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
+            'types_id' => $request->types_id,
+            'brands_id' => $request->brands_id,
+            'model_series_id' => $request->model_series_id,
+            'imei' => $request->imei,
+            'warna' => $request->warna,
+            'capacities_id' => $request->capacities_id,
+            'kelengkapan' => $request->kelengkapan,
+            'kerusakan' => $request->kerusakan,
+            'qc_masuk' => $request->qc_masuk,
+            'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
+            'estimasi_biaya' => $request->estimasi_biaya,
+            'uang_muka' => $request->uang_muka
+        ]);
 
         return redirect()->route('transaksi-servis.index');
     }

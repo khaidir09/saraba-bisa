@@ -15,6 +15,7 @@ class ServiceTransaction extends Model
         'penerima',
         'nomor_servis',
         'customers_id',
+        'nama_pelanggan',
         'types_id',
         'brands_id',
         'model_series_id',

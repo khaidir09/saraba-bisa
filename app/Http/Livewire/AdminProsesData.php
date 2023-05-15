@@ -65,15 +65,9 @@ class AdminProsesData extends Component
             'capacities' => $capacities,
             'processes' => $this->search === null ?
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->paginate($this->paginate) :
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->where('nomor_servis', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
-
-    // public function getProses($id)
-    // {
-    //     $service_transaction = ServiceTransaction::find($id);
-    //     $this->emit('getProses', $service_transaction);
-    // }
 
     public function cetak($id)
     {
