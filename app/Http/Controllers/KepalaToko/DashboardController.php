@@ -10,6 +10,7 @@ use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
 use App\Models\Debt;
+use App\Models\Expense;
 use App\Models\SparepartTransaction;
 use App\Models\Type;
 
@@ -24,6 +25,8 @@ class DashboardController extends Controller
     public function index()
     {
         $types = Type::with('service')->get();
+        $totalpengeluaran = Expense::where('is_approve', 'Setuju')->sum('price');
+        $totalpengeluaranteknisi = Expense::where('is_approve', 'Setuju')->sum('pengeluaran_teknisi');
 
         $approveservis = ServiceTransaction::where('is_approve', null)
             ->where('status_servis', 'Sudah Diambil')
@@ -35,6 +38,7 @@ class DashboardController extends Controller
         $approvesparepart = SparepartTransaction::where('is_approve', null)
             ->count();
         $approvekasbon = Debt::where('is_approve', null)->count();
+        $approvepengeluaran = Expense::where('is_approve', null)->count();
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
@@ -53,7 +57,7 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
-        $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
+        $totalprofit = ($totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone) - ($totalpengeluaran - $totalpengeluaranteknisi);
         $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
 
         $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
@@ -92,6 +96,7 @@ class DashboardController extends Controller
             'approveaksesoris',
             'approvesparepart',
             'approvekasbon',
+            'approvepengeluaran',
             'types',
             'totalbiayaservis',
             'totalbudgets',

@@ -10,6 +10,7 @@ use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
+use App\Models\Expense;
 use App\Models\SparepartTransaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -24,6 +25,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $pengeluaran = Expense::where('users_id', Auth::user()->id)
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->sum('pengeluaran_teknisi');
         $profitservis = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
@@ -31,7 +35,7 @@ class DashboardController extends Controller
             ->get()
             ->sum('profit');
         $bonusservis = ($profitservis / 100) * Auth::user()->persen;
-        $totalbonus = $bonusservis;
+        $totalbonus = $bonusservis - $pengeluaran;
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
@@ -61,7 +65,8 @@ class DashboardController extends Controller
             'totalsparepart',
             'totalaksesoris',
             'totalhandphone',
-            'totalbonus'
+            'totalbonus',
+            'pengeluaran'
         ));
     }
 }

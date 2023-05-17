@@ -16,6 +16,8 @@ use App\Http\Controllers\KepalaToko\LaporanSparepartController as KepalaTokoLapo
 use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\AkunController as KepalaTokoAkunController;
+use App\Http\Controllers\KepalaToko\ExpenseController as KepalaTokoExpenseController;
+use App\Http\Controllers\KepalaToko\ApprovePengeluaranController as KepalaTokoApprovePengeluaranController;
 use App\Http\Controllers\KepalaToko\GajiController as KepalaTokoGajiController;
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
@@ -69,6 +71,7 @@ use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardControll
 use App\Http\Controllers\Teknisi\SudahDiambilController as TeknisiSudahDiambilController;
 use App\Http\Controllers\Teknisi\BisaDiambilController as TeknisiBisaDiambilController;
 use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganController;
+use App\Http\Controllers\Teknisi\ExpenseController as TeknisiExpenseController;
 use App\Http\Controllers\AdminToko\TransaksiServisController as AdminTokoTransaksiServisController;
 use App\Http\Controllers\AdminToko\UbahBisaDiambilController as AdminTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\LaporanTeknisiController as KepalaTokoLaporanTeknisiController;
@@ -148,6 +151,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('gaji/karyawan', KepalaTokoKaryawanController::class);
     Route::resource('gaji/bonus', KepalaTokoGajiController::class);
     Route::resource('kasbon', KepalaTokoKasbonController::class);
+    Route::resource('pengeluaran', KepalaTokoExpenseController::class);
+    Route::resource('approve-pengeluaran', KepalaTokoApprovePengeluaranController::class);
 
     Route::get('laporan/laporan-servis', [KepalaTokoLaporanServisController::class, 'index'])->name('laporan-servis');
     Route::get('laporan/laporan-handphone', [KepalaTokoLaporanHandphoneController::class, 'index'])->name('laporan-handphone');
@@ -236,6 +241,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
 
 Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::get('/teknisi-dashboard', [TeknisiDashboardController::class, 'index'])->name('teknisi-dashboard');
+    Route::resource('teknisi-pengeluaran', TeknisiExpenseController::class);
     Route::resource('teknisi-pelanggan', TeknisiPelangganController::class);
     Route::resource('teknisi-tindakan-servis', TeknisiTindakanServisController::class);
     Route::resource('teknisi-transaksi-servis', TeknisiTransaksiServisController::class);
