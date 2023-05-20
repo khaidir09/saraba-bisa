@@ -91,7 +91,7 @@
                                                 checked
                                             @endif
                                             />
-                                            <span class="text-sm ml-2">Belum Cek</span>
+                                            <span class="text-sm ml-2">Belum cek</span>
                                         </label>
                                         <!-- End -->
                                     </div>

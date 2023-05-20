@@ -86,12 +86,12 @@
                                     <div class="m-3">
                                         <!-- Start -->
                                         <label class="flex items-center">
-                                            <input type="radio" name="status_servis" class="form-radio" value="Belum Cek"
-                                            @if ($item->status_servis === 'Belum Cek')
+                                            <input type="radio" name="status_servis" class="form-radio" value="Belum cek"
+                                            @if ($item->status_servis === 'Belum cek')
                                                 checked
                                             @endif
                                             />
-                                            <span class="text-sm ml-2">Belum Cek</span>
+                                            <span class="text-sm ml-2">Belum cek</span>
                                         </label>
                                         <!-- End -->
                                     </div>
