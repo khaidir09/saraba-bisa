@@ -94,11 +94,7 @@ class TransaksiServisController extends Controller
      */
     public function show($id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-
-        return view('pages.kepalatoko.transaksi-servis-status', [
-            'item' => $item
-        ]);
+        //
     }
 
     public function cetaktermal($id)

@@ -293,6 +293,9 @@
                             elseif ($process->status_servis === 'Menunggu Konfirmasi') :
                                 $status_color = 'bg-rose-100 text-rose-500';
                                 $total_color = 'text-rose-500';
+                            elseif ($process->status_servis === 'Sedang Tes') :
+                                $status_color = 'bg-blue-100 text-blue-600';
+                                $total_color = 'text-blue-500';
                             else :
                                 $status_color = 'bg-slate-100 text-slate-500';
                                 $total_color = 'text-slate-500';
@@ -436,7 +439,7 @@
                                 <div class="font-medium">{{ $process->estimasi_pengerjaan }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <a href="{{ route('teknisi-transaksi-servis.show', $process->id) }}">
+                                <a href="{{ route('teknisi-ubah-status-proses-edit', $process->id) }}">
                                     <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 {{$status_color}}">{{ $process->status_servis }}</div>
                                 </a>
                             </td>

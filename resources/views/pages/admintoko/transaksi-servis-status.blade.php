@@ -76,8 +76,7 @@
                         </div>
                     </div>
                     <!-- Modal content -->
-                    <form action="{{ route('admin-transaksi-servis.update', $item->id) }}" method="post">
-                        @method('PUT')
+                    <form action="{{ route('admin-ubah-status-proses-update', $item->id) }}" method="post">
                         @csrf
                         <div class="px-5 py-4">
                             <!-- Radio -->
@@ -87,7 +86,11 @@
                                     <div class="m-3">
                                         <!-- Start -->
                                         <label class="flex items-center">
-                                            <input type="radio" name="status_servis" class="form-radio" value="Belum Cek" checked />
+                                            <input type="radio" name="status_servis" class="form-radio" value="Belum cek"
+                                            @if ($item->status_servis === 'Belum cek')
+                                                checked
+                                            @endif
+                                            />
                                             <span class="text-sm ml-2">Belum Cek</span>
                                         </label>
                                         <!-- End -->
@@ -96,7 +99,10 @@
                                     <div class="m-3">
                                         <!-- Start -->
                                         <label class="flex items-center">
-                                            <input type="radio" name="status_servis" class="form-radio" value="Sedang Tes" />
+                                            <input type="radio" name="status_servis" class="form-radio" value="Sedang Tes"
+                                            @if ($item->status_servis === 'Sedang Tes')
+                                                checked
+                                            @endif/>
                                             <span class="text-sm ml-2">Sedang Tes</span>
                                         </label>
                                         <!-- End -->
@@ -105,7 +111,10 @@
                                     <div class="m-3">
                                         <!-- Start -->
                                         <label class="flex items-center">
-                                            <input type="radio" name="status_servis" class="form-radio" value="Menunggu Konfirmasi" />
+                                            <input type="radio" name="status_servis" class="form-radio" value="Menunggu Konfirmasi"
+                                            @if ($item->status_servis === 'Menunggu Konfirmasi')
+                                                checked
+                                            @endif/>
                                             <span class="text-sm ml-2">Menunggu Konfirmasi</span>
                                         </label>
                                         <!-- End -->
@@ -114,7 +123,10 @@
                                     <div class="m-3">
                                         <!-- Start -->
                                         <label class="flex items-center">
-                                            <input type="radio" name="status_servis" class="form-radio" value="Sedang Dikerjakan" />
+                                            <input type="radio" name="status_servis" class="form-radio" value="Sedang Dikerjakan"
+                                            @if ($item->status_servis === 'Sedang Dikerjakan')
+                                                checked
+                                            @endif/>
                                             <span class="text-sm ml-2">Sedang Dikerjakan</span>
                                         </label>
                                         <!-- End -->
@@ -123,7 +135,10 @@
                                     <div class="m-3">
                                         <!-- Start -->
                                         <label class="flex items-center">
-                                            <input type="radio" name="status_servis" class="form-radio" value="Menunggu Sparepart" />
+                                            <input type="radio" name="status_servis" class="form-radio" value="Menunggu Sparepart"
+                                            @if ($item->status_servis === 'Menunggu Sparepart')
+                                                checked
+                                            @endif/>
                                             <span class="text-sm ml-2">Menunggu Sparepart</span>
                                         </label>
                                         <!-- End -->

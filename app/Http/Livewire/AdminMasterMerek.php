@@ -31,8 +31,8 @@ class AdminMasterMerek extends Component
         return view('livewire.admin-master-merek', [
             'brands_count' => $brands_count,
             'brands' => $this->search === null ?
-                Brand::latest()->paginate($this->paginate) :
-                Brand::latest()->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Brand::paginate($this->paginate) :
+                Brand::where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }
