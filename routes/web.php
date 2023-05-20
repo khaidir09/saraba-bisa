@@ -15,6 +15,7 @@ use App\Http\Controllers\KepalaToko\LaporanHandphoneController as KepalaTokoLapo
 use App\Http\Controllers\KepalaToko\LaporanSparepartController as KepalaTokoLaporanSparepartController;
 use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
+use App\Http\Controllers\KepalaToko\UbahStatusProsesServisController as KepalaTokoUbahStatusProsesServisController;
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
 use App\Http\Controllers\KepalaToko\PhoneController as KepalaTokoPhoneController;
@@ -92,6 +93,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('informasi-toko', [KepalaTokoInformasiTokoController::class, 'index'])->name('informasi-toko');
     Route::post('informasi-toko', [KepalaTokoInformasiTokoController::class, 'update'])->name('informasi-toko-update');
 
+    Route::get('servis/ubah-status-proses/{id}', [KepalaTokoUbahStatusProsesServisController::class, 'edit'])->name('ubah-status-proses-edit');
+    Route::post('servis/ubah-status-proses{id}', [KepalaTokoUbahStatusProsesServisController::class, 'update'])->name('ubah-status-proses-update');
     Route::get('servis/ubah-bisa-diambil/{id}', [KepalaTokoUbahBisaDiambilController::class, 'edit'])->name('ubah-bisa-diambil-edit');
     Route::post('servis/ubah-bisa-diambil{id}', [KepalaTokoUbahBisaDiambilController::class, 'update'])->name('ubah-bisa-diambil-update');
     Route::get('servis/ubah-sudah-diambil/{id}', [KepalaTokoUbahSudahDiambilController::class, 'edit'])->name('ubah-sudah-diambil-edit');
