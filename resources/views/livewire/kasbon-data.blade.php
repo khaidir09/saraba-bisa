@@ -82,7 +82,7 @@
                                         <input id="item" name="item" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="total">Total <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="total">Nominal <span class="text-rose-500">*</span></label>
                                         <div class="relative">
                                             <input id="total" name="total" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -146,7 +146,7 @@
                             <div class="font-semibold text-left">Item Kasbon</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Total</div>
+                            <div class="font-semibold text-left">Nominal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Status</div>

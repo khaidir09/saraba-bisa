@@ -96,7 +96,7 @@
                                     <input id="item" name="item" class="form-input w-full px-2 py-1" type="text" value="{{ $item->item }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="total">Total</label>
+                                    <label class="block text-sm font-medium mb-1" for="total">Nominal</label>
                                     <div class="relative">
                                         <input id="total" name="total" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->total }}"/>
                                         <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
