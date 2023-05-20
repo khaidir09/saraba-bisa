@@ -105,8 +105,11 @@
         </div>
 
         <div class="grid grid-cols-12 gap-6">
+            <!-- Card Keuangan -->
+            <x-kepalatoko.keuangan-card :totalprofit="$totalprofit" :totalprofitkotor="$totalprofitkotor" :pengeluaran="$pengeluaran" :totalpengeluaran="$totalpengeluaran" :totalpengeluaranteknisi="$totalpengeluaranteknisi"/>
+
             {{-- Progres --}}
-            <div class="flex flex-col col-span-full xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+            <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">
                 <header class="px-5 py-4 border-b border-slate-100">
                     <h2 class="font-semibold text-slate-800">Progres Target Bulanan</h2>
                 </header>
@@ -151,7 +154,7 @@
                 </div>
             </div>
              {{-- Profit Servis --}}
-            <div class="flex flex-col col-span-full xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+            <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">
                 <header class="px-5 py-4 border-b border-slate-100">
                     <h2 class="font-semibold text-slate-800">Profit Servis</h2>
                 </header>
@@ -199,7 +202,7 @@
             </div>
 
             {{-- Profit Penjualan --}}
-            <div class="flex flex-col col-span-full xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+            <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">
                 <header class="px-5 py-4 border-b border-slate-100">
                     <h2 class="font-semibold text-slate-800">Profit Penjualan</h2>
                 </header>

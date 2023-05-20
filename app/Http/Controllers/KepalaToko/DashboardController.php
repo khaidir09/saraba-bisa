@@ -25,6 +25,9 @@ class DashboardController extends Controller
     public function index()
     {
         $types = Type::with('service')->get();
+        $pengeluaran = Expense::where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->count();
         $totalpengeluaran = Expense::where('is_approve', 'Setuju')->sum('price');
         $totalpengeluaranteknisi = Expense::where('is_approve', 'Setuju')->sum('pengeluaran_teknisi');
 
@@ -57,8 +60,27 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
             ->get()
             ->sum('profittoko');
-        $totalprofit = ($totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone) - ($totalpengeluaran - $totalpengeluaranteknisi);
+
+        $totalprofitbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $totalprofitsparepart = SparepartTransaction::where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $totalprofitaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+        $totalprofithandphone = PhoneTransaction::where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->get()
+            ->sum('profit');
+
+        $totalprofit = ($totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone);
         $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
+        $totalprofitkotor = ($totalprofitbiayaservis + $totalprofitsparepart + $totalprofitaksesoris + $totalprofithandphone);
 
         $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
@@ -106,7 +128,11 @@ class DashboardController extends Controller
             'totalaksesoris',
             'totalhandphone',
             'totalomzet',
-            'totalprofitutuh'
+            'totalprofitutuh',
+            'totalpengeluaran',
+            'totalpengeluaranteknisi',
+            'totalprofitkotor',
+            'pengeluaran'
         ));
     }
 }
