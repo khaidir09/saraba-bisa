@@ -141,7 +141,7 @@
                                     <circle class="fill-current @if(in_array(Request::segment(1), ['teknisi-laporan-assembly'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" cx="18.5" cy="18.5" r="4.5" />
                                     <circle class="fill-current @if(in_array(Request::segment(1), ['teknisi-laporan-assembly'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" cx="5.5" cy="18.5" r="4.5" />
                                 </svg>
-                                <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Laporan Perakitan & Pengecekan</span>
+                                <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Laporan Assembly</span>
                             </div>
                         </a>
                     </li>
