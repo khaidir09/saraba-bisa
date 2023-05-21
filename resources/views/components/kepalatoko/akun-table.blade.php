@@ -64,7 +64,13 @@
                             <div class="font-medium">{{ $user->nomor_hp }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-medium text-slate-800">{{ $user->role }}</div>
+                            <div class="font-medium text-slate-800">
+                                @if ($user->types_id != null)
+                                    {{ $user->role }} {{ $user->type->name }}
+                                @else
+                                    {{ $user->role }}
+                                @endif
+                            </div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium text-slate-800">{{ $user->persen }}</div>

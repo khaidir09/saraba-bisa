@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
             'name' => 'required|max:100',
             'username' => 'required|max:100|unique:users,username',
             'role' => 'max:50',
+            'types_id' => 'exists:types,id|nullable',
             'nik' => 'max:100',
             'nomor_hp' => 'max:50',
             'alamat' => 'max:255',

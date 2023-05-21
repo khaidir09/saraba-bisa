@@ -110,6 +110,40 @@
                                         <option value="Sales">Sales</option>
                                     </select>
                                 </div>
+                                <div x-data="{ showDetails: false }">
+                                    <label class="block text-sm font-medium mb-1" for="types_id">Jika teknisi, apakah memiliki spesialisisasi jenis barang?</label>
+                                    <div class="flex flex-wrap items-center -m-3">
+                                        <div class="m-3">
+                                            <!-- Start -->
+                                            <label class="flex items-center">
+                                                <input type="radio" name="radio-buttons" class="form-radio" checked x-on:click="showDetails = false"/>
+                                                <span class="text-sm ml-2">Tidak</span>
+                                            </label>
+                                            <!-- End -->
+                                        </div>
+                                        <div class="m-3">
+                                            <!-- Start -->
+                                            <label class="flex items-center">
+                                                <input type="radio" name="radio-buttons" class="form-radio" x-on:click="showDetails = true"/>
+                                                <span class="text-sm ml-2">Ya</span>
+                                            </label>
+                                            <!-- End -->
+                                        </div>
+                                    </div>
+                                    <div x-show="showDetails" class="mt-3">
+                                        <label class="block text-sm font-medium mb-1" for="types_id">Spealisasi jenis barang</label>
+                                        <select id="types_id" name="types_id" class="form-select text-sm py-1 w-full">
+                                            @if ($item->types_id != null)
+                                                <option selected value="{{ $item->type->id }}">{{ $item->type->name }}</option>
+                                            @else
+                                                <option selected value="">Pilih spesialisasi</option>
+                                            @endif
+                                            @foreach ($types as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="persen">Persen</label>
                                     <input id="persen" name="persen" class="form-input w-full px-2 py-1" type="number" value="{{ $item->persen }}" />

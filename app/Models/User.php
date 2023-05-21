@@ -34,6 +34,7 @@ class User extends Authenticatable
         'username',
         'alamat',
         'role',
+        'types_id',
         'nomor_hp',
         'nik',
         'persen',
@@ -79,6 +80,15 @@ class User extends Authenticatable
     // protected $appends = [
     //     'profile_photo_url',
     // ];
+
+    public function type()
+    {
+        return $this->belongsTo(
+            Type::class,
+            'types_id',
+            'id'
+        );
+    }
 
     public function servicetransaction()
     {
