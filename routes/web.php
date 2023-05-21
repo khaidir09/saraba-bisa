@@ -41,11 +41,12 @@ use App\Http\Controllers\KepalaToko\SparepartController as KepalaTokoSparepartCo
 use App\Http\Controllers\Teknisi\SudahDiambilController as TeknisiSudahDiambilController;
 use App\Http\Controllers\AdminToko\BisaDiambilController as AdminTokoBisaDiambilController;
 use App\Http\Controllers\AdminToko\MasterMerekController as AdminTokoMasterMerekController;
-use App\Http\Controllers\AdminToko\LaporanAdminController as AdminTokoLaporanAdminController;
 use App\Http\Controllers\AdminToko\PhoneTerjualController as AdminTokoPhoneTerjualController;
 use App\Http\Controllers\AdminToko\SudahDiambilController as AdminTokoSudahDiambilController;
 use App\Http\Controllers\KepalaToko\KasbonController as KepalaTokoKasbonController;
 use App\Http\Controllers\KepalaToko\UbahStatusProsesServisController as KepalaTokoUbahStatusProsesServisController;
+use App\Http\Controllers\KepalaToko\ExpenseController as KepalaTokoExpenseController;
+use App\Http\Controllers\KepalaToko\ApprovePengeluaranController as KepalaTokoApprovePengeluaranController;
 // Admin Toko
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
@@ -71,6 +72,7 @@ use App\Http\Controllers\Teknisi\UbahSudahDiambilController as TeknisiUbahSudahD
 use App\Http\Controllers\AdminToko\MasterKapasitasController as AdminTokoMasterKapasitasController;
 use App\Http\Controllers\AdminToko\MasterModelSeriController as AdminTokoMasterModelSeriController;
 use App\Http\Controllers\AdminToko\UbahStatusProsesServisController as AdminTokoUbahStatusProsesServisController;
+use App\Http\Controllers\AdminToko\ExpenseController as AdminTokoExpenseController;
 // Teknisi
 use App\Http\Controllers\AdminToko\TransaksiServisController as AdminTokoTransaksiServisController;
 use App\Http\Controllers\AdminToko\UbahBisaDiambilController as AdminTokoUbahBisaDiambilController;
@@ -84,6 +86,7 @@ use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTrans
 use App\Http\Controllers\AdminToko\MasterJenisBarangController as AdminTokoMasterJenisBarangController;
 use App\Http\Controllers\KepalaToko\ApproveAksesorisController as KepalaTokoApproveAksesorisController;
 use App\Http\Controllers\Teknisi\UbahStatusProsesServisController as TeknisiUbahStatusProsesServisController;
+use App\Http\Controllers\Teknisi\ExpenseController as TeknisiExpenseController;
 // Sales
 use App\Http\Controllers\KepalaToko\ApproveHandphoneController as KepalaTokoApproveHandphoneController;
 use App\Http\Controllers\KepalaToko\ApproveSparepartController as KepalaTokoApproveSparepartController;
@@ -99,6 +102,7 @@ use App\Http\Controllers\KepalaToko\MasterJenisBarangController as KepalaTokoMas
 use App\Http\Controllers\KepalaToko\TransaksiAksesorisController as KepalaTokoTransaksiAksesorisController;
 use App\Http\Controllers\KepalaToko\TransaksiHandphoneController as KepalaTokoTransaksiHandphoneController;
 use App\Http\Controllers\KepalaToko\TransaksiSparepartController as KepalaTokoTransaksiSparepartController;
+use App\Http\Controllers\Sales\ExpenseController as SalesExpenseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -152,6 +156,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('gaji/karyawan', KepalaTokoKaryawanController::class);
     Route::resource('gaji/bonus', KepalaTokoGajiController::class);
     Route::resource('kasbon', KepalaTokoKasbonController::class);
+    Route::resource('pengeluaran', KepalaTokoExpenseController::class);
+    Route::resource('approve-pengeluaran', KepalaTokoApprovePengeluaranController::class);
 
     Route::get('laporan/laporan-servis', [KepalaTokoLaporanServisController::class, 'index'])->name('laporan-servis');
     Route::get('laporan/laporan-handphone', [KepalaTokoLaporanHandphoneController::class, 'index'])->name('laporan-handphone');
@@ -211,6 +217,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('phone/admin-transaksi-handphone', AdminTokoTransaksiHandphoneController::class);
     Route::resource('admin-insiden', AdminTokoInsidenController::class);
     Route::resource('admin-kasbon', AdminTokoKasbonController::class);
+    Route::resource('admin-pengeluaran', AdminTokoExpenseController::class);
 
     Route::get('tandaterima/{id}', [AdminTokoTransaksiServisController::class, 'cetak'])->name('admin-cetak-tanda-terima');
     Route::get('tandaterima-termal/{id}', [AdminTokoTransaksiServisController::class, 'cetaktermal'])->name('admin-cetak-termal');
@@ -251,6 +258,8 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::resource('teknisi-servis-bisa-diambil', TeknisiBisaDiambilController::class);
     Route::resource('teknisi-servis-sudah-diambil', TeknisiSudahDiambilController::class);
     Route::resource('teknisi-assembly', TeknisiAssemblyController::class);
+    Route::resource('teknisi-pengeluaran', TeknisiExpenseController::class);
+
     Route::get('teknisi/tandaterima/{id}', [TeknisiTransaksiServisController::class, 'cetak'])->name('teknisi-cetak-tanda-terima');
     Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');
     Route::get('/teknisi-laporan', [TeknisiLaporanTeknisiController::class, 'index'])->name('teknisi-laporan');
@@ -280,6 +289,7 @@ Route::middleware('ensureSalesRole:Sales')->group(
         Route::resource('laporan/sales-laporan-handphone', SalesLaporanHandphoneController::class);
         Route::resource('laporan/sales-laporan-sparepart', SalesLaporanSparepartController::class);
         Route::resource('laporan/sales-laporan-aksesoris', SalesLaporanAksesorisController::class);
+        Route::resource('sales-pengeluaran', SalesExpenseController::class);
 
         Route::get('sales-nota-sparepart-termal/{id}', [SalesTransaksiSparepartController::class, 'cetaktermal'])->name('sales-nota-sparepart-termal');
         Route::get('sales-nota-handphone-termal/{id}', [SalesTransaksiHandphoneController::class, 'cetaktermal'])->name('sales-nota-handphone-termal');
