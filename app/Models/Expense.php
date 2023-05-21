@@ -9,13 +9,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Expense extends Model
 {
 
+    use SoftDeletes;
+
     protected $fillable = [
         'name',
         'price',
         'users_id',
-        'pengeluaran_teknisi',
         'is_approve',
-        'tgl_disetujui'
+        'tgl_disetujui',
+        'created_at'
     ];
 
     public function user()

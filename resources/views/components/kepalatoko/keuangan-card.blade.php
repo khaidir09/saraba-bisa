@@ -31,8 +31,8 @@
                 <div class="relative h-full flex flex-col justify-center items-center">
                     <!-- Card number -->
                     <div class="text-xl font-bold text-slate-200 drop-shadow-sm">
-                        Rp. {{ number_format($totalprofitkotor - ($totalprofitkotor - $totalprofit) - ($totalpengeluaran - $totalpengeluaranteknisi)) }}
-                    </div>
+                        Rp. {{ number_format($totalprofitkotor - ($totalprofitkotor - $totalprofit) - ($totalpengeluaran)) }}
+                     </div>
                 </div>
             </div>
         </div>
@@ -52,16 +52,12 @@
                         <div class="text-slate-400 italic">Rp. {{ number_format($totalprofitkotor - $totalprofit) }}</div>
                     </div>
                 </div>
-                @if ($pengeluaran != null)
-                    <div>
-                        <div class="flex justify-between text-sm mb-2">
-                            <div class="text-slate-300">Pengeluaran</div>
-                            <div class="text-slate-400 italic">Rp. {{ number_format($totalpengeluaran - $totalpengeluaranteknisi) }}</div>
-                        </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <div class="text-slate-300">Pengeluaran</div>
+                        <div class="text-slate-400 italic">Rp. {{ number_format($totalpengeluaran) }}</div>
                     </div>
-                @else
-                    
-                @endif
+                </div>
             </div>
         </div>
     </div>

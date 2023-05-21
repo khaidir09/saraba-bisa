@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\KepalaToko;
+namespace App\Http\Controllers\AdminToko;
 
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
@@ -20,7 +19,7 @@ class ExpenseController extends Controller
         $expenses = Expense::latest()->paginate(10);
         $expenses_count = Expense::all()->count();
         $users = User::all();
-        return view('pages/kepalatoko/pengeluaran/index', compact('expenses', 'expenses_count', 'users'));
+        return view('pages/admintoko/pengeluaran/index', compact('expenses', 'expenses_count', 'users'));
     }
 
     /**
@@ -46,11 +45,9 @@ class ExpenseController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'users_id' => $request->users_id,
-            'is_approve' => 'Setuju',
-            'tgl_disetujui' => $request->tgl_disetujui
         ]);
 
-        return redirect()->route('pengeluaran.index');
+        return redirect()->route('admin-pengeluaran.index');
     }
 
     /**
@@ -59,13 +56,9 @@ class ExpenseController extends Controller
      * @param  \App\Models\Expense  $expense
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        $item = Expense::findOrFail($id);
-
-        return view('pages.kepalatoko.pengeluaran.approve', [
-            'item' => $item
-        ]);
+        //
     }
 
     /**
@@ -79,7 +72,7 @@ class ExpenseController extends Controller
         $item = Expense::findOrFail($id);
         $users = User::all();
 
-        return view('pages.kepalatoko.pengeluaran.edit', [
+        return view('pages.admintoko.pengeluaran.edit', [
             'item' => $item,
             'users' => $users
         ]);
@@ -97,12 +90,13 @@ class ExpenseController extends Controller
         $item = Expense::findOrFail($id);
         // Transaction update
         $item->update([
+            'created_at' => $request->created_at,
             'name' => $request->name,
             'price' => $request->price,
             'users_id' => $request->users_id,
         ]);
 
-        return redirect()->route('pengeluaran.index');
+        return redirect()->route('admin-pengeluaran.index');
     }
 
     /**
@@ -117,6 +111,6 @@ class ExpenseController extends Controller
 
         $item->delete();
 
-        return redirect()->route('pengeluaran.index');
+        return redirect()->route('admin-pengeluaran.index');
     }
 }

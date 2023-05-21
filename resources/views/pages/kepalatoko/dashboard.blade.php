@@ -106,7 +106,7 @@
 
         <div class="grid grid-cols-12 gap-6">
             <!-- Card Keuangan -->
-            <x-kepalatoko.keuangan-card :totalprofit="$totalprofit" :totalprofitkotor="$totalprofitkotor" :pengeluaran="$pengeluaran" :totalpengeluaran="$totalpengeluaran" :totalpengeluaranteknisi="$totalpengeluaranteknisi"/>
+            <x-kepalatoko.keuangan-card :totalprofit="$totalprofit" :totalprofitkotor="$totalprofitkotor" :pengeluaran="$pengeluaran" :totalpengeluaran="$totalpengeluaran"/>
 
             {{-- Progres --}}
             <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">

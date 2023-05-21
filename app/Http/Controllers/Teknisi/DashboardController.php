@@ -25,9 +25,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $pengeluaran = Expense::where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
-            ->sum('pengeluaran_teknisi');
         $profitservis = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
@@ -35,7 +32,7 @@ class DashboardController extends Controller
             ->get()
             ->sum('profit');
         $bonusservis = ($profitservis / 100) * Auth::user()->persen;
-        $totalbonus = $bonusservis - $pengeluaran;
+        $totalbonus = $bonusservis;
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
@@ -65,8 +62,7 @@ class DashboardController extends Controller
             'totalsparepart',
             'totalaksesoris',
             'totalhandphone',
-            'totalbonus',
-            'pengeluaran'
+            'totalbonus'
         ));
     }
 }

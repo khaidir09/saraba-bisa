@@ -44,7 +44,6 @@ class ExpenseController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'users_id' => Auth::user()->id,
-            'pengeluaran_teknisi' => ($request->price / 100) * Auth::user()->persen,
         ]);
 
         return redirect()->route('teknisi-pengeluaran.index');
@@ -92,7 +91,6 @@ class ExpenseController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'created_at' => $request->created_at,
-            'pengeluaran_teknisi' => ($request->price / 100) * Auth::user()->persen,
         ]);
 
         return redirect()->route('teknisi-pengeluaran.index');

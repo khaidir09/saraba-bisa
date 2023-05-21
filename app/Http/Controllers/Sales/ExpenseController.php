@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\KepalaToko;
+namespace App\Http\Controllers\Sales;
 
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
@@ -17,10 +16,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::latest()->paginate(10);
-        $expenses_count = Expense::all()->count();
-        $users = User::all();
-        return view('pages/kepalatoko/pengeluaran/index', compact('expenses', 'expenses_count', 'users'));
+        $expenses = Expense::where('users_id', Auth::user()->id)->latest()->paginate(10);
+        $expenses_count = Expense::where('users_id', Auth::user()->id)->count();
+        return view('pages/sales/pengeluaran/index', compact('expenses', 'expenses_count'));
     }
 
     /**
@@ -45,12 +43,10 @@ class ExpenseController extends Controller
         Expense::create([
             'name' => $request->name,
             'price' => $request->price,
-            'users_id' => $request->users_id,
-            'is_approve' => 'Setuju',
-            'tgl_disetujui' => $request->tgl_disetujui
+            'users_id' => Auth::user()->id,
         ]);
 
-        return redirect()->route('pengeluaran.index');
+        return redirect()->route('sales-pengeluaran.index');
     }
 
     /**
@@ -59,13 +55,9 @@ class ExpenseController extends Controller
      * @param  \App\Models\Expense  $expense
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Expense $expense)
     {
-        $item = Expense::findOrFail($id);
-
-        return view('pages.kepalatoko.pengeluaran.approve', [
-            'item' => $item
-        ]);
+        //
     }
 
     /**
@@ -77,11 +69,9 @@ class ExpenseController extends Controller
     public function edit($id)
     {
         $item = Expense::findOrFail($id);
-        $users = User::all();
 
-        return view('pages.kepalatoko.pengeluaran.edit', [
-            'item' => $item,
-            'users' => $users
+        return view('pages.sales.pengeluaran.edit', [
+            'item' => $item
         ]);
     }
 
@@ -95,14 +85,15 @@ class ExpenseController extends Controller
     public function update(Request $request, $id)
     {
         $item = Expense::findOrFail($id);
+
         // Transaction update
         $item->update([
             'name' => $request->name,
             'price' => $request->price,
-            'users_id' => $request->users_id,
+            'created_at' => $request->created_at,
         ]);
 
-        return redirect()->route('pengeluaran.index');
+        return redirect()->route('sales-pengeluaran.index');
     }
 
     /**
@@ -117,6 +108,6 @@ class ExpenseController extends Controller
 
         $item->delete();
 
-        return redirect()->route('pengeluaran.index');
+        return redirect()->route('sales-pengeluaran.index');
     }
 }

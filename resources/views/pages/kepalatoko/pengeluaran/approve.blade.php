@@ -76,7 +76,7 @@
                             <!-- Modal content -->
                             <div class="text-center">
                                 <div class="text-sm mb-5">
-                                    Apabila tidak ada masalah pada item pengeluaran yang diinputkan oleh Admin/Teknisi, silahkan klik tombol Setuju.
+                                    Apabila tidak ada masalah pada item pengeluaran yang diinputkan, silahkan klik tombol Setuju.
                                 </div>
                                 <!-- CTAs -->
                                 <form action="{{ route('approve-pengeluaran.update', $item->id) }}" method="post">
