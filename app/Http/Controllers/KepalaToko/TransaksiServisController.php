@@ -31,7 +31,7 @@ class TransaksiServisController extends Controller
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
         $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/kepalatoko/transaksi-servis', compact(
+        return view('pages/kepalatoko/servis/transaksi-servis', compact(
             'processes',
             'processes_count',
             'jumlah_bisa_diambil',
@@ -107,7 +107,7 @@ class TransaksiServisController extends Controller
         $model_series = ModelSerie::all();
         $users = User::find(1);
 
-        $pdf = PDF::loadView('pages.kepalatoko.kepalatoko-cetak-termal', [
+        $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-termal', [
             'users' => $users,
             'items' => $items,
             'customers' => $customers,
@@ -117,6 +117,28 @@ class TransaksiServisController extends Controller
             'capacities' => $capacities
         ]);
         return $pdf->stream();
+    }
+
+    public function cetakinkjet($id)
+    {
+        $items = ServiceTransaction::findOrFail($id);
+        $customers = Customer::all();
+        $types = Type::all();
+        $brands = Brand::all();
+        $capacities = Capacity::all();
+        $model_series = ModelSerie::all();
+        $users = User::find(1);
+
+        $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-inkjet', [
+            'users' => $users,
+            'items' => $items,
+            'customers' => $customers,
+            'types' => $types,
+            'brands' => $brands,
+            'model_series' => $model_series,
+            'capacities' => $capacities
+        ]);
+        return $pdf->setOption(['dpi' => 300])->stream();
     }
 
     /**
@@ -138,7 +160,7 @@ class TransaksiServisController extends Controller
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
 
-        return view('pages.kepalatoko.transaksi-servis-edit', [
+        return view('pages.kepalatoko.servis.transaksi-servis-edit', [
             'item' => $item,
             'types' => $types,
             'customers' => $customers,

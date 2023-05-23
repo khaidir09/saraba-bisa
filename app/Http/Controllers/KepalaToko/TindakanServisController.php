@@ -16,7 +16,7 @@ class TindakanServisController extends Controller
     {
         $actions = ServiceAction::paginate(10);
         $actions_count = ServiceAction::all()->count();
-        return view('pages/kepalatoko/tindakan-servis', compact('actions', 'actions_count'));
+        return view('pages/kepalatoko/servis/tindakan-servis', compact('actions', 'actions_count'));
     }
 
     public function store(ServiceActionRequest $request)
@@ -46,7 +46,7 @@ class TindakanServisController extends Controller
     {
         $item = ServiceAction::findOrFail($id);
 
-        return view('pages.kepalatoko.tindakan-servis-edit', [
+        return view('pages.kepalatoko.servis.tindakan-servis-edit', [
             'item' => $item
         ]);
     }

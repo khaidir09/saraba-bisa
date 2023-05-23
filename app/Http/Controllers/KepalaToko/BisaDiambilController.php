@@ -24,7 +24,7 @@ class BisaDiambilController extends Controller
     public function index()
     {
 
-        return view('pages/kepalatoko/bisa-diambil');
+        return view('pages/kepalatoko/servis/bisa-diambil');
     }
 
     /**
@@ -101,7 +101,7 @@ class BisaDiambilController extends Controller
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
 
-        return view('pages.kepalatoko.bisa-diambil-edit', [
+        return view('pages.kepalatoko.servis.bisa-diambil-edit', [
             'item' => $item,
             'types' => $types,
             'customers' => $customers,

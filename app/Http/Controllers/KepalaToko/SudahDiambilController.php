@@ -24,7 +24,7 @@ class SudahDiambilController extends Controller
      */
     public function index()
     {
-        return view('pages/kepalatoko/sudah-diambil');
+        return view('pages/kepalatoko/servis/sudah-diambil');
     }
 
     /**
@@ -93,7 +93,7 @@ class SudahDiambilController extends Controller
         $model_series = ModelSerie::all();
         $users = User::find(1);
 
-        $pdf = PDF::loadView('pages.kepalatoko.cetak-termal-pengambilan', [
+        $pdf = PDF::loadView('pages.kepalatoko.servis.cetak-termal-pengambilan', [
             'users' => $users,
             'items' => $items,
             'customers' => $customers,
@@ -123,7 +123,7 @@ class SudahDiambilController extends Controller
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
 
-        return view('pages.kepalatoko.sudah-diambil-edit', [
+        return view('pages.kepalatoko.servis.sudah-diambil-edit', [
             'item' => $item,
             'types' => $types,
             'customers' => $customers,

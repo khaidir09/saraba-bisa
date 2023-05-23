@@ -36,7 +36,7 @@ class UbahBisaDiambilController extends Controller
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
         $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/kepalatoko/transaksi-servis', compact(
+        return view('pages/kepalatoko/servis/transaksi-servis', compact(
             'processes',
             'processes_count',
             'users',
@@ -98,7 +98,7 @@ class UbahBisaDiambilController extends Controller
         $users = User::where('role', 'Teknisi')->get();
         $service_actions = ServiceAction::all();
 
-        return view('pages.kepalatoko.transaksi-servis-bisadiambil', [
+        return view('pages.kepalatoko.servis.transaksi-servis-bisadiambil', [
             'item' => $item,
             'users' => $users,
             'service_actions' => $service_actions

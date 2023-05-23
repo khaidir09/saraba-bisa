@@ -35,7 +35,7 @@ class UbahSudahDiambilController extends Controller
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
         $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/kepalatoko/bisa-diambil', compact(
+        return view('pages/kepalatoko/servis/bisa-diambil', compact(
             'processes_count',
             'customers',
             'users',
@@ -94,7 +94,7 @@ class UbahSudahDiambilController extends Controller
         $item = ServiceTransaction::findOrFail($id);
         $service_actions = ServiceAction::all();
 
-        return view('pages.kepalatoko.transaksi-servis-sudahdiambil', [
+        return view('pages.kepalatoko.servis.transaksi-servis-sudahdiambil', [
             'item' => $item,
             'service_actions' => $service_actions
         ]);

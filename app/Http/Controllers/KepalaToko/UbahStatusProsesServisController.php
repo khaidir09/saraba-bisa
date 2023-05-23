@@ -61,7 +61,7 @@ class UbahStatusProsesServisController extends Controller
     {
         $item = ServiceTransaction::findOrFail($id);
 
-        return view('pages.kepalatoko.transaksi-servis-status', [
+        return view('pages.kepalatoko.servis.transaksi-servis-status', [
             'item' => $item
         ]);
     }
