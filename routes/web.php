@@ -24,7 +24,6 @@ use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiamb
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
 use App\Http\Controllers\KepalaToko\PhoneController as KepalaTokoPhoneController;
 use App\Http\Controllers\KepalaToko\ApproveController as KepalaTokoApproveController;
-use App\Http\Controllers\KepalaToko\InsidenController as KepalaTokoInsidenController;
 use App\Http\Controllers\KepalaToko\AnggaranController as KepalaTokoAnggaranController;
 use App\Http\Controllers\KepalaToko\KaryawanController as KepalaTokoKaryawanController;
 use App\Http\Controllers\KepalaToko\AksesorisController as KepalaTokoAksesorisController;
@@ -150,7 +149,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('phone/transaksi-handphone-approve', KepalaTokoApproveHandphoneController::class);
     Route::resource('phone/transaksi-handphone', KepalaTokoTransaksiHandphoneController::class);
     Route::resource('anggaran', KepalaTokoAnggaranController::class);
-    Route::resource('insiden', KepalaTokoInsidenController::class);
     Route::resource('kasbon', KepalaTokoKasbonController::class);
     Route::resource('gaji/karyawan', KepalaTokoKaryawanController::class);
     Route::resource('gaji/bonus', KepalaTokoGajiController::class);

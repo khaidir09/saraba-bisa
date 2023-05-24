@@ -69,7 +69,7 @@ class GajiController extends Controller
 
         $user = User::find($request->users_id);
         if ($user->role === 'Teknisi') {
-            $hasil = $user->servicetransaction->sum('profit') / 100;
+            $hasil = $user->servicetransaction->sum('profittoko') / 100;
             $hasil *= $user->persen;
             $bonus = $hasil;
         } elseif ($user->role === 'Sales') {

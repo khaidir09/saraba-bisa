@@ -30,7 +30,7 @@
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium">
                                 @php
-                                    $bonus = $item->servicetransaction->sum('profit')/100;
+                                    $bonus = $item->servicetransaction->sum('profittoko')/100;
                                     $bonus *= $item->persen;
                                 @endphp
                                 Rp. {{ number_format($bonus) }}

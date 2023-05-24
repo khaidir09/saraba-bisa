@@ -115,7 +115,7 @@ class UbahBisaDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $persen_backup = User::find(1);
+        $persen_toko = User::find(1);
         $persen_teknisi = User::find($request->users_id);
         $tindakan_servis = ServiceAction::find($request->service_actions_id);
         $profittransaksi = $request->biaya - $request->modal_sparepart;
@@ -133,11 +133,11 @@ class UbahBisaDiambilController extends Controller
             'biaya' => $request->biaya,
             'catatan' => $request->catatan,
             'persen_teknisi' => $persen_teknisi->persen,
-            'persen_backup' => $persen_backup->persen,
+            'persen_toko' => $persen_toko->persen,
             'omzet' => $request->biaya,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil * ($persen_teknisi->persen + $persen_backup->persen)),
-            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100) * $persen_backup->persen
+            'profittoko' => $bagihasil * $persen_toko->persen,
+            'profitowner' => $bagihasil * (100 - $persen_toko->persen)
         ]);
 
         if ($request->spareparts_id != null) {
