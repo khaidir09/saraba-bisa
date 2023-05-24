@@ -67,7 +67,11 @@
 					<th scope="row">Merek</th>
 					<td>: {{ $items->brand->name }}</td>
 					<th scope="row">Kelengkapan</th>
-					<td>: {{ $items->kelengkapan }}</td>
+					@if ($items->kelengkapan != null)
+						<td>: {{ $items->kelengkapan }}</td>
+					@else
+						<td>: Hanya Unit</td>
+					@endif
 				</tr>
 				<tr>
 					<th scope="row">Alamat</th>
@@ -115,7 +119,11 @@
 				</tr>
 				<tr>
 					<th scope="row">Estimasi Pengerjaan</th>
-					<td>: {{ $items->estimasi_pengerjaan }}</td>
+					@if ($items->estimasi_pengerjaan != null)
+						<td>: {{ $items->estimasi_pengerjaan }}</td>
+					@else
+						<td>: -</td>
+					@endif
 					<th scope="row"></th>
 					<td>{{ $items->uang_muka }}</td>
 					<th scope="row"></th>
