@@ -8,11 +8,6 @@ use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
 // Kepala Toko
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\KepalaToko\ApproveHandphoneController as KepalaTokoApproveHandphoneController;
-use App\Http\Controllers\KepalaToko\ApproveSparepartController as KepalaTokoApproveSparepartController;
-use App\Http\Controllers\KepalaToko\LaporanAksesorisController as KepalaTokoLaporanAksesorisController;
-use App\Http\Controllers\KepalaToko\LaporanHandphoneController as KepalaTokoLaporanHandphoneController;
-use App\Http\Controllers\KepalaToko\LaporanSparepartController as KepalaTokoLaporanSparepartController;
 use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\UbahStatusProsesServisController as KepalaTokoUbahStatusProsesServisController;
@@ -22,7 +17,6 @@ use App\Http\Controllers\KepalaToko\ApprovePengeluaranController as KepalaTokoAp
 use App\Http\Controllers\KepalaToko\GajiController as KepalaTokoGajiController;
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
-use App\Http\Controllers\KepalaToko\PhoneController as KepalaTokoPhoneController;
 use App\Http\Controllers\KepalaToko\ApproveController as KepalaTokoApproveController;
 use App\Http\Controllers\KepalaToko\InsidenController as KepalaTokoInsidenController;
 use App\Http\Controllers\KepalaToko\AnggaranController as KepalaTokoAnggaranController;
@@ -33,9 +27,9 @@ use App\Http\Controllers\KepalaToko\PelangganController as KepalaTokoPelangganCo
 use App\Http\Controllers\KepalaToko\SparepartController as KepalaTokoSparepartController;
 use App\Http\Controllers\KepalaToko\KasbonController as KepalaTokoKasbonController;
 use App\Http\Controllers\KepalaToko\MasterJenisBarangController as KepalaTokoMasterJenisBarangController;
-use App\Http\Controllers\KepalaToko\TransaksiAksesorisController as KepalaTokoTransaksiAksesorisController;
-use App\Http\Controllers\KepalaToko\TransaksiHandphoneController as KepalaTokoTransaksiHandphoneController;
-use App\Http\Controllers\KepalaToko\TransaksiSparepartController as KepalaTokoTransaksiSparepartController;
+use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriController;
+use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
+use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
 // Admin Toko
 use App\Http\Controllers\AdminToko\BisaDiambilController as AdminTokoBisaDiambilController;
 use App\Http\Controllers\AdminToko\MasterMerekController as AdminTokoMasterMerekController;
@@ -139,16 +133,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('master/master-merek', KepalaTokoMasterMerekController::class);
     Route::resource('master/master-kapasitas', KepalaTokoMasterKapasitasController::class);
     Route::resource('master/master-model-seri', KepalaTokoMasterModelSeriController::class);
-    Route::resource('sparepart/data-sparepart', KepalaTokoSparepartController::class);
-    Route::resource('sparepart/transaksi-sparepart', KepalaTokoTransaksiSparepartController::class);
-    Route::resource('sparepart/transaksi-sparepart-approve', KepalaTokoApproveSparepartController::class);
-    Route::resource('aksesoris/data-aksesoris', KepalaTokoAksesorisController::class);
-    Route::resource('aksesoris/transaksi-aksesoris', KepalaTokoTransaksiAksesorisController::class);
-    Route::resource('aksesoris/transaksi-aksesoris-approve', KepalaTokoApproveAksesorisController::class);
-    Route::resource('phone/data-handphone', KepalaTokoPhoneController::class);
-    Route::resource('phone/phone-terjual', KepalaTokoPhoneTerjualController::class);
-    Route::resource('phone/transaksi-handphone-approve', KepalaTokoApproveHandphoneController::class);
-    Route::resource('phone/transaksi-handphone', KepalaTokoTransaksiHandphoneController::class);
     Route::resource('anggaran', KepalaTokoAnggaranController::class);
     Route::resource('insiden', KepalaTokoInsidenController::class);
     Route::resource('kasbon', KepalaTokoKasbonController::class);
@@ -158,10 +142,17 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('pengeluaran', KepalaTokoExpenseController::class);
     Route::resource('approve-pengeluaran', KepalaTokoApprovePengeluaranController::class);
 
+    Route::resource('produk/kategori', KepalaTokoKategoriController::class);
+    Route::resource('produk/item', KepalaTokoProdukController::class);
+    Route::resource('produk/pos', KepalaTokoPosController::class);
+
+    Route::get('produk/pos', [KepalaTokoPosController::class, 'index'])->name('pos');
+    Route::get('produk/allitem', [KepalaTokoPosController::class, 'AllItem']);
+    Route::post('produk/add-cart', [KepalaTokoPosController::class, 'AddCart']);
+    Route::post('produk/cart-update/{rowId}', [KepalaTokoPosController::class, 'CartUpdate']);
+    Route::get('produk/cart-remove/{rowId}', [KepalaTokoPosController::class, 'CartRemove']);
+
     Route::get('laporan/laporan-servis', [KepalaTokoLaporanServisController::class, 'index'])->name('laporan-servis');
-    Route::get('laporan/laporan-handphone', [KepalaTokoLaporanHandphoneController::class, 'index'])->name('laporan-handphone');
-    Route::get('laporan/laporan-sparepart', [KepalaTokoLaporanSparepartController::class, 'index'])->name('laporan-sparepart');
-    Route::get('laporan/laporan-aksesoris', [KepalaTokoLaporanAksesorisController::class, 'index'])->name('laporan-aksesoris');
     Route::get('laporan/laporan-teknisi', [KepalaTokoLaporanTeknisiController::class, 'index'])->name('laporan-teknisi');
 
     Route::get('laporan/laporan-sales', [KepalaTokoLaporanSalesController::class, 'index'])->name('laporan-sales');
