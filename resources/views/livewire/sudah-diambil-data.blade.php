@@ -218,6 +218,9 @@
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+                <option value="250">250</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
             </select>
         </div>
     
@@ -573,7 +576,7 @@
                                     <div x-data="{ modalOpen: false }">
                                         <button
                                             @click.prevent="modalOpen = true"
-                                            aria-controls="basic-modal"
+                                            aria-controls="print-modal"
                                         >
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -597,7 +600,7 @@
                                             ></div>
                                             <!-- Modal dialog -->
                                             <div
-                                                id="basic-modal"
+                                                id="print-modal"
                                                 class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                                                 role="dialog"
                                                 aria-modal="true"
