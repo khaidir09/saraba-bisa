@@ -101,9 +101,23 @@
                         <div class="font-medium text-emerald-600">{{ Cart::subtotal() }}</div>
                     </li>
                 </ul>
-                <div class="mb-4">
-                    <button class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white" href="#0">Proses</button>
-                </div>
+                <form action="{{ url('/produk/create-invoice') }}" method="post">
+                    @csrf
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
+                        <livewire:customer-search></livewire:customer-search>
+                    </div>
+                    <div class="mb-4 space-y-3">
+                        <!-- Create invoice button -->
+                        <a href="{{ route('pelanggan.index') }}" class="btn w-full bg-emerald-500 hover:bg-emerald-600 text-white">
+                            <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                                <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                            </svg>
+                            <span class="hidden xs:block ml-2">Tambah Pelanggan Baru</span>
+                        </a>
+                        <button class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white">Proses</button>
+                    </div>
+                </form>
             </div>
         </div>
 
