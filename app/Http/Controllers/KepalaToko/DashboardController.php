@@ -88,6 +88,36 @@ class DashboardController extends Controller
         $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
         $totalprofitkotor = ($totalprofitbiayaservis + $totalprofitsparepart + $totalprofitaksesoris + $totalprofithandphone);
 
+        $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereDate('tgl_ambil', today())
+            ->get()
+            ->sum('omzet');
+        $omzetsparepart = SparepartTransaction::whereDate('created_at', today())
+            ->get()
+            ->sum('omzet');
+        $omzetaksesori = AccessoryTransaction::whereDate('created_at', today())
+            ->get()
+            ->sum('omzet');
+        $omzethandphone = PhoneTransaction::whereDate('created_at', today())
+            ->get()
+            ->sum('omzet');
+        $totalomzet = $omzetservis + $omzetsparepart + $omzetaksesori + $omzethandphone;
+
+        $profitservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereDate('tgl_ambil', today())
+            ->get()
+            ->sum('profit');
+        $profitsparepart = SparepartTransaction::whereDate('created_at', today())
+            ->get()
+            ->sum('profit');
+        $profitaksesori = AccessoryTransaction::whereDate('created_at', today())
+            ->get()
+            ->sum('profit');
+        $profithandphone = PhoneTransaction::whereDate('created_at', today())
+            ->get()
+            ->sum('profit');
+        $totalprofitutuh = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;
+
         return view('pages/kepalatoko/dashboard', compact(
             'approveassembly',
             'approveservis',
@@ -110,7 +140,9 @@ class DashboardController extends Controller
             'pengeluaran',
             'totalpengeluaran',
             'approvepengeluaran',
-            'totalprofitkotor'
+            'totalprofitkotor',
+            'totalomzet',
+            'totalprofitutuh'
         ));
     }
 }
