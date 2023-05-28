@@ -43,27 +43,29 @@ class GajiController extends Controller
      */
     public function store(Request $request)
     {
+        $currentMonth = now()->month;
+
         $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
 
         $profitsparepart = SparepartTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
 
         $profitaksesoris = AccessoryTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
 
         $profithandphone = PhoneTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
 

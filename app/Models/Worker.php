@@ -29,14 +29,18 @@ class Worker extends Model
     // one to many
     public function salary()
     {
+        $currentMonth = now()->month;
+
         return $this->hasMany(Salary::class, 'workers_id')
-            ->whereMonth('created_at', '=', date("m", strtotime(now())));
+            ->whereMonth('created_at', $currentMonth);
     }
 
     public function debt()
     {
+        $currentMonth = now()->month;
+
         return $this->hasMany(Debt::class, 'workers_id')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())));
+            ->whereMonth('tgl_disetujui', $currentMonth);
     }
 }

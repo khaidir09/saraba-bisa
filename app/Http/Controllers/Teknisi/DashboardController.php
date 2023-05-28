@@ -25,36 +25,38 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $currentMonth = now()->month;
+
         $profitservis = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
         $bonusservis = ($profitservis / 100) * Auth::user()->persen;
         $bonusassembly = Assembly::with('user')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('biaya');
         $totalbonus = $bonusservis + $bonusassembly;
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
         $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
         $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
         $totalhandphone = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
         $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;

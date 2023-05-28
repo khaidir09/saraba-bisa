@@ -66,18 +66,20 @@ class KaryawanController extends Controller
 
     public function cetak($id)
     {
+        $currentMonth = now()->month;
+
         $items = Worker::findOrFail($id);
         $salaries = Salary::where('workers_id', $id)
-            ->whereMonth('created_at', '=', date("m", strtotime(now())))
+            ->whereMonth('created_at', $currentMonth)
             ->get();
-        $bonus = Salary::where('workers_id', $id)->whereMonth('created_at', '=', date("m", strtotime(now())))
+        $bonus = Salary::where('workers_id', $id)->whereMonth('created_at', $currentMonth)
             ->sum('bonus');
         $users = User::find(1);
         $debts = Debt::where('workers_id', $id)
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get();
         $totalkasbon = Debt::where('workers_id', $id)
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->sum('total');
 
         $pdf = PDF::loadView('pages.kepalatoko.karyawan.cetak', [
