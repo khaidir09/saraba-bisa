@@ -13,8 +13,10 @@ class Type extends Model
 
     public function service()
     {
+        $currentMonth = now()->month;
+
         return $this->hasMany(ServiceTransaction::class, 'types_id', 'id')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())));
+            ->whereMonth('tgl_disetujui', $currentMonth);
     }
 }

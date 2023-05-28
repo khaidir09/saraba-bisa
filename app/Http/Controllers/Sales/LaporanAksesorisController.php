@@ -11,34 +11,37 @@ class LaporanAksesorisController extends Controller
 {
     public function index()
     {
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
+
         $penjualanhari = AccessoryTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
+            ->whereDate('tgl_disetujui', today())
             ->get()
             ->sum('quantity');
         $profithari = AccessoryTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereDay('tgl_disetujui', '=', date("d", strtotime(now())))
+            ->whereDate('tgl_disetujui', today())
             ->get()
             ->sum('profit');
         $penjualanbulan = AccessoryTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('quantity');
         $profitbulan = AccessoryTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', '=', date("m", strtotime(now())))
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
         $penjualantahun = AccessoryTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
+            ->whereYear('tgl_disetujui', $currentYear)
             ->get()
             ->sum('quantity');
         $profittahun = AccessoryTransaction::where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
-            ->whereYear('tgl_disetujui', '=', date("Y", strtotime(now())))
+            ->whereYear('tgl_disetujui', $currentYear)
             ->get()
             ->sum('profit');
         return view(
