@@ -21,49 +21,51 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $currentMonth = now()->month;
+
         $types = Type::with('service')->get();
         $totalbudgets = Budget::all()->sum('total');
-        $totalbiayaservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')->whereMonth('created_at', '=', date("m", strtotime(now())))
+        $totalbiayaservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')->whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
-        $totalsparepart = SparepartTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
+        $totalsparepart = SparepartTransaction::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
-        $totalaksesoris = AccessoryTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
+        $totalaksesoris = AccessoryTransaction::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
-        $totalhandphone = PhoneTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
+        $totalhandphone = PhoneTransaction::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
         $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
         $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
 
         $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
+            ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('omzet');
-        $omzetsparepart = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $omzetsparepart = SparepartTransaction::whereDate('created_at', today())
             ->get()
             ->sum('omzet');
-        $omzetaksesori = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $omzetaksesori = AccessoryTransaction::whereDate('created_at', today())
             ->get()
             ->sum('omzet');
-        $omzethandphone = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $omzethandphone = PhoneTransaction::whereDate('created_at', today())
             ->get()
             ->sum('omzet');
         $totalomzet = $omzetservis + $omzetsparepart + $omzetaksesori + $omzethandphone;
 
         $profitservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->whereDay('tgl_ambil', '=', date("d", strtotime(now())))
+            ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('profit');
-        $profitsparepart = SparepartTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $profitsparepart = SparepartTransaction::whereDate('created_at', today())
             ->get()
             ->sum('profit');
-        $profitaksesori = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $profitaksesori = AccessoryTransaction::whereDate('created_at', today())
             ->get()
             ->sum('profit');
-        $profithandphone = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $profithandphone = PhoneTransaction::whereDate('created_at', today())
             ->get()
             ->sum('profit');
         $totalprofitutuh = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;

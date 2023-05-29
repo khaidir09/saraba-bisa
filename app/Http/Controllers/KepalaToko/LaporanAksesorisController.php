@@ -10,24 +10,27 @@ class LaporanAksesorisController extends Controller
 {
     public function index()
     {
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
+
         $accessory_transactions = AccessoryTransaction::with('customer', 'accessory')->orderByDesc('created_at')->get();
         $count = AccessoryTransaction::all()->count();
-        $omzethari = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $omzethari = AccessoryTransaction::whereDate('created_at', today())
             ->get()
             ->sum('omzet');
-        $profithari = AccessoryTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $profithari = AccessoryTransaction::whereDate('created_at', today())
             ->get()
             ->sum('profit');
-        $omzetbulan = AccessoryTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
+        $omzetbulan = AccessoryTransaction::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('omzet');
-        $profitbulan = AccessoryTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
+        $profitbulan = AccessoryTransaction::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
-        $omzettahun = AccessoryTransaction::whereYear('created_at', '=', date("Y", strtotime(now())))
+        $omzettahun = AccessoryTransaction::whereYear('created_at', $currentYear)
             ->get()
             ->sum('omzet');
-        $profittahun = AccessoryTransaction::whereYear('created_at', '=', date("Y", strtotime(now())))
+        $profittahun = AccessoryTransaction::whereYear('created_at', $currentYear)
             ->get()
             ->sum('profit');
         return view('pages/kepalatoko/laporan-aksesoris', compact('accessory_transactions', 'count', 'omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));

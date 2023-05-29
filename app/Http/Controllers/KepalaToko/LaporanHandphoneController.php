@@ -10,24 +10,27 @@ class LaporanHandphoneController extends Controller
 {
     public function index()
     {
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
+
         $phone_transactions = PhoneTransaction::with('customer', 'phone')->orderByDesc('created_at')->get();
         $count = PhoneTransaction::all()->count();
-        $omzethari = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $omzethari = PhoneTransaction::whereDate('created_at', today())
             ->get()
             ->sum('omzet');
-        $profithari = PhoneTransaction::whereDay('created_at', '=', date("d", strtotime(now())))
+        $profithari = PhoneTransaction::whereDate('created_at', today())
             ->get()
             ->sum('profit');
-        $omzetbulan = PhoneTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
+        $omzetbulan = PhoneTransaction::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('omzet');
-        $profitbulan = PhoneTransaction::whereMonth('created_at', '=', date("m", strtotime(now())))
+        $profitbulan = PhoneTransaction::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
-        $omzettahun = PhoneTransaction::whereYear('created_at', '=', date("Y", strtotime(now())))
+        $omzettahun = PhoneTransaction::whereYear('created_at', $currentYear)
             ->get()
             ->sum('omzet');
-        $profittahun = PhoneTransaction::whereYear('created_at', '=', date("Y", strtotime(now())))
+        $profittahun = PhoneTransaction::whereYear('created_at', $currentYear)
             ->get()
             ->sum('profit');
         return view('pages/kepalatoko/laporan-handphone', compact('phone_transactions', 'count', 'omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));
