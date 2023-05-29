@@ -61,7 +61,7 @@ class PosController extends Controller
     {
         $contents = Cart::content();
         $cust_id = $request->customers_id;
-        $customer = Customer::where('id', $cust_id);
+        $customer = Customer::where('id', $cust_id)->first();
         return view('pages.kepalatoko.produk.invoice', compact('contents', 'customer'));
     }
 }

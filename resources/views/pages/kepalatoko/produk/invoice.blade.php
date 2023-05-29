@@ -4,7 +4,25 @@
 
 <x-toko-layout>
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-        
+        <table class="w-full mb-5">
+            <thead>
+                <tr>
+                    <th class="text-left">{{ $customer->nama }}</th>
+                    <th class="text-left">No. Nota</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="text-left">{{ $customer->alamat }}</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th class="text-left">Nomor HP/WA : {{ $customer->nomor_hp }}</th>
+                    <th></th>
+                </tr>
+            </tbody>
+        </table>
+
         <table class="border-collapse border border-slate-500 w-full">
             <thead>
                 <tr>
@@ -34,7 +52,7 @@
                     <td>{{ Cart::subtotal() }}</td>
                 </tr>
             </tbody>
-            </table>
+        </table>
 
     </div>
 </x-toko-layout>

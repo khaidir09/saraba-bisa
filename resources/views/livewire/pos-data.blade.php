@@ -174,7 +174,13 @@
                                         <div class="font-medium">{{ $i++ }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        <div class="font-medium">{{ $item->product_name }}</div>
+                                        <div class="font-medium">
+                                            @if ($item->product_code != null)
+                                                ({{ $item->product_code }}) {{ $item->product_name }}
+                                            @else
+                                                {{ $item->product_name }} {{ $item->nomor_seri }}
+                                            @endif
+                                        </div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="space-x-1 flex">

@@ -81,6 +81,10 @@
                                         <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                     <div>
+                                        <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
+                                        <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" placeholder="Tidak perlu diisi jika bukan produk Handphone/Laptop" />
+                                    </div>
+                                    <div>
                                         <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
                                         <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
                                     </div>
@@ -176,6 +180,9 @@
                             <div class="font-semibold text-left">Kategori Produk</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">IMEI / SN</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Kode Produk</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -216,7 +223,22 @@
                                 <div class="font-medium">{{ $item->category->category_name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->product_code }}</div>
+                                <div class="font-medium">
+                                    @if ($item->nomor_seri != null)
+                                        {{ $item->nomor_seri }}
+                                    @else
+                                        -
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">
+                                    @if ($item->product_code != null)
+                                        {{ $item->product_code }}
+                                    @else
+                                        -
+                                    @endif
+                                </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->stok }}</div>
