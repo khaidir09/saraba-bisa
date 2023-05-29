@@ -119,7 +119,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="qc_keluar">Pengecekan Fungsi Keluar <span class="text-rose-500">*</span></label>
-                                    <input id="qc_keluar" name="qc_keluar" class="form-input w-full px-2 py-1" type="text" required/>
+                                    <input id="qc_keluar" name="qc_keluar" class="form-input w-full px-2 py-1" type="text" placeholder="Contoh: Tombol, Kamera, Speaker, dll" required/>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>

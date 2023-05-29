@@ -118,7 +118,11 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi <span class="text-rose-500">*</span></label>
-                                        <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" required/>
+                                        <input id="qc_masuk" name="qc_masuk" 
+                                        class="form-input w-full px-2 py-1" 
+                                        type="text" required
+                                        placeholder="Contoh: Tombol, Kamera, Speaker, dll"
+                                        />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
