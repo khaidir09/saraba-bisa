@@ -18,6 +18,7 @@ class LaporanServisData extends Component
 
     public $paginate = 10;
     public $search;
+    public $user;
 
     protected $updatesQueryString = ['search'];
 
@@ -49,7 +50,7 @@ class LaporanServisData extends Component
             'capacities' => $capacities,
             'model_series' => $model_series,
             'services' => $this->search === null ?
-                ServiceTransaction::latest()->where('is_approve', 'Setuju')->paginate($this->paginate) :
+                ServiceTransaction::latest()->where('is_approve', 'Setuju')->where('users_id', 'like', '%' . $this->user . '%')->paginate($this->paginate) :
                 ServiceTransaction::latest()->where('is_approve', 'Setuju')->where('created_at', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
