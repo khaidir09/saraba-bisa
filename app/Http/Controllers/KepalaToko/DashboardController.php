@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $pengeluaran = Expense::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->count();
-        $totalpengeluaran = Expense::where('is_approve', 'Setuju')->sum('price');
+        $totalpengeluaran = Expense::where('is_approve', 'Setuju')->whereMonth('tgl_disetujui', $currentMonth)->sum('price');
 
         $approveservis = ServiceTransaction::where('is_approve', null)
             ->where('status_servis', 'Sudah Diambil')
