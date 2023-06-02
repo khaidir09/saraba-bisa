@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -59,9 +60,13 @@ class PosController extends Controller
 
     public function CreateInvoice(Request $request)
     {
+        $invoice = '' . mt_rand(date('Ymd00'), date('Ymd99'));
+
+        $user = User::find(1);
         $contents = Cart::content();
         $cust_id = $request->customers_id;
+        $no_invoice = $invoice;
         $customer = Customer::where('id', $cust_id)->first();
-        return view('pages.kepalatoko.produk.invoice', compact('contents', 'customer'));
+        return view('pages.kepalatoko.produk.invoice', compact('contents', 'customer', 'user', 'no_invoice'));
     }
 }
