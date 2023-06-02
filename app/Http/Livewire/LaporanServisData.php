@@ -40,8 +40,8 @@ class LaporanServisData extends Component
             'jumlah' => $jumlah,
             'users' => $users,
             'services' => $this->search === null ?
-                ServiceTransaction::latest()->where('is_approve', 'Setuju')->where('users_id', 'like', '%' . $this->user . '%')->paginate($this->paginate) :
-                ServiceTransaction::latest()->where('is_approve', 'Setuju')->where('created_at', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::orderBy('tgl_disetujui', 'desc')->where('is_approve', 'Setuju')->where('users_id', 'like', '%' . $this->user . '%')->paginate($this->paginate) :
+                ServiceTransaction::orderBy('tgl_disetujui', 'desc')->where('is_approve', 'Setuju')->where('created_at', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }
