@@ -19,6 +19,7 @@ class AdminSudahDiambilData extends Component
 
     public $paginate = 10;
     public $search;
+    public $type;
 
     protected $updatesQueryString = ['search'];
 
@@ -66,6 +67,7 @@ class AdminSudahDiambilData extends Component
             'service_transactions' => $this->search === null ?
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')
                 ->where('is_admin_toko', 'Admin')
+                ->where('types_id', 'like', '%' . $this->type . '%')
                 ->paginate($this->paginate) :
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')
                 ->where('is_admin_toko', 'Admin')

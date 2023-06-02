@@ -19,6 +19,7 @@ class AdminBisaDiambilData extends Component
 
     public $paginate = 10;
     public $search;
+    public $type;
 
     protected $updatesQueryString = ['search'];
 
@@ -63,6 +64,7 @@ class AdminBisaDiambilData extends Component
                 ServiceTransaction::latest()->with('customer', 'serviceaction')
                 ->where('status_servis', 'Bisa Diambil')
                 ->where('is_admin_toko', 'Admin')
+                ->where('types_id', 'like', '%' . $this->type . '%')
                 ->paginate($this->paginate) :
                 ServiceTransaction::latest()->with('customer', 'serviceaction')
                 ->where('status_servis', 'Bisa Diambil')

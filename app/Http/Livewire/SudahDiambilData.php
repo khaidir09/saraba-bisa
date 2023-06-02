@@ -19,6 +19,7 @@ class SudahDiambilData extends Component
 
     public $paginate = 10;
     public $search;
+    public $type;
 
     protected $updatesQueryString = ['search'];
 
@@ -61,7 +62,7 @@ class SudahDiambilData extends Component
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'jumlahsudahdiambil' => $jumlahsudahdiambil,
             'service_transactions' => $this->search === null ?
-                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->paginate($this->paginate) :
+                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('types_id', 'like', '%' . $this->type . '%')->paginate($this->paginate) :
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }

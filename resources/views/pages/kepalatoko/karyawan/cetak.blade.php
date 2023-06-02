@@ -90,10 +90,12 @@
 			<tr>
 			<td></td>
 			@php
-				$dt     = \Carbon\Carbon::now()->locale('id');
-				$past   = $dt->subMonth();
+				$dt     = \Carbon\Carbon::today()->locale('id');
 			@endphp
-			<td class="text-right">Masa Kerja : {{ \Carbon\Carbon::parse($items->bulankerja)->diffForHumans($past, ['parts' => 2, 'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE]) }}</td>
+			<td class="text-right">Masa Kerja :
+				{{ \Carbon\Carbon::parse($items->bulankerja)->diffForHumans
+				($dt, ['parts' => 2, 'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE]) }}
+			</td>
 			</tr>
 		</tbody>
 	</table>
