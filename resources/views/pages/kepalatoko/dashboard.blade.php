@@ -191,7 +191,7 @@
                                     @foreach ($categories as $item)
                                         <tr>
                                             <td class="py-2">
-                                                <div class="text-left">{{ $item->category_name }}</div>
+                                                <div class="text-left uppercase">{{ $item->category_name }}</div>
                                             </td>
                                             <td class="py-2">
                                                 <div class="font-medium text-right text-slate-800">
