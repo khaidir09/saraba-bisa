@@ -244,13 +244,13 @@
                                 <div class="font-medium">{{ $item->stok }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->harga_modal }}</div>
+                                <div class="font-medium">Rp. {{ number_format($item->harga_modal) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->harga_toko }}</div>
+                                <div class="font-medium">Rp. {{ number_format($item->harga_toko) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->harga_pelanggan }}</div>
+                                <div class="font-medium">Rp. {{ number_format($item->harga_pelanggan) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->supplier }}</div>

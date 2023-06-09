@@ -25,4 +25,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'categories_id', 'id');
     }
+
+    public function order()
+    {
+        $currentMonth = now()->month;
+
+        return $this->hasMany(OrderDetail::class, 'products_id', 'id')
+            ->whereMonth('created_at', $currentMonth);
+    }
 }
