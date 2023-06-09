@@ -147,7 +147,7 @@
                                         </div>
                                     </div>
                                         <div x-show="showDetails" class="mt-3">
-                                        <label class="block text-sm font-medium mb-1" for="spareparts_id">Sparepart Toko yg Digunakan</label>
+                                        <label class="block text-sm font-medium mb-1" for="products_id">Sparepart Toko yg Digunakan</label>
                                         <livewire:pencarian-sparepart></livewire:pencarian-sparepart>
                                     </div>
                                 </div>
