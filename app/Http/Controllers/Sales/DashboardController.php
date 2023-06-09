@@ -26,55 +26,18 @@ class DashboardController extends Controller
     {
         $currentMonth = now()->month;
 
-        $profitsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $bonussparepart = ($profitsparepart / 100) * Auth::user()->persen;
-        $profitaksesori = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $bonusaksesori = ($profitaksesori / 100) * Auth::user()->persen;
-        $profithandphone = PhoneTransaction::where('is_approve', 'Setuju')
-            ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $bonushandphone = ($profithandphone / 100) * Auth::user()->persen;
-        $totalbonus = $bonussparepart + $bonusaksesori + $bonushandphone;
-
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
-        $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profittoko');
-        $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profittoko');
-        $totalhandphone = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profittoko');
-        $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
-        $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
+
+        $totalprofit = $totalbiayaservis;
 
         return view('pages/sales/dashboard', compact(
             'totalbiayaservis',
             'totalbudgets',
-            'totalprofit',
-            'totalpenjualan',
-            'totalsparepart',
-            'totalaksesoris',
-            'totalhandphone',
-            'totalbonus'
+            'totalprofit'
         ));
     }
 }
