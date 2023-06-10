@@ -56,6 +56,32 @@ class PosController extends Controller
         return redirect()->route('pos');
     }
 
+    public function applyDiscount(Request $request)
+    {
+        $discount = $request->input('discount');
+
+        // Memperoleh daftar item dalam keranjang
+        $cartItems = Cart::content();
+
+        foreach ($cartItems as $cartItem) {
+            // Menghitung total harga sebelum diskon
+            $totalBeforeDiscount = $cartItem->qty * $cartItem->price;
+
+            // Menghitung jumlah diskon berdasarkan persentase
+            $discountAmount = $totalBeforeDiscount * ($discount / 100);
+
+            // Menghitung total harga setelah diskon
+            $totalAfterDiscount = $totalBeforeDiscount - $discountAmount;
+
+            // Memperbarui harga item dengan harga setelah diskon
+            Cart::update($cartItem->rowId, [
+                'price' => $totalAfterDiscount / $cartItem->qty
+            ]);
+        }
+
+        return redirect()->route('pos');
+    }
+
     public function CartRemove($rowId)
     {
         Cart::remove($rowId);
@@ -87,6 +113,7 @@ class PosController extends Controller
         $data['order_date'] = $request->order_date;
         $data['total_products'] = $request->total_products;
         $data['sub_total'] = $request->sub_total;
+        $data['total'] = $request->total;
 
         $data['invoice_no'] = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         $data['payment_method'] = $request->payment_method;

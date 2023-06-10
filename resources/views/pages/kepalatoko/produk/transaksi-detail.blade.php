@@ -60,13 +60,8 @@
                             </div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
-                            <div class="text-sm">Taxes</div>
-                            <div class="text-sm font-medium text-slate-800 ml-2">$48</div>
-                        </li>
-                        <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="flex items-center">
-                                <span class="text-sm mr-2">Discount</span>
-                                <span class="text-xs inline-flex whitespace-nowrap font-medium uppercase bg-slate-200 text-slate-500 rounded-full text-center px-2.5 py-1">XMAS22</span>
+                                <span class="text-sm mr-2">Diskon</span>
                             </div>
                             <div class="text-sm font-medium text-slate-800 ml-2">-$25</div>
                         </li>

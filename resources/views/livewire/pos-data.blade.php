@@ -27,7 +27,7 @@
                                 <div class="font-semibold text-left">Harga</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Total</div>
+                                <div class="font-semibold text-left">Sub Total</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Aksi</div>
@@ -97,16 +97,33 @@
                         <div class="font-medium text-slate-800">{{ Cart::count() }}</div>
                     </li>
                     <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200">
-                        <div>Total Harga</div>
+                        <div>Sub Total</div>
                         <div class="font-medium text-emerald-600">Rp. {{ number_format(Cart::subtotal()) }}</div>
                     </li>
+                    <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200">
+                        <div>Total</div>
+                        <div class="font-medium text-emerald-600">Rp. {{ number_format(Cart::total()) }}</div>
+                    </li>
                 </ul>
+                <form action="{{ route('produk.applyDiscount') }}" method="post">
+                    @csrf
+                    <input type="number" name="discount" class="text-sm font-medium" style="width: 60px;">
+                    <button type="submit" class="text-rose-500 hover:text-rose-600 rounded-full">
+                        <span class="sr-only">Update</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#6f32be" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+                        </svg>
+                    </button>
+                </form>
                 <form action="{{ url('/produk/complete-order') }}" method="post">
                     @csrf
                     <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="order_date" value="{{ \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y') }}">
                     <input type="hidden" name="total_products" value="{{ Cart::count() }}">
                     <input type="hidden" name="sub_total" value="{{ Cart::subtotal() }}">
+                    <input type="hidden" name="total" value="{{ Cart::total() }}">
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>

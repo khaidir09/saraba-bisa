@@ -136,6 +136,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('produk/allitem', [KepalaTokoPosController::class, 'AllItem']);
     Route::post('produk/add-cart', [KepalaTokoPosController::class, 'AddCart']);
     Route::post('produk/cart-update/{rowId}', [KepalaTokoPosController::class, 'CartUpdate']);
+    Route::post('produk/apply-discount', [KepalaTokoPosController::class, 'ApplyDiscount'])->name('produk.applyDiscount');
     Route::get('produk/cart-remove/{rowId}', [KepalaTokoPosController::class, 'CartRemove']);
     Route::post('produk/create-invoice', [KepalaTokoPosController::class, 'CreateInvoice']);
     Route::post('produk/complete-order', [KepalaTokoPosController::class, 'CompleteOrder']);
