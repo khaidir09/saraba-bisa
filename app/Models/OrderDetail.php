@@ -18,8 +18,7 @@ class OrderDetail extends Model
         'profit',
         'created_at',
         'updated_at',
-        'product_name',
-        'discount'
+        'product_name'
     ];
 
     public function product()

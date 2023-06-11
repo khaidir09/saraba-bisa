@@ -97,26 +97,66 @@
                         <div class="font-medium text-slate-800">{{ Cart::count() }}</div>
                     </li>
                     <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200">
-                        <div>Sub Total</div>
-                        <div class="font-medium text-emerald-600">Rp. {{ number_format(Cart::subtotal()) }}</div>
-                    </li>
-                    <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200">
                         <div>Total</div>
                         <div class="font-medium text-emerald-600">Rp. {{ number_format(Cart::total()) }}</div>
                     </li>
                 </ul>
-                <form action="{{ route('produk.applyDiscount') }}" method="post">
-                    @csrf
-                    <input type="number" name="discount" class="text-sm font-medium" style="width: 60px;">
-                    <button type="submit" class="text-rose-500 hover:text-rose-600 rounded-full">
-                        <span class="sr-only">Update</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#6f32be" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
-                            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
-                        </svg>
+                <div x-data="{ modalOpen: false }">
+                    <button class="btn w-full bg-rose-500 hover:bg-rose-600 text-white mb-4" @click.prevent="modalOpen = true" aria-controls="modal-discount">
+                        Atur Diskon
                     </button>
-                </form>
+                    <!-- Modal backdrop -->
+                    <div
+                        class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                        x-show="modalOpen"
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-out duration-100"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        aria-hidden="true"
+                        x-cloak
+                    ></div>
+                    <!-- Modal dialog -->
+                    <div
+                        id="modal-discount"
+                        class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                        role="dialog"
+                        aria-modal="true"
+                        x-show="modalOpen"
+                        x-transition:enter="transition ease-in-out duration-200"
+                        x-transition:enter-start="opacity-0 translate-y-4"
+                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:leave="transition ease-in-out duration-200"
+                        x-transition:leave-start="opacity-100 translate-y-0"
+                        x-transition:leave-end="opacity-0 translate-y-4"
+                        x-cloak
+                    >
+                        <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                            <form action="{{ route('produk.applyDiscount') }}" method="post">
+                                @csrf
+                                <div class="px-5 py-4">
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="discount">Jumlah Diskon</label>
+                                            <div class="relative">
+                                                <input id="discount" name="discount" class="form-input w-full pl-10 px-2 py-1" type="number" placeholder="Masukkan persen diskon dari 1-100"/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">%</span>
+                                                </div>
+                                            </div>
+                                            <div class="text-xs mt-1">Diskon akan diterapkan pada semua item keranjang</div>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <button type="submit" class="w-full btn bg-rose-500 hover:bg-rose-600 text-white">Terapkan Diskon</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
                 <form action="{{ url('/produk/complete-order') }}" method="post">
                     @csrf
                     <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
@@ -174,7 +214,7 @@
                                     <!-- Modal content -->
                                     <div class="text-center my-3">
                                         <h6>Total Harga</h6>
-                                        <p>Rp. {{ number_format(Cart::subtotal()) }}</p>
+                                        <p>Rp. {{ number_format(Cart::total()) }}</p>
                                     </div>
                                     <div class="px-5 py-4">
                                         <div class="space-y-3">

@@ -32,8 +32,8 @@ class PosData extends Component
         return view('livewire.pos-data', [
             'products_count' => $products_count,
             'products' => $this->search === null ?
-                Product::latest()->paginate($this->paginate) :
-                Product::latest()->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Product::latest()->where('stok', '>=', '1')->paginate($this->paginate) :
+                Product::latest()->where('stok', '>=', '1')->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }
