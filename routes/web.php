@@ -132,6 +132,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('produk/transaksi-produk-paid', KepalaTokoTransaksiProdukPaidController::class);
     Route::resource('produk/transaksi-produk-due', KepalaTokoTransaksiProdukDueController::class);
 
+    Route::get('/order/due/{id}', [KepalaTokoTransaksiProdukDueController::class, 'OrderDueAjax']);
+
     Route::get('produk/pos', [KepalaTokoPosController::class, 'index'])->name('pos');
     Route::get('produk/allitem', [KepalaTokoPosController::class, 'AllItem']);
     Route::post('produk/add-cart', [KepalaTokoPosController::class, 'AddCart']);
@@ -140,6 +142,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('produk/cart-remove/{rowId}', [KepalaTokoPosController::class, 'CartRemove']);
     Route::post('produk/create-invoice', [KepalaTokoPosController::class, 'CreateInvoice']);
     Route::post('produk/complete-order', [KepalaTokoPosController::class, 'CompleteOrder']);
+    Route::post('produk/update-due', [KepalaTokoTransaksiProdukDueController::class, 'UpdateDue'])->name('produk.updateDue');
 
     Route::get('transaksi-produk-inkjet/{orders_id}', [KepalaTokoTransaksiProdukController::class, 'cetakinkjet'])->name('lunas-cetak-inkjet');
 

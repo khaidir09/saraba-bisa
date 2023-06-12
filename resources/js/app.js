@@ -1,5 +1,7 @@
 import "./bootstrap";
 
+import "./jquery.min.js";
+
 import Alpine from "alpinejs";
 
 // Import Chart.js

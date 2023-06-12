@@ -82,6 +82,34 @@ class TransaksiProdukDueController extends Controller
         //
     }
 
+    public function OrderDueAjax($id)
+    {
+        $order = Order::findOrFail($id);
+        return response()->json($order);
+    } // End Method
+
+    public function UpdateDue(Request $request)
+    {
+
+        $orders_id = $request->id;
+        $due_amount = $request->due;
+        $pay_amount = $request->pay;
+
+        $allorder = Order::findOrFail($orders_id);
+        $maindue = $allorder->due;
+        $mainpay = $allorder->pay;
+
+        $paid_due = $maindue - $due_amount;
+        $paid_pay = $mainpay + $due_amount;
+
+        Order::findOrFail($orders_id)->update([
+            'due' => $paid_due,
+            'pay' => $paid_pay,
+        ]);
+
+        return redirect()->route('transaksi-produk-due.index');
+    }// End Method 
+
     /**
      * Remove the specified resource from storage.
      *

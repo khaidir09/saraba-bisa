@@ -138,14 +138,78 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="space-x-1 flex">
                                     <!-- Bayar -->
-                                    <a href="">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#009988" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M7 9m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
-                                        <path d="M14 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                        <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
-                                        </svg>
-                                    </a>
+                                    <div x-data="{ modalOpen: false }">
+                                        <button
+                                            type="button"
+                                            @click.prevent="modalOpen = true"
+                                            aria-controls="basic-modal"
+                                            id="{{ $item->id }}"
+                                            onclick="orderDue(this.id)"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#009988" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M7 9m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+                                            <path d="M14 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                            <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
+                                            </svg>
+                                        </button>
+                                        <!-- Modal backdrop -->
+                                        <div
+                                            class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                            x-show="modalOpen"
+                                            x-transition:enter="transition ease-out duration-200"
+                                            x-transition:enter-start="opacity-0"
+                                            x-transition:enter-end="opacity-100"
+                                            x-transition:leave="transition ease-out duration-100"
+                                            x-transition:leave-start="opacity-100"
+                                            x-transition:leave-end="opacity-0"
+                                            aria-hidden="true"
+                                            x-cloak
+                                        ></div>
+                                        <!-- Modal dialog -->
+                                        <div
+                                            id="tambah-modal"
+                                            class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                                            role="dialog"
+                                            aria-modal="true"
+                                            x-show="modalOpen"
+                                            x-transition:enter="transition ease-in-out duration-200"
+                                            x-transition:enter-start="opacity-0 translate-y-4"
+                                            x-transition:enter-end="opacity-100 translate-y-0"
+                                            x-transition:leave="transition ease-in-out duration-200"
+                                            x-transition:leave-start="opacity-100 translate-y-0"
+                                            x-transition:leave-end="opacity-0 translate-y-4"
+                                            x-cloak
+                                        >
+                                            <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                                                <!-- Modal content -->
+                                                <div class="text-center my-3">
+                                                    <h6>Sisa Pembayaran</h6>
+                                                    <p>Rp. {{ number_format($item->sub_total - $item->pay) }}</p>
+                                                </div>
+                                                <div class="px-5 py-4">
+                                                    <div>
+                                                        <form action="{{ route('produk.updateDue') }}" method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="id" id="orders_id">
+                                                            <input type="hidden" name="pay" id="pay">
+                                                            <div class="mb-3">
+                                                                <label class="block text-sm font-medium mb-1" for="due">Bayar Sekarang</label>
+                                                                <div class="relative">
+                                                                    <input class="form-input w-full pl-10 px-2 py-1" type="number" name="due" id="due"/>
+                                                                    <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                                        <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Modal footer -->
+                                                            <button class="w-full btn bg-indigo-500 hover:bg-indigo-600 text-white">Perbarui Pembayaran</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- Detail -->
                                     <a href="{{ route('transaksi-produk.show', $item->id) }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#6f32be" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -341,4 +405,20 @@
     <div class="mt-8">
         {{ $orders->links() }}
     </div>
+
+    <script type="text/javascript">
+            function orderDue(id) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/order/due/'+id,
+                    dataType: 'json',
+                    success:function(data){
+                        // console.log(data)
+                        $('#due').val(data.due);
+                        $('#pay').val(data.pay);
+                        $('#orders_id').val(data.id);
+                    }
+                })
+            }
+    </script>
 </div>
