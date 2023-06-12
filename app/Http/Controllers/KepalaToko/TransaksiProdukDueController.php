@@ -17,7 +17,7 @@ class TransaksiProdukDueController extends Controller
     {
         $jumlah_semua = Order::all()->count();
         $jumlah_lunas = Order::where('due', '0')->count();
-        $jumlah_tidaklunas = Order::where('due', '!=', '0')->count();
+        $jumlah_tidaklunas = Order::where('due', '>', '0')->count();
 
         return view('pages/kepalatoko/produk/transaksi-tidak-lunas', compact(
             'jumlah_semua',

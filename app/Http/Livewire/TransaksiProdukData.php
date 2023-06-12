@@ -29,7 +29,7 @@ class TransaksiProdukData extends Component
     {
         $jumlah_semua = Order::all()->count();
         $jumlah_lunas = Order::where('due', '0')->count();
-        $jumlah_tidaklunas = Order::where('due', '!=', '0')->count();
+        $jumlah_tidaklunas = Order::where('due', '>', '0')->count();
 
         return view('livewire.transaksi-produk-data', [
             'jumlah_semua' => $jumlah_semua,
