@@ -141,7 +141,7 @@
                                         <div>
                                             <label class="block text-sm font-medium mb-1" for="discount">Jumlah Diskon</label>
                                             <div class="relative">
-                                                <input id="discount" name="discount" class="form-input w-full pl-10 px-2 py-1" type="number" placeholder="Masukkan persen diskon dari 1-100"/>
+                                                <input id="discount" name="discount" class="form-input w-full pl-10 px-2 py-1" type="number" max="100" placeholder="Masukkan persen diskon dari 1-100"/>
                                                 <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
                                                     <span class="text-sm text-slate-400 font-medium px-3">%</span>
                                                 </div>
@@ -293,6 +293,7 @@
                                 <input type="hidden" name="id" value="{{ $item->id }}">
                                 <input type="hidden" name="name" value="{{ $item->product_name }}">
                                 <input type="hidden" name="modal" value="{{ $item->harga_modal }}">
+                                <input type="hidden" name="harga_asli" value="{{ $item->harga_pelanggan }}">
                                 <input type="hidden" name="qty" value="1">
                                 <input type="hidden" name="price" value="{{ $item->harga_pelanggan }}">
                                 

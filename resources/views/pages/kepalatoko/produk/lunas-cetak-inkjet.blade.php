@@ -104,8 +104,10 @@
       <tr class="font">
         <th>No.</th>
         <th>Nama Produk</th>
-        <th>Jumlah</th>
         <th>Harga</th>
+        <th>Quantity</th>
+        <th>Total Harga</th>
+        <th>Diskon</th>
         <th>Sub Total</th>
       </tr>
     </thead>
@@ -119,9 +121,16 @@
           {{ ++$i }}
         </td>
         <td align="center">{{ $item->product->product_name }}</td>
+        <td align="center">Rp. {{ number_format($item->product->harga_pelanggan) }}</td>
         <td align="center">{{ $item->quantity }}</td>
-        <td align="center">Rp. {{ number_format($item->price) }}</td>
+        <td align="center">Rp. {{ number_format($item->product->harga_pelanggan * $item->quantity) }}</td>
+        @if ($item->sub_total === $item->total)
+            <td align="center">Rp. 0</td>
+        @else
+            <td align="center">{{ $persen }}% (Rp. {{ number_format($item->sub_total - $item->total) }})</td>
+        @endif
         <td align="center">Rp. {{ number_format($item->total) }}</td>
+
       </tr>
       @endforeach
     </tbody>
@@ -130,8 +139,9 @@
   <table width="100%" style=" padding:0 10px 0 10px;">
     <tr>
         <td align="right" >
-            <h2><span style="color: green;">Total:</span> Rp. {{ number_format($subtotal) }} </h2>
-            {{-- <h2><span style="color: green;">Full Payment PAID</h2> --}}
+            <h2>
+              <span style="color: green;">Total:</span> Rp. {{ number_format($total) }}
+            </h2>
         </td>
     </tr>
   </table>

@@ -38,7 +38,7 @@
                             <li class="flex items-center py-3 border-b border-slate-200">
                                 <div class="grow">
                                     <a href="#0">
-                                        <h4 class="text-sm font-medium text-slate-800 leading-tight">{{ $item->product->product_name }} (Rp. {{ number_format($item->price) }} x {{ $item->quantity }}
+                                        <h4 class="text-sm font-medium text-slate-800 leading-tight">{{ $item->product->product_name }} (Rp. {{ number_format($item->product->harga_pelanggan) }} x {{ $item->quantity }}
                                             @if ($item->quantity == 1)
                                                 pc
                                             @else
@@ -47,7 +47,7 @@
                                         </h4>
                                     </a>
                                 </div>
-                                <div class="text-sm font-medium text-slate-800 ml-6">Rp. {{ number_format($item->total) }}</div>
+                                <div class="text-sm font-medium text-slate-800 ml-6">Rp. {{ number_format($item->product->harga_pelanggan * $item->quantity) }}</div>
                             </li>
                         @endforeach
                     </ul>
@@ -63,11 +63,15 @@
                             <div class="flex items-center">
                                 <span class="text-sm mr-2">Diskon</span>
                             </div>
-                            <div class="text-sm font-medium text-slate-800 ml-2">-$25</div>
+                            <div class="text-sm font-medium text-rose-700 ml-2">
+                                - Rp. {{ number_format($subtotal - $total) }}
+                            </div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Total</div>
-                            <div class="text-sm font-medium text-emerald-600 ml-2">$205</div>
+                            <div class="text-sm font-medium text-emerald-600 ml-2">
+                                 Rp. {{ number_format($total) }}
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -75,26 +79,26 @@
                 <!-- Payment Details -->
                 <div>
                     <div class="text-slate-800 font-semibold mb-4">Detail Pembayaran</div>
-                    <div class="text-sm rounded border border-slate-200 p-3 space-y-3">
+                    <div class="text-sm rounded border-3 border-indigo-300 p-3 space-y-3">
                         @if ($order->due == 0)
                             <div class="flex items-center justify-between space-x-2">
                                 <!-- CC details -->
-                                <div>{{ $order->payment_method }}</div>
+                                <div class="font-semibold">{{ $order->payment_method }}</div>
                                 <!-- Expiry -->
-                                <div class="italic ml-2">{{ number_format($order->pay) }}</div>
+                                <div class="text-blue-700 font-semibold ml-2">Rp. {{ number_format($order->pay) }}</div>
                             </div>
                         @else
                             <div class="flex items-center justify-between space-x-2">
                                 <!-- CC details -->
-                                <div>{{ $order->payment_method }}</div>
+                                <div class="font-semibold">{{ $order->payment_method }}</div>
                                 <!-- Expiry -->
-                                <div class="italic ml-2">Rp. {{ number_format($order->pay) }}</div>
+                                <div class="text-blue-700 font-semibold ml-2">Rp. {{ number_format($order->pay) }}</div>
                             </div>
                             <div class="flex items-center justify-between space-x-2">
                                 <!-- CC details -->
-                                <div>Sisa Pembayaran</div>
+                                <div class="font-semibold">Sisa Pembayaran</div>
                                 <!-- Expiry -->
-                                <div class="italic ml-2">Rp. {{ number_format($order->due) }}</div>
+                                <div class="font-semibold text-rose-700 ml-2">Rp. {{ number_format($order->due) }}</div>
                             </div>
                         @endif
                     </div>
@@ -102,7 +106,7 @@
 
                 <div class="mt-6">
                     <div class="mb-4">
-                        <a href="{{ route('lunas-cetak-inkjet', $item->id) }}" class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white">Cetak Invoice</a>
+                        <a href="{{ route('lunas-cetak-inkjet', $order->id) }}" class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white">Cetak Invoice</a>
                     </div>
                     {{-- <div class="text-xs text-slate-500 italic text-center">Should you ever change your mind, we offer a 14-day, no-questions-asked refund policy.</div> --}}
                 </div>

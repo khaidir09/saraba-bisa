@@ -14,6 +14,7 @@ class OrderDetail extends Model
         'quantity',
         'price',
         'total',
+        'sub_total',
         'modal',
         'profit',
         'created_at',

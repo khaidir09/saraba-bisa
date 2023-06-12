@@ -34,7 +34,8 @@ class PosController extends Controller
             'price' => $request->price,
             'weight' => 20,
             'options' => [
-                'modal' => $request->modal
+                'modal' => $request->modal,
+                'harga_asli' => $request->harga_asli
             ]
         ]);
 
@@ -89,18 +90,6 @@ class PosController extends Controller
         return redirect()->route('pos');
     }
 
-    public function CreateInvoice(Request $request)
-    {
-        $invoice = '' . mt_rand(date('Ymd00'), date('Ymd99'));
-
-        $user = User::find(1);
-        $contents = Cart::content();
-        $cust_id = $request->customers_id;
-        $no_invoice = $invoice;
-        $customer = Customer::where('id', $cust_id)->first();
-        return view('pages.kepalatoko.produk.invoice', compact('contents', 'customer', 'user', 'no_invoice'));
-    }
-
     public function CompleteOrder(Request $request)
     {
         $rtotal = $request->sub_total;
@@ -132,6 +121,7 @@ class PosController extends Controller
             $pdata['quantity'] = $content->qty;
             $pdata['price'] = $content->price;
             $pdata['total'] = $content->total;
+            $pdata['sub_total'] = $content->options->harga_asli * $content->qty;
             $pdata['modal'] = $content->options->modal * $content->qty;
             $pdata['profit'] = $content->total - ($content->options->modal * $content->qty);
             $pdata['created_at'] = Carbon::now();

@@ -61,8 +61,9 @@ class TransaksiProdukController extends Controller
         $order = Order::with('customer')->where('id', $orders_id)->first();
 
         $orderItem = OrderDetail::with('product')->where('orders_id', $orders_id)->orderBy('id', 'DESC')->get();
-        $subtotal = $orderItem->sum('total');
-        return view('pages.kepalatoko.produk.transaksi-detail', compact('order', 'orderItem', 'subtotal'));
+        $total = $orderItem->sum('total');
+        $subtotal = $orderItem->sum('sub_total');
+        return view('pages.kepalatoko.produk.transaksi-detail', compact('order', 'orderItem', 'total', 'subtotal'));
     }
 
     /**
@@ -76,14 +77,19 @@ class TransaksiProdukController extends Controller
     {
         $order = Order::with('customer')->where('id', $orders_id)->first();
         $orderItem = OrderDetail::with('product')->where('orders_id', $orders_id)->orderBy('id', 'DESC')->get();
-        $subtotal = $orderItem->sum('total');
+        $total = $orderItem->sum('total');
+        $subtotal = $orderItem->sum('sub_total');
         $users = User::find(1);
+
+        $persen = 100 - $total / $subtotal * 100;
 
         $pdf = PDF::loadView('pages.kepalatoko.produk.lunas-cetak-inkjet', [
             'order' => $order,
             'users' => $users,
             'orderItem' => $orderItem,
-            'subtotal' => $subtotal
+            'total' => $total,
+            'subtotal' => $subtotal,
+            'persen' => $persen
         ]);
         return $pdf->setPaper('a4', 'landscape')->stream();
     }
