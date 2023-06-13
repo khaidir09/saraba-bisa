@@ -66,6 +66,33 @@ class TransaksiProdukController extends Controller
         return view('pages.kepalatoko.produk.transaksi-detail', compact('order', 'orderItem', 'total', 'subtotal'));
     }
 
+    public function OrderDueAjax($id)
+    {
+        $orders = Order::findOrFail($id);
+        return response()->json($orders);
+    } // End Method
+
+    public function UpdateDue(Request $request)
+    {
+
+        $id = $request->id;
+        $due_amount = $request->due;
+
+        $allorder = Order::findOrFail($id);
+        $maindue = $allorder->due;
+        $mainpay = $allorder->pay;
+
+        $paid_due = $maindue - $due_amount;
+        $paid_pay = $mainpay + $due_amount;
+
+        Order::findOrFail($id)->update([
+            'due' => $paid_due,
+            'pay' => $paid_pay,
+        ]);
+
+        return redirect()->route('transaksi-produk.index');
+    } // End Method 
+
     /**
      * Show the form for editing the specified resource.
      *

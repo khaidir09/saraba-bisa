@@ -155,7 +155,7 @@
                                     <div>
                                         <form action="{{ route('produk.updateDue') }}" method="post">
                                             @csrf
-                                            <input type="hidden" name="id" id="orders_id">
+                                            <input type="hidden" name="id" id="id">
                                             <input type="hidden" name="pay" id="pay">
                                             <div class="mb-3">
                                                 <label class="block text-sm font-medium mb-1" for="due">Bayar Sekarang</label>
@@ -182,19 +182,21 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-            function orderDue(id) {
-                $.ajax({
-                    type: 'GET',
-                    url: '/order/due/'+id,
-                    dataType: 'json',
-                    success:function(data){
-                        // console.log(data)
-                        $('#due').val(data.due);
-                        $('#pay').val(data.pay);
-                        $('#orders_id').val(data.id);
-                    }
-                })
-            }
+        function orderDue(id) {
+            $.ajax({
+                type: 'GET',
+                url: '/order/due/'+id,
+                dataType: 'json',
+                success:function(data){
+                    // console.log(data)
+                    $('#due').val(data.due);
+                    $('#pay').val(data.pay);
+                    $('#id').val(data.id);
+                }
+            })
+        }
     </script>
 </x-toko-layout>

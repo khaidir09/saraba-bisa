@@ -332,22 +332,4 @@
     <div class="mt-8">
         {{ $orders->links() }}
     </div>
-
-    <script type="text/javascript">
-            $(document).ready(function () {
-            function orderDue(id) {
-                $.ajax({
-                    type: 'GET',
-                    url: '/order/due/'+id,
-                    dataType: 'json',
-                    success:function(data){
-                        // console.log(data)
-                        $('#due').val(data.due);
-                        $('#pay').val(data.pay);
-                        $('#id').val(data.id);
-                    }
-                })
-            }
-        })
-    </script>
 </div>
