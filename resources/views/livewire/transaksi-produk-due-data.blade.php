@@ -334,6 +334,7 @@
     </div>
 
     <script type="text/javascript">
+            $(document).ready(function () {
             function orderDue(id) {
                 $.ajax({
                     type: 'GET',
@@ -347,5 +348,6 @@
                     }
                 })
             }
+        })
     </script>
 </div>
