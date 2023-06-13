@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Exports\ProdukExport;
+use App\Imports\ProdukImport;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukController extends Controller
 {
@@ -70,6 +73,20 @@ class ProdukController extends Controller
             'item' => $item,
             'categories' => $categories
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('ProdukData', $namafile);
+        Excel::import(new ProdukImport, \public_path('/ProdukData/' . $namafile));
+        return redirect()->route('item.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProdukExport, 'produk.xlsx');
     }
 
     /**

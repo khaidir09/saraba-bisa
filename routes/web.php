@@ -175,6 +175,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('export-merek', [KepalaTokoMasterMerekController::class, 'export'])->name('merek-export');
     Route::post('/impor-model', [KepalaTokoMasterModelSeriController::class, 'import'])->name('impor-model');
     Route::get('export-modelseri', [KepalaTokoMasterModelSeriController::class, 'export'])->name('modelseri-export');
+    Route::post('/import-produk', [KepalaTokoProdukController::class, 'import'])->name('import-produk');
+    Route::get('export-produk', [KepalaTokoProdukController::class, 'export'])->name('produk-export');
 });
 
 Route::middleware('ensureAdminRole:AdminToko')->group(function () {
