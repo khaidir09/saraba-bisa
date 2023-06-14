@@ -100,6 +100,27 @@ class TransaksiProdukController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function cetaktermal($orders_id)
+    {
+        $order = Order::with('customer', 'user')->where('id', $orders_id)->first();
+        $orderItem = OrderDetail::with('product')->where('orders_id', $orders_id)->orderBy('id', 'DESC')->get();
+        $total = $orderItem->sum('total');
+        $subtotal = $orderItem->sum('sub_total');
+        $users = User::find(1);
+
+        $persen = 100 - $total / $subtotal * 100;
+
+        $pdf = PDF::loadView('pages.kepalatoko.produk.cetak-termal', [
+            'order' => $order,
+            'users' => $users,
+            'orderItem' => $orderItem,
+            'total' => $total,
+            'subtotal' => $subtotal,
+            'persen' => $persen
+        ]);
+        return $pdf->stream();
+    }
+
     public function cetakinkjet($orders_id)
     {
         $order = Order::with('customer')->where('id', $orders_id)->first();

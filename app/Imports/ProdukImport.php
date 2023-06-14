@@ -13,16 +13,16 @@ class ProdukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithUps
     public function model(array $row)
     {
         return new Product([
-            'product_name'     => $row['Nama Produk'],
-            'product_code'    => $row['Kode Produk'],
-            'nomor_seri'    => $row['Nomor Seri'],
-            'categories_id'    => $row['ID Kategori'],
-            'stok'    => $row['Stok'],
-            'harga_modal'    => $row['Harga Modal'],
-            'harga_pelanggan'    => $row['Harga Pelanggan'],
-            'harga_toko'    => $row['Harga Toko'],
-            'supplier'    => $row['Agen'],
-            'keterangan'    => $row['Keterangan'],
+            'product_name' => $row['Nama Produk'],
+            'product_code' => $row['Kode Produk'],
+            'nomor_seri' => $row['Nomor Seri'],
+            'categories_id' => $row['ID Kategori'],
+            'stok' => $row['Stok'],
+            'harga_modal' => $row['Harga Modal'],
+            'harga_pelanggan' => $row['Harga Pelanggan'],
+            'harga_toko' => $row['Harga Toko'],
+            'supplier' => $row['Agen'],
+            'keterangan' => $row['Keterangan'],
         ]);
     }
 
