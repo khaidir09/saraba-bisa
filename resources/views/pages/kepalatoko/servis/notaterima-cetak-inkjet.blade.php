@@ -40,103 +40,107 @@
 		</tbody>
 	</table>
 
-	<hr style="border-top: 1px solid; margin-top: 0px; margin-bottom: 30px;">
+	<hr style="border-top: 1px dashed; margin-top: 0px; margin-bottom: 30px;">
 
 	<h6 class="text-center">NOTA TERIMA SERVIS</h6>
 
 	<section>
-		<table class="table table-bordered">
+		<table class="table table-sm">
 			<thead>
-				<tr>
-					<th colspan="2">Data Pelanggan</th>
-					<th colspan="4">Data Barang</th>
+				<tr style="border-top-style: solid; border-right-style: solid;">
+					<th colspan="2" style="border-left-style: solid;">Data Pelanggan</th>
+					<th colspan="4" style="border-left-style: solid;">Data Barang</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">Nama</th>
+				<tr style="border-right-style: solid;">
+					<td scope="row" style="border-left-style: solid;">Nama</th>
 					<td>: {{ $items->customer->nama }}</td>
-					<th scope="row">Jenis Barang</th>
+					<td scope="row" style="border-left-style: solid;">Jenis Barang</th>
 					<td>: {{ $items->type->name }}</td>
-					<th scope="row">IMEI/SN</th>
+					<td scope="row">IMEI/SN</th>
 					<td>: {{ $items->imei }}</td>
 				</tr>
-				<tr>
-					<th scope="row">Nomor HP</th>
+				<tr style="border-right-style: solid;">
+					<td scope="row" style="border-left-style: solid;">Nomor HP</th>
 					<td>: {{ $items->customer->nomor_hp }}</td>
-					<th scope="row">Merek</th>
+					<td scope="row" style="border-left-style: solid;">Merek</th>
 					<td>: {{ $items->brand->name }}</td>
-					<th scope="row">Kelengkapan</th>
+					<td scope="row">Kelengkapan</th>
 					@if ($items->kelengkapan != null)
 						<td>: {{ $items->kelengkapan }}</td>
 					@else
 						<td>: Hanya Unit</td>
 					@endif
 				</tr>
-				<tr>
-					<th scope="row">Alamat</th>
+				<tr style="border-bottom-style: solid; border-right-style: solid;">
+					<td scope="row" style="border-left-style: solid;">Alamat</th>
 					<td>: {{ $items->customer->alamat }}</td>
-					<th scope="row">Model Seri</th>
+					<td scope="row" style="border-left-style: solid;">Model Seri</th>
 					<td>: {{ $items->modelserie->name }}</td>
-					<th scope="row">Warna/Kapasitas</th>
+					<td scope="row">Warna/Kapasitas</th>
 					<td>: {{ $items->warna }} / {{ $items->capacity->name }}</td>
 				</tr>
 			</tbody>
 		</table>
-		<table class="table table-bordered">
+		<table class="table table-sm">
 			<thead>
-				<tr>
-					<th colspan="2">Pengecekan</th>
-					<th colspan="2">Pembayaran</th>
-					<th scope="col"></th>
-					<th scope="col"></th>
+				<tr style="border-top-style: solid; border-right-style: solid;">
+					<th colspan="2" style="border-left-style: solid;">Pengecekan</th>
+					<th colspan="2" style="border-left-style: solid;">Pembayaran</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">Kerusakan</th>
+				<tr style="border-right-style: solid;">
+					<td scope="row" style="border-left-style: solid;">Kerusakan</th>
 					<td>: {{ $items->kerusakan }}</td>
-					<th scope="row">Estimasi Biaya Servis</th>
+					<td scope="row" style="border-left-style: solid;">Estimasi Biaya Servis</th>
 					@if ($items->estimasi_biaya != null)
 						<td>: Rp. {{ number_format($items->estimasi_biaya) }}</td>
 					@else
 						<td>: -</td>
 					@endif
-					<th scope="row"></th>
-					<td></td>
 				</tr>
-				<tr>
-					<th scope="row">Pengecekan Fungsi</th>
+				<tr style="border-right-style: solid;">
+					<td scope="row" style="border-left-style: solid;">Pengecekan Fungsi</th>
 					<td>: {{ $items->qc_masuk }}</td>
-					<th scope="row">Uang Muka</th>
+					<td scope="row" style="border-left-style: solid;">Uang Muka</th>
 					@if ($items->uang_muka != null)
 						<td>: Rp. {{ number_format($items->uang_muka) }}</td>
 					@else
 						<td>: Tidak ada</td>
 					@endif
-					<th scope="row"></th>
-					<td></td>
 				</tr>
-				<tr>
-					<th scope="row">Estimasi Pengerjaan</th>
+				<tr style="border-bottom-style: solid; border-right-style: solid;">
+					<td scope="row" style="border-left-style: solid;">Estimasi Pengerjaan</td>
 					@if ($items->estimasi_pengerjaan != null)
 						<td>: {{ $items->estimasi_pengerjaan }}</td>
 					@else
 						<td>: -</td>
 					@endif
-					<th scope="row"></th>
+					<th scope="row" style="border-left-style: solid;"></th>
 					<td>{{ $items->uang_muka }}</td>
-					<th scope="row"></th>
-					<td></td>
 				</tr>
 			</tbody>
+			<tfoot class="table-borderless">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr class="text-center">
+					<th colspan="2">Pelanggan</th>
+					<th colspan="2">Diterima</th>
+				</tr>
+				<tr class="text-center">
+					<td colspan="2" class="pt-5">{{ $items->customer->nama }}</td>
+					<td colspan="2" class="pt-5">{{ $items->penerima }}</td>
+				</tr>
+			</tfoot>
 		</table>
-
-		<hr style="border-top: 1px dashed; margin: 0px;">
 	</section>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
