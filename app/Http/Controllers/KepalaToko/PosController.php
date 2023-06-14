@@ -102,7 +102,6 @@ class PosController extends Controller
         $data['order_date'] = $request->order_date;
         $data['total_products'] = $request->total_products;
         $data['sub_total'] = $request->sub_total;
-        $data['total'] = $request->total;
 
         $data['invoice_no'] = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         $data['payment_method'] = $request->payment_method;

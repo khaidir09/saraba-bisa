@@ -90,18 +90,25 @@
 
       <table>
         <tbody>
-          <tr>
-          <td class="title">Sub Total</td>
-          <td class="value">: Rp. {{ number_format($subtotal) }}</td>
-          </tr>
-          <tr>
-            <td class="title">Diskon</td>
-            <td class="value">: Rp. {{ number_format($subtotal - $total) }}</td>
-          </tr>
-          <tr>
-            <td class="title">Total</td>
-            <td class="value">: Rp. {{ number_format($total) }}</td>
-          </tr>
+          @if ($subtotal === $total)
+              <tr>
+                <td class="title">Total</td>
+                <td class="value">: Rp. {{ number_format($total) }}</td>
+              </tr>
+          @else
+              <tr>
+              <td class="title">Sub Total</td>
+              <td class="value">: Rp. {{ number_format($subtotal) }}</td>
+              </tr>
+              <tr>
+                <td class="title">Diskon</td>
+                <td class="value">: Rp. {{ number_format($subtotal - $total) }}</td>
+              </tr>
+              <tr>
+                <td class="title">Total</td>
+                <td class="value">: Rp. {{ number_format($total) }}</td>
+              </tr>
+          @endif
           <tr>
             <td class="title">Pembayaran</td>
             <td class="value">: Rp. {{ number_format($order->pay) }}</td>
