@@ -87,32 +87,32 @@
 			<thead>
 				<tr style="border-top-style: solid; border-right-style: solid;">
 					<th colspan="2" style="border-left-style: solid;">Pengecekan</th>
+					<th colspan="2"></th>
 					<th colspan="2" style="border-left-style: solid;">Pembayaran</th>
-					<th colspan="2" class="text-center" style="border-left-style: solid;">Cek status servis via web</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr style="border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Kerusakan</th>
 					<td>: {{ $items->kerusakan }}</td>
+					<td colspan="2"></td>
 					<td scope="row" style="border-left-style: solid;">Estimasi Biaya Servis</th>
 					@if ($items->estimasi_biaya != null)
 						<td>: Rp. {{ number_format($items->estimasi_biaya) }}</td>
 					@else
 						<td>: -</td>
 					@endif
-					<td colspan="2" style="border-left-style: solid;" class="text-center">{{ $users->link_toko }}/tracking</td>
 				</tr>
 				<tr style="border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Pengecekan Fungsi</th>
 					<td>: {{ $items->qc_masuk }}</td>
+					<td colspan="2"></td>
 					<td scope="row" style="border-left-style: solid;">Uang Muka</th>
 					@if ($items->uang_muka != null)
 						<td>: Rp. {{ number_format($items->uang_muka) }}</td>
 					@else
 						<td>: Tidak ada</td>
 					@endif
-					<td colspan="2" style="border-left-style: solid;"></td>
 				</tr>
 				<tr style="border-bottom-style: solid; border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Estimasi Pengerjaan</td>
@@ -121,9 +121,9 @@
 					@else
 						<td>: -</td>
 					@endif
+					<td colspan="2"></td>
 					<th scope="row" style="border-left-style: solid;"></th>
 					<td>{{ $items->uang_muka }}</td>
-					<td colspan="2" style="border-left-style: solid;"></td>
 				</tr>
 			</tbody>
 			<tfoot class="table-borderless">
