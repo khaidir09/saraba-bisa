@@ -122,26 +122,23 @@
 					@endif
 				</tr>
 			</tbody>
-			<tfoot class="table-borderless">
+		</table>
+		<table class="table table-sm table-borderless">
+			<thead>
+				<th class="w-50">Syarat & Ketentuan</th>
+				<th colspan="2" class="text-center w-25">Pengambil</th>
+				<th colspan="2" class="text-center w-25">Teknisi</th>
+			</thead>
+			<tbody>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td class="text-justify" style="font-style: italic;">
+						Garansi tidak berlaku apabila terjadi kerusakan yang disebabkan oleh kesalahan pemakai seperti jatuh, terkena air, konslet, dll atau direparasi oleh pihak lain. <br> <br>
+						<span style="font-weight: bold;">Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</span>
+					</td>
+					<td colspan="2" class="pt-5 text-center">{{ $items->customer->nama }}</td>
+					<td colspan="2" class="pt-5 text-center">{{ $items->penerima }}</td>
 				</tr>
-				<tr class="text-center">
-					<th colspan="2">Pengambil</th>
-					<th colspan="2"></th>
-					<th colspan="2">Teknisi</th>
-				</tr>
-				<tr class="text-center">
-					<td colspan="2" class="pt-5">{{ $items->customer->nama }}</td>
-					<td colspan="2"></td>
-					<td colspan="2" class="pt-5">{{ $items->penerima }}</td>
-				</tr>
-			</tfoot>
+			</tbody>
 		</table>
 	</section>
 
