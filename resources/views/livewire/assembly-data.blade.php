@@ -87,10 +87,14 @@
                                 <div>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if ($item->users_id != null)
-                                    <div class="font-medium">{{ $item->user->name }}</div>
+                                @if ($item->user)
+                                    @if ($item->user->exists())
+                                        <div class="font-medium">{{ $item->user->name }}</div>    
+                                    @else
+                                        <div class="font-medium text-rose-600">Akun teknisi telah dihapus</div>
+                                    @endif
                                 @else
-                                    <div class="font-medium">Akun teknisi sudah dihapus</div>
+                                    <div class="font-medium text-rose-600">Akun teknisi telah dihapus</div>
                                 @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
