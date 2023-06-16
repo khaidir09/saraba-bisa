@@ -153,7 +153,7 @@
 				@elseif ($items->diskon != null && $items->uang_muka === null)
 					<tr style="border-right-style: solid;">
 						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-						<td></td>
+						<td>: {{ $items->tindakan_servis }}</td>
 						<td scope="row" style="border-left-style: solid;"></td>
 						<td></td>
 						<td scope="row" style="border-left-style: solid;">Diskon</td>
