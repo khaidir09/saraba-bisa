@@ -168,6 +168,7 @@ class SudahDiambilController extends Controller
             'tindakan_servis' => $tindakan_servis->nama_tindakan,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
+            'uang_muka' => $request->uang_muka,
             'diskon' => $request->diskon,
             'cara_pembayaran' => $request->cara_pembayaran,
             'exp_garansi' => $request->exp_garansi,

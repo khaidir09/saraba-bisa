@@ -106,28 +106,97 @@
 					<td scope="row" style="border-left-style: solid;">Fungsi (Keluar)</th>
 					<td>: {{ $items->qc_keluar }}</td>
 					<td scope="row" style="border-left-style: solid;">Biaya Servis</td>
-					<td>: {{ $items->biaya }}</td>
+					<td>: Rp. {{ number_format($items->biaya) }}</td>
 				</tr>
-				<tr style="border-bottom-style: solid; border-right-style: solid;">
-					<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-					<td>: {{ $items->tindakan_servis }}</td>
-					<td scope="row" style="border-left-style: solid;"></td>
-					<td></td>
-					@if ($items->exp_garansi === null)
-						<td scope="row" style="border-left-style: solid;">Garansi</td>
-						<td>: Tidak Ada</td>
-					@else
-						<td scope="row" style="border-left-style: solid;">Masa Garansi</td>
-						<td>: {{ $items->exp_garansi }}</td>
-					@endif
-				</tr>
+				@if ($items->uang_muka != null && $items->diskon != null)
+					<tr style="border-right-style: solid;">
+						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
+						<td>: {{ $items->tindakan_servis }}</td>
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;">Uang Muka</td>
+						<td>: Rp. {{ number_format($items->uang_muka) }}</td>
+					</tr>
+					<tr style="border-right-style: solid;">
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;">Diskon</td>
+						<td>: Rp. {{ number_format($items->diskon) }}</td>
+					</tr>
+					<tr style="border-bottom-style: solid; border-right-style: solid;">
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
+						<td>: Rp. {{ number_format($items->biaya - $items->uang_muka - $items->diskon) }}</td>
+					</tr>
+				@elseif ($items->uang_muka != null && $items->diskon === null)
+					<tr style="border-right-style: solid;">
+						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
+						<td>: {{ $items->tindakan_servis }}</td>
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;">Uang Muka</td>
+						<td>: Rp. {{ number_format($items->uang_muka) }}</td>
+					</tr>
+					<tr style="border-bottom-style: solid; border-right-style: solid;">
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
+						<td>: Rp. {{ number_format($items->biaya - $items->uang_muka) }}</td>
+					</tr>
+				@elseif ($items->diskon != null && $items->uang_muka === null)
+					<tr style="border-right-style: solid;">
+						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;">Diskon</td>
+						<td>: Rp. {{ number_format($items->diskon) }}</td>
+					</tr>
+					<tr style="border-bottom-style: solid; border-right-style: solid;">
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
+						<td>: Rp. {{ number_format($items->biaya - $items->diskon) }}</td>
+					</tr>
+				@elseif ($items->diskon === null && $items->uang_muka === null)
+					<tr style="border-right-style: solid; border-bottom-style: solid;">
+						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
+						<td>: {{ $items->tindakan_servis }}</td>
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+						<td scope="row" style="border-left-style: solid;"></td>
+						<td></td>
+					</tr>
+				@endif
 			</tbody>
 		</table>
 		<table class="table table-sm table-borderless">
 			<thead>
-				<th class="w-50">Syarat & Ketentuan</th>
-				<th colspan="2" class="text-center w-25">Pengambil</th>
-				<th colspan="2" class="text-center w-25">Teknisi</th>
+				<tr>
+					@if ($items->exp_garansi === null)
+						<td scope="row" style="border-left-style: solid;">
+							<span class="bg-danger text-white py-1 px-2" style="border-radius: 12px;">Tidak ada garansi untuk tindakan servis ini.</span>
+						</td>
+					@else
+						<td scope="row" style="border-left-style: solid;">
+							<span class="bg-primary text-white py-1 px-2" style="border-radius: 12px;">Garansi servis Anda aktif sampai tanggal {{ $items->exp_garansi }}</span>
+						</td>
+					@endif
+				</tr>
+				<tr>
+					<th class="w-50">Syarat & Ketentuan</th>
+					<th colspan="2" class="text-center w-25">Pengambil</th>
+					<th colspan="2" class="text-center w-25">Teknisi</th>
+				</tr>
 			</thead>
 			<tbody>
 				<tr>
