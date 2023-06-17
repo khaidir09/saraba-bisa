@@ -47,6 +47,14 @@ use App\Http\Controllers\KepalaToko\KasbonController as KepalaTokoKasbonControll
 use App\Http\Controllers\KepalaToko\UbahStatusProsesServisController as KepalaTokoUbahStatusProsesServisController;
 use App\Http\Controllers\KepalaToko\ExpenseController as KepalaTokoExpenseController;
 use App\Http\Controllers\KepalaToko\ApprovePengeluaranController as KepalaTokoApprovePengeluaranController;
+
+use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriController;
+use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
+use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
+use App\Http\Controllers\KepalaToko\TransaksiProdukController as KepalaTokoTransaksiProdukController;
+use App\Http\Controllers\KepalaToko\TransaksiProdukPaidController as KepalaTokoTransaksiProdukPaidController;
+use App\Http\Controllers\KepalaToko\TransaksiProdukDueController as KepalaTokoTransaksiProdukDueController;
+use App\Http\Controllers\KepalaToko\LaporanPenjualanController as KepalaTokoLaporanPenjualanController;
 // Admin Toko
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
@@ -194,6 +202,33 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('export-merek', [KepalaTokoMasterMerekController::class, 'export'])->name('merek-export');
     Route::post('/impor-model', [KepalaTokoMasterModelSeriController::class, 'import'])->name('impor-model');
     Route::get('export-modelseri', [KepalaTokoMasterModelSeriController::class, 'export'])->name('modelseri-export');
+
+    Route::resource('produk/kategori', KepalaTokoKategoriController::class);
+    Route::resource('produk/item', KepalaTokoProdukController::class);
+    Route::resource('produk/pos', KepalaTokoPosController::class);
+    Route::resource('produk/transaksi-produk', KepalaTokoTransaksiProdukController::class);
+    Route::resource('produk/transaksi-produk-paid', KepalaTokoTransaksiProdukPaidController::class);
+    Route::resource('produk/transaksi-produk-due', KepalaTokoTransaksiProdukDueController::class);
+
+    Route::get('/order/due/{id}', [KepalaTokoTransaksiProdukController::class, 'OrderDueAjax']);
+    Route::post('produk/update-due', [KepalaTokoTransaksiProdukController::class, 'UpdateDue'])->name('produk.updateDue');
+
+    Route::get('produk/pos', [KepalaTokoPosController::class, 'index'])->name('pos');
+    Route::get('produk/allitem', [KepalaTokoPosController::class, 'AllItem']);
+    Route::post('produk/add-cart', [KepalaTokoPosController::class, 'AddCart']);
+    Route::post('produk/cart-update/{rowId}', [KepalaTokoPosController::class, 'CartUpdate']);
+    Route::post('produk/apply-discount', [KepalaTokoPosController::class, 'ApplyDiscount'])->name('produk.applyDiscount');
+    Route::get('produk/cart-remove/{rowId}', [KepalaTokoPosController::class, 'CartRemove']);
+    Route::post('produk/create-invoice', [KepalaTokoPosController::class, 'CreateInvoice']);
+    Route::post('produk/complete-order', [KepalaTokoPosController::class, 'CompleteOrder']);
+
+    Route::get('transaksi-produk-inkjet/{orders_id}', [KepalaTokoTransaksiProdukController::class, 'cetakinkjet'])->name('lunas-cetak-inkjet');
+    Route::get('transaksi-produk-termal/{orders_id}', [KepalaTokoTransaksiProdukController::class, 'cetaktermal'])->name('cetak-termal');
+
+    Route::get('laporan/laporan-penjualan', [KepalaTokoLaporanPenjualanController::class, 'index'])->name('laporan-penjualan');
+
+    Route::post('/import-produk', [KepalaTokoProdukController::class, 'import'])->name('import-produk');
+    Route::get('export-produk', [KepalaTokoProdukController::class, 'export'])->name('produk-export');
 });
 
 Route::middleware('ensureAdminRole:AdminToko')->group(function () {
