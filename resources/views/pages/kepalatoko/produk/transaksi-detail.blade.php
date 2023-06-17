@@ -106,74 +106,76 @@
 
                 <div class="mt-6 space-y-2">
                     <!-- Bayar -->
-                    <div x-data="{ modalOpen: false }">
-                        <button
-                            type="button"
-                            @click.prevent="modalOpen = true"
-                            aria-controls="basic-modal"
-                            id="{{ $order->id }}"
-                            onclick="orderDue(this.id)"
-                            class="btn w-full bg-emerald-700 hover:bg-emerald-800 text-white"
-                        >
-                            Bayar Sekarang
-                        </button>
-                        <!-- Modal backdrop -->
-                        <div
-                            class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                            x-show="modalOpen"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0"
-                            x-transition:enter-end="opacity-100"
-                            x-transition:leave="transition ease-out duration-100"
-                            x-transition:leave-start="opacity-100"
-                            x-transition:leave-end="opacity-0"
-                            aria-hidden="true"
-                            x-cloak
-                        ></div>
-                        <!-- Modal dialog -->
-                        <div
-                            id="tambah-modal"
-                            class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                            role="dialog"
-                            aria-modal="true"
-                            x-show="modalOpen"
-                            x-transition:enter="transition ease-in-out duration-200"
-                            x-transition:enter-start="opacity-0 translate-y-4"
-                            x-transition:enter-end="opacity-100 translate-y-0"
-                            x-transition:leave="transition ease-in-out duration-200"
-                            x-transition:leave-start="opacity-100 translate-y-0"
-                            x-transition:leave-end="opacity-0 translate-y-4"
-                            x-cloak
-                        >
-                            <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
-                                <!-- Modal content -->
-                                <div class="text-center my-3">
-                                    <h6>Sisa Pembayaran</h6>
-                                    <p>Rp. {{ number_format($order->due) }}</p>
-                                </div>
-                                <div class="px-5 py-4">
-                                    <div>
-                                        <form action="{{ route('produk.updateDue') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" id="id">
-                                            <input type="hidden" name="pay" id="pay">
-                                            <div class="mb-3">
-                                                <label class="block text-sm font-medium mb-1" for="due">Bayar Sekarang</label>
-                                                <div class="relative">
-                                                    <input class="form-input w-full pl-10 px-2 py-1" type="number" name="due" id="due"/>
-                                                    <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                        <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                    @if ($order->due > 0)
+                        <div x-data="{ modalOpen: false }">
+                            <button
+                                type="button"
+                                @click.prevent="modalOpen = true"
+                                aria-controls="basic-modal"
+                                id="{{ $order->id }}"
+                                onclick="orderDue(this.id)"
+                                class="btn w-full bg-emerald-700 hover:bg-emerald-800 text-white"
+                            >
+                                Bayar Sekarang
+                            </button>
+                            <!-- Modal backdrop -->
+                            <div
+                                class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                x-show="modalOpen"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0"
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-out duration-100"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                aria-hidden="true"
+                                x-cloak
+                            ></div>
+                            <!-- Modal dialog -->
+                            <div
+                                id="tambah-modal"
+                                class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                                role="dialog"
+                                aria-modal="true"
+                                x-show="modalOpen"
+                                x-transition:enter="transition ease-in-out duration-200"
+                                x-transition:enter-start="opacity-0 translate-y-4"
+                                x-transition:enter-end="opacity-100 translate-y-0"
+                                x-transition:leave="transition ease-in-out duration-200"
+                                x-transition:leave-start="opacity-100 translate-y-0"
+                                x-transition:leave-end="opacity-0 translate-y-4"
+                                x-cloak
+                            >
+                                <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                                    <!-- Modal content -->
+                                    <div class="text-center my-3">
+                                        <h6>Sisa Pembayaran</h6>
+                                        <p>Rp. {{ number_format($order->due) }}</p>
+                                    </div>
+                                    <div class="px-5 py-4">
+                                        <div>
+                                            <form action="{{ route('produk.updateDue') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="id" id="id">
+                                                <input type="hidden" name="pay" id="pay">
+                                                <div class="mb-3">
+                                                    <label class="block text-sm font-medium mb-1" for="due">Bayar Sekarang</label>
+                                                    <div class="relative">
+                                                        <input class="form-input w-full pl-10 px-2 py-1" type="number" name="due" id="due"/>
+                                                        <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                            <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- Modal footer -->
-                                            <button class="w-full btn bg-emerald-700 hover:bg-emerald-800 text-white">Perbarui Pembayaran</button>
-                                        </form>
+                                                <!-- Modal footer -->
+                                                <button class="w-full btn bg-emerald-700 hover:bg-emerald-800 text-white">Perbarui Pembayaran</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     <!-- Start Printer -->
                     <div x-data="{ modalOpen: false }">
                         <button
