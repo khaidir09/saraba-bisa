@@ -81,6 +81,13 @@ use App\Http\Controllers\AdminToko\MasterKapasitasController as AdminTokoMasterK
 use App\Http\Controllers\AdminToko\MasterModelSeriController as AdminTokoMasterModelSeriController;
 use App\Http\Controllers\AdminToko\UbahStatusProsesServisController as AdminTokoUbahStatusProsesServisController;
 use App\Http\Controllers\AdminToko\ExpenseController as AdminTokoExpenseController;
+use App\Http\Controllers\AdminToko\KategoriController as AdminTokoKategoriController;
+use App\Http\Controllers\AdminToko\ProdukController as AdminTokoProdukController;
+use App\Http\Controllers\AdminToko\PosController as AdminTokoPosController;
+use App\Http\Controllers\AdminToko\TransaksiProdukController as AdminTokoTransaksiProdukController;
+use App\Http\Controllers\AdminToko\TransaksiProdukPaidController as AdminTokoTransaksiProdukPaidController;
+use App\Http\Controllers\AdminToko\TransaksiProdukDueController as AdminTokoTransaksiProdukDueController;
+use App\Http\Controllers\AdminToko\LaporanPenjualanController as AdminTokoLaporanPenjualanController;
 // Teknisi
 use App\Http\Controllers\AdminToko\TransaksiServisController as AdminTokoTransaksiServisController;
 use App\Http\Controllers\AdminToko\UbahBisaDiambilController as AdminTokoUbahBisaDiambilController;
@@ -270,6 +277,33 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::get('modelseri/export', [AdminTokoMasterModelSeriController::class, 'export'])->name('admin-modelseri-export');
     Route::get('merek/export', [AdminTokoMasterMerekController::class, 'export'])->name('admin-merek-export');
     Route::get('customer/export', [AdminTokoPelangganController::class, 'export'])->name('admin-pelanggan-export');
+
+    Route::resource('produk/admin-kategori', AdminTokoKategoriController::class);
+    Route::resource('produk/admin-item', AdminTokoProdukController::class);
+    Route::resource('produk/admin-pos', AdminTokoPosController::class);
+    Route::resource('produk/admin-transaksi-produk', AdminTokoTransaksiProdukController::class);
+    Route::resource('produk/admin-transaksi-produk-paid', AdminTokoTransaksiProdukPaidController::class);
+    Route::resource('produk/admin-transaksi-produk-due', AdminTokoTransaksiProdukDueController::class);
+
+    Route::get('/order/due/{id}', [AdminTokoTransaksiProdukController::class, 'OrderDueAjax']);
+    Route::post('produk/admin-update-due', [AdminTokoTransaksiProdukController::class, 'UpdateDue'])->name('admin-produk.updateDue');
+
+    Route::get('produk/admin-pos', [AdminTokoPosController::class, 'index'])->name('admin-pos');
+    Route::get('produk/admin-allitem', [AdminTokoPosController::class, 'AllItem']);
+    Route::post('produk/admin-add-cart', [AdminTokoPosController::class, 'AddCart']);
+    Route::post('produk/admin-cart-update/{rowId}', [AdminTokoPosController::class, 'CartUpdate']);
+    Route::post('produk/admin-apply-discount', [AdminTokoPosController::class, 'ApplyDiscount'])->name('admin-produk.applyDiscount');
+    Route::get('produk/admin-cart-remove/{rowId}', [AdminTokoPosController::class, 'CartRemove']);
+    Route::post('produk/admin-create-invoice', [AdminTokoPosController::class, 'CreateInvoice']);
+    Route::post('produk/admin-complete-order', [AdminTokoPosController::class, 'CompleteOrder']);
+
+    Route::get('admin-transaksi-produk-inkjet/{orders_id}', [AdminTokoTransaksiProdukController::class, 'cetakinkjet'])->name('admin-lunas-cetak-inkjet');
+    Route::get('admin-transaksi-produk-termal/{orders_id}', [AdminTokoTransaksiProdukController::class, 'cetaktermal'])->name('admin-cetak-termal');
+
+    Route::get('laporan/admin-laporan-penjualan', [AdminTokoLaporanPenjualanController::class, 'index'])->name('admin-laporan-penjualan');
+
+    Route::post('/admin-import-produk', [AdminTokoProdukController::class, 'import'])->name('admin-import-produk');
+    Route::get('admin-export-produk', [AdminTokoProdukController::class, 'export'])->name('admin-produk-export');
 });
 
 Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {

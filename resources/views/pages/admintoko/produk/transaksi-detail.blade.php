@@ -2,7 +2,7 @@
     Detail Transaksi Produk
 @endsection
 
-<x-toko-layout>
+<x-admin-layout>
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
      
         <!-- Billing Information -->
@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="px-5 py-4">
                                         <div>
-                                            <form action="{{ route('produk.updateDue') }}" method="post">
+                                            <form action="{{ route('admin-produk.updateDue') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="id" id="id">
                                                 <input type="hidden" name="pay" id="pay">
@@ -238,7 +238,7 @@
                                     <div class="px-5 py-4">
                                         <div class="flex flex-wrap justify-end space-x-2">
                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                            <a href="{{ route('cetak-termal', $order->id) }}" target="__blank">
+                                            <a href="{{ route('admin-cetak-termal', $order->id) }}" target="__blank">
                                                 <button class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
                                                     <span class="mr-1">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -251,7 +251,7 @@
                                                     Printer Termal
                                                 </button>
                                             </a>
-                                            <a href="{{ route('lunas-cetak-inkjet', $order->id) }}" target="__blank">
+                                            <a href="{{ route('admin-lunas-cetak-inkjet', $order->id) }}" target="__blank">
                                                 <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
                                                     <span class="mr-1">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -291,4 +291,4 @@
             })
         }
     </script>
-</x-toko-layout>
+</x-admin-layout>
