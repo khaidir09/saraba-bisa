@@ -148,16 +148,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('master/master-merek', KepalaTokoMasterMerekController::class);
     Route::resource('master/master-kapasitas', KepalaTokoMasterKapasitasController::class);
     Route::resource('master/master-model-seri', KepalaTokoMasterModelSeriController::class);
-    Route::resource('sparepart/data-sparepart', KepalaTokoSparepartController::class);
-    Route::resource('sparepart/transaksi-sparepart', KepalaTokoTransaksiSparepartController::class);
-    Route::resource('sparepart/transaksi-sparepart-approve', KepalaTokoApproveSparepartController::class);
-    Route::resource('aksesoris/data-aksesoris', KepalaTokoAksesorisController::class);
-    Route::resource('aksesoris/transaksi-aksesoris', KepalaTokoTransaksiAksesorisController::class);
-    Route::resource('aksesoris/transaksi-aksesoris-approve', KepalaTokoApproveAksesorisController::class);
-    Route::resource('phone/data-handphone', KepalaTokoPhoneController::class);
-    Route::resource('phone/phone-terjual', KepalaTokoPhoneTerjualController::class);
-    Route::resource('phone/transaksi-handphone-approve', KepalaTokoApproveHandphoneController::class);
-    Route::resource('phone/transaksi-handphone', KepalaTokoTransaksiHandphoneController::class);
     Route::resource('anggaran', KepalaTokoAnggaranController::class);
     Route::resource('insiden', KepalaTokoInsidenController::class);
     Route::resource('kasbon', KepalaTokoKasbonController::class);
@@ -168,9 +158,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('approve-pengeluaran', KepalaTokoApprovePengeluaranController::class);
 
     Route::get('laporan/laporan-servis', [KepalaTokoLaporanServisController::class, 'index'])->name('laporan-servis');
-    Route::get('laporan/laporan-handphone', [KepalaTokoLaporanHandphoneController::class, 'index'])->name('laporan-handphone');
-    Route::get('laporan/laporan-sparepart', [KepalaTokoLaporanSparepartController::class, 'index'])->name('laporan-sparepart');
-    Route::get('laporan/laporan-aksesoris', [KepalaTokoLaporanAksesorisController::class, 'index'])->name('laporan-aksesoris');
     Route::get('laporan/laporan-teknisi', [KepalaTokoLaporanTeknisiController::class, 'index'])->name('laporan-teknisi');
     Route::get('laporan/laporan-assembly', [KepalaTokoLaporanAssemblyController::class, 'index'])->name('laporan-assembly');
     Route::get('laporan/laporan-sales', [KepalaTokoLaporanSalesController::class, 'index'])->name('laporan-sales');
