@@ -19,6 +19,7 @@ class ProsesData extends Component
 
     public $paginate = 10;
     public $search;
+    public $type;
 
     protected $updatesQueryString = ['search'];
 
@@ -55,7 +56,7 @@ class ProsesData extends Component
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'processes' => $this->search === null ?
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->paginate($this->paginate) :
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('types_id', 'like', '%' . $this->type . '%')->paginate($this->paginate) :
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
