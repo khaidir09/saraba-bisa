@@ -365,7 +365,12 @@
                                     <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('laporan-assembly')){{ '!text-indigo-500' }}@endif" href="{{ route('laporan-assembly') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Laporan Assembly</span>
                                     </a>
-                                </li>                                
+                                </li>
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('laporan-penjualan')){{ '!text-indigo-500' }}@endif" href="{{ route('laporan-penjualan') }}">
+                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Laporan Penjualan</span>
+                                    </a>
+                                </li>
                                 <li class="mb-1 last:mb-0">
                                     <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('laporan-sales')){{ '!text-indigo-500' }}@endif" href="{{ route('laporan-sales') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Laporan Sales</span>
