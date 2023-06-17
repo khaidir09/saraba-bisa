@@ -26,50 +26,6 @@
                     </div>
                 @endif
                 <!-- End -->
-                <!-- Start -->
-                @if ($approvehandphone != null)
-                    <div class="px-4 py-2 rounded-sm text-sm bg-indigo-500 text-white">
-                        <div class="flex w-full justify-between items-start">
-                            <div class="flex">
-                                <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                                </svg>
-                                <div class="font-medium">Hore! Ada {{ $approvehandphone }} transaksi handphone baru nih, cek sekarang!</div>
-                            </div>
-                            <a class="font-medium text-white ml-3 mt-[3px]" href="{{ route('transaksi-handphone.index') }}">-&gt;</a>
-                        </div>
-                    </div>
-                @endif
-                <!-- End -->
-                <!-- Start -->
-                @if ($approveaksesoris != null)
-                    <div class="px-4 py-2 rounded-sm text-sm bg-indigo-500 text-white">
-                        <div class="flex w-full justify-between items-start">
-                            <div class="flex">
-                                <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                                </svg>
-                                <div class="font-medium">Hore! Ada {{ $approveaksesoris }} transaksi aksesori baru nih, cek sekarang!</div>
-                            </div>
-                            <a class="font-medium text-white ml-3 mt-[3px]" href="{{ route('transaksi-aksesoris.index') }}">-&gt;</a>
-                        </div>
-                    </div>
-                @endif
-                <!-- End -->
-                <!-- Start -->
-                @if ($approvesparepart != null)
-                    <div class="px-4 py-2 rounded-sm text-sm bg-indigo-500 text-white">
-                        <div class="flex w-full justify-between items-start">
-                            <div class="flex">
-                                <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                                </svg>
-                                <div class="font-medium">Hore! Ada {{ $approvesparepart }} transaksi sparepart baru nih, cek sekarang!</div>
-                            </div>
-                            <a class="font-medium text-white ml-3 mt-[3px]" href="{{ route('transaksi-sparepart.index') }}">-&gt;</a>
-                        </div>
-                    </div>
-                @endif
                 <!-- End -->
                 <!-- Start -->
                 @if ($approveassembly != null)
@@ -248,30 +204,18 @@
                                 </tr>
                                 </thead>
                                 <tbody class="text-sm divide-y divide-slate-100">
-                                <tr>
-                                    <td class="py-2">
-                                        <div class="text-left">Aksesori</div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. {{ number_format($totalaksesoris) }}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2">
-                                        <div class="text-left">Handphone</div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. {{ number_format($totalhandphone) }}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2">
-                                        <div class="text-left">Sparepart</div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. {{ number_format($totalsparepart) }}</div>
-                                    </td>
-                                </tr>
+                                    @foreach ($categories as $item)
+                                        <tr>
+                                            <td class="py-2">
+                                                <div class="text-left uppercase">{{ $item->category_name }}</div>
+                                            </td>
+                                            <td class="py-2">
+                                                <div class="font-medium text-right text-slate-800">
+                                                    Rp. {{ number_format($item->order->sum('profit')) }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
