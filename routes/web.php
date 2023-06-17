@@ -40,6 +40,8 @@ use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMaste
 use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTransaksiServisController;
 use App\Http\Controllers\KepalaToko\ApproveAksesorisController as KepalaTokoApproveAksesorisController;
 
+use App\Http\Controllers\KepalaToko\ExpenseController as KepalaTokoExpenseController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +117,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('export-merek', [KepalaTokoMasterMerekController::class, 'export'])->name('merek-export');
     Route::post('/impor-model', [KepalaTokoMasterModelSeriController::class, 'import'])->name('impor-model');
     Route::get('export-modelseri', [KepalaTokoMasterModelSeriController::class, 'export'])->name('modelseri-export');
+
+    Route::resource('pengeluaran', KepalaTokoExpenseController::class);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
