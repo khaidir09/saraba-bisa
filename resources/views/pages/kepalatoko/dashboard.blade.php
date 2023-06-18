@@ -115,7 +115,7 @@
                                 <div class="absolute w-1.5 h-1.5 rounded-full bg-blue-500"></div>
                             </div>
                             <div>
-                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. {{ number_format($totalpenjualan) }}</div>
+                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. </div>
                             </div>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                                         <div class="text-left">Aksesori</div>
                                     </td>
                                     <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. {{ number_format($totalaksesoris) }}</div>
+                                        <div class="font-medium text-right text-slate-800">Rp. </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -146,7 +146,7 @@
                                         <div class="text-left">Handphone</div>
                                     </td>
                                     <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. {{ number_format($totalhandphone) }}</div>
+                                        <div class="font-medium text-right text-slate-800">Rp. </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -154,7 +154,7 @@
                                         <div class="text-left">Sparepart</div>
                                     </td>
                                     <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. {{ number_format($totalsparepart) }}</div>
+                                        <div class="font-medium text-right text-slate-800">Rp. </div>
                                     </td>
                                 </tr>
                                 </tbody>

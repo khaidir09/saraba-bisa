@@ -28,57 +28,25 @@ class DashboardController extends Controller
         $totalbiayaservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')->whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
-        $totalsparepart = SparepartTransaction::whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $totalaksesoris = AccessoryTransaction::whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $totalhandphone = PhoneTransaction::whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
-        $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
+        $totalprofit = $totalbiayaservis;
 
         $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('omzet');
-        $omzetsparepart = SparepartTransaction::whereDate('created_at', today())
-            ->get()
-            ->sum('omzet');
-        $omzetaksesori = AccessoryTransaction::whereDate('created_at', today())
-            ->get()
-            ->sum('omzet');
-        $omzethandphone = PhoneTransaction::whereDate('created_at', today())
-            ->get()
-            ->sum('omzet');
-        $totalomzet = $omzetservis + $omzetsparepart + $omzetaksesori + $omzethandphone;
+        $totalomzet = $omzetservis;
 
         $profitservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('profit');
-        $profitsparepart = SparepartTransaction::whereDate('created_at', today())
-            ->get()
-            ->sum('profit');
-        $profitaksesori = AccessoryTransaction::whereDate('created_at', today())
-            ->get()
-            ->sum('profit');
-        $profithandphone = PhoneTransaction::whereDate('created_at', today())
-            ->get()
-            ->sum('profit');
-        $totalprofitutuh = $profitservis + $profitsparepart + $profitaksesori + $profithandphone;
+        $totalprofitutuh = $profitservis;
 
         return view('pages/kepalatoko/dashboard', compact(
             'types',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
-            'totalpenjualan',
-            'totalsparepart',
-            'totalaksesoris',
-            'totalhandphone',
             'totalomzet',
             'totalprofitutuh'
         ));
