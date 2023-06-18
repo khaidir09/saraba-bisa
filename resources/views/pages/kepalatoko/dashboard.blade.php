@@ -8,9 +8,12 @@
         <!-- Welcome banner -->
         <x-dashboard.welcome-banner :totalomzet="$totalomzet" :totalprofitutuh="$totalprofitutuh"/>
 
-        {{-- Progres --}}
         <div class="grid grid-cols-12 gap-6">
-            <div class="flex flex-col col-span-full xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+
+            <!-- Card Keuangan -->
+            <x-kepalatoko.keuangan-card :totalprofit="$totalprofit" :totalprofitkotor="$totalprofitkotor" :pengeluaran="$pengeluaran" :totalpengeluaran="$totalpengeluaran"/>
+            {{-- Progres --}}
+            <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">
                 <header class="px-5 py-4 border-b border-slate-100">
                     <h2 class="font-semibold text-slate-800">Progres Target Bulanan</h2>
                 </header>
@@ -55,7 +58,7 @@
                 </div>
             </div>
              {{-- Profit Servis --}}
-            <div class="flex flex-col col-span-full xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+            <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">
                 <header class="px-5 py-4 border-b border-slate-100">
                     <h2 class="font-semibold text-slate-800">Profit Servis</h2>
                 </header>
@@ -103,7 +106,7 @@
             </div>
 
             {{-- Profit Penjualan --}}
-            <div class="flex flex-col col-span-full xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+            <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">
                 <header class="px-5 py-4 border-b border-slate-100">
                     <h2 class="font-semibold text-slate-800">Profit Penjualan</h2>
                 </header>
@@ -115,7 +118,7 @@
                                 <div class="absolute w-1.5 h-1.5 rounded-full bg-blue-500"></div>
                             </div>
                             <div>
-                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. </div>
+                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. {{ number_format($totalpenjualan) }}</div>
                             </div>
                         </div>
                     </div>
@@ -133,30 +136,18 @@
                                 </tr>
                                 </thead>
                                 <tbody class="text-sm divide-y divide-slate-100">
-                                <tr>
-                                    <td class="py-2">
-                                        <div class="text-left">Aksesori</div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2">
-                                        <div class="text-left">Handphone</div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2">
-                                        <div class="text-left">Sparepart</div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. </div>
-                                    </td>
-                                </tr>
+                                    @foreach ($categories as $item)
+                                        <tr>
+                                            <td class="py-2">
+                                                <div class="text-left uppercase">{{ $item->category_name }}</div>
+                                            </td>
+                                            <td class="py-2">
+                                                <div class="font-medium text-right text-slate-800">
+                                                    Rp. {{ number_format($item->order->sum('profit')) }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
