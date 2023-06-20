@@ -65,20 +65,6 @@ class ProdukController extends Controller
         //
     }
 
-    public function import(Request $request)
-    {
-        $data = $request->file('file');
-        $namafile = $data->getClientOriginalName();
-        $data->move('ProdukData', $namafile);
-        Excel::import(new ProdukImport, \public_path('/ProdukData/' . $namafile));
-        return redirect()->route('teknisi-item.index')->with('success', 'All good!');
-    }
-
-    public function export()
-    {
-        return Excel::download(new ProdukExport, 'produk.xlsx');
-    }
-
     /**
      * Update the specified resource in storage.
      *

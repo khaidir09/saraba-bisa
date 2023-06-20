@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Budget;
+use App\Models\Category;
 use App\Models\DataFeed;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
@@ -29,6 +31,7 @@ class DashboardController extends Controller
         $currentMonth = now()->month;
 
         $types = Type::with('service')->get();
+        $categories = Category::with('order')->get();
 
         $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
@@ -43,15 +46,19 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
+        $totalpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('profit');
 
-        $totalprofit = $totalbiayaservis;
+        $totalprofit = $totalbiayaservis + $totalpenjualan;
 
         return view('pages/admintoko/dashboard', compact(
             'types',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
-            'totalbonus'
+            'totalbonus',
+            'categories'
         ));
     }
 }

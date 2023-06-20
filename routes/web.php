@@ -74,6 +74,7 @@ use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganControll
 use App\Http\Controllers\Teknisi\ExpenseController as TeknisiExpenseController;
 use App\Http\Controllers\Teknisi\MasterModelSeriController as TeknisiMasterModelSeriController;
 use App\Http\Controllers\Teknisi\UbahStatusProsesServisController as TeknisiUbahStatusProsesServisController;
+use App\Http\Controllers\Teknisi\ProdukController as TeknisiProdukController;
 // Sales
 use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
 use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
@@ -240,6 +241,8 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::post('teknisi/servis-ubah-sudah-diambil{id}', [TeknisiUbahSudahDiambilController::class, 'update'])->name('teknisi-ubah-sudah-diambil-update');
 
     Route::get('teknisi-nota-pengambilan-termal/{id}', [TeknisiSudahDiambilController::class, 'cetaktermal'])->name('teknisi-termal-pengambilan');
+
+    Route::resource('produk/teknisi-item', TeknisiProdukController::class);
 });
 
 Route::middleware('ensureSalesRole:Sales')->group(
