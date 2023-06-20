@@ -110,11 +110,22 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
         $item = Product::findOrFail($id);
-
-        $item->update($data);
+        $namakategori = Category::find($request->categories_id);
+        // Create product
+        $item->update([
+            'product_name' => $request->product_name,
+            'product_code' => $request->product_code,
+            'categories_id' => $request->categories_id,
+            'category_name' => $namakategori->category_name,
+            'stok' => $request->stok,
+            'harga_modal' => $request->harga_modal,
+            'harga_toko' => $request->harga_toko,
+            'harga_pelanggan' => $request->harga_pelanggan,
+            'supplier' => $request->supplier,
+            'keterangan' => $request->keterangan,
+            'nomor_seri' => $request->nomor_seri
+        ]);
 
         return redirect()->route('item.index');
     }
