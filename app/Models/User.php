@@ -98,29 +98,4 @@ class User extends Authenticatable
             ->where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
-
-    public function spareparttransaction()
-    {
-        $currentMonth = now()->month;
-
-        return $this->hasMany(SparepartTransaction::class, 'users_id', 'id')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth);
-    }
-
-    public function accessorytransaction()
-    {
-        $currentMonth = now()->month;
-
-        return $this->hasMany(AccessoryTransaction::class, 'users_id', 'id')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth);
-    }
-
-    public function phonetransaction()
-    {
-        return $this->hasMany(PhoneTransaction::class, 'users_id', 'id')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth);
-    }
 }

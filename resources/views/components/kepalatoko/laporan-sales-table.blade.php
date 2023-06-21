@@ -25,20 +25,20 @@
                             <div class="font-medium">{{ $item->name }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-medium">{{ $item->spareparttransaction->sum('quantity') + $item->accessorytransaction->sum('quantity') + $item->phonetransaction->sum('quantity') }}</div>
+                            <div class="font-medium">0</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium">
                                 {{-- Rp. {{ $item->servicetransaction->sum('biaya') - $item->servicetransaction->sum('modal_sparepart') }} --}}
-                                @php
+                                {{-- @php
                                     $sparepart = $item->spareparttransaction->sum('profit')/100;
                                     $sparepart *= $item->persen;
                                     $accessory = $item->accessorytransaction->sum('profit')/100;
                                     $accessory *= $item->persen;
                                     $phone = $item->phonetransaction->sum('profit')/100;
                                     $phone *= $item->persen;
-                                @endphp
-                                Rp. {{ number_format($sparepart + $accessory + $phone) }}
+                                @endphp --}}
+                                Rp. 0
                             </div>
                         </td>
                     </tr>

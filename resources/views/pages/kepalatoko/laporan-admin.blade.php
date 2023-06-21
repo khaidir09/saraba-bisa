@@ -26,9 +26,7 @@
         <!-- Table -->
         <x-kepalatoko.laporan-admin-table
         :users="$users" :biayaservis="$biayaservis" :jumlahservis="$jumlahservis"
-        :jumlahtransaksisparepart="$jumlahtransaksisparepart" :profitsparepart="$profitsparepart" 
-        :jumlahtransaksiaksesoris="$jumlahtransaksiaksesoris" :profitaksesoris="$profitaksesoris"
-        :jumlahtransaksihandphone="$jumlahtransaksihandphone" :profithandphone="$profithandphone"
+        :jumlahpenjualan="$jumlahpenjualan" :profitpenjualan="$profitpenjualan"
         />
 
     </div>
