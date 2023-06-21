@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
+use App\Models\OrderDetail;
 use App\Models\PhoneTransaction;
 use App\Models\SparepartTransaction;
 use App\Models\User;
@@ -27,31 +28,9 @@ class LaporanAdminController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
-        $jumlahtransaksisparepart = SparepartTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
+        $jumlahpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->count();
-        $profitsparepart = SparepartTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $jumlahtransaksiaksesoris = AccessoryTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->count();
-        $profitaksesoris = AccessoryTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $jumlahtransaksihandphone = PhoneTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->count();
-        $profithandphone = PhoneTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
+        $profitpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
 
@@ -59,12 +38,8 @@ class LaporanAdminController extends Controller
             'users',
             'biayaservis',
             'jumlahservis',
-            'jumlahtransaksisparepart',
-            'profitsparepart',
-            'jumlahtransaksiaksesoris',
-            'profitaksesoris',
-            'jumlahtransaksihandphone',
-            'profithandphone'
+            'jumlahpenjualan',
+            'profitpenjualan',
         ));
     }
 }
