@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teknisi;
 use Carbon\Carbon;
 use App\Models\Budget;
 use App\Models\Expense;
+use App\Models\Assembly;
 use App\Models\DataFeed;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
@@ -35,7 +36,13 @@ class DashboardController extends Controller
             ->get()
             ->sum('profit');
         $bonusservis = ($profitservis / 100) * Auth::user()->persen;
-        $totalbonus = $bonusservis;
+        $bonusassembly = Assembly::with('user')
+            ->where('is_approve', 'Setuju')
+            ->where('users_id', Auth::user()->id)
+            ->whereMonth('tgl_disetujui', $currentMonth)
+            ->get()
+            ->sum('biaya');
+        $totalbonus = $bonusservis + $bonusassembly;
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
