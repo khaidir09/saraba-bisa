@@ -18,7 +18,6 @@ use App\Http\Controllers\KepalaToko\GajiController as KepalaTokoGajiController;
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
 use App\Http\Controllers\KepalaToko\ApproveController as KepalaTokoApproveController;
-use App\Http\Controllers\KepalaToko\InsidenController as KepalaTokoInsidenController;
 use App\Http\Controllers\KepalaToko\AnggaranController as KepalaTokoAnggaranController;
 use App\Http\Controllers\KepalaToko\KaryawanController as KepalaTokoKaryawanController;
 use App\Http\Controllers\KepalaToko\DashboardController as KepalaTokoDashboardController;
@@ -48,7 +47,6 @@ use App\Http\Controllers\AdminToko\MasterMerekController as AdminTokoMasterMerek
 use App\Http\Controllers\AdminToko\ExpenseController as AdminTokoExpenseController;
 use App\Http\Controllers\AdminToko\SudahDiambilController as AdminTokoSudahDiambilController;
 use App\Http\Controllers\AdminToko\KasbonController as AdminTokoKasbonController;
-use App\Http\Controllers\AdminToko\InsidenController as AdminTokoInsidenController;
 use App\Http\Controllers\AdminToko\DashboardController as AdminTokoDashboardController;
 use App\Http\Controllers\AdminToko\PelangganController as AdminTokoPelangganController;
 use App\Http\Controllers\AdminToko\UbahStatusProsesServisController as AdminTokoUbahStatusProsesServisController;
@@ -124,7 +122,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('master/master-kapasitas', KepalaTokoMasterKapasitasController::class);
     Route::resource('master/master-model-seri', KepalaTokoMasterModelSeriController::class);
     Route::resource('anggaran', KepalaTokoAnggaranController::class);
-    Route::resource('insiden', KepalaTokoInsidenController::class);
     Route::resource('kasbon', KepalaTokoKasbonController::class);
     Route::resource('gaji/karyawan', KepalaTokoKaryawanController::class);
     Route::resource('gaji/bonus', KepalaTokoGajiController::class);
@@ -199,7 +196,6 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('master/admin-master-merek', AdminTokoMasterMerekController::class);
     Route::resource('master/admin-master-kapasitas', AdminTokoMasterKapasitasController::class);
     Route::resource('master/admin-master-model-seri', AdminTokoMasterModelSeriController::class);
-    Route::resource('admin-insiden', AdminTokoInsidenController::class);
     Route::resource('admin-kasbon', AdminTokoKasbonController::class);
     Route::resource('admin-pengeluaran', AdminTokoExpenseController::class);
 
