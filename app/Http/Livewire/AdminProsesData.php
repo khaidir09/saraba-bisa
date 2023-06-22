@@ -40,7 +40,7 @@ class AdminProsesData extends Component
         $toko = User::find(1);
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->count();
         $users = User::where('role', 'Teknisi')->get();
-        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
+        $penerima = User::all();
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
@@ -58,7 +58,7 @@ class AdminProsesData extends Component
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'users' => $users,
-            'workers' => $workers,
+            'penerima' => $penerima,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,
