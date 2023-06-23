@@ -46,7 +46,7 @@
 
   <table width="100%" style="background: #F7F7F7; padding: 10px 10px 0 10px;">
     <tr>
-        <td align="top"><img src="{{ asset('images/logo-toko.jpg') }}" alt="" width="150"/>
+        <td align="top"><img src="{{ asset('images/logo-toko.png') }}" alt="" height="120"/>
           
           <h2 style="color: green; font-size: 18px;">
             <strong>{{ $users->nama_toko }}</strong> <br>

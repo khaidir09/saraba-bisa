@@ -43,11 +43,14 @@
 </head>
 <body>
 	<div class="resi">
-		<p class="text-center mb-1">
-			NOTA PENGAMBILAN SERVIS <br>
-			<strong>{{ $users->nama_toko }}</strong> <br>
-			Telp/WA {{ $users->nomor_hp_toko }}
-		</p>
+		<div class="text-center mb-1">
+			<img src="{{ asset('images/logo-toko.png') }}" alt="" height="50" class="mt-1">
+			<p>
+				NOTA PENGAMBILAN SERVIS <br>
+				<strong>{{ $users->nama_toko }}</strong> <br>
+				Telp/WA {{ $users->nomor_hp_toko }}
+			</p>
+		</div>
 
 		<hr style="border-top: 1px solid; margin: 0px;">
 
