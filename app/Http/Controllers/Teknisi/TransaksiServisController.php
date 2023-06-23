@@ -89,7 +89,7 @@ class TransaksiServisController extends Controller
         ]);
     }
 
-    public function cetak($id)
+    public function cetakinkjet($id)
     {
         $items = ServiceTransaction::findOrFail($id);
         $customers = Customer::all();
@@ -97,16 +97,18 @@ class TransaksiServisController extends Controller
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $users = User::find(1);
 
-        $pdf = PDF::loadView('pages.teknisi.cetak', [
+        $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-inkjet', [
+            'users' => $users,
             'items' => $items,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities
-        ])->setPaper('a4', 'landscape');
-        return $pdf->stream();
+        ]);
+        return $pdf->setOption(['dpi' => 300])->stream();
     }
 
     public function cetaktermal($id)
