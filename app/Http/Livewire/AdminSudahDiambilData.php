@@ -37,7 +37,7 @@ class AdminSudahDiambilData extends Component
     {
         $users = User::where('role', 'Teknisi')->get();
         $toko = User::find(1);
-        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
+        $workers = User::all();
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
