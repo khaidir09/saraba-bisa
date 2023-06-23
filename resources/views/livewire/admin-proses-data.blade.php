@@ -612,7 +612,7 @@
                                                                     Printer Termal
                                                                 </button>
                                                             </a>
-                                                            <a href="#" target="__blank">
+                                                            <a href="{{ route('admin-cetak-tanda-terima', $process->id) }}" target="__blank">
                                                                 <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
                                                                     <span class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
