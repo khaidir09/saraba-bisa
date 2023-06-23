@@ -8,6 +8,7 @@
 <style type="text/css">
     * {
         font-family: Verdana, Arial, sans-serif;
+        color: #000000;
     }
     table{
         font-size: x-small;
@@ -28,12 +29,10 @@
     }
     .authority h5 {
         margin-top: -10px;
-        color: green;
         /*text-align: center;*/
         margin-left: 35px;
     }
     .thanks p {
-        color: green;;
         font-size: 16px;
         font-weight: normal;
         font-family: serif;
@@ -48,7 +47,7 @@
     <tr>
         <td align="top"><img src="{{ asset('images/logo-toko.jpg') }}" alt="" width="150"/>
           
-          <h2 style="color: green; font-size: 18px;">
+          <h2 style="font-size: 18px;">
             <strong>{{ $users->nama_toko }}</strong> <br>
             {{ $users->deskripsi_toko }}
           </h2>
@@ -100,7 +99,7 @@
   </table>
 
   <table width="100%" style="margin-top: 15px;">
-    <thead style="background-color: green; color:#FFFFFF;">
+    <thead style="background-color: lightgrey;">
       <tr class="font">
         <th>No.</th>
         <th>Nama Produk</th>
@@ -140,7 +139,7 @@
     <tr>
         <td align="right" >
             <h2>
-              <span style="color: green;">Total:</span> Rp. {{ number_format($total) }}
+              <span>Total:</span> Rp. {{ number_format($total) }}
             </h2>
         </td>
     </tr>
