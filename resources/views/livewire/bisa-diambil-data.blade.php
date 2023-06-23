@@ -356,7 +356,15 @@
                                 <div class="font-medium">{{ $transaction->penerima }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $transaction->customer->nama }}</div>
+                                @if ($transaction->customer)
+                                    @if ($transaction->customer->exists())
+                                        <div class="font-medium">{{ $transaction->customer->nama }}</div>
+                                    @else
+                                        <div class="font-medium text-rose-600">Data pelanggan telah dihapus</div>
+                                    @endif
+                                @else
+                                    <div class="font-medium text-rose-600">Data pelanggan telah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex space-x-1">
