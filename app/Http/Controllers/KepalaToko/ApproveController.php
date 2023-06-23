@@ -68,7 +68,7 @@ class ApproveController extends Controller
     {
         $item = ServiceTransaction::findOrFail($id);
 
-        return view('pages.kepalatoko.transaksi-servis-approve', [
+        return view('pages.kepalatoko.servis.transaksi-servis-approve', [
             'item' => $item
         ]);
     }
