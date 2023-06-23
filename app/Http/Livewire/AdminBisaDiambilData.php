@@ -38,7 +38,7 @@ class AdminBisaDiambilData extends Component
         $customers = Customer::all();
         $toko = User::find(1);
         $users = User::where('role', 'Teknisi')->get();
-        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
+        $workers = User::all();
         $types = Type::all();
         $brands = Brand::all();
         $capacities = Capacity::all();
