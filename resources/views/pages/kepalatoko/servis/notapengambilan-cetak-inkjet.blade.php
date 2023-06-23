@@ -7,6 +7,9 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Nota Pengambilan Servis #{{ $items->nomor_servis }}</title>
 	<style>
+		body {
+			color: #000000;
+		}
 		.nama-toko {
 			font-size: 72px;
 			font-weight: 800;
@@ -15,6 +18,9 @@
 		table {
 			font-size: 30px;
 			line-height: 1em;
+		}
+		tbody, thead {
+			color: #000000;
 		}
 	</style>
 </head>
@@ -183,12 +189,12 @@
 			<thead>
 				<tr>
 					@if ($items->exp_garansi === null)
-						<td scope="row" style="border-left-style: solid;">
-							<span class="bg-danger text-white py-1 px-2" style="border-radius: 12px;">Tidak ada garansi untuk tindakan servis ini.</span>
+						<td>
+							Tidak ada garansi untuk tindakan servis ini.
 						</td>
 					@else
-						<td scope="row" style="border-left-style: solid;">
-							<span class="bg-primary text-white py-1 px-2" style="border-radius: 12px;">Garansi servis Anda aktif sampai tanggal {{ $items->exp_garansi }}</span>
+						<td>
+							Garansi servis Anda aktif sampai tanggal {{ $items->exp_garansi }}
 						</td>
 					@endif
 				</tr>

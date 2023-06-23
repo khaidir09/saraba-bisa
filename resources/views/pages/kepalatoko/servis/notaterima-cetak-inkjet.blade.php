@@ -7,6 +7,10 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Tanda Terima Servis #{{ $items->nomor_servis }}</title>
 	<style>
+		body {
+			color: #000000;
+		}
+
 		.nama-toko {
 			font-size: 72px;
 			font-weight: 800;
@@ -15,6 +19,10 @@
 		table {
 			font-size: 30px;
 			line-height: 1em;
+		}
+
+		tbody, thead {
+			color: #000000;
 		}
 	</style>
 </head>
