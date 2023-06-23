@@ -89,44 +89,26 @@ class TransaksiServisController extends Controller
         ]);
     }
 
-    public function cetak($id)
+    public function cetakinkjet($id)
     {
         $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
+        $users = User::find(1);
 
-        $pdf = PDF::loadView('pages.teknisi.cetak', [
-            'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
-        ])->setPaper('a4', 'landscape');
-        return $pdf->stream();
+        $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-inkjet', [
+            'users' => $users,
+            'items' => $items
+        ]);
+        return $pdf->setOption(['dpi' => 300])->stream();
     }
 
     public function cetaktermal($id)
     {
         $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
         $users = User::find(1);
 
         $pdf = PDF::loadView('pages.teknisi.cetak-termal', [
             'users' => $users,
-            'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
+            'items' => $items
         ]);
         return $pdf->stream();
     }

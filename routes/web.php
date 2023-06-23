@@ -203,9 +203,9 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('admin-kasbon', AdminTokoKasbonController::class);
     Route::resource('admin-pengeluaran', AdminTokoExpenseController::class);
 
-    Route::get('tandaterima/{id}', [AdminTokoTransaksiServisController::class, 'cetak'])->name('admin-cetak-tanda-terima');
+    Route::get('tandaterima-inkjet/{id}', [AdminTokoTransaksiServisController::class, 'cetakinkjet'])->name('admin-cetak-tanda-terima');
     Route::get('tandaterima-termal/{id}', [AdminTokoTransaksiServisController::class, 'cetaktermal'])->name('admin-cetak-termal');
-
+    Route::get('nota-pengambilan-inkjet/{id}', [AdminTokoSudahDiambilController::class, 'cetakinkjet'])->name('admin-inkjet-pengambilan');
     Route::get('nota-pengambilan-termal/{id}', [AdminTokoSudahDiambilController::class, 'cetaktermal'])->name('admin-termal-pengambilan');
 
     Route::get('servis/admin-ubah-status-proses/{id}', [AdminTokoUbahStatusProsesServisController::class, 'edit'])->name('admin-ubah-status-proses-edit');
@@ -260,7 +260,7 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::resource('teknisi-servis-bisa-diambil', TeknisiBisaDiambilController::class);
     Route::resource('teknisi-servis-sudah-diambil', TeknisiSudahDiambilController::class);
     Route::resource('master/teknisi-master-model-seri', TeknisiMasterModelSeriController::class);
-    Route::get('teknisi/tandaterima/{id}', [TeknisiTransaksiServisController::class, 'cetak'])->name('teknisi-cetak-tanda-terima');
+    Route::get('teknisi/tandaterima-inkjet/{id}', [TeknisiTransaksiServisController::class, 'cetakinkjet'])->name('teknisi-cetak-tanda-terima');
     Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');
     Route::get('/teknisi-laporan', [TeknisiLaporanTeknisiController::class, 'index'])->name('teknisi-laporan');
 
@@ -272,6 +272,7 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::post('teknisi/servis-ubah-sudah-diambil{id}', [TeknisiUbahSudahDiambilController::class, 'update'])->name('teknisi-ubah-sudah-diambil-update');
 
     Route::get('teknisi-nota-pengambilan-termal/{id}', [TeknisiSudahDiambilController::class, 'cetaktermal'])->name('teknisi-termal-pengambilan');
+    Route::get('teknisi-nota-pengambilan-inkjet/{id}', [TeknisiSudahDiambilController::class, 'cetakinkjet'])->name('teknisi-inkjet-pengambilan');
 
     Route::resource('produk/teknisi-item', TeknisiProdukController::class);
 });

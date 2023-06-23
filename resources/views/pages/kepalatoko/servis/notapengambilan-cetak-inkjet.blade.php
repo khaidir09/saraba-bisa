@@ -183,12 +183,12 @@
 			<thead>
 				<tr>
 					@if ($items->exp_garansi === null)
-						<td scope="row" style="border-left-style: solid;">
-							<span class="bg-danger text-white py-1 px-2" style="border-radius: 12px;">Tidak ada garansi untuk tindakan servis ini.</span>
+						<td>
+							Tidak ada garansi untuk tindakan servis ini.
 						</td>
 					@else
-						<td scope="row" style="border-left-style: solid;">
-							<span class="bg-primary text-white py-1 px-2" style="border-radius: 12px;">Garansi servis Anda aktif sampai tanggal {{ $items->exp_garansi }}</span>
+						<td>
+							Garansi servis Anda aktif sampai tanggal {{ $items->exp_garansi }}
 						</td>
 					@endif
 				</tr>
