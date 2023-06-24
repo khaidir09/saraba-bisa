@@ -1,5 +1,5 @@
 @section('title')
-    Profil Toko
+    Pengaturan Toko
 @endsection
 
 <x-toko-layout>
@@ -9,15 +9,18 @@
         <div class="mb-8">
 
             <!-- Title -->
-            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Profil Toko ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Pengaturan Toko ✨</h1>
 
         </div>
 
         <div class="bg-white shadow-lg rounded-sm mb-8">
             <div class="flex flex-col md:flex-row md:-mr-px">
 
+                <!-- Sidebar -->
+                <x-settings.settings-sidebar />
+
                 <!-- Panel -->
-                <x-settings.account-panel />
+                <x-settings.syarat-ketentuan-panel :termterima="$termterima" :termpengambilan="$termpengambilan" :termpenjualan="$termpenjualan"/>
 
             </div>
         </div>

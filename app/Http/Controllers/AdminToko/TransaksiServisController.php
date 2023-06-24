@@ -14,6 +14,7 @@ use App\Models\ServiceAction;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\Term;
 use Illuminate\Support\Facades\Auth;
 
 class TransaksiServisController extends Controller
@@ -92,21 +93,13 @@ class TransaksiServisController extends Controller
     public function cetakinkjet($id)
     {
         $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
         $users = User::find(1);
+        $terms = Term::find(1);
 
         $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-inkjet', [
             'users' => $users,
             'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
+            'terms' => $terms
         ]);
         return $pdf->setOption(['dpi' => 300])->stream();
     }
@@ -114,21 +107,11 @@ class TransaksiServisController extends Controller
     public function cetaktermal($id)
     {
         $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
         $users = User::find(1);
 
         $pdf = PDF::loadView('pages.admintoko.cetak-termal', [
             'users' => $users,
-            'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
+            'items' => $items
         ]);
         return $pdf->stream();
     }

@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Term;
 
 class TransaksiProdukController extends Controller
 {
@@ -128,12 +129,14 @@ class TransaksiProdukController extends Controller
         $total = $orderItem->sum('total');
         $subtotal = $orderItem->sum('sub_total');
         $users = User::find(1);
+        $terms = Term::find(3);
 
         $persen = 100 - $total / $subtotal * 100;
 
         $pdf = PDF::loadView('pages.kepalatoko.produk.lunas-cetak-inkjet', [
             'order' => $order,
             'users' => $users,
+            'terms' => $terms,
             'orderItem' => $orderItem,
             'total' => $total,
             'subtotal' => $subtotal,

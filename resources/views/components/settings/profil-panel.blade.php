@@ -62,12 +62,6 @@
                         {{ Auth::user()->alamat_toko }}
                     </textarea>
                 </div>
-                <div class="mt-4">
-                    <label class="block text-sm font-medium mb-1" for="syarat_ketentuan_toko">Syarat & Ketentuan</label>
-                    <textarea name="syarat_ketentuan_toko" id="syarat_ketentuan_toko" rows="3" class="w-full">
-                       {!! Auth::user()->syarat_ketentuan_toko !!}
-                    </textarea>
-                </div>
             </section>
         </div>
 
@@ -75,10 +69,25 @@
         <footer>
             <div class="flex flex-col px-6 py-5 border-t border-slate-200">
                 <div class="flex self-end">
-                    <button class="btn border-slate-200 hover:border-slate-300 text-slate-600">Batal</button>
+                    {{-- <button class="btn border-slate-200 hover:border-slate-300 text-slate-600">Batal</button> --}}
                     <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3">Simpan Perubahan</button>
                 </div>
             </div>
         </footer>
     </form>
+    {{-- <form action="" method="post">
+        @csrf
+        <div class="p-6 space-y-6">
+            <section>
+                <h3 class="text-xl leading-snug text-slate-800 font-bold mb-1">Profil Toko</h3>
+                <div class="text-sm">Informasi ini akan terlihat pada halaman web dan nota transaksi.</div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium mb-1" for="syarat_ketentuan_toko">Syarat & Ketentuan</label>
+                    <textarea name="syarat_ketentuan_toko" id="syarat_ketentuan_toko" rows="3" class="w-full">
+                       {!! $ketentuanterima->description !!}
+                    </textarea>
+                </div>
+            </section>
+        </div>
+    </form> --}}
 </div>

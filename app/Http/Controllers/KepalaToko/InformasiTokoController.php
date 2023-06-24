@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\Term;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,10 @@ class InformasiTokoController extends Controller
     public function index()
     {
         $users = Auth::user();
-        return view('pages/kepalatoko/informasi-toko', compact('users'));
+        
+        return view('pages/kepalatoko/pengaturan/profil', compact(
+            'users'
+        ));
     }
 
     public function update(Request $request)
