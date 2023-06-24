@@ -17,7 +17,7 @@
 		}
 
 		table {
-			font-size: 30px;
+			font-size: 36px;
 			line-height: 1em;
 		}
 
@@ -209,7 +209,7 @@
 			<tbody>
 				<tr>
 					<td class="text-justify" style="font-style: italic;">
-						Garansi tidak berlaku apabila terjadi kerusakan yang disebabkan oleh kesalahan pemakai seperti jatuh, terkena air, konslet, dll atau direparasi oleh pihak lain. <br> <br>
+						{!! $terms->description !!} <br> <br>
 						<span style="font-weight: bold;">Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</span>
 					</td>
 					<td colspan="2" class="pt-5 text-center">{{ $items->customer->nama }}</td>

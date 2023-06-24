@@ -14,6 +14,7 @@ use App\Models\ServiceAction;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\Term;
 
 class SudahDiambilController extends Controller
 {
@@ -182,10 +183,12 @@ class SudahDiambilController extends Controller
     {
         $items = ServiceTransaction::findOrFail($id);
         $users = User::find(1);
+        $terms = Term::find(2);
 
         $pdf = PDF::loadView('pages.kepalatoko.servis.notapengambilan-cetak-inkjet', [
             'users' => $users,
-            'items' => $items
+            'items' => $items,
+            'terms' => $terms
         ]);
         return $pdf->setOption(['dpi' => 300])->stream();
     }

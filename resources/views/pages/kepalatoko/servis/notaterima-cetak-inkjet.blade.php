@@ -16,7 +16,7 @@
 		}
 
 		table {
-			font-size: 30px;
+			font-size: 36px;
 			line-height: 1em;
 		}
 
@@ -151,7 +151,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" style="width: 70px;">
-						{!! $users->syarat_ketentuan_toko !!}
+						{!! $terms->description !!}
 					</td>
 					<td class="pt-3">
 						<hr style="border-top: 3px dashed;">

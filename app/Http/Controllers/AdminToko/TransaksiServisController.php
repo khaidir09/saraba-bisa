@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use App\Models\Term;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
@@ -93,10 +94,12 @@ class TransaksiServisController extends Controller
     {
         $items = ServiceTransaction::findOrFail($id);
         $users = User::find(1);
+        $terms = Term::find(1);
 
         $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-inkjet', [
             'users' => $users,
-            'items' => $items
+            'items' => $items,
+            'terms' => $terms
         ]);
         return $pdf->setOption(['dpi' => 300])->stream();
     }

@@ -145,7 +145,8 @@
     </tr>
   </table>
   <div class="thanks mt-3">
-    <p>Thanks For Buying Products..!!</p>
+    <h4>Syarat & Ketentuan</h4>
+    <p>{!! $terms->description !!}</p>
   </div>
   <div class="authority float-right mt-5">
       <p>-----------------------------------</p>

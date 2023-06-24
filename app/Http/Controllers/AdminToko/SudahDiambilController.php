@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use App\Models\Term;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Worker;
 use App\Models\Capacity;
 use App\Models\Customer;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -102,10 +103,12 @@ class SudahDiambilController extends Controller
     {
         $items = ServiceTransaction::findOrFail($id);
         $users = User::find(1);
+        $terms = Term::find(2);
 
         $pdf = PDF::loadView('pages.kepalatoko.servis.notapengambilan-cetak-inkjet', [
             'users' => $users,
-            'items' => $items
+            'items' => $items,
+            'terms' => $terms
         ]);
         return $pdf->setOption(['dpi' => 300])->stream();
     }
