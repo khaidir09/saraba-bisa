@@ -8,7 +8,7 @@
     <title>Nota Pengambilan Servis #{{ $items->nomor_servis }}</title>
 	<style>
 		body {
-			color: #000000;
+			color: rgb(7, 7, 7);
 		}
 		.nama-toko {
 			font-size: 72px;
@@ -20,7 +20,7 @@
 			line-height: 1em;
 		}
 		tbody, thead {
-			color: #000000;
+			color: rgb(7, 7, 7);
 		}
 	</style>
 </head>

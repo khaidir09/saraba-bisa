@@ -8,7 +8,7 @@
 <style type="text/css">
     * {
         font-family: Verdana, Arial, sans-serif;
-        color: #000000;
+        color: rgb(7, 7, 7);
     }
     table{
         font-size: x-small;

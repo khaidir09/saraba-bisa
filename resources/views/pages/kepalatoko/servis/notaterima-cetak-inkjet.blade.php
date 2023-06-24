@@ -8,7 +8,7 @@
     <title>Tanda Terima Servis #{{ $items->nomor_servis }}</title>
 	<style>
 		body {
-			color: #000000;
+			color: rgb(7, 7, 7);
 		}
 
 		.nama-toko {
@@ -22,7 +22,7 @@
 		}
 
 		tbody, thead {
-			color: #000000;
+			color: rgb(7, 7, 7);
 		}
 	</style>
 </head>
