@@ -16,6 +16,10 @@
 			font-weight: 800;
 		}
 
+		.capital {
+			text-transform: uppercase;
+		}
+
 		table {
 			font-size: 36px;
 			line-height: 1em;
@@ -63,31 +67,31 @@
 			<tbody>
 				<tr style="border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Nama</th>
-					<td>: {{ $items->customer->nama }}</td>
+					<td class="capital">: {{ $items->customer->nama }}</td>
 					<td scope="row" style="border-left-style: solid;">Jenis Barang</th>
-					<td>: {{ $items->type->name }}</td>
+					<td class="capital">: {{ $items->type->name }}</td>
 					<td scope="row">IMEI/SN</th>
-					<td>: {{ $items->imei }}</td>
+					<td class="capital">: {{ $items->imei }}</td>
 				</tr>
 				<tr style="border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Nomor HP</th>
 					<td>: {{ $items->customer->nomor_hp }}</td>
 					<td scope="row" style="border-left-style: solid;">Merek</th>
-					<td>: {{ $items->brand->name }}</td>
+					<td class="capital">: {{ $items->brand->name }}</td>
 					<td scope="row">Kelengkapan</th>
 					@if ($items->kelengkapan != null)
-						<td>: {{ $items->kelengkapan }}</td>
+						<td class="capital">: {{ $items->kelengkapan }}</td>
 					@else
-						<td>: Hanya Unit</td>
+						<td class="capital">: Hanya Unit</td>
 					@endif
 				</tr>
 				<tr style="border-bottom-style: solid; border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Alamat</th>
-					<td>: {{ $items->customer->alamat }}</td>
+					<td class="capital">: {{ $items->customer->alamat }}</td>
 					<td scope="row" style="border-left-style: solid;">Model Seri</th>
-					<td>: {{ $items->modelserie->name }}</td>
+					<td class="capital">: {{ $items->modelserie->name }}</td>
 					<td scope="row">Warna/Kapasitas</th>
-					<td>: {{ $items->warna }} / {{ $items->capacity->name }}</td>
+					<td class="capital">: {{ $items->warna }} / {{ $items->capacity->name }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -102,10 +106,10 @@
 			<tbody>
 				<tr style="border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Kerusakan</th>
-					<td>: {{ $items->kerusakan }}</td>
+					<td class="capital">: {{ $items->kerusakan }}</td>
 					<td scope="row" style="border-left-style: solid;">Estimasi Biaya Servis</th>
 					@if ($items->estimasi_biaya != null)
-						<td>: Rp. {{ number_format($items->estimasi_biaya) }}</td>
+						<td class="capital">: Rp. {{ number_format($items->estimasi_biaya) }}</td>
 					@else
 						<td>: -</td>
 					@endif
@@ -113,19 +117,19 @@
 				</tr>
 				<tr style="border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Pengecekan Fungsi</th>
-					<td>: {{ $items->qc_masuk }}</td>
+					<td class="capital">: {{ $items->qc_masuk }}</td>
 					<td scope="row" style="border-left-style: solid;">Uang Muka</th>
 					@if ($items->uang_muka != null)
 						<td>: Rp. {{ number_format($items->uang_muka) }}</td>
 					@else
-						<td>: Tidak ada</td>
+						<td class="capital">: Tidak ada</td>
 					@endif
 					<td colspan="2" style="border-left-style: solid;"></td>
 				</tr>
 				<tr style="border-bottom-style: solid; border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Estimasi Pengerjaan</td>
 					@if ($items->estimasi_pengerjaan != null)
-						<td>: {{ $items->estimasi_pengerjaan }}</td>
+						<td class="capital">: {{ $items->estimasi_pengerjaan }}</td>
 					@else
 						<td>: -</td>
 					@endif
@@ -158,8 +162,8 @@
 						<hr style="border-top: 3px dashed;">
 					</td>
 					<td class="text-center"><img src="{{ asset('images/pola.png') }}" alt=""></td>
-					<td class="pt-5 text-center">{{ $items->customer->nama }}</td>
-					<td class="pt-5 text-center">{{ $items->penerima }}</td>
+					<td class="pt-5 text-center capital">{{ $items->customer->nama }}</td>
+					<td class="pt-5 text-center capital">{{ $items->penerima }}</td>
 				</tr>
 			</tfoot>
 		</table>
