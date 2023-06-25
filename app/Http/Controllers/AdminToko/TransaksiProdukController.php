@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use App\Models\Term;
 use App\Models\User;
 use App\Models\Order;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 
 class TransaksiProdukController extends Controller
@@ -128,6 +129,7 @@ class TransaksiProdukController extends Controller
         $total = $orderItem->sum('total');
         $subtotal = $orderItem->sum('sub_total');
         $users = User::find(1);
+        $termpenjualan = Term::find(3);
 
         $persen = 100 - $total / $subtotal * 100;
 
@@ -137,7 +139,8 @@ class TransaksiProdukController extends Controller
             'orderItem' => $orderItem,
             'total' => $total,
             'subtotal' => $subtotal,
-            'persen' => $persen
+            'persen' => $persen,
+            'termpenjualan' => $termpenjualan
         ]);
         return $pdf->setPaper('a4', 'landscape')->stream();
     }
