@@ -107,4 +107,12 @@ class User extends Authenticatable
             ->where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
+
+    public function sale()
+    {
+        $currentMonth = now()->month;
+
+        return $this->hasMany(OrderDetail::class, 'users_id', 'id')
+            ->whereMonth('created_at', $currentMonth);
+    }
 }

@@ -6,7 +6,7 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         
         <!-- Welcome banner -->
-        <x-dashboard.welcome-banner :totalomzet="$totalomzet" :totalprofitutuh="$totalprofitutuh"/>
+        <x-dashboard.welcome-banner :haritotalomzet="$haritotalomzet" :haritotalprofitkotor="$haritotalprofitkotor"/>
 
         <!-- Banner -->
         <div class="mb-6">
@@ -62,7 +62,7 @@
 
         <div class="grid grid-cols-12 gap-6">
             <!-- Card Keuangan -->
-            <x-kepalatoko.keuangan-card :totalprofit="$totalprofit" :totalprofitkotor="$totalprofitkotor" :pengeluaran="$pengeluaran" :totalpengeluaran="$totalpengeluaran"/>
+            <x-kepalatoko.keuangan-card :bulantotalprofitbersih="$bulantotalprofitbersih" :bulantotalprofitkotor="$bulantotalprofitkotor" :pengeluaran="$pengeluaran" :totalpengeluaran="$totalpengeluaran"/>
 
             {{-- Progres --}}
             <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">
@@ -73,7 +73,7 @@
                     <!-- Circle -->
                     @php
                         $circumference = 30 * 2 * pi();
-                        $percent = round(($totalprofit / $totalbudgets) * 100);
+                        $percent = round(($bulantotalprofitbersih / $totalbudgets) * 100);
                     @endphp
                     <div class="inline-flex items-center justify-center overflow-hidden rounded-full">
                         <svg class="w-20 h-20">
@@ -101,11 +101,11 @@
                         </svg>
                         <span class="absolute text-xl text-blue-700">{{ $percent }}%</span>
                     </div>
-                    <div class="text-xl font-bold text-slate-800 text-center">Rp. {{ number_format($totalprofit) }} / Rp. {{ number_format($totalbudgets) }}</div>
-                    @if ($totalprofit < $totalbudgets)
-                        <p class="text-center mt-2 text-sm font-semibold text-blue-700">Tingkatkan profit hingga <span class="text-red-600">Rp. {{ number_format($totalbudgets - $totalprofit) }}</span> lagi!</p>
+                    <div class="text-xl font-bold text-slate-800 text-center">Rp. {{ number_format($bulantotalprofitbersih) }} / Rp. {{ number_format($totalbudgets) }}</div>
+                    @if ($bulantotalprofitbersih < $totalbudgets)
+                        <p class="text-center mt-2 text-sm font-semibold text-blue-700">Tingkatkan profit hingga <span class="text-red-600">Rp. {{ number_format($totalbudgets - $bulantotalprofitbersih) }}</span> lagi!</p>
                     @else
-                        <p class="text-center mt-2 text-sm font-semibold text-blue-700">Selamat kamu sudah <span class="text-green-600">BERHASIL</span> mencapai target! Profit toko sekarang lebih Rp. {{ number_format($totalprofit - $totalbudgets) }} dari target 👏🏻</p>
+                        <p class="text-center mt-2 text-sm font-semibold text-blue-700">Selamat kamu sudah <span class="text-green-600">BERHASIL</span> mencapai target! Profit toko sekarang lebih Rp. {{ number_format($bulantotalprofitbersih - $totalbudgets) }} dari target 👏🏻</p>
                     @endif
                 </div>
             </div>
@@ -122,7 +122,7 @@
                                 <div class="absolute w-1.5 h-1.5 rounded-full bg-green-500"></div>
                             </div>
                             <div>
-                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. {{ number_format($totalbiayaservis) }}</div>
+                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. {{ number_format($bulanprofitbersihservis) }}</div>
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                                 <div class="absolute w-1.5 h-1.5 rounded-full bg-blue-500"></div>
                             </div>
                             <div>
-                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. {{ number_format($totalpenjualan) }}</div>
+                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. {{ number_format($bulanprofitbersihpenjualan) }}</div>
                             </div>
                         </div>
                     </div>
@@ -195,7 +195,7 @@
                                             </td>
                                             <td class="py-2">
                                                 <div class="font-medium text-right text-slate-800">
-                                                    Rp. {{ number_format($item->order->sum('profit')) }}
+                                                    Rp. {{ number_format($item->order->sum('profit_toko')) }}
                                                 </div>
                                             </td>
                                         </tr>

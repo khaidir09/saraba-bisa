@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
-use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Budget;
-use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\AccessoryTransaction;
 use App\Models\Category;
 use App\Models\Debt;
 use App\Models\Expense;
 use App\Models\OrderDetail;
-use App\Models\SparepartTransaction;
 use App\Models\Type;
 
 class DashboardController extends Controller
@@ -37,6 +32,7 @@ class DashboardController extends Controller
         $totalpengeluaran = Expense::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->sum('price');
+
         $approveservis = ServiceTransaction::where('is_approve', null)
             ->where('status_servis', 'Sudah Diambil')
             ->count();
@@ -44,57 +40,61 @@ class DashboardController extends Controller
         $approvepengeluaran = Expense::where('is_approve', null)->count();
 
         $totalbudgets = Budget::all()->sum('total');
-        $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
+
+        $bulanprofitbersihservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
-        $totalpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
+        $bulanprofitbersihpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('profit_toko');
+
+        $bulantotalprofitbersih = ($bulanprofitbersihservis + $bulanprofitbersihpenjualan);
+
+        $bulanprofitkotorservis = ServiceTransaction::where('is_approve', 'Setuju')
+        ->whereMonth('tgl_disetujui', $currentMonth)
+            ->get()
+            ->sum('profit');
+        $bulanprofitkotorpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
 
-        $totalprofitbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
+        $bulantotalprofitkotor = ($bulanprofitkotorservis + $bulanprofitkotorpenjualan);
 
-        $totalprofit = ($totalbiayaservis + $totalpenjualan);
-
-        $totalprofitkotor = ($totalprofitbiayaservis + $totalpenjualan);
-
-        $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $hariomzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('omzet');
-        $omzetpenjualan = OrderDetail::whereDate('created_at', today())
+        $hariomzetpenjualan = OrderDetail::whereDate('created_at', today())
             ->get()
             ->sum('total');
-        $totalomzet = $omzetservis + $omzetpenjualan;
+        $haritotalomzet = $hariomzetservis + $hariomzetpenjualan;
 
-        $profitservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $hariprofitkotorservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('profit');
-        $profitpenjualan = OrderDetail::whereDate('created_at', today())
+        $hariprofitkotorpenjualan = OrderDetail::whereDate('created_at', today())
             ->get()
             ->sum('profit');
 
-        $totalprofitutuh = $profitservis + $profitpenjualan;
+        $haritotalprofitkotor = $hariprofitkotorservis + $hariprofitkotorpenjualan;
 
         return view('pages/kepalatoko/dashboard', compact(
+            'types',
+            'categories',
+            'pengeluaran',
+            'totalpengeluaran',
             'approveservis',
             'approvekasbon',
             'approvepengeluaran',
-            'types',
-            'categories',
-            'totalbiayaservis',
             'totalbudgets',
-            'totalprofit',
-            'totalpenjualan',
-            'totalomzet',
-            'totalprofitutuh',
-            'totalpengeluaran',
-            'totalprofitkotor',
-            'pengeluaran'
+            'haritotalomzet',
+            'haritotalprofitkotor',
+            'bulantotalprofitbersih',
+            'bulantotalprofitkotor',
+            'bulanprofitbersihservis',
+            'bulanprofitbersihpenjualan'
         ));
     }
 }

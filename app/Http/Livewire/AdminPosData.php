@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Product;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,8 +28,10 @@ class AdminPosData extends Component
 
     public function render()
     {
+        $sales = User::where('role', 'Sales')->get();
         $products_count = Product::all()->count();
         return view('livewire.admin-pos-data', [
+            'sales' => $sales,
             'products_count' => $products_count,
             'products' => $this->search === null ?
                 Product::latest()->where('stok', '>=', '1')->simplePaginate($this->paginate) :

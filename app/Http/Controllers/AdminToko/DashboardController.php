@@ -2,21 +2,13 @@
 
 namespace App\Http\Controllers\AdminToko;
 
-use Carbon\Carbon;
 use App\Models\Type;
-use App\Models\User;
 use App\Models\Budget;
 use App\Models\Category;
-use App\Models\DataFeed;
 use App\Models\OrderDetail;
-use Illuminate\Http\Request;
-use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\AccessoryTransaction;
-use App\Models\SparepartTransaction;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -48,7 +40,7 @@ class DashboardController extends Controller
             ->sum('profittoko');
         $totalpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
-            ->sum('profit');
+            ->sum('profit_toko');
 
         $totalprofit = $totalbiayaservis + $totalpenjualan;
 
@@ -57,6 +49,7 @@ class DashboardController extends Controller
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
+            'totalpenjualan',
             'totalbonus',
             'categories'
         ));
