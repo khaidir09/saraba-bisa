@@ -292,9 +292,9 @@
                                 <input type="hidden" name="id" value="{{ $item->id }}">
                                 <input type="hidden" name="name" value="{{ $item->product_name }}">
                                 <input type="hidden" name="modal" value="{{ $item->harga_modal }}">
-                                <input type="hidden" name="harga_asli" value="{{ $item->harga_pelanggan }}">
+                                <input type="hidden" name="harga_asli" value="{{ $item->harga_jual }}">
                                 <input type="hidden" name="qty" value="1">
-                                <input type="hidden" name="price" value="{{ $item->harga_pelanggan }}">
+                                <input type="hidden" name="price" value="{{ $item->harga_jual }}">
                                 
                                 <tr>    
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
