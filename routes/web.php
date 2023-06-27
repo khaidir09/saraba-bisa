@@ -86,6 +86,13 @@ use App\Http\Controllers\Teknisi\ProdukController as TeknisiProdukController;
 use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
 use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
 use App\Http\Controllers\Sales\ExpenseController as SalesExpenseController;
+use App\Http\Controllers\Sales\KategoriController as SalesKategoriController;
+use App\Http\Controllers\Sales\ProdukController as SalesProdukController;
+use App\Http\Controllers\Sales\PosController as SalesPosController;
+use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProdukController;
+use App\Http\Controllers\Sales\TransaksiProdukPaidController as SalesTransaksiProdukPaidController;
+use App\Http\Controllers\Sales\TransaksiProdukDueController as SalesTransaksiProdukDueController;
+use App\Http\Controllers\Sales\LaporanPenjualanController as SalesLaporanPenjualanController;
 
 
 /*
@@ -288,6 +295,33 @@ Route::middleware('ensureSalesRole:Sales')->group(
         Route::get('/sales-dashboard', [SalesDashboardController::class, 'index'])->name('sales-dashboard');
         Route::resource('sales-pelanggan', SalesPelangganController::class);
         Route::resource('sales-pengeluaran', SalesExpenseController::class);
+
+        Route::resource('produk/sales-kategori', SalesKategoriController::class);
+        Route::resource('produk/sales-item', SalesProdukController::class);
+        Route::resource('produk/sales-pos', SalesPosController::class);
+        Route::resource('produk/sales-transaksi-produk', SalesTransaksiProdukController::class);
+        Route::resource('produk/sales-transaksi-produk-paid', SalesTransaksiProdukPaidController::class);
+        Route::resource('produk/sales-transaksi-produk-due', SalesTransaksiProdukDueController::class);
+
+        Route::get('/order/due/{id}', [SalesTransaksiProdukController::class, 'OrderDueAjax']);
+        Route::post('produk/sales-update-due', [SalesTransaksiProdukController::class, 'UpdateDue'])->name('sales-produk.updateDue');
+
+        Route::get('produk/sales-pos', [SalesPosController::class, 'index'])->name('sales-pos');
+        Route::get('produk/sales-allitem', [SalesPosController::class, 'AllItem']);
+        Route::post('produk/sales-add-cart', [SalesPosController::class, 'AddCart']);
+        Route::post('produk/sales-cart-update/{rowId}', [SalesPosController::class, 'CartUpdate']);
+        Route::post('produk/sales-apply-discount', [SalesPosController::class, 'ApplyDiscount'])->name('sales-produk.applyDiscount');
+        Route::get('produk/sales-cart-remove/{rowId}', [SalesPosController::class, 'CartRemove']);
+        Route::post('produk/sales-create-invoice', [SalesPosController::class, 'CreateInvoice']);
+        Route::post('produk/sales-complete-order', [SalesPosController::class, 'CompleteOrder']);
+
+        Route::get('sales-transaksi-produk-inkjet/{orders_id}', [SalesTransaksiProdukController::class, 'cetakinkjet'])->name('sales-lunas-cetak-inkjet');
+        Route::get('sales-transaksi-produk-termal/{orders_id}', [SalesTransaksiProdukController::class, 'cetaktermal'])->name('sales-cetak-termal-produk');
+
+        Route::post('/sales-import-produk', [SalesProdukController::class, 'import'])->name('sales-import-produk');
+        Route::get('sales-export-produk', [SalesProdukController::class, 'export'])->name('sales-produk-export');
+
+        Route::get('sales-laporan-penjualan', [SalesLaporanPenjualanController::class, 'index'])->name('sales-laporan-penjualan');
     }
 );
 
