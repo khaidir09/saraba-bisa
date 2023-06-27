@@ -38,7 +38,7 @@
                             <li class="flex items-center py-3 border-b border-slate-200">
                                 <div class="grow">
                                     <a href="#0">
-                                        <h4 class="text-sm font-medium text-slate-800 leading-tight">{{ $item->product->product_name }} (Rp. {{ number_format($item->product->harga_pelanggan) }} x {{ $item->quantity }}
+                                        <h4 class="text-sm font-medium text-slate-800 leading-tight">{{ $item->product->product_name }} (Rp. {{ number_format($item->product->harga_jual) }} x {{ $item->quantity }}
                                             @if ($item->quantity == 1)
                                                 pc
                                             @else
@@ -47,7 +47,7 @@
                                         </h4>
                                     </a>
                                 </div>
-                                <div class="text-sm font-medium text-slate-800 ml-6">Rp. {{ number_format($item->product->harga_pelanggan * $item->quantity) }}</div>
+                                <div class="text-sm font-medium text-slate-800 ml-6">Rp. {{ number_format($item->product->harga_jual * $item->quantity) }}</div>
                             </li>
                         @endforeach
                     </ul>

@@ -120,9 +120,9 @@
           {{ ++$i }}
         </td>
         <td align="center">{{ $item->product->product_name }}</td>
-        <td align="center">Rp. {{ number_format($item->product->harga_pelanggan) }}</td>
+        <td align="center">Rp. {{ number_format($item->product->harga_jual) }}</td>
         <td align="center">{{ $item->quantity }}</td>
-        <td align="center">Rp. {{ number_format($item->product->harga_pelanggan * $item->quantity) }}</td>
+        <td align="center">Rp. {{ number_format($item->product->harga_jual * $item->quantity) }}</td>
         @if ($item->sub_total === $item->total)
             <td align="center">Rp. 0</td>
         @else

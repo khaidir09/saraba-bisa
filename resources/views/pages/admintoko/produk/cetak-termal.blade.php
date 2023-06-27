@@ -78,7 +78,7 @@
               <td colspan="3">{{ $item->product_name }} {{ $item->product->nomor_seri }} {{ $item->product->keterangan }}</td>
               </tr>
               <tr>
-                <td> {{ number_format($item->product->harga_pelanggan) }}</td>
+                <td> {{ number_format($item->product->harga_jual) }}</td>
                 <td>X {{ $item->quantity }}</td>
                 <td>= {{ number_format($item->sub_total) }}</td>                
               </tr>

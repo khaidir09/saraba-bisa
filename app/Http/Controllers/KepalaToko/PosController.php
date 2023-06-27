@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\KepalaToko;
 
 use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Category;
-use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\OrderDetail;
