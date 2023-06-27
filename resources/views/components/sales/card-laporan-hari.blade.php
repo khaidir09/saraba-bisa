@@ -8,14 +8,14 @@
         </header>
         <div class="flex justify-between">
             <div>
-                <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Jumlah Penjualan</div>
+                <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Jumlah Produk</div>
                 <div class="text-2xl font-bold text-blue-500">{{ $penjualanhari }}</div>
             </div>
             <div>
                 <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Bonus</div>
                 <div class="text-2xl font-bold text-emerald-500">
                     @php
-                        $bonus = $profithari/100;
+                        $bonus = $bonushari/100;
                         $bonus *= Auth::user()->persen;
                     @endphp
                     Rp. {{ number_format($bonus) }}    

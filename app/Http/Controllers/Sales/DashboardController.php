@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers\Sales;
 
-use Carbon\Carbon;
 use App\Models\Budget;
-use App\Models\DataFeed;
-use Illuminate\Http\Request;
-use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\AccessoryTransaction;
-use App\Models\SparepartTransaction;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -31,10 +25,18 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
+        $totalpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('profit_toko');
 
-        $totalprofit = $totalbiayaservis;
+        $bonusbulan = OrderDetail::where('users_id', Auth::user()->id)->whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('profit');
+
+        $totalprofit = $totalbiayaservis + $totalpenjualan;
 
         return view('pages/sales/dashboard', compact(
+            'bonusbulan',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit'
