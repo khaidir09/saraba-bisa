@@ -31,8 +31,8 @@ class AdminPosData extends Component
         return view('livewire.admin-pos-data', [
             'products_count' => $products_count,
             'products' => $this->search === null ?
-                Product::latest()->where('stok', '>=', '1')->paginate($this->paginate) :
-                Product::latest()->where('stok', '>=', '1')->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Product::latest()->where('stok', '>=', '1')->simplePaginate($this->paginate) :
+                Product::latest()->where('stok', '>=', '1')->where('product_name', 'like', '%' . $this->search . '%')->simplePaginate($this->paginate)
         ]);
     }
 }

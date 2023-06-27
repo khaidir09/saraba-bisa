@@ -49,8 +49,7 @@ class ProdukController extends Controller
             'category_name' => $namakategori->category_name,
             'stok' => $request->stok,
             'harga_modal' => $request->harga_modal,
-            'harga_toko' => $request->harga_toko,
-            'harga_pelanggan' => $request->harga_pelanggan,
+            'harga_jual' => $request->harga_jual,
             'supplier' => $request->supplier,
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri
@@ -120,8 +119,7 @@ class ProdukController extends Controller
             'category_name' => $namakategori->category_name,
             'stok' => $request->stok,
             'harga_modal' => $request->harga_modal,
-            'harga_toko' => $request->harga_toko,
-            'harga_pelanggan' => $request->harga_pelanggan,
+            'harga_jual' => $request->harga_jual,
             'supplier' => $request->supplier,
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri

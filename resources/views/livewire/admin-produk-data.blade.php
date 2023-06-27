@@ -106,18 +106,9 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_toko">Harga Toko <span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="harga_jual">Harga Jual <span class="text-rose-500">*</span></label>
                                         <div class="relative">
-                                            <input id="harga_toko" name="harga_toko" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
-                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_pelanggan">Harga Pelanggan <span class="text-rose-500">*</span></label>
-                                        <div class="relative">
-                                            <input id="harga_pelanggan" name="harga_pelanggan" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                            <input id="harga_jual" name="harga_jual" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
                                                 <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
                                             </div>

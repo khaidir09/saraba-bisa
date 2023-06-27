@@ -29,8 +29,7 @@ class ProdukExport implements FromCollection, WithMapping, WithHeadings, ShouldA
             $serviceaction->categories_id,
             $serviceaction->stok,
             $serviceaction->harga_modal,
-            $serviceaction->harga_pelanggan,
-            $serviceaction->harga_toko,
+            $serviceaction->harga_jual,
             $serviceaction->supplier,
             $serviceaction->keterangan,
         ];
@@ -45,8 +44,7 @@ class ProdukExport implements FromCollection, WithMapping, WithHeadings, ShouldA
             'ID Kategori',
             'Stok',
             'Harga Modal',
-            'Harga Pelanggan',
-            'Harga Toko',
+            'Harga Jual',
             'Agen',
             'Keterangan',
         ];
