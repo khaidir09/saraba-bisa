@@ -14,26 +14,26 @@ class LaporanPenjualanController extends Controller
         $currentMonth = now()->month;
         $currentYear = now()->year;
 
-        $product_transactions = OrderDetail::with('product')->get();
+        $product_transactions = OrderDetail::with('product', 'user')->get();
         $count = OrderDetail::all()->count();
         $omzethari = OrderDetail::whereDate('created_at', today())
             ->get()
             ->sum('total');
         $profithari = OrderDetail::whereDate('created_at', today())
             ->get()
-            ->sum('profit');
+            ->sum('profit_toko');
         $omzetbulan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('total');
         $profitbulan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
-            ->sum('profit');
+            ->sum('profit_toko');
         $omzettahun = OrderDetail::whereYear('created_at', $currentYear)
             ->get()
             ->sum('total');
         $profittahun = OrderDetail::whereYear('created_at', $currentYear)
             ->get()
-            ->sum('profit');
+            ->sum('profit_toko');
         return view('pages/kepalatoko/laporan-penjualan', compact('product_transactions', 'count', 'omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));
     }
 }

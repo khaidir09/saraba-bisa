@@ -11,7 +11,7 @@ class LaporanSalesController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 'Sales')->get();
+        $users = User::with('sale')->where('role', 'Sales')->get();
 
 
         return view('pages/kepalatoko/laporan-sales', compact('users'));

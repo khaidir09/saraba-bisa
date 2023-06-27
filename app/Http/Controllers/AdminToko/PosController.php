@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\AdminToko;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\OrderDetail;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class PosController extends Controller
@@ -109,6 +110,8 @@ class PosController extends Controller
         $orders_id = Order::insertGetId($data);
         $contents = Cart::content();
 
+        $persen_sales = User::find($request->users_id);
+
         $pdata = array();
         foreach ($contents as $content) {
             $pdata['orders_id'] = $orders_id;
@@ -120,10 +123,13 @@ class PosController extends Controller
             $pdata['sub_total'] = $content->options->harga_asli * $content->qty;
             $pdata['modal'] = $content->options->modal * $content->qty;
             $pdata['profit'] = $content->total - ($content->options->modal * $content->qty);
+            $pdata['profit_toko'] = ($content->total - ($content->options->modal * $content->qty)) - ($content->total - ($content->options->modal * $content->qty)) / 100 * $persen_sales->persen;
+            $pdata['users_id'] = $request->users_id;
+            $pdata['persen_sales'] = $persen_sales->persen;
             $pdata['created_at'] = Carbon::now();
             $pdata['updated_at'] = Carbon::now();
 
-            $insert = OrderDetail::insert($pdata);
+            OrderDetail::insert($pdata);
         } // end foreach
 
         // make stock management

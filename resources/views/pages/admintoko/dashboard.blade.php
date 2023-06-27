@@ -117,7 +117,7 @@
                                 <div class="absolute w-1.5 h-1.5 rounded-full bg-blue-500"></div>
                             </div>
                             <div>
-                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. </div>
+                                <div class="text-xl font-bold text-slate-800 mr-2">Rp. {{ number_format($totalpenjualan) }}</div>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                                             </td>
                                             <td class="py-2">
                                                 <div class="font-medium text-right text-slate-800">
-                                                    Rp. {{ number_format($item->order->sum('profit')) }}
+                                                    Rp. {{ number_format($item->order->sum('profit_toko')) }}
                                                 </div>
                                             </td>
                                         </tr>

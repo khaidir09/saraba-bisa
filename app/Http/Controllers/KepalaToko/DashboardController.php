@@ -42,59 +42,61 @@ class DashboardController extends Controller
             ->count();
         $approvekasbon = Debt::where('is_approve', null)->count();
         $approvepengeluaran = Expense::where('is_approve', null)->count();
-
         $totalbudgets = Budget::all()->sum('total');
-        $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
+
+        $bulanprofitbersihservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
-        $totalpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
+        $bulanprofitbersihpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
-            ->sum('profit');
+            ->sum('profit_toko');
 
-        $totalprofitbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
+        $bulantotalprofitbersih = ($bulanprofitbersihservis + $bulanprofitbersihpenjualan);
+
+        $bulanprofitkotorservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
+        $bulanprofitkotorpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('profit');
 
-        $totalprofit = ($totalbiayaservis + $totalpenjualan);
+        $bulantotalprofitkotor = ($bulanprofitkotorservis + $bulanprofitkotorpenjualan);
 
-        $totalprofitkotor = ($totalprofitbiayaservis + $totalpenjualan);
-
-        $omzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $hariomzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('omzet');
-        $omzetpenjualan = OrderDetail::whereDate('created_at', today())
+        $hariomzetpenjualan = OrderDetail::whereDate('created_at', today())
             ->get()
             ->sum('total');
-        $totalomzet = $omzetservis + $omzetpenjualan;
+        $haritotalomzet = ($hariomzetservis + $hariomzetpenjualan);
 
-        $profitservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $hariprofitkotorservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('profit');
-        $profitpenjualan = OrderDetail::whereDate('created_at', today())
+        $hariprofitkotorpenjualan = OrderDetail::whereDate('created_at', today())
             ->get()
             ->sum('profit');
-
-        $totalprofitutuh = $profitservis + $profitpenjualan;
+        $haritotalprofitkotor = $hariprofitkotorservis + $hariprofitkotorpenjualan;
 
         return view('pages/kepalatoko/dashboard', compact(
+            'types',
+            'categories',
+            'totalpengeluaran',
+            'pengeluaran',
             'approveservis',
             'approvekasbon',
             'approvepengeluaran',
-            'types',
-            'categories',
-            'totalbiayaservis',
             'totalbudgets',
-            'totalprofit',
-            'totalpenjualan',
-            'totalomzet',
-            'totalprofitutuh',
-            'totalpengeluaran',
-            'totalprofitkotor',
-            'pengeluaran'
+            'haritotalomzet',
+            'haritotalprofitkotor',
+            'bulantotalprofitbersih',
+            'bulantotalprofitkotor',
+            'bulanprofitbersihservis',
+            'bulanprofitbersihpenjualan'
         ));
     }
 }
