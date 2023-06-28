@@ -280,7 +280,7 @@
         function orderDue(id) {
             $.ajax({
                 type: 'GET',
-                url: '/order/due/'+id,
+                url: '/admin-order/due/'+id,
                 dataType: 'json',
                 success:function(data){
                     // console.log(data)
