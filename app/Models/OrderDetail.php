@@ -17,6 +17,8 @@ class OrderDetail extends Model
         'sub_total',
         'modal',
         'profit',
+        'profit_toko',
+        'persen_sales',
         'created_at',
         'updated_at',
         'product_name'
@@ -25,5 +27,10 @@ class OrderDetail extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'products_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
 }

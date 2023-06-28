@@ -19,8 +19,7 @@ class ProdukImport implements ToModel, WithHeadingRow, WithBatchInserts, WithUps
             'categories_id'    => $row['ID Kategori'],
             'stok'    => $row['Stok'],
             'harga_modal'    => $row['Harga Modal'],
-            'harga_pelanggan'    => $row['Harga Pelanggan'],
-            'harga_toko'    => $row['Harga Toko'],
+            'harga_jual'    => $row['Harga Jual'],
             'supplier'    => $row['Agen'],
             'keterangan'    => $row['Keterangan'],
         ]);

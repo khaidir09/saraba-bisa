@@ -1,5 +1,5 @@
 @section('title')
-    Laporan Transaksi Produk
+    Laporan Penjualan
 @endsection
 
 <x-toko-layout>

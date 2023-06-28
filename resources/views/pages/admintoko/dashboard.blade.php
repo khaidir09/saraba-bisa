@@ -135,30 +135,18 @@
                                 </tr>
                                 </thead>
                                 <tbody class="text-sm divide-y divide-slate-100">
-                                <tr>
-                                    <td class="py-2">
-                                        <div class="text-left">Aksesori</div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. {{ number_format($totalaksesoris) }}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2">
-                                        <div class="text-left">Handphone</div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. {{ number_format($totalhandphone) }}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2">
-                                        <div class="text-left">Sparepart</div>
-                                    </td>
-                                    <td class="py-2">
-                                        <div class="font-medium text-right text-slate-800">Rp. {{ number_format($totalsparepart) }}</div>
-                                    </td>
-                                </tr>
+                                    @foreach ($categories as $item)
+                                        <tr>
+                                            <td class="py-2">
+                                                <div class="text-left uppercase">{{ $item->category_name }}</div>
+                                            </td>
+                                            <td class="py-2">
+                                                <div class="font-medium text-right text-slate-800">
+                                                    Rp. {{ number_format($item->order->sum('profit_toko')) }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

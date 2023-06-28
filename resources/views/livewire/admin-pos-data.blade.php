@@ -159,7 +159,6 @@
 
                 <form action="{{ url('/produk/admin-complete-order') }}" method="post">
                     @csrf
-                    <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="order_date" value="{{ \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y') }}">
                     <input type="hidden" name="total_products" value="{{ Cart::count() }}">
                     <input type="hidden" name="sub_total" value="{{ Cart::subtotal() }}">
@@ -217,6 +216,14 @@
                                     </div>
                                     <div class="px-5 py-4">
                                         <div class="space-y-3">
+                                            <div>
+                                                <label class="block text-sm font-medium mb-1" for="users_id">Sales</label>
+                                                <select id="users_id" name="users_id" class="form-select text-sm py-2 w-full">
+                                                    @foreach ($sales as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                             <div>
                                                 <label class="block text-sm font-medium mb-1" for="payment_method">Metode Pembayaran</label>
                                                 <select id="payment_method" name="payment_method" class="form-select text-sm py-2 w-full">
@@ -292,9 +299,9 @@
                                 <input type="hidden" name="id" value="{{ $item->id }}">
                                 <input type="hidden" name="name" value="{{ $item->product_name }}">
                                 <input type="hidden" name="modal" value="{{ $item->harga_modal }}">
-                                <input type="hidden" name="harga_asli" value="{{ $item->harga_pelanggan }}">
+                                <input type="hidden" name="harga_asli" value="{{ $item->harga_jual }}">
                                 <input type="hidden" name="qty" value="1">
-                                <input type="hidden" name="price" value="{{ $item->harga_pelanggan }}">
+                                <input type="hidden" name="price" value="{{ $item->harga_jual }}">
                                 
                                 <tr>    
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -331,11 +338,10 @@
                     </table>
                 </div>
             </div>
+            <!-- Pagination -->
+            <div class="mt-8">
+                {{ $products->links() }}
+            </div>
         </div>
-    </div>
-    
-    <!-- Pagination -->
-    <div class="mt-8">
-        {{ $products->links() }}
     </div>
 </div>

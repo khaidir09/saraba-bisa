@@ -88,33 +88,6 @@ class User extends Authenticatable
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
 
-    public function spareparttransaction()
-    {
-        $currentMonth = now()->month;
-
-        return $this->hasMany(SparepartTransaction::class, 'users_id', 'id')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth);
-    }
-
-    public function accessorytransaction()
-    {
-        $currentMonth = now()->month;
-
-        return $this->hasMany(AccessoryTransaction::class, 'users_id', 'id')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth);
-    }
-
-    public function phonetransaction()
-    {
-        $currentMonth = now()->month;
-
-        return $this->hasMany(PhoneTransaction::class, 'users_id', 'id')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth);
-    }
-
     public function assembly()
     {
         $currentMonth = now()->month;
@@ -122,5 +95,13 @@ class User extends Authenticatable
         return $this->hasMany(Assembly::class, 'users_id', 'id')
             ->where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth);
+    }
+
+    public function sale()
+    {
+        $currentMonth = now()->month;
+
+        return $this->hasMany(OrderDetail::class, 'users_id', 'id')
+        ->whereMonth('created_at', $currentMonth);
     }
 }

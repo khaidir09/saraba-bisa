@@ -4,14 +4,15 @@ namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\User;
 use App\Models\Salary;
+use App\Models\Worker;
 use App\Models\WorkerUser;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\AccessoryTransaction;
 use App\Models\SparepartTransaction;
-use App\Models\Worker;
 
 class GajiController extends Controller
 {
@@ -51,21 +52,7 @@ class GajiController extends Controller
             ->get()
             ->sum('profit');
 
-        $profitsparepart = SparepartTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
-
-        $profitaksesoris = AccessoryTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
-
-        $profithandphone = PhoneTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
+        $profitpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
 
@@ -75,10 +62,10 @@ class GajiController extends Controller
             $hasil *= $user->persen;
             $bonus = $hasil + $user->assembly->sum('biaya');
         } elseif ($user->role === 'Sales') {
-            $bonus = ($user->phonetransaction->sum('profit') + $user->spareparttransaction->sum('profit') + $user->accessorytransaction->sum('profit')) / 100;
+            $bonus = $user->sale->sum('profit') / 100;
             $bonus *= $user->persen;
         } else {
-            $bonus = ($biayaservis + $profitsparepart + $profitaksesoris + $profithandphone) / 100;
+            $bonus = ($biayaservis + $profitpenjualan) / 100;
             $bonus *= $user->persen;
         }
 

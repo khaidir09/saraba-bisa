@@ -40,9 +40,20 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        Product::create($data);
+        $namakategori = Category::find($request->categories_id);
+        // Create product
+        Product::create([
+            'product_name' => $request->product_name,
+            'product_code' => $request->product_code,
+            'categories_id' => $request->categories_id,
+            'category_name' => $namakategori->category_name,
+            'stok' => $request->stok,
+            'harga_modal' => $request->harga_modal,
+            'harga_jual' => $request->harga_jual,
+            'supplier' => $request->supplier,
+            'keterangan' => $request->keterangan,
+            'nomor_seri' => $request->nomor_seri
+        ]);
 
         return redirect()->route('admin-item.index');
     }
@@ -98,11 +109,21 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
         $item = Product::findOrFail($id);
-
-        $item->update($data);
+        $namakategori = Category::find($request->categories_id);
+        // Create product
+        $item->update([
+            'product_name' => $request->product_name,
+            'product_code' => $request->product_code,
+            'categories_id' => $request->categories_id,
+            'category_name' => $namakategori->category_name,
+            'stok' => $request->stok,
+            'harga_modal' => $request->harga_modal,
+            'harga_jual' => $request->harga_jual,
+            'supplier' => $request->supplier,
+            'keterangan' => $request->keterangan,
+            'nomor_seri' => $request->nomor_seri
+        ]);
 
         return redirect()->route('admin-item.index');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sales;
 use Carbon\Carbon;
 use App\Models\Budget;
 use App\Models\DataFeed;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
@@ -26,55 +27,26 @@ class DashboardController extends Controller
     {
         $currentMonth = now()->month;
 
-        $profitsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $bonussparepart = ($profitsparepart / 100) * Auth::user()->persen;
-        $profitaksesori = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $bonusaksesori = ($profitaksesori / 100) * Auth::user()->persen;
-        $profithandphone = PhoneTransaction::where('is_approve', 'Setuju')
-            ->where('users_id', Auth::user()->id)
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $bonushandphone = ($profithandphone / 100) * Auth::user()->persen;
-        $totalbonus = $bonussparepart + $bonusaksesori + $bonushandphone;
-
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
-        $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
+        $totalpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
-            ->sum('profittoko');
-        $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
+            ->sum('profit_toko');
+
+        $bonusbulan = OrderDetail::where('users_id', Auth::user()->id)->whereMonth('created_at', $currentMonth)
             ->get()
-            ->sum('profittoko');
-        $totalhandphone = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profittoko');
-        $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
-        $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
+            ->sum('profit');
+
+        $totalprofit = $totalbiayaservis + $totalpenjualan;
 
         return view('pages/sales/dashboard', compact(
+            'bonusbulan',
             'totalbiayaservis',
             'totalbudgets',
-            'totalprofit',
-            'totalpenjualan',
-            'totalsparepart',
-            'totalaksesoris',
-            'totalhandphone',
-            'totalbonus'
+            'totalprofit'
         ));
     }
 }

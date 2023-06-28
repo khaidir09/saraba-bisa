@@ -8,13 +8,10 @@ use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
 // Kepala Toko
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Sales\PhoneController as SalesPhoneController;
 use App\Http\Controllers\KepalaToko\AkunController as KepalaTokoAkunController;
 use App\Http\Controllers\KepalaToko\GajiController as KepalaTokoGajiController;
-use App\Http\Controllers\Sales\AksesorisController as SalesAksesorisController;
 use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
 use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
-use App\Http\Controllers\Sales\SparepartController as SalesSparepartController;
 use App\Http\Controllers\AdminToko\KasbonController as AdminTokoKasbonController;
 use App\Http\Controllers\Teknisi\AssemblyController as TeknisiAssemblyController;
 use App\Http\Controllers\AdminToko\InsidenController as AdminTokoInsidenController;
@@ -23,7 +20,6 @@ use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganControll
 use App\Http\Controllers\AdminToko\AssemblyController as AdminTokoAssemblyController;
 use App\Http\Controllers\KepalaToko\ApproveController as KepalaTokoApproveController;
 use App\Http\Controllers\KepalaToko\InsidenController as KepalaTokoInsidenController;
-use App\Http\Controllers\Sales\PhoneTerjualController as SalesPhoneTerjualController;
 use App\Http\Controllers\AdminToko\DashboardController as AdminTokoDashboardController;
 use App\Http\Controllers\AdminToko\PelangganController as AdminTokoPelangganController;
 use App\Http\Controllers\KepalaToko\AnggaranController as KepalaTokoAnggaranController;
@@ -54,9 +50,6 @@ use App\Http\Controllers\KepalaToko\TermController as KepalaTokoTermController;
 // Admin Toko
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
-use App\Http\Controllers\Sales\LaporanAksesorisController as SalesLaporanAksesorisController;
-use App\Http\Controllers\Sales\LaporanHandphoneController as SalesLaporanHandphoneController;
-use App\Http\Controllers\Sales\LaporanSparepartController as SalesLaporanSparepartController;
 use App\Http\Controllers\Teknisi\LaporanTeknisiController as TeknisiLaporanTeknisiController;
 use App\Http\Controllers\Teknisi\TindakanServisController as TeknisiTindakanServisController;
 use App\Http\Controllers\KepalaToko\LaporanAdminController as KepalaTokoLaporanAdminController;
@@ -68,9 +61,6 @@ use App\Http\Controllers\Teknisi\UbahBisaDiambilController as TeknisiUbahBisaDia
 use App\Http\Controllers\AdminToko\TindakanServisController as AdminTokoTindakanServisController;
 use App\Http\Controllers\KepalaToko\InformasiTokoController as KepalaTokoInformasiTokoController;
 use App\Http\Controllers\KepalaToko\LaporanServisController as KepalaTokoLaporanServisController;
-use App\Http\Controllers\Sales\TransaksiAksesorisController as SalesTransaksiAksesorisController;
-use App\Http\Controllers\Sales\TransaksiHandphoneController as SalesTransaksiHandphoneController;
-use App\Http\Controllers\Sales\TransaksiSparepartController as SalesTransaksiSparepartController;
 use App\Http\Controllers\Teknisi\UbahSudahDiambilController as TeknisiUbahSudahDiambilController;
 use App\Http\Controllers\AdminToko\MasterKapasitasController as AdminTokoMasterKapasitasController;
 use App\Http\Controllers\AdminToko\MasterModelSeriController as AdminTokoMasterModelSeriController;
@@ -101,6 +91,13 @@ use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahB
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\MasterJenisBarangController as KepalaTokoMasterJenisBarangController;
 use App\Http\Controllers\Sales\ExpenseController as SalesExpenseController;
+use App\Http\Controllers\Sales\KategoriController as SalesKategoriController;
+use App\Http\Controllers\Sales\ProdukController as SalesProdukController;
+use App\Http\Controllers\Sales\PosController as SalesPosController;
+use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProdukController;
+use App\Http\Controllers\Sales\TransaksiProdukPaidController as SalesTransaksiProdukPaidController;
+use App\Http\Controllers\Sales\TransaksiProdukDueController as SalesTransaksiProdukDueController;
+use App\Http\Controllers\Sales\LaporanPenjualanController as SalesLaporanPenjualanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -257,7 +254,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('produk/admin-transaksi-produk-paid', AdminTokoTransaksiProdukPaidController::class);
     Route::resource('produk/admin-transaksi-produk-due', AdminTokoTransaksiProdukDueController::class);
 
-    Route::get('/order/due/{id}', [AdminTokoTransaksiProdukController::class, 'OrderDueAjax']);
+    Route::get('/admin-order/due/{id}', [AdminTokoTransaksiProdukController::class, 'OrderDueAjax']);
     Route::post('produk/admin-update-due', [AdminTokoTransaksiProdukController::class, 'UpdateDue'])->name('admin-produk.updateDue');
 
     Route::get('produk/admin-pos', [AdminTokoPosController::class, 'index'])->name('admin-pos');
@@ -307,21 +304,34 @@ Route::middleware('ensureSalesRole:Sales')->group(
     function () {
         Route::get('/sales-dashboard', [SalesDashboardController::class, 'index'])->name('sales-dashboard');
         Route::resource('sales-pelanggan', SalesPelangganController::class);
-        Route::resource('phone/sales-data-handphone', SalesPhoneController::class);
-        Route::resource('phone/sales-phone-terjual', SalesPhoneTerjualController::class);
-        Route::resource('phone/sales-transaksi-handphone', SalesTransaksiHandphoneController::class);
-        Route::resource('sparepart/sales-data-sparepart', SalesSparepartController::class);
-        Route::resource('sparepart/sales-transaksi-sparepart', SalesTransaksiSparepartController::class);
-        Route::resource('aksesoris/sales-data-aksesoris', SalesAksesorisController::class);
-        Route::resource('aksesoris/sales-transaksi-aksesoris', SalesTransaksiAksesorisController::class);
-        Route::resource('laporan/sales-laporan-handphone', SalesLaporanHandphoneController::class);
-        Route::resource('laporan/sales-laporan-sparepart', SalesLaporanSparepartController::class);
-        Route::resource('laporan/sales-laporan-aksesoris', SalesLaporanAksesorisController::class);
         Route::resource('sales-pengeluaran', SalesExpenseController::class);
 
-        Route::get('sales-nota-sparepart-termal/{id}', [SalesTransaksiSparepartController::class, 'cetaktermal'])->name('sales-nota-sparepart-termal');
-        Route::get('sales-nota-handphone-termal/{id}', [SalesTransaksiHandphoneController::class, 'cetaktermal'])->name('sales-nota-handphone-termal');
-        Route::get('sales-nota-aksesori-termal/{id}', [SalesTransaksiAksesorisController::class, 'cetaktermal'])->name('sales-nota-aksesori-termal');
+        Route::resource('produk/sales-kategori', SalesKategoriController::class);
+        Route::resource('produk/sales-item', SalesProdukController::class);
+        Route::resource('produk/sales-pos', SalesPosController::class);
+        Route::resource('produk/sales-transaksi-produk', SalesTransaksiProdukController::class);
+        Route::resource('produk/sales-transaksi-produk-paid', SalesTransaksiProdukPaidController::class);
+        Route::resource('produk/sales-transaksi-produk-due', SalesTransaksiProdukDueController::class);
+
+        Route::get('/sales-order/due/{id}', [SalesTransaksiProdukController::class, 'OrderDueAjax']);
+        Route::post('produk/sales-update-due', [SalesTransaksiProdukController::class, 'UpdateDue'])->name('sales-produk.updateDue');
+
+        Route::get('produk/sales-pos', [SalesPosController::class, 'index'])->name('sales-pos');
+        Route::get('produk/sales-allitem', [SalesPosController::class, 'AllItem']);
+        Route::post('produk/sales-add-cart', [SalesPosController::class, 'AddCart']);
+        Route::post('produk/sales-cart-update/{rowId}', [SalesPosController::class, 'CartUpdate']);
+        Route::post('produk/sales-apply-discount', [SalesPosController::class, 'ApplyDiscount'])->name('sales-produk.applyDiscount');
+        Route::get('produk/sales-cart-remove/{rowId}', [SalesPosController::class, 'CartRemove']);
+        Route::post('produk/sales-create-invoice', [SalesPosController::class, 'CreateInvoice']);
+        Route::post('produk/sales-complete-order', [SalesPosController::class, 'CompleteOrder']);
+
+        Route::get('sales-transaksi-produk-inkjet/{orders_id}', [SalesTransaksiProdukController::class, 'cetakinkjet'])->name('sales-lunas-cetak-inkjet');
+        Route::get('sales-transaksi-produk-termal/{orders_id}', [SalesTransaksiProdukController::class, 'cetaktermal'])->name('sales-cetak-termal-produk');
+
+        Route::post('/sales-import-produk', [SalesProdukController::class, 'import'])->name('sales-import-produk');
+        Route::get('sales-export-produk', [SalesProdukController::class, 'export'])->name('sales-produk-export');
+
+        Route::get('sales-laporan-penjualan', [SalesLaporanPenjualanController::class, 'index'])->name('sales-laporan-penjualan');
     }
 );
 
