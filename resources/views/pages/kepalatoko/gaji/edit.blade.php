@@ -85,7 +85,11 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="workers_id">Nama Karyawan</label>
                                     <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->worker->id }}">{{ $item->worker->name }}</option>
+                                        @if ($item->worker != null)
+                                            <option selected value="{{ $item->worker->id }}">{{ $item->worker->name }}</option>
+                                        @else
+                                            <option selected value="">Data karyawan telah dihapus</option>
+                                        @endif
                                         @foreach ($workers as $worker)
                                             <option value="{{ $worker->id }}">{{ $worker->name }}</option>
                                         @endforeach
