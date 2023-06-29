@@ -162,6 +162,8 @@
                     <input type="hidden" name="order_date" value="{{ \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y') }}">
                     <input type="hidden" name="total_products" value="{{ Cart::count() }}">
                     <input type="hidden" name="sub_total" value="{{ Cart::subtotal() }}">
+                    <input type="hidden" name="is_admin_toko" value="Admin">
+                    <input type="hidden" name="persen_admin" value="{{ Auth::user()->persen }}">
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>

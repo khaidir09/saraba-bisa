@@ -84,6 +84,11 @@ class DashboardController extends Controller
 
         $haritotalprofitkotor = $hariprofitkotorservis + $hariprofitkotorpenjualan;
 
+        $bonusassembly = Assembly::where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', $currentMonth)
+            ->get()
+            ->sum('biaya');
+
         return view('pages/kepalatoko/dashboard', compact(
             'categories',
             'approveassembly',
@@ -99,7 +104,8 @@ class DashboardController extends Controller
             'bulantotalprofitbersih',
             'bulantotalprofitkotor',
             'bulanprofitbersihservis',
-            'bulanprofitbersihpenjualan'
+            'bulanprofitbersihpenjualan',
+            'bonusassembly'
         ));
     }
 }

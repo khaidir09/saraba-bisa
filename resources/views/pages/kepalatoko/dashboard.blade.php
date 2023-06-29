@@ -78,7 +78,7 @@
         <div class="grid grid-cols-12 gap-6">
 
             <!-- Card Keuangan -->
-            <x-kepalatoko.keuangan-card :bulantotalprofitkotor="$bulantotalprofitkotor" :bulantotalprofitbersih="$bulantotalprofitbersih" :totalpengeluaran="$totalpengeluaran"/>
+            <x-kepalatoko.keuangan-card :bulantotalprofitkotor="$bulantotalprofitkotor" :bulantotalprofitbersih="$bulantotalprofitbersih" :totalpengeluaran="$totalpengeluaran" :bonusassembly="$bonusassembly"/>
 
             {{-- Progres --}}
             <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">

@@ -1,10 +1,10 @@
 <div>
         <x-select
-            wire:model.defer="spareparts_id"
+            wire:model.defer="products_id"
             placeholder="Pilih Sparepart"
-            :options="$spareparts"
-            option-description="harga_pelanggan"
-            option-label="name"
+            :options="$products"
+            option-description="harga_jual"
+            option-label="product_name"
             option-value="id"
         />
 </div>

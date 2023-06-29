@@ -11,6 +11,7 @@ class OrderDetail extends Model
     protected $fillable = [
         'orders_id',
         'products_id',
+        'product_name',
         'quantity',
         'price',
         'total',
@@ -19,9 +20,10 @@ class OrderDetail extends Model
         'profit',
         'profit_toko',
         'persen_sales',
+        'is_admin_toko',
+        'persen_admin',
         'created_at',
-        'updated_at',
-        'product_name'
+        'updated_at'
     ];
 
     public function product()

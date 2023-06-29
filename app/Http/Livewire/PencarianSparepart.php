@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Sparepart;
+use App\Models\Product;
 use Livewire\Component;
 
 class PencarianSparepart extends Component
@@ -25,9 +25,17 @@ class PencarianSparepart extends Component
     public function render()
     {
         return view('livewire.pencarian-sparepart', [
-            'spareparts' => $this->search === null ?
-                Sparepart::latest()->where('stok', '>=', '1')->get() :
-                Sparepart::latest()->where('stok', '>=', '1')->where('name', 'like', '%' . $this->search . '%')->get()
+            'products' => $this->search === null ?
+                Product::latest()->
+                // get the product that has category name sparepart
+                whereHas('category', function ($query) {
+                    $query->where('category_name', 'Sparepart');
+                })->where('stok', '>=', '1')->get()
+                :
+                Product::latest()->whereHas('category', function ($query) {
+                    $query->where('category_name', 'Sparepart');
+                })->where('stok', '>=', '1')
+                ->where('name', 'like', '%' . $this->search . '%')->get()
         ]);
     }
 }

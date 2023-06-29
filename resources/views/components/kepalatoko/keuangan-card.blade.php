@@ -31,7 +31,7 @@
                 <div class="relative h-full flex flex-col justify-center items-center">
                     <!-- Card number -->
                     <div class="text-xl font-bold text-slate-200 drop-shadow-sm">
-                        Rp. {{ number_format($bulantotalprofitkotor  - ($bulantotalprofitkotor  - $bulantotalprofitbersih) - ($totalpengeluaran)) }}
+                        Rp. {{ number_format($bulantotalprofitkotor  - ($bulantotalprofitkotor  - $bulantotalprofitbersih + $bonusassembly) - ($totalpengeluaran)) }}
                      </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <div>
                     <div class="flex justify-between text-sm mb-2">
                         <div class="text-slate-300">Bonus Karyawan</div>
-                        <div class="text-slate-400 italic">Rp. {{ number_format($bulantotalprofitkotor - $bulantotalprofitbersih) }}</div>
+                        <div class="text-slate-400 italic">Rp. {{ number_format($bulantotalprofitkotor - $bulantotalprofitbersih + $bonusassembly) }}</div>
                     </div>
                 </div>
                 <div>
