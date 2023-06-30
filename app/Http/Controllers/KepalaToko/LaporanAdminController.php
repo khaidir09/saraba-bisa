@@ -28,9 +28,11 @@ class LaporanAdminController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
-        $jumlahpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
+        $jumlahpenjualan = OrderDetail::where('is_admin_toko', 'Admin')
+            ->whereMonth('created_at', $currentMonth)
             ->count();
-        $profitpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
+        $profitpenjualan = OrderDetail::where('is_admin_toko', 'Admin')
+            ->whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit');
 
