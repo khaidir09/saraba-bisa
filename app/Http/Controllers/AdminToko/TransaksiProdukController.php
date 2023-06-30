@@ -175,6 +175,8 @@ class TransaksiProdukController extends Controller
 
         $item->delete();
 
+        OrderDetail::where('orders_id', $item->id)->delete();
+
         return redirect()->route('admin-transaksi-produk.index');
     }
 }
