@@ -170,7 +170,7 @@
                     </div>
                     <div class="mb-4 space-y-3">
                         <!-- Create invoice button -->
-                        <a href="{{ route('admin-pelanggan.index') }}" class="btn w-full bg-emerald-500 hover:bg-emerald-600 text-white">
+                        <a href="{{ route('sales-pelanggan.index') }}" class="btn w-full bg-emerald-500 hover:bg-emerald-600 text-white">
                             <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                                 <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                             </svg>
