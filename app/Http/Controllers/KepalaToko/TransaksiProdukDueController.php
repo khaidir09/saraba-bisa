@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 
 class TransaksiProdukDueController extends Controller
 {
@@ -93,6 +94,8 @@ class TransaksiProdukDueController extends Controller
         $item = Order::findOrFail($id);
 
         $item->delete();
+
+        OrderDetail::where('orders_id', $item->id)->delete();
 
         return redirect()->route('transaksi-produk.index');
     }
