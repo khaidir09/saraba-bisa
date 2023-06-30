@@ -79,7 +79,7 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="categories_id">Kategori Produk <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="categories_id">Kategori Produk</label>
                                     <select id="categories_id" name="categories_id" class="form-select text-sm w-full">
                                         <option selected value="{{ $item->category->id }}">{{ $item->category->category_name }}</option>
                                         @foreach ($categories as $category)
