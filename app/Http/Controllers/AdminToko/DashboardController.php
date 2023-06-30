@@ -30,8 +30,12 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
+        $profitpenjualan = OrderDetail::where('is_admin_toko', 'Admin')
+            ->whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('profit');
 
-        $totalbonus = ($biayaservis / 100) * Auth::user()->persen;
+        $totalbonus = ($biayaservis/100 + $profitpenjualan/100) * Auth::user()->persen;
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')

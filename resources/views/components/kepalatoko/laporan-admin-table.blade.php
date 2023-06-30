@@ -29,11 +29,11 @@
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium">
-                                {{-- @php
-                                    $bonus = ($biayaservis + $profitsparepart + $profitaksesoris + $profithandphone) / 100;
+                                 @php
+                                    $bonus = ($biayaservis + $profitpenjualan) / 100;
                                     $bonus *= $item->persen;
-                                @endphp --}}
-                                Rp. 0
+                                @endphp
+                                Rp. {{ number_format($bonus) }}
                             </div>
                         </td>
                     </tr>

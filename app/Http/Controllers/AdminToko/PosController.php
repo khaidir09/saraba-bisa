@@ -123,9 +123,11 @@ class PosController extends Controller
             $pdata['sub_total'] = $content->options->harga_asli * $content->qty;
             $pdata['modal'] = $content->options->modal * $content->qty;
             $pdata['profit'] = $content->total - ($content->options->modal * $content->qty);
-            $pdata['profit_toko'] = ($content->total - ($content->options->modal * $content->qty)) - ($content->total - ($content->options->modal * $content->qty)) / 100 * $persen_sales->persen;
+            $pdata['profit_toko'] = ($content->total - ($content->options->modal * $content->qty)) - ($content->total - ($content->options->modal * $content->qty)) / 100 * ($persen_sales->persen + $request->persen_admin);
             $pdata['users_id'] = $request->users_id;
             $pdata['persen_sales'] = $persen_sales->persen;
+            $pdata['is_admin_toko'] = $request->is_admin_toko;
+            $pdata['persen_admin'] = $request->persen_admin;
             $pdata['created_at'] = Carbon::now();
             $pdata['updated_at'] = Carbon::now();
 
