@@ -20,18 +20,18 @@ class ProdukExport implements FromCollection, WithMapping, WithHeadings, ShouldA
         return Product::all();
     }
 
-    public function map($serviceaction): array
+    public function map($product): array
     {
         return [
-            $serviceaction->product_name,
-            $serviceaction->product_code,
-            $serviceaction->nomor_seri,
-            $serviceaction->categories_id,
-            $serviceaction->stok,
-            $serviceaction->harga_modal,
-            $serviceaction->harga_jual,
-            $serviceaction->supplier,
-            $serviceaction->keterangan,
+            $product->product_name,
+            $product->product_code,
+            $product->nomor_seri,
+            $product->categories_id,
+            $product->stok,
+            $product->harga_modal,
+            $product->harga_jual,
+            $product->supplier,
+            $product->keterangan,
         ];
     }
 

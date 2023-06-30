@@ -21,13 +21,13 @@ class PelangganExport implements FromCollection, WithMapping, WithHeadings, Shou
         return Customer::all();
     }
 
-    public function map($accessory): array
+    public function map($customer): array
     {
         return [
-            $accessory->nama,
-            $accessory->kategori,
-            $accessory->nomor_hp,
-            $accessory->alamat
+            $customer->nama,
+            $customer->kategori,
+            $customer->nomor_hp,
+            $customer->alamat
         ];
     }
 
