@@ -15,6 +15,7 @@ import { tailwindConfig } from "./utils";
 import dashboardCard01 from "./components/dashboard-card-01";
 import dashboardCard02 from "./components/dashboard-card-02";
 import dashboardCard03 from "./components/dashboard-card-03";
+import dashboardCard04 from "./components/dashboard-card-04";
 
 // Call Alpine
 window.Alpine = Alpine;
@@ -94,4 +95,5 @@ document.addEventListener("DOMContentLoaded", () => {
     dashboardCard01();
     dashboardCard02();
     dashboardCard03();
+    dashboardCard04();
 });
