@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Budget;
 use App\Models\Assembly;
 use App\Models\DataFeed;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
@@ -47,29 +48,16 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
-        $totalsparepart = SparepartTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
+        $totalpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
-            ->sum('profittoko');
-        $totalaksesoris = AccessoryTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profittoko');
-        $totalhandphone = PhoneTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profittoko');
-        $totalprofit = $totalbiayaservis + $totalsparepart + $totalaksesoris + $totalhandphone;
-        $totalpenjualan = $totalsparepart + $totalaksesoris + $totalhandphone;
+            ->sum('profit_toko');
+        $totalprofit = $totalbiayaservis + $totalpenjualan;
 
         return view('pages/teknisi/dashboard', compact(
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
             'totalpenjualan',
-            'totalsparepart',
-            'totalaksesoris',
-            'totalhandphone',
             'totalbonus'
         ));
     }
