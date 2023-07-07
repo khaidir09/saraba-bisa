@@ -34,3 +34,35 @@ export const formatThousands = (value) =>
         maximumSignificantDigits: 3,
         notation: "compact",
     }).format(value);
+
+// Mengembalikan daftar nama bulan
+export function getMonthNames() {
+    return [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+    ];
+}
+
+// Mengembalikan nama bulan berdasarkan indeks (dimulai dari 0)
+export function getMonthName(index) {
+    const monthNames = getMonthNames();
+    return monthNames[index];
+}
+
+// Mengembalikan indeks bulan berdasarkan nama bulan
+export function getMonthIndex(monthName) {
+    const monthNames = getMonthNames();
+    return monthNames.findIndex(
+        (name) => name.toLowerCase() === monthName.toLowerCase()
+    );
+}

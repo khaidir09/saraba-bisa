@@ -224,16 +224,33 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-12 gap-6 mt-3">
+        <div class="grid grid-cols-12 gap-6 mt-4">
             <!-- Bar chart (Direct vs Indirect) -->
-            <div class="flex flex-col col-span-full sm:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
-                <header class="px-5 py-4 border-b border-slate-100">
-                    <h2 class="font-semibold text-slate-800">Laporan Servis</h2>
-                </header>
-                <div class="grow">
-                    <canvas id="servisChart" width="595" height="248"></canvas>
-                </div>
-            </div>
+            <x-dashboard.dashboard-card-04/>
         </div>
     </div>
+    @push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const ctx = document.getElementById('tes');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+            },
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+        });
+    </script>
+@endpush
 </x-toko-layout>
