@@ -146,9 +146,19 @@ class SudahDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $tindakan_servis = ServiceAction::find($request->service_actions_id);
         $persen_backup = User::find(1);
-        $persen_teknisi = User::find($request->users_id);
+
+        if ($request->users_id != null) {
+            $persen_teknisi = User::find($request->users_id)->persen;
+        } else {
+            $persen_teknisi = null;
+        }
+        if ($request->service_actions_id != null) {
+            $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
+        } else {
+            $tindakan_servis = null;
+        }
+
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
         $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
         $nama_pelanggan = Customer::find($request->customers_id);
@@ -168,7 +178,7 @@ class SudahDiambilController extends Controller
             'qc_keluar' => $request->qc_keluar,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
-            'tindakan_servis' => $tindakan_servis->nama_tindakan,
+            'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'diskon' => $request->diskon,
@@ -176,11 +186,11 @@ class SudahDiambilController extends Controller
             'exp_garansi' => $request->exp_garansi,
             'tgl_ambil' => $request->tgl_ambil,
             'pengambil' => $request->pengambil,
-            'persen_teknisi' => $persen_teknisi->persen,
+            'persen_teknisi' => $persen_teknisi,
             'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya - $request->diskon,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi->persen + $persen_backup->persen),
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi + $persen_backup->persen),
             'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100 - $request->diskon / 100) * $persen_backup->persen
         ]);
 

@@ -148,7 +148,11 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="service_actions_id">Tindakan Servis  </label>
                                     <select id="service_actions_id" name="service_actions_id" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
+                                        @if ($item->serviceaction != null)
+                                            <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
+                                        @else
+                                            <option selected value=""></option>
+                                        @endif
                                         @foreach ($service_actions as $action)
                                             <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
                                         @endforeach
@@ -157,7 +161,11 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="users_id">Teknisi </label>
                                     <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" >
-                                        <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
+                                        @if ($item->user != null)
+                                            <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
+                                        @else
+                                            <option selected value=""></option>
+                                        @endif
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach

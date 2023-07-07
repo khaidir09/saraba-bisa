@@ -24,12 +24,7 @@ class DashboardController extends Controller
     public function index()
     {
         $dataService = new ServiceTransaction();
-
-        $omzetservisjanuari = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->whereMonth('created_at', 1)
-            ->get()
-            ->sum('omzet');
-
+        
         $categories = Category::with('order')->get();
 
         $currentMonth = now()->month;
@@ -103,7 +98,6 @@ class DashboardController extends Controller
 
         return view('pages/kepalatoko/dashboard', compact(
             'dataService',
-            'omzetservisjanuari',
             'categories',
             'approveassembly',
             'approveservis',
