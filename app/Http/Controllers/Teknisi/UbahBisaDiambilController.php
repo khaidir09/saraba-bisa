@@ -7,13 +7,13 @@ use App\Models\User;
 use App\Models\Brand;
 use App\Models\Capacity;
 use App\Models\Customer;
-use App\Models\Sparepart;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\Sparepart;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class UbahBisaDiambilController extends Controller
 {
@@ -115,7 +115,19 @@ class UbahBisaDiambilController extends Controller
     {
         $item = ServiceTransaction::findOrFail($id);
         $persen_backup = User::find(1);
-        $tindakan_servis = ServiceAction::find($request->service_actions_id);
+
+        if ($request->kondisi_servis === "Sudah jadi") {
+            $persen_teknisi = Auth::user()->persen;
+        } else {
+            $persen_teknisi = null;
+        }
+
+        if ($request->service_actions_id != null) {
+            $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
+        } else {
+            $tindakan_servis = null;
+        }
+
         $profittransaksi = $request->biaya - $request->modal_sparepart;
         $bagihasil = ($request->biaya - $request->modal_sparepart) / 100;
         // Transaction create
@@ -125,20 +137,20 @@ class UbahBisaDiambilController extends Controller
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
             'spareparts_id' => $request->spareparts_id,
-            'tindakan_servis' => $tindakan_servis->nama_tindakan,
+            'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'catatan' => $request->catatan,
-            'persen_teknisi' => $request->persen_teknisi,
+            'persen_teknisi' => $persen_teknisi,
             'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $request->persen_teknisi + $persen_backup->persen),
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi + $persen_backup->persen),
             'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100) * $persen_backup->persen
         ]);
 
-        if ($request->spareparts_id != null) {
-            $spareparts = Sparepart::find($request->spareparts_id);
+        if ($request->products_id != null) {
+            $spareparts = Product::find($request->products_id);
             $spareparts->stok -= 1;
             $spareparts->save();
         }

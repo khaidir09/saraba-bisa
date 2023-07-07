@@ -125,6 +125,12 @@ class UbahSudahDiambilController extends Controller
             $expired = null;
         }
 
+        if ($item->kondisi_servis === "Sudah jadi") {
+            $persen_teknisi = Auth::user()->persen;
+        } else {
+            $persen_teknisi = null;
+        }
+
         // Transaction create
         $item->update([
             'qc_keluar' => $request->qc_keluar,
@@ -137,11 +143,11 @@ class UbahSudahDiambilController extends Controller
             'pengambil' => $request->pengambil,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
-            'persen_teknisi' => $request->persen_teknisi,
+            'persen_teknisi' => $persen_teknisi,
             'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya - $request->diskon,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $request->persen_teknisi + $persen_backup->persen),
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi + $persen_backup->persen),
             'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100 - $request->diskon / 100) * $persen_backup->persen
         ]);
 
