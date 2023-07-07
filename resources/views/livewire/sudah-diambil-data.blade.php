@@ -381,7 +381,7 @@
                                 @if ($transaction->penerima != null)
                                     <div class="font-medium">{{ $transaction->penerima }}</div>
                                 @else
-                                    <div class="font-medium text-red-600">Data karyawan sudah dihapus</div>
+                                    <div></div>
                                 @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -389,10 +389,10 @@
                                     @if ($transaction->customer->exists())
                                         <div class="font-medium">{{ $transaction->customer->nama }}</div>
                                     @else
-                                        <div class="font-medium text-rose-600">Data pelanggan telah dihapus</div>
+                                        <div></div>
                                     @endif
                                 @else
-                                    <div class="font-medium text-rose-600">Data pelanggan telah dihapus</div>
+                                    <div></div>
                                 @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -575,7 +575,7 @@
                                 @if ($transaction->user != null)
                                     <div class="font-medium">{{ $transaction->user->name }}</div>
                                 @else
-                                    <div class="font-medium text-red-600">Data teknisi sudah dihapus</div>
+                                    <div></div>
                                 @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

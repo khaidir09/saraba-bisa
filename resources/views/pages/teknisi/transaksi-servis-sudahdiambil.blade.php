@@ -82,7 +82,6 @@
                         <input type="hidden" name="tgl_ambil" value="<?php echo date('Y/m/d') ?>"/>
                         <input type="hidden" name="modal_sparepart" value="{{ $item->modal_sparepart }}"/>
                         <input type="hidden" name="biaya" value="{{ $item->biaya }}"/>
-                        <input type="hidden" name="persen_teknisi" value="{{ $item->user->persen }}"/>
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
@@ -121,6 +120,7 @@
                                     <label class="block text-sm font-medium mb-1" for="qc_keluar">Pengecekan Fungsi Keluar <span class="text-rose-500">*</span></label>
                                     <input id="qc_keluar" name="qc_keluar" class="form-input w-full px-2 py-1" type="text" placeholder="Contoh: Tombol, Kamera, Speaker, dll" required/>
                                 </div>
+                                @if ($item->tindakan_servis != null)
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
@@ -139,10 +139,14 @@
                                         <option value="Tempo 3 Bulan">Tempo 3 Bulan</option>
                                     </select>
                                 </div>
+                                @endif
+                                @if ($item->tindakan_servis != null)
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="diskon">Diskon</label>
                                     <input id="diskon" name="diskon" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika tidak ada diskon"/>
                                 </div>
+                                @endif
+                                @if ($item->tindakan_servis != null)
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="garansi">Garansi</label>
                                     <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
@@ -174,6 +178,7 @@
                                         <option value="1825">5 Tahun</option>
                                     </select>
                                 </div>
+                                @endif
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="pengambil">Pengambil <span class="text-rose-500">*</span></label>
                                     <input id="pengambil" name="pengambil" class="form-input w-full px-2 py-1" type="text" required/>

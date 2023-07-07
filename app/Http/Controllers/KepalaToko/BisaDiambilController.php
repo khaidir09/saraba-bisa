@@ -125,8 +125,18 @@ class BisaDiambilController extends Controller
     {
         $item = ServiceTransaction::findOrFail($id);
         $persen_backup = User::find(1);
-        $persen_teknisi = User::find($request->users_id);
-        $tindakan_servis = ServiceAction::find($request->service_actions_id);
+
+        if ($request->users_id != null) {
+            $persen_teknisi = User::find($request->users_id)->persen;
+        } else {
+            $persen_teknisi = null;
+        }
+        if ($request->service_actions_id != null) {
+            $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
+        } else {
+            $tindakan_servis = null;
+        }
+
         $profittransaksi = $request->biaya - $request->modal_sparepart;
         $bagihasil = $profittransaksi / 100;
         $nama_pelanggan = Customer::find($request->customers_id);
@@ -145,15 +155,15 @@ class BisaDiambilController extends Controller
             'qc_masuk' => $request->qc_masuk,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
-            'tindakan_servis' => $tindakan_servis->nama_tindakan,
+            'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'persen_admin' => $request->persen_admin,
-            'persen_teknisi' => $persen_teknisi->persen,
+            'persen_teknisi' => $persen_teknisi,
             'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi->persen + $persen_backup->persen),
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi + $persen_backup->persen),
             'danabackup' => $bagihasil * $persen_backup->persen
         ]);
 
