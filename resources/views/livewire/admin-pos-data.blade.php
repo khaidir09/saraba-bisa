@@ -304,6 +304,8 @@
                                 <input type="hidden" name="harga_asli" value="{{ $item->harga_jual }}">
                                 <input type="hidden" name="qty" value="1">
                                 <input type="hidden" name="price" value="{{ $item->harga_jual }}">
+                                <input type="hidden" name="garansi" value="{{ $item->garansi }}">
+                                <input type="hidden" name="garansi_imei" value="{{ $item->garansi_imei }}">
                                 
                                 <tr>    
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

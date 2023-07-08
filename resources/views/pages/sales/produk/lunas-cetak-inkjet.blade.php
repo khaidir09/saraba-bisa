@@ -103,6 +103,7 @@
       <tr class="font">
         <th>No.</th>
         <th>Nama Produk</th>
+        <th>Garansi</th>
         <th>Harga</th>
         <th>Quantity</th>
         <th>Total Harga</th>
@@ -120,13 +121,18 @@
           {{ ++$i }}
         </td>
         <td align="center">{{ $item->product->product_name }}</td>
+        @if ($item->garansi != null)
+            <td align="center">Aktif s/d {{ $item->garansi }}</td>
+        @else
+            <td align="center">Tidak ada</td>
+        @endif
         <td align="center">Rp. {{ number_format($item->product->harga_jual) }}</td>
         <td align="center">{{ $item->quantity }}</td>
         <td align="center">Rp. {{ number_format($item->product->harga_jual * $item->quantity) }}</td>
         @if ($item->sub_total === $item->total)
-            <td align="center">Rp. 0</td>
+            <td align="center">Tidak ada</td>
         @else
-            <td align="center">{{ $persen }}% (Rp. {{ number_format($item->sub_total - $item->total) }})</td>
+            <td align="center">Rp. {{ number_format($item->sub_total - $item->total) }}</td>
         @endif
         <td align="center">Rp. {{ number_format($item->total) }}</td>
 
