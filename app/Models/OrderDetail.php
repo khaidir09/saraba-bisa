@@ -23,7 +23,9 @@ class OrderDetail extends Model
         'is_admin_toko',
         'persen_admin',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'garansi',
+        'garansi_imei'
     ];
 
     public function product()

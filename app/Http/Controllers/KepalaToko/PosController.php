@@ -33,7 +33,9 @@ class PosController extends Controller
             'weight' => 20,
             'options' => [
                 'modal' => $request->modal,
-                'harga_asli' => $request->harga_asli
+                'harga_asli' => $request->harga_asli,
+                'garansi' => $request->garansi,
+                'garansi_imei' => $request->garansi_imei
             ]
         ]);
 
@@ -114,10 +116,31 @@ class PosController extends Controller
 
         $pdata = array();
         foreach ($contents as $content) {
+
+            $garansi = Carbon::now();
+            if ($content->options->garansi != null) {
+                $expired = $garansi->addDays(
+                    $content->options->garansi
+                );
+            } else {
+                $expired = null;
+            }
+
+            $garansi_imei = Carbon::now();
+            if ($content->options->garansi_imei != null) {
+                $expired_imei = $garansi_imei->addDays(
+                    $content->options->garansi_imei
+                );
+            } else {
+                $expired_imei = null;
+            }
+
             $pdata['orders_id'] = $orders_id;
             $pdata['products_id'] = $content->id;
             $pdata['product_name'] = $content->name;
             $pdata['quantity'] = $content->qty;
+            $pdata['garansi'] = $expired;
+            $pdata['garansi_imei'] = $expired_imei;
             $pdata['price'] = $content->price;
             $pdata['total'] = $content->total;
             $pdata['sub_total'] = $content->options->harga_asli * $content->qty;

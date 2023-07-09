@@ -60,6 +60,9 @@
                             <div class="font-semibold text-left">Harga jual</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Garansi Produk/IMEI</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Agen</div>
                         </th>
                     </tr>
@@ -107,6 +110,15 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($item->harga_jual) }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                @if ($item->garansi_imei != null)
+                                    <div class="font-medium">{{ $item->garansi }} hari / {{ $item->garansi_imei }} hari</div>
+                                @elseif ($item->garansi != null)
+                                    <div class="font-medium">{{ $item->garansi }} hari</div>
+                                @else
+                                    <div class="font-medium">Tidak ada</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->supplier }}</div>

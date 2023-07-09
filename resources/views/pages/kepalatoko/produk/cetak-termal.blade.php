@@ -75,7 +75,13 @@
         <tbody>
           @foreach ($orderItem as $item)
               <tr>
-              <td colspan="3">{{ $item->product_name }} {{ $item->product->nomor_seri }} {{ $item->product->keterangan }}</td>
+                @if ($item->garansi_imei != null)
+                <td colspan="3">{{ $item->product_name }} {{ $item->product->nomor_seri }} {{ $item->product->keterangan }} (Garansi item s/d {{ $item->garansi }}) (Garansi IMEI s/d {{ $item->garansi_imei }})</td>
+                @elseif ($item->garansi != null)
+                  <td colspan="3">{{ $item->product_name }} {{ $item->product->nomor_seri }} {{ $item->product->keterangan }} (Garansi s/d {{ $item->garansi }})</td>
+                @else
+                  <td colspan="3">{{ $item->product_name }} {{ $item->product->nomor_seri }} {{ $item->product->keterangan }}</td>
+                @endif
               </tr>
               <tr>
                 <td> {{ number_format($item->product->harga_jual) }}</td>

@@ -52,7 +52,9 @@ class ProdukController extends Controller
             'harga_jual' => $request->harga_jual,
             'supplier' => $request->supplier,
             'keterangan' => $request->keterangan,
-            'nomor_seri' => $request->nomor_seri
+            'nomor_seri' => $request->nomor_seri,
+            'garansi' => $request->garansi,
+            'garansi_imei' => $request->garansi_imei
         ]);
 
         return redirect()->route('admin-item.index');
@@ -122,7 +124,9 @@ class ProdukController extends Controller
             'harga_jual' => $request->harga_jual,
             'supplier' => $request->supplier,
             'keterangan' => $request->keterangan,
-            'nomor_seri' => $request->nomor_seri
+            'nomor_seri' => $request->nomor_seri,
+            'garansi' => $request->garansi,
+            'garansi_imei' => $request->garansi_imei
         ]);
 
         return redirect()->route('admin-item.index');

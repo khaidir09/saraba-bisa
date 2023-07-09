@@ -109,15 +109,12 @@ class TransaksiProdukController extends Controller
         $subtotal = $orderItem->sum('sub_total');
         $users = User::find(1);
 
-        $persen = 100 - $total / $subtotal * 100;
-
         $pdf = PDF::loadView('pages.admintoko.produk.cetak-termal', [
             'order' => $order,
             'users' => $users,
             'orderItem' => $orderItem,
             'total' => $total,
-            'subtotal' => $subtotal,
-            'persen' => $persen
+            'subtotal' => $subtotal
         ]);
         return $pdf->stream();
     }
@@ -130,9 +127,6 @@ class TransaksiProdukController extends Controller
         $subtotal = $orderItem->sum('sub_total');
         $users = User::find(1);
         $terms = Term::find(3);
-        
-
-        $persen = 100 - $total / $subtotal * 100;
 
         $pdf = PDF::loadView('pages.admintoko.produk.lunas-cetak-inkjet', [
             'order' => $order,
@@ -140,8 +134,7 @@ class TransaksiProdukController extends Controller
             'terms' => $terms,
             'orderItem' => $orderItem,
             'total' => $total,
-            'subtotal' => $subtotal,
-            'persen' => $persen
+            'subtotal' => $subtotal
         ]);
         return $pdf->setPaper('a4', 'landscape')->stream();
     }
