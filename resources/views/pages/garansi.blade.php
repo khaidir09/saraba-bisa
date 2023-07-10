@@ -1,17 +1,17 @@
 @section('title')
-    Pengecekan Status Garansi HP
+    Pengecekan Status Garansi
 @endsection
 
 <x-authentication-layout>
-    <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('Pengecekan Status Garansi HP') }} ✨</h1>
+    <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('Pengecekan Status Garansi') }} ✨</h1>
     
     <!-- Form -->
     <form method="GET" action="{{ route('garansi-data') }}">
         @csrf
         <div class="space-y-6">
             <div>
-                <x-jet-label for="imei" value="{{ __('Nomor IMEI') }}" />
-                <x-jet-input id="imei" type="number" name="imei" value="imei" required autofocus />                
+                <x-jet-label for="invoice_no" value="{{ __('Nomor Invoice') }}" />
+                <x-jet-input id="invoice_no" type="number" name="invoice_no" value="invoice_no" required autofocus />                
             </div>
             <x-jet-button class="w-full">
                 {{ __('Cek Status Garansi') }}
