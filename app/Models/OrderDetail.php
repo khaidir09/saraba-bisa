@@ -28,6 +28,11 @@ class OrderDetail extends Model
         'garansi_imei'
     ];
 
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'orders_id', 'id');
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'products_id', 'id');
