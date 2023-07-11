@@ -19,11 +19,18 @@ class OrderDetail extends Model
         'profit',
         'created_at',
         'updated_at',
-        'product_name'
+        'product_name',
+        'garansi',
+        'garansi_imei'
     ];
 
     public function product()
     {
         return $this->belongsTo(Product::class, 'products_id', 'id');
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'orders_id', 'id');
     }
 }

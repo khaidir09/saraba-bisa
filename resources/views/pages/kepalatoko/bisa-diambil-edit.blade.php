@@ -138,7 +138,11 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="service_actions_id">Tindakan Servis  </label>
                                     <select id="service_actions_id" name="service_actions_id" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
+                                        @if ($item->serviceaction != null)
+                                            <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
+                                        @else
+                                            <option selected value=""></option>
+                                        @endif
                                         @foreach ($service_actions as $action)
                                             <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
                                         @endforeach

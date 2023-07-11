@@ -33,22 +33,12 @@ class LaporanServisData extends Component
 
     public function render()
     {
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
         $jumlah = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
         return view('livewire.laporan-servis-data', [
             'jumlah' => $jumlah,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'capacities' => $capacities,
-            'model_series' => $model_series,
             'services' => $this->search === null ?
-                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->paginate($this->paginate) :
-                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('created_at', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('kondisi_servis', 'Sudah jadi')->paginate($this->paginate) :
+                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('kondisi_servis', 'Sudah jadi')->where('created_at', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

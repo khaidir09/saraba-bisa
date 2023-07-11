@@ -79,6 +79,10 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk</label>
+                                    <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" value="{{ $item->product_name }}"/>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="categories_id">Kategori Produk</label>
                                     <select id="categories_id" name="categories_id" class="form-select text-sm w-full">
                                         <option selected value="{{ $item->category->id }}">{{ $item->category->category_name }}</option>
@@ -87,10 +91,105 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk</label>
-                                    <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" value="{{ $item->product_name }}"/>
-                                </div>
+                                 @if ($item->garansi_imei != null)
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="garansi_imei">Garansi IMEI</label>
+                                        <select id="garansi_imei" name="garansi_imei" class="form-select text-sm py-2 w-full">
+                                            <option selected value="{{ $item->garansi_imei }}">{{ $item->garansi_imei }}</option>
+                                            <option value="">Tidak Ada</option>
+                                            <option value="1">1 Hari</option>
+                                            <option value="2">2 Hari</option>
+                                            <option value="3">3 Hari</option>
+                                            <option value="4">4 Hari</option>
+                                            <option value="5">5 Hari</option>
+                                            <option value="6">6 Hari</option>
+                                            <option value="7">1 Minggu</option>
+                                            <option value="14">2 Minggu</option>
+                                            <option value="21">3 Minggu</option>
+                                            <option value="30">1 Bulan</option>
+                                            <option value="60">2 Bulan</option>
+                                            <option value="90">3 Bulan</option>
+                                            <option value="120">4 Bulan</option>
+                                            <option value="150">5 Bulan</option>
+                                            <option value="180">6 Bulan</option>
+                                            <option value="210">7 Bulan</option>
+                                            <option value="240">8 Bulan</option>
+                                            <option value="270">9 Bulan</option>
+                                            <option value="300">10 Bulan</option>
+                                            <option value="330">11 Bulan</option>
+                                            <option value="365">1 Tahun</option>
+                                            <option value="730">2 Tahun</option>
+                                            <option value="1095">3 Tahun</option>
+                                            <option value="1460">4 Tahun</option>
+                                            <option value="1825">5 Tahun</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="garansi">Garansi Produk</label>
+                                        <select id="garansi" name="garansi" class="form-select text-sm py-2 w-full">
+                                            <option selected value="{{ $item->garansi }}">{{ $item->garansi }}</option>
+                                            <option value="">Tidak Ada</option>
+                                            <option value="1">1 Hari</option>
+                                            <option value="2">2 Hari</option>
+                                            <option value="3">3 Hari</option>
+                                            <option value="4">4 Hari</option>
+                                            <option value="5">5 Hari</option>
+                                            <option value="6">6 Hari</option>
+                                            <option value="7">1 Minggu</option>
+                                            <option value="14">2 Minggu</option>
+                                            <option value="21">3 Minggu</option>
+                                            <option value="30">1 Bulan</option>
+                                            <option value="60">2 Bulan</option>
+                                            <option value="90">3 Bulan</option>
+                                            <option value="120">4 Bulan</option>
+                                            <option value="150">5 Bulan</option>
+                                            <option value="180">6 Bulan</option>
+                                            <option value="210">7 Bulan</option>
+                                            <option value="240">8 Bulan</option>
+                                            <option value="270">9 Bulan</option>
+                                            <option value="300">10 Bulan</option>
+                                            <option value="330">11 Bulan</option>
+                                            <option value="365">1 Tahun</option>
+                                            <option value="730">2 Tahun</option>
+                                            <option value="1095">3 Tahun</option>
+                                            <option value="1460">4 Tahun</option>
+                                            <option value="1825">5 Tahun</option>
+                                        </select>
+                                    </div>
+                                @else
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="garansi">Garansi</label>
+                                        <select id="garansi" name="garansi" class="form-select text-sm py-2 w-full">
+                                            <option selected value="{{ $item->garansi }}">{{ $item->garansi }}</option>
+                                            <option value="Tidak Ada">Tidak Ada</option>
+                                            <option value="1 Hari">1 Hari</option>
+                                            <option value="2 Hari">2 Hari</option>
+                                            <option value="3 Hari">3 Hari</option>
+                                            <option value="4 Hari">4 Hari</option>
+                                            <option value="5 Hari">5 Hari</option>
+                                            <option value="6 Hari">6 Hari</option>
+                                            <option value="1 Minggu">1 Minggu</option>
+                                            <option value="2 Minggu">2 Minggu</option>
+                                            <option value="3 Minggu">3 Minggu</option>
+                                            <option value="1 Bulan">1 Bulan</option>
+                                            <option value="2 Bulan">2 Bulan</option>
+                                            <option value="3 Bulan">3 Bulan</option>
+                                            <option value="4 Bulan">4 Bulan</option>
+                                            <option value="5 Bulan">5 Bulan</option>
+                                            <option value="6 Bulan">6 Bulan</option>
+                                            <option value="7 Bulan">7 Bulan</option>
+                                            <option value="8 Bulan">8 Bulan</option>
+                                            <option value="9 Bulan">9 Bulan</option>
+                                            <option value="10 Bulan">10 Bulan</option>
+                                            <option value="11 Bulan">11 Bulan</option>
+                                            <option value="1 Tahun">1 Tahun</option>
+                                            <option value="2 Tahun">2 Tahun</option>
+                                            <option value="3 Tahun">3 Tahun</option>
+                                            <option value="4 Tahun">4 Tahun</option>
+                                            <option value="5 Tahun">5 Tahun</option>
+                                        </select>
+                                    </div>
+                                @endif
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
                                     <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" value="{{ $item->keterangan }}"/>

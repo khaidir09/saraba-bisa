@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Customer;
 use App\Models\Phone;
-use App\Models\PhoneTransaction;
+use App\Models\Customer;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 
 class GaransiController extends Controller
@@ -18,10 +19,10 @@ class GaransiController extends Controller
 
     public function data()
     {
-        $phone_transaction = PhoneTransaction::with('phone')->whereHas('phone', function ($phone) {
-            $phone->where('imei', $_GET['imei']);
+        $product_transactions = OrderDetail::with('order', 'product')->whereHas('order', function ($order) {
+            $order->where('invoice_no', $_GET['invoice_no']);
         })->get();
         $users = User::find(1);
-        return view('pages/garansi-data', compact('phone_transaction', 'users'));
+        return view('pages/garansi-data', compact('product_transactions', 'users'));
     }
 }

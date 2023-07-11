@@ -18,7 +18,9 @@ class Product extends Model
         'harga_jual',
         'supplier',
         'keterangan',
-        'nomor_seri'
+        'nomor_seri',
+        'garansi',
+        'garansi_imei'
     ];
 
     public function category()

@@ -144,9 +144,14 @@ class SudahDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $tindakan_servis = ServiceAction::find($request->service_actions_id);
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
         $nama_pelanggan = Customer::find($request->customers_id);
+
+        if ($request->service_actions_id != null) {
+            $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
+        } else {
+            $tindakan_servis = null;
+        }
 
         // Transaction create
         $item->update([
@@ -161,7 +166,7 @@ class SudahDiambilController extends Controller
             'qc_keluar' => $request->qc_keluar,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
-            'tindakan_servis' => $tindakan_servis->nama_tindakan,
+            'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'diskon' => $request->diskon,

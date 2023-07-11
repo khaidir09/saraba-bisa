@@ -6,6 +6,5 @@
             option-description="harga_pelanggan"
             option-label="nama_tindakan"
             option-value="id"
-            required
         />
 </div>

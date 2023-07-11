@@ -5,6 +5,7 @@ namespace App\Http\Controllers\KepalaToko;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\Sparepart;
@@ -111,8 +112,13 @@ class UbahBisaDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $tindakan_servis = ServiceAction::find($request->service_actions_id);
         $profittransaksi = $request->biaya - $request->modal_sparepart;
+
+        if ($request->service_actions_id != null) {
+            $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
+        } else {
+            $tindakan_servis = null;
+        }
         // Transaction create
         $item->update([
             'status_servis' => $request->status_servis,
@@ -120,7 +126,7 @@ class UbahBisaDiambilController extends Controller
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
             'spareparts_id' => $request->spareparts_id,
-            'tindakan_servis' => $tindakan_servis->nama_tindakan,
+            'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'catatan' => $request->catatan,
@@ -128,8 +134,8 @@ class UbahBisaDiambilController extends Controller
             'profit' => $profittransaksi
         ]);
 
-        if ($request->spareparts_id != null) {
-            $spareparts = Sparepart::find($request->spareparts_id);
+        if ($request->products_id != null) {
+            $spareparts = Product::find($request->products_id);
             $spareparts->stok -= 1;
             $spareparts->save();
         }
