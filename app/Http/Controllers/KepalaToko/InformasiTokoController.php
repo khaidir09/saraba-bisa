@@ -11,7 +11,7 @@ class InformasiTokoController extends Controller
     public function index()
     {
         $users = Auth::user();
-        return view('pages/kepalatoko/informasi-toko', compact('users'));
+        return view('pages/kepalatoko/pengaturan/profil', compact('users'));
     }
 
     public function update(Request $request)

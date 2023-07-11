@@ -34,7 +34,7 @@ use App\Http\Controllers\KepalaToko\TransaksiProdukController as KepalaTokoTrans
 use App\Http\Controllers\KepalaToko\LaporanPenjualanController as KepalaTokoLaporanPenjualanController;
 
 use App\Http\Controllers\KepalaToko\ExpenseController as KepalaTokoExpenseController;
-
+use App\Http\Controllers\KepalaToko\TermController as KepalaTokoTermController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,6 +124,13 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
 
     Route::post('/import-produk', [KepalaTokoProdukController::class, 'import'])->name('import-produk');
     Route::get('export-produk', [KepalaTokoProdukController::class, 'export'])->name('produk-export');
+
+    Route::get('pengaturan/profil', [KepalaTokoInformasiTokoController::class, 'index'])->name('informasi-toko');
+    Route::post('pengaturan/profil', [KepalaTokoInformasiTokoController::class, 'update'])->name('informasi-toko-update');
+    Route::get('pengaturan/syarat-ketentuan', [KepalaTokoTermController::class, 'index'])->name('syarat-ketentuan');
+    Route::post('pengaturan/syarat-ketentuan-terima', [KepalaTokoTermController::class, 'updateterima'])->name('ketentuan-terima-update');
+    Route::post('pengaturan/syarat-ketentuan-pengambilan', [KepalaTokoTermController::class, 'updatepengambilan'])->name('ketentuan-pengambilan-update');
+    Route::post('pengaturan/syarat-ketentuan-penjualan', [KepalaTokoTermController::class, 'updatepenjualan'])->name('ketentuan-penjualan-update');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\Term;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
@@ -83,21 +84,13 @@ class SudahDiambilController extends Controller
     public function cetakinkjet($id)
     {
         $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
         $users = User::find(1);
+        $terms = Term::find(2);
 
         $pdf = PDF::loadView('pages.kepalatoko.notapengambilan-cetak-inkjet', [
             'users' => $users,
             'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
+            'terms' => $terms,
         ]);
         return $pdf->setOption(['dpi' => 300])->stream();
     }
@@ -105,21 +98,11 @@ class SudahDiambilController extends Controller
     public function pengambilantermal($id)
     {
         $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
         $users = User::find(1);
 
         $pdf = PDF::loadView('pages.kepalatoko.cetak-termal-pengambilan', [
             'users' => $users,
             'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
         ]);
         return $pdf->stream();
     }
@@ -182,6 +165,7 @@ class SudahDiambilController extends Controller
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'diskon' => $request->diskon,
+            'uang_muka' => $request->uang_muka,
             'cara_pembayaran' => $request->cara_pembayaran,
             'exp_garansi' => $request->exp_garansi,
             'tgl_ambil' => $request->tgl_ambil,

@@ -287,7 +287,15 @@
                             <div class="font-medium">{{ $model->name }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-medium">{{ $model->brand->name }}</div>
+                            @if ($model->brand)
+                                @if ($model->brand->exists())
+                                    <div class="font-medium">{{ $model->brand->name }}</div>
+                                @else
+                                    <div class="font-medium text-rose-600">Data merek telah dihapus</div>
+                                @endif
+                            @else
+                                <div class="font-medium text-rose-600">Data merek telah dihapus</div>
+                            @endif
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                             <div class="space-x-1 flex">

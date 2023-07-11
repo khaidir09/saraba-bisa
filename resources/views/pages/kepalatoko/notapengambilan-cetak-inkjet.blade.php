@@ -7,14 +7,26 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Nota Pengambilan Servis #{{ $items->nomor_servis }}</title>
 	<style>
+		body {
+			color: #000000;
+		}
+
+		.capital {
+			text-transform: uppercase;
+		}
+
 		.nama-toko {
 			font-size: 72px;
 			font-weight: 800;
 		}
 
 		table {
-			font-size: 30px;
+			font-size: 36px;
 			line-height: 1em;
+		}
+
+		tbody, thead {
+			color: #000000;
 		}
 	</style>
 </head>
@@ -55,9 +67,9 @@
 			<tbody>
 				<tr style="border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Nama</th>
-					<td>: {{ $items->customer->nama }}</td>
+					<td class="capital">: {{ $items->customer->nama }}</td>
 					<td scope="row" style="border-left-style: solid;">Jenis Barang</th>
-					<td>: {{ $items->type->name }}</td>
+					<td class="capital">: {{ $items->type->name }}</td>
 					<td scope="row">IMEI/SN</th>
 					<td>: {{ $items->imei }}</td>
 				</tr>
@@ -65,21 +77,21 @@
 					<td scope="row" style="border-left-style: solid;">Nomor HP</th>
 					<td>: {{ $items->customer->nomor_hp }}</td>
 					<td scope="row" style="border-left-style: solid;">Merek</th>
-					<td>: {{ $items->brand->name }}</td>
+					<td class="capital">: {{ $items->brand->name }}</td>
 					<td scope="row">Kelengkapan</th>
 					@if ($items->kelengkapan != null)
-						<td>: {{ $items->kelengkapan }}</td>
+						<td class="capital">: {{ $items->kelengkapan }}</td>
 					@else
-						<td>: Hanya Unit</td>
+						<td class="capital">: Hanya Unit</td>
 					@endif
 				</tr>
 				<tr style="border-bottom-style: solid; border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Alamat</th>
-					<td>: {{ $items->customer->alamat }}</td>
+					<td class="capital">: {{ $items->customer->alamat }}</td>
 					<td scope="row" style="border-left-style: solid;">Model Seri</th>
-					<td>: {{ $items->modelserie->name }}</td>
+					<td class="capital">: {{ $items->modelserie->name }}</td>
 					<td scope="row">Warna/Kapasitas</th>
-					<td>: {{ $items->warna }} / {{ $items->capacity->name }}</td>
+					<td class="capital">: {{ $items->warna }} / {{ $items->capacity->name }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -94,24 +106,24 @@
 			<tbody>
 				<tr style="border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Kerusakan</th>
-					<td>: {{ $items->kerusakan }}</td>
+					<td class="capital">: {{ $items->kerusakan }}</td>
 					<td scope="row" style="border-left-style: solid;">Fungsi (Masuk)</th>
-					<td>: {{ $items->qc_masuk }}</td>
+					<td class="capital">: {{ $items->qc_masuk }}</td>
 					<td scope="row" style="border-left-style: solid;">Metode Pembayaran</td>
-					<td>: {{ $items->cara_pembayaran }}</td>
+					<td class="capital">: {{ $items->cara_pembayaran }}</td>
 				</tr>
 				<tr style="border-right-style: solid;">
 					<td scope="row" style="border-left-style: solid;">Kondisi Servis</th>
-					<td>: {{ $items->kondisi_servis }}</td>
+					<td class="capital">: {{ $items->kondisi_servis }}</td>
 					<td scope="row" style="border-left-style: solid;">Fungsi (Keluar)</th>
-					<td>: {{ $items->qc_keluar }}</td>
+					<td class="capital">: {{ $items->qc_keluar }}</td>
 					<td scope="row" style="border-left-style: solid;">Biaya Servis</td>
 					<td>: Rp. {{ number_format($items->biaya) }}</td>
 				</tr>
 				@if ($items->uang_muka != null && $items->diskon != null)
 					<tr style="border-right-style: solid;">
 						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-						<td>: {{ $items->tindakan_servis }}</td>
+						<td class="capital">: {{ $items->tindakan_servis }}</td>
 						<td scope="row" style="border-left-style: solid;"></td>
 						<td></td>
 						<td scope="row" style="border-left-style: solid;">Uang Muka</td>
@@ -136,7 +148,7 @@
 				@elseif ($items->uang_muka != null && $items->diskon === null)
 					<tr style="border-right-style: solid;">
 						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-						<td>: {{ $items->tindakan_servis }}</td>
+						<td class="capital">: {{ $items->tindakan_servis }}</td>
 						<td scope="row" style="border-left-style: solid;"></td>
 						<td></td>
 						<td scope="row" style="border-left-style: solid;">Uang Muka</td>
@@ -153,7 +165,7 @@
 				@elseif ($items->diskon != null && $items->uang_muka === null)
 					<tr style="border-right-style: solid;">
 						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-						<td>: {{ $items->tindakan_servis }}</td>
+						<td class="capital">: {{ $items->tindakan_servis }}</td>
 						<td scope="row" style="border-left-style: solid;"></td>
 						<td></td>
 						<td scope="row" style="border-left-style: solid;">Diskon</td>
@@ -170,7 +182,7 @@
 				@elseif ($items->diskon === null && $items->uang_muka === null)
 					<tr style="border-right-style: solid; border-bottom-style: solid;">
 						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-						<td>: {{ $items->tindakan_servis }}</td>
+						<td class="capital">: {{ $items->tindakan_servis }}</td>
 						<td scope="row" style="border-left-style: solid;"></td>
 						<td></td>
 						<td scope="row" style="border-left-style: solid;"></td>
@@ -183,12 +195,12 @@
 			<thead>
 				<tr>
 					@if ($items->exp_garansi === null)
-						<td scope="row" style="border-left-style: solid;">
-							<span class="bg-danger text-white py-1 px-2" style="border-radius: 12px;">Tidak ada garansi untuk tindakan servis ini.</span>
+						<td>
+							Tidak ada garansi untuk tindakan servis ini.
 						</td>
 					@else
-						<td scope="row" style="border-left-style: solid;">
-							<span class="bg-primary text-white py-1 px-2" style="border-radius: 12px;">Garansi servis Anda aktif sampai tanggal {{ $items->exp_garansi }}</span>
+						<td>
+							Garansi servis Anda aktif sampai tanggal {{ $items->exp_garansi }}
 						</td>
 					@endif
 				</tr>
@@ -201,7 +213,7 @@
 			<tbody>
 				<tr>
 					<td class="text-justify" style="font-style: italic;">
-						Garansi tidak berlaku apabila terjadi kerusakan yang disebabkan oleh kesalahan pemakai seperti jatuh, terkena air, konslet, dll atau direparasi oleh pihak lain. <br> <br>
+						{!! $terms->description !!} <br> <br>
 						<span style="font-weight: bold;">Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</span>
 					</td>
 					<td colspan="2" class="pt-5 text-center">{{ $items->customer->nama }}</td>

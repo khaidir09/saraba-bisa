@@ -162,6 +162,10 @@
                                     <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart </label>
                                     <input id="modal_sparepart" name="modal_sparepart" class="form-input w-full px-2 py-1" type="number" value="{{ $item->modal_sparepart }}"/>
                                 </div>
+                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="uang_muka">Uang Muka </label>
+                                    <input id="uang_muka" name="uang_muka" class="form-input w-full px-2 py-1" type="number" value="{{ $item->uang_muka }}"/>
+                                </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="biaya">Biaya Servis </label>
                                     <input id="biaya" name="biaya" class="form-input w-full px-2 py-1" type="number" value="{{ $item->biaya }}"/>

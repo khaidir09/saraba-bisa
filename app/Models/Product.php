@@ -12,10 +12,10 @@ class Product extends Model
         'product_name',
         'product_code',
         'categories_id',
+        'category_name',
         'stok',
         'harga_modal',
-        'harga_toko',
-        'harga_pelanggan',
+        'harga_jual',
         'supplier',
         'keterangan',
         'nomor_seri'
