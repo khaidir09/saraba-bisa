@@ -69,11 +69,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('master/master-model-seri', KepalaTokoMasterModelSeriController::class);
     Route::resource('anggaran', KepalaTokoAnggaranController::class);
 
-
     Route::get('laporan/laporan-servis', [KepalaTokoLaporanServisController::class, 'index'])->name('laporan-servis');
-
-    Route::get('informasi-toko', [KepalaTokoInformasiTokoController::class, 'index'])->name('informasi-toko');
-    Route::post('informasi-toko', [KepalaTokoInformasiTokoController::class, 'update'])->name('informasi-toko-update');
 
     Route::get('servis/ubah-status-proses/{id}', [KepalaTokoUbahStatusProsesServisController::class, 'edit'])->name('ubah-status-proses-edit');
     Route::post('servis/ubah-status-proses{id}', [KepalaTokoUbahStatusProsesServisController::class, 'update'])->name('ubah-status-proses-update');
