@@ -131,7 +131,15 @@
 				</tr>
 				<tr>
 				<td class="title">Teknisi</td>
-				<td class="value">: {{ $items->user->name }}</td>
+				@if ($item->user)
+					@if ($item->user->exists())
+						<td class="value">: {{ $items->user->name }}</td>
+					@else
+						<div></div>
+					@endif
+				@else
+					<div></div>
+				@endif
 				</tr>
 				<tr>
 				<td class="title">Pengecekan Masuk</td>
