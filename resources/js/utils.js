@@ -22,15 +22,15 @@ export const hexToRGB = (h) => {
 };
 
 export const formatValue = (value) =>
-    Intl.NumberFormat("en-US", {
+    Intl.NumberFormat("id-ID", {
         style: "currency",
-        currency: "USD",
+        currency: "IDR",
         maximumSignificantDigits: 3,
         notation: "compact",
     }).format(value);
 
 export const formatThousands = (value) =>
-    Intl.NumberFormat("en-US", {
+    Intl.NumberFormat("id-ID", {
         maximumSignificantDigits: 3,
         notation: "compact",
     }).format(value);

@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\GaransiController;
-use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
 // Kepala Toko
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KepalaToko\DataServisController;
+use App\Http\Controllers\KepalaToko\DataPenjualanController;
 use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\UbahStatusProsesServisController as KepalaTokoUbahStatusProsesServisController;
@@ -115,6 +116,8 @@ Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-d
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
+    Route::get('/json-data-servis', [DataServisController::class, 'getDataServis'])->name('json_data_servis');
+    Route::get('/json-data-penjualan', [DataPenjualanController::class, 'getDataPenjualan'])->name('json_data_penjualan');
     Route::get('/akun', [KepalaTokoAkunController::class, 'index'])->name('akun');
     Route::post('/akun', [KepalaTokoAkunController::class, 'store'])->name('akun-store');
     Route::get('/akun/{id}', [KepalaTokoAkunController::class, 'edit'])->name('akun-edit');
@@ -326,9 +329,5 @@ Route::middleware('ensureSalesRole:Sales')->group(
 );
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-
-    // Route for the getting the data feed
-    Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
-
     Route::get('/old-dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

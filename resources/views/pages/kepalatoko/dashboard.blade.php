@@ -207,5 +207,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="grid grid-cols-12 gap-6 mt-4">
+            {{-- Grafik Servis --}}
+            <x-dashboard.grafik-servis />
+            {{-- Grafik Penjualan --}}
+            <x-dashboard.grafik-penjualan />
+        </div>
     </div>
 </x-toko-layout>
