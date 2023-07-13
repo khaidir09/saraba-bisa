@@ -7,7 +7,8 @@ use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
 // Kepala Toko
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\KepalaToko\DataFeedController;
+use App\Http\Controllers\KepalaToko\DataServisController;
+use App\Http\Controllers\KepalaToko\DataPenjualanController;
 use App\Http\Controllers\KepalaToko\AkunController as KepalaTokoAkunController;
 use App\Http\Controllers\KepalaToko\GajiController as KepalaTokoGajiController;
 use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
@@ -116,7 +117,8 @@ Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
 Route::get('/tracking-data', [TrackingController::class, 'data'])->name('tracking-data');
 Route::get('/garansi', [GaransiController::class, 'index'])->name('garansi');
 Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-data');
-Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
+Route::get('/json-data-servis', [DataServisController::class, 'getDataServis'])->name('json_data_servis');
+Route::get('/json-data-penjualan', [DataPenjualanController::class, 'getDataPenjualan'])->name('json_data_penjualan');
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
@@ -337,9 +339,5 @@ Route::middleware('ensureSalesRole:Sales')->group(
 );
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-
-    // Route for the getting the data feed
-    Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
-
     Route::get('/old-dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

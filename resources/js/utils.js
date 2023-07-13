@@ -22,47 +22,15 @@ export const hexToRGB = (h) => {
 };
 
 export const formatValue = (value) =>
-    Intl.NumberFormat("en-US", {
+    Intl.NumberFormat("id-ID", {
         style: "currency",
-        currency: "USD",
+        currency: "IDR",
         maximumSignificantDigits: 3,
         notation: "compact",
     }).format(value);
 
 export const formatThousands = (value) =>
-    Intl.NumberFormat("en-US", {
+    Intl.NumberFormat("id-ID", {
         maximumSignificantDigits: 3,
         notation: "compact",
     }).format(value);
-
-// Mengembalikan daftar nama bulan
-export function getMonthNames() {
-    return [
-        "Januari",
-        "Februari",
-        "Maret",
-        "April",
-        "Mei",
-        "Juni",
-        "Juli",
-        "Agustus",
-        "September",
-        "Oktober",
-        "November",
-        "Desember",
-    ];
-}
-
-// Mengembalikan nama bulan berdasarkan indeks (dimulai dari 0)
-export function getMonthName(index) {
-    const monthNames = getMonthNames();
-    return monthNames[index];
-}
-
-// Mengembalikan indeks bulan berdasarkan nama bulan
-export function getMonthIndex(monthName) {
-    const monthNames = getMonthNames();
-    return monthNames.findIndex(
-        (name) => name.toLowerCase() === monthName.toLowerCase()
-    );
-}

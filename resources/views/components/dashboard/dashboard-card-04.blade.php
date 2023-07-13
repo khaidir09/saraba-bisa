@@ -3,6 +3,6 @@
         <h2 class="font-semibold text-slate-800">Laporan Servis</h2>
     </header>
     <div class="grow">
-        <canvas id="tes" width="595" height="248"></canvas>
+        <canvas id="dashboard-card-04" width="595" height="248"></canvas>
     </div>
 </div>
