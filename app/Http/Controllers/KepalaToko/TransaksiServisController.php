@@ -100,28 +100,42 @@ class TransaksiServisController extends Controller
 
     public function cetaktermal($id)
     {
-        $items = ServiceTransaction::findOrFail($id);
+        $items = ServiceTransaction::with('customer')->findOrFail($id);
         $users = User::find(1);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $items->nomor_servis;
+        $namaPelanggan = $items->customer->nama;
 
         $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-termal', [
             'users' => $users,
             'items' => $items
         ]);
-        return $pdf->stream();
+
+        $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->stream($filename);
     }
 
     public function cetakinkjet($id)
     {
-        $items = ServiceTransaction::findOrFail($id);
+        $items = ServiceTransaction::with('customer')->findOrFail($id);
         $users = User::find(1);
         $terms = Term::find(1);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $items->nomor_servis;
+        $namaPelanggan = $items->customer->nama;
 
         $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-inkjet', [
             'users' => $users,
             'items' => $items,
             'terms' => $terms
         ]);
-        return $pdf->setOption(['dpi' => 300])->stream();
+
+        $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->setOption(['dpi' => 300])->stream($filename);
     }
 
     /**
