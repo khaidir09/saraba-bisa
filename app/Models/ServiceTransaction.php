@@ -38,7 +38,7 @@ class ServiceTransaction extends Model
         'biaya',
         'tindakan_servis',
         'service_actions_id',
-        'spareparts_id',
+        'products_id',
         'modal_sparepart',
         'is_approve',
         'diskon',
@@ -65,6 +65,11 @@ class ServiceTransaction extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customers_id', 'id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'products_id', 'id');
     }
 
     public function type()

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 class BisaDiambilController extends Controller
 {
@@ -91,12 +92,15 @@ class BisaDiambilController extends Controller
      */
     public function edit($id)
     {
-        $item = ServiceTransaction::with('serviceaction')->findOrFail($id);
+        $item = ServiceTransaction::with('user', 'serviceaction', 'product')->findOrFail($id);
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
+        $products = Product::whereHas('category', function ($query) {
+            $query->where('category_name', 'Sparepart');
+        })->where('stok', '>=', '1')->get();
         $capacities = Capacity::all();
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
@@ -108,6 +112,7 @@ class BisaDiambilController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'service_actions' => $service_actions,
+            'products' => $products,
             'capacities' => $capacities,
             'users' => $users,
             'workers' => $workers
@@ -155,6 +160,7 @@ class BisaDiambilController extends Controller
             'qc_masuk' => $request->qc_masuk,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
+            'products_id' => $request->products_id,
             'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,

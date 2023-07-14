@@ -159,6 +159,19 @@
                                     </select>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="products_id">Sparepart yang digunakan  </label>
+                                    <select id="products_id" name="products_id" class="form-select text-sm py-1 w-full">
+                                        @if ($item->product != null)
+                                            <option selected value="{{ $item->product->id }}">{{ $item->product->product_name }}</option>
+                                        @else
+                                            <option selected value=""></option>
+                                        @endif
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="users_id">Teknisi </label>
                                     <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" >
                                         @if ($item->user != null)

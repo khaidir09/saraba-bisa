@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teknisi;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
@@ -13,7 +14,6 @@ use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use League\CommonMark\Node\Query\AndExpr;
 
 class BisaDiambilController extends Controller
 {
@@ -98,6 +98,9 @@ class BisaDiambilController extends Controller
         $brands = Brand::all();
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
+        $products = Product::whereHas('category', function ($query) {
+            $query->where('category_name', 'Sparepart');
+        })->where('stok', '>=', '1')->get();
         $capacities = Capacity::all();
 
         return view('pages.teknisi.bisa-diambil-edit', [
@@ -107,6 +110,7 @@ class BisaDiambilController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'service_actions' => $service_actions,
+            'products' => $products,
             'capacities' => $capacities
         ]);
     }
@@ -152,6 +156,7 @@ class BisaDiambilController extends Controller
             'qc_masuk' => $request->qc_masuk,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
+            'products_id' => $request->products_id,
             'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
