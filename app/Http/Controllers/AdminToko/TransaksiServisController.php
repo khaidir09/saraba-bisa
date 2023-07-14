@@ -113,13 +113,17 @@ class TransaksiServisController extends Controller
 
     public function cetaktermal($id)
     {
-        $items = ServiceTransaction::findOrFail($id);
+        $items = ServiceTransaction::with('customer')->findOrFail($id);
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         $users = User::find(1);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $items->nomor_servis;
+        $namaPelanggan = $items->customer->nama;
 
         $pdf = PDF::loadView('pages.admintoko.cetak-termal', [
             'users' => $users,
@@ -130,7 +134,10 @@ class TransaksiServisController extends Controller
             'model_series' => $model_series,
             'capacities' => $capacities
         ]);
-        return $pdf->stream();
+
+        $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->stream($filename);
     }
 
     /**

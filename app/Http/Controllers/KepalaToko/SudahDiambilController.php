@@ -85,13 +85,17 @@ class SudahDiambilController extends Controller
 
     public function pengambilantermal($id)
     {
-        $items = ServiceTransaction::findOrFail($id);
+        $items = ServiceTransaction::with('customer')->findOrFail($id);
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         $users = User::find(1);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $items->nomor_servis;
+        $namaPelanggan = $items->customer->nama;
 
         $pdf = PDF::loadView('pages.kepalatoko.cetak-termal-pengambilan', [
             'users' => $users,
@@ -102,7 +106,10 @@ class SudahDiambilController extends Controller
             'model_series' => $model_series,
             'capacities' => $capacities
         ]);
-        return $pdf->stream();
+
+        $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->stream($filename);
     }
 
     /**
