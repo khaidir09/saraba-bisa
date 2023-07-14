@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\Term;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
@@ -110,6 +111,27 @@ class SudahDiambilController extends Controller
         $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
         return $pdf->stream($filename);
+    }
+
+    public function cetakinkjet($id)
+    {
+        $items = ServiceTransaction::with('customer')->findOrFail($id);
+        $users = User::find(1);
+        $terms = Term::find(2);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $items->nomor_servis;
+        $namaPelanggan = $items->customer->nama;
+
+        $pdf = PDF::loadView('pages.kepalatoko.servis.notapengambilan-cetak-inkjet', [
+            'users' => $users,
+            'items' => $items,
+            'terms' => $terms
+        ]);
+
+        $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->setOption(['dpi' => 300])->stream($filename);
     }
 
     /**
