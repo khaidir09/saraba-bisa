@@ -6,6 +6,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Worker;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
@@ -93,13 +94,16 @@ class BisaDiambilController extends Controller
      */
     public function edit($id)
     {
-        $item = ServiceTransaction::with('serviceaction')->findOrFail($id);
+        $item = ServiceTransaction::findOrFail($id);
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
         $capacities = Capacity::all();
+        $products = Product::whereHas('category', function ($query) {
+            $query->where('category_name', 'Sparepart');
+        })->where('stok', '>=', '1')->get();
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
 
@@ -111,6 +115,7 @@ class BisaDiambilController extends Controller
             'model_series' => $model_series,
             'service_actions' => $service_actions,
             'capacities' => $capacities,
+            'products' => $products,
             'users' => $users,
             'workers' => $workers
         ]);
@@ -155,6 +160,7 @@ class BisaDiambilController extends Controller
             'qc_masuk' => $request->qc_masuk,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
+            'products_id' => $request->products_id,
             'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
