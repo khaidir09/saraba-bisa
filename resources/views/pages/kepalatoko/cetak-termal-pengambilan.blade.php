@@ -114,8 +114,8 @@
 				</tr>
 				<tr>
 				<td class="title">Teknisi</td>
-				@if ($item->user)
-					@if ($item->user->exists())
+				@if ($items->user)
+					@if ($items->user->exists())
 						<td class="value">: {{ $items->user->name }}</td>
 					@else
 						<div></div>
