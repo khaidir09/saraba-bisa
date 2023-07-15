@@ -109,14 +109,25 @@ class TransaksiProdukController extends Controller
         $subtotal = $orderItem->sum('sub_total');
         $users = User::find(1);
 
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $order->invoice_no;
+        $namaPelanggan = $order->customer->nama;
+
         $pdf = PDF::loadView('pages.kepalatoko.produk.cetak-termal', [
             'order' => $order,
             'users' => $users,
             'orderItem' => $orderItem,
             'total' => $total,
-            'subtotal' => $subtotal
+            'subtotal' => $subtotal,
+            'imagePath' => $imagePath,
         ]);
-        return $pdf->stream();
+
+        $filename = 'Nota Penjualan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     public function cetakinkjet($orders_id)
@@ -128,15 +139,26 @@ class TransaksiProdukController extends Controller
         $users = User::find(1);
         $terms = Term::find(3);
 
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $order->invoice_no;
+        $namaPelanggan = $order->customer->nama;
+
         $pdf = PDF::loadView('pages.kepalatoko.produk.lunas-cetak-inkjet', [
             'order' => $order,
             'users' => $users,
             'terms' => $terms,
             'orderItem' => $orderItem,
             'total' => $total,
-            'subtotal' => $subtotal
+            'subtotal' => $subtotal,
+            'imagePath' => $imagePath,
         ]);
-        return $pdf->setPaper('a4', 'landscape')->stream();
+
+        $filename = 'Nota Penjualan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->setPaper('a4', 'landscape')->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     public function edit($id)

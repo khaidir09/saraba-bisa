@@ -102,6 +102,8 @@ class TransaksiServisController extends Controller
     {
         $items = ServiceTransaction::with('customer')->findOrFail($id);
         $users = User::find(1);
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
 
         // Ambil nomor invoice dari database
         $invoiceNumber = $items->nomor_servis;
@@ -109,12 +111,13 @@ class TransaksiServisController extends Controller
 
         $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-termal', [
             'users' => $users,
-            'items' => $items
+            'items' => $items,
+            'imagePath' => $imagePath,
         ]);
 
         $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
-        return $pdf->stream($filename);
+        return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     public function cetakinkjet($id)
@@ -123,6 +126,9 @@ class TransaksiServisController extends Controller
         $users = User::find(1);
         $terms = Term::find(1);
 
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
         // Ambil nomor invoice dari database
         $invoiceNumber = $items->nomor_servis;
         $namaPelanggan = $items->customer->nama;
@@ -130,12 +136,13 @@ class TransaksiServisController extends Controller
         $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-inkjet', [
             'users' => $users,
             'items' => $items,
-            'terms' => $terms
+            'terms' => $terms,
+            'imagePath' => $imagePath,
         ]);
 
         $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
-        return $pdf->setOption(['dpi' => 300])->stream($filename);
+        return $pdf->setOption(['dpi' => 300,'isRemoteEnabled', true])->stream($filename);
     }
 
     /**

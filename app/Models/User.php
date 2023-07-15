@@ -103,6 +103,6 @@ class User extends Authenticatable
         $currentMonth = now()->month;
 
         return $this->hasMany(OrderDetail::class, 'users_id', 'id')
-        ->whereMonth('created_at', $currentMonth);
+            ->whereMonth('created_at', $currentMonth);
     }
 }

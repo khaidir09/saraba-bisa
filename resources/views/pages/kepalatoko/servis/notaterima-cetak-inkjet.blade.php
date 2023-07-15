@@ -10,10 +10,6 @@
 		body {
 			color: #000000;
 		}
-		.nama-toko {
-			font-size: 72px;
-			font-weight: 800;
-		}
 
 		.capital {
 			text-transform: uppercase;
@@ -30,23 +26,28 @@
 	</style>
 </head>
 <body>
+	<div class="logo text-center">
+		@if ($users->profile_photo_path != null)
+			<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="150" class="mt-1 mb-2">
+		@endif
+	</div>
 	<table class="table table-sm table-borderless">
 		<tbody>
 			<tr>
-			<td scope="col" class="w-75 nama-toko">{{ $users->nama_toko }}</td>
-			<td scope="col" class="w-25">No. Servis : {{ $items->nomor_servis }}</td>
+			<td scope="col" class="w-50"></td>
+			<td scope="col" class="w-50"></td>
 			</tr>
 			<tr>
-			<td scope="col deskripsi-toko" style="font-size: 40px; font-weight: 600;">{{ $users->deskripsi_toko }}</td>
-			<td scope="col">Tanggal : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
+			<td scope="col" style="font-size: 40px; font-weight: 600;">{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</td>
+			<td scope="col" class="text-right">No. Servis : {{ $items->nomor_servis }}</td>
 			</tr>
 			<tr>
-			<td scope="col alamat-toko">{{ $users->alamat_toko }}</td>
-			<td scope="col">Dicetak oleh : {{ Auth::user()->name }}</td>
+			<td scope="col">{{ $users->alamat_toko }}</td>
+			<td scope="col" class="text-right">Tanggal : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
 			</tr>
 			<tr>
 			<td scope="col">Nomor HP/WA {{ $users->nomor_hp_toko }}</td>
-			<td scope="col"></td>
+			<td scope="col" class="text-right">Dicetak oleh : {{ Auth::user()->name }}</td>
 			</tr>
 		</tbody>
 	</table>

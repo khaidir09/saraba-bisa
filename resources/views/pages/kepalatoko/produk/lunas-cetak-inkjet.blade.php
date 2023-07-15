@@ -29,39 +29,35 @@
     }
     .authority h5 {
         margin-top: -10px;
-        color: green;
         margin-left: 35px;
     }
     .thanks p {
-        font-size: 16px;
+        font-size: 15px;
         font-weight: normal;
         font-family: serif;
-        margin-top: 20px;
+    }
+
+    .informasi-toko {
+      text-align: center;
     }
 </style>
 
 </head>
 <body>
 
-  <table width="100%" style="background: #F7F7F7; padding: 10px 10px 0 10px;">
-    <tr>
-        <td align="top"><img src="{{ asset('images/logo-toko.jpg') }}" alt="" width="150"/>
-          
-          <h2 style="font-size: 18px;">
-            <strong>{{ $users->nama_toko }}</strong> <br>
-            {{ $users->deskripsi_toko }}
-          </h2>
-        </td>
-        <td align="right">
-            <pre class="font" >
-               {{ $users->alamat_toko }} <br>
-               Telp/WA {{ $users->nomor_hp_toko }} <br>
-            </pre>
-        </td>
-    </tr>
-  </table>
-
-  <table width="100%" style="background:white; padding:2px;"></table>
+  <div class="informasi-toko">
+    @if ($users->profile_photo_path != null)
+      <img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70" class="mt-1 mb-2">
+    @endif
+    <h2 style="font-size: 18px;">
+      <strong>{{ $users->nama_toko }}</strong> <br>
+      {{ $users->deskripsi_toko }}
+    </h2>
+    <p>
+      {{ $users->alamat_toko }} <br>
+      Telp/WA {{ $users->nomor_hp_toko }} <br>
+    </p>
+  </div>
 
   <table width="100%" style="background: #F7F7F7; padding: 10px;" class="font">
     <tr>
@@ -98,7 +94,7 @@
     @endif
   </table>
 
-  <table width="100%" style="margin-top: 15px;">
+  <table width="100%" style="margin-top: 15px; border: 1px solid; border-collapse: collapse;">
     <thead style="background-color: lightgrey;">
       <tr class="font">
         <th>No.</th>
@@ -120,8 +116,8 @@
         <td align="center">
           {{ ++$i }}
         </td>
-        <td align="center">{{ $item->product->product_name }}</td>
-         @if ($item->garansi != null)
+        <td align="center" style="text-transform: uppercase;">{{ $item->product->product_name }}</td>
+        @if ($item->garansi != null)
             <td align="center">Aktif s/d {{ $item->garansi }}</td>
         @else
             <td align="center">Tidak ada</td>
@@ -135,7 +131,6 @@
             <td align="center">Rp. {{ number_format($item->sub_total - $item->total) }}</td>
         @endif
         <td align="center">Rp. {{ number_format($item->total) }}</td>
-
       </tr>
       @endforeach
     </tbody>
@@ -150,9 +145,16 @@
         </td>
     </tr>
   </table>
-  <div class="thanks mt-3">
+  <div class="thanks">
     <h4>Syarat & Ketentuan</h4>
-    <p>{!! $terms->description !!}</p>
+    <p >{!! $terms->description !!}</p>
+  </div>
+  <div class="thanks">
+    @if ($orderItem->first()->garansi != null)
+      <div>
+        <p>Cek status garansi di {{ $users->link_toko }}/garansi</p>
+      </div>
+    @endif
   </div>
   <div class="authority float-right mt-5">
       <p>-----------------------------------</p>
