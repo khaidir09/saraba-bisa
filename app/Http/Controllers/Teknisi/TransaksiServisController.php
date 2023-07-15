@@ -96,6 +96,9 @@ class TransaksiServisController extends Controller
         $users = User::find(1);
         $terms = Term::find(1);
 
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
         // Ambil nomor invoice dari database
         $invoiceNumber = $items->nomor_servis;
         $namaPelanggan = $items->customer->nama;
@@ -103,7 +106,8 @@ class TransaksiServisController extends Controller
         $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-inkjet', [
             'users' => $users,
             'items' => $items,
-            'terms' => $terms
+            'terms' => $terms,
+            'imagePath' => $imagePath,
         ]);
 
         $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
@@ -114,25 +118,19 @@ class TransaksiServisController extends Controller
     public function cetaktermal($id)
     {
         $items = ServiceTransaction::with('customer')->findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
         $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
 
         // Ambil nomor invoice dari database
         $invoiceNumber = $items->nomor_servis;
         $namaPelanggan = $items->customer->nama;
 
-        $pdf = PDF::loadView('pages.teknisi.cetak-termal', [
+        $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-termal', [
             'users' => $users,
             'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
+            'imagePath' => $imagePath
         ]);
 
         $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';

@@ -89,12 +89,10 @@ class SudahDiambilController extends Controller
     public function cetaktermal($id)
     {
         $items = ServiceTransaction::with('customer')->findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
         $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
 
         // Ambil nomor invoice dari database
         $invoiceNumber = $items->nomor_servis;
@@ -103,11 +101,7 @@ class SudahDiambilController extends Controller
         $pdf = PDF::loadView('pages.teknisi.cetak-termal-pengambilan', [
             'users' => $users,
             'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
+            'imagePath' => $imagePath,
         ]);
 
         $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
@@ -121,6 +115,9 @@ class SudahDiambilController extends Controller
         $users = User::find(1);
         $terms = Term::find(2);
 
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
         // Ambil nomor invoice dari database
         $invoiceNumber = $items->nomor_servis;
         $namaPelanggan = $items->customer->nama;
@@ -128,7 +125,8 @@ class SudahDiambilController extends Controller
         $pdf = PDF::loadView('pages.kepalatoko.servis.notapengambilan-cetak-inkjet', [
             'users' => $users,
             'items' => $items,
-            'terms' => $terms
+            'terms' => $terms,
+            'imagePath' => $imagePath,
         ]);
 
         $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';

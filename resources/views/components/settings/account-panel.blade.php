@@ -8,7 +8,11 @@
                 <h3 class="text-xl leading-snug text-slate-800 font-bold mb-2">Logo Toko</h3>
                 <div class="flex items-center">
                     <div class="mr-4">
-                        <img class="w-20 h-20 rounded-full" src="{{ Storage::url(Auth::user()->profile_photo_path) }}" width="80" height="80" alt="Logo Toko" />
+                        @if (Auth::user()->profile_photo_path != null)
+                            <img class="w-20 h-20 rounded-full" src="{{ Storage::url(Auth::user()->profile_photo_path) }}" width="80" height="80" alt="Logo Toko" />
+                        @else
+                            <img class="w-20 h-20 rounded-full" src="{{ Auth::user()->profile_photo_url }}" width="80" height="80" alt="{{ Auth::user()->name }}" />
+                        @endif
                     </div>
                     <input type="file" name="profile_photo_path" id="profile_photo_path" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
                 </div>

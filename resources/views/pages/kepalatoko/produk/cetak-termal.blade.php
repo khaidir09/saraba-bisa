@@ -42,11 +42,16 @@
   </head>
   <body>
     <div class="resi">
-      <p class="text-center mb-1">
-        NOTA PENJUALAN <br>
-        <strong>{{ $users->nama_toko }}</strong> <br>
-        Telp/WA {{ $users->nomor_hp_toko }}
-      </p>
+       <div class="text-center">
+        @if ($users->profile_photo_path != null)
+          <img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="50" class="mt-1 mb-2">
+        @endif
+        <p class="mb-1">
+          NOTA PENJUALAN <br>
+          <strong>{{ $users->nama_toko }}</strong> <br>
+          Telp/WA {{ $users->nomor_hp_toko }}
+        </p>
+      </div>
 
       <table>
         <tbody>
@@ -133,6 +138,9 @@
       <div class="text-center mt-1">
         <small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
         <p class="my-1">Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
+        @if ($orderItem->first()->garansi != null)
+          <p class="mb-1">Cek status garansi {{ $users->link_toko }}/garansi</p>
+        @endif
         <p class="mb-0">Terima kasih atas kepercayaan Anda telah berbelanja di <br> {{ $users->nama_toko }}</p>
         <p>Barang yang sudah dibeli tidak bisa dikembalikan.</p>
       </div>
