@@ -10,10 +10,6 @@
 			color: #000000;
 		}
 
-		h6 {
-			font-size: 40px;
-		}
-
 		.text-center {
 			text-align: center;
 		}
@@ -84,7 +80,7 @@
 			NOTA TERIMA SERVIS
 		</h4>
 
-	<table id="data">
+	<table>
 		<thead>
 			<tr style="border-top-style: solid; border-right-style: solid;">
 				<th id="data" colspan="2" style="border-left-style: solid;" class="text-left">Data Pelanggan</th>
