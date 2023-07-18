@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
 	<style>
 		html {
 			margin: 0;
@@ -14,7 +14,17 @@
 			font-size: 10px;
 			color: #000000;
 		}
+
+		footer {
+			margin-top: 5px;
+		}
+
+		.text-center {
+			text-align: center;
+		}
+
 		.resi {
+			margin-top: 5px;
 			width: 155px;
     		max-width: 155px;
 		}
@@ -45,9 +55,9 @@
 	<div class="resi">
 		<div class="text-center">
 			@if ($users->profile_photo_path != null)
-				<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="50" class="mt-1 mb-2">
+				<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="50">
 			@endif
-			<p class="mb-1">
+			<p>
 				NOTA PENGAMBILAN SERVIS <br>
 				<strong>{{ $users->nama_toko }}</strong> <br>
 				Telp/WA {{ $users->nomor_hp_toko }}
@@ -146,12 +156,12 @@
 
 		<hr style="border-top: 1px solid; margin: 0px;">
 
-		<div class="text-center mt-1">
+		<footer class="text-center">
 			<small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
-			<p class="my-1">Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
-			<p class="mb-1">Cek status garansi {{ $users->link_toko }}/tracking</p>
+			<p>Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
+			<p>Cek status garansi {{ $users->link_toko }}/tracking</p>
 			<p>Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</p>
-		</div>
+		</footer>
 	</div>
 </body>
 </html>

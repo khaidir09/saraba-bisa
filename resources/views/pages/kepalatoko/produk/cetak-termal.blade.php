@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
     <style>
       html {
         margin: 0;
@@ -13,9 +13,18 @@
         font-size: 10px;
         color: #000000;
       }
+      footer {
+        margin-top: 5px;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+      
       .resi {
+        margin-top: 5px;
         width: 155px;
-          max-width: 155px;
+        max-width: 155px;
       }
 
       td,
@@ -44,9 +53,9 @@
     <div class="resi">
        <div class="text-center">
         @if ($users->profile_photo_path != null)
-          <img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="50" class="mt-1 mb-2">
+          <img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="50">
         @endif
-        <p class="mb-1">
+        <p>
           NOTA PENJUALAN <br>
           <strong>{{ $users->nama_toko }}</strong> <br>
           Telp/WA {{ $users->nomor_hp_toko }}
@@ -74,7 +83,7 @@
         </tbody>
       </table>
 
-      <hr style="border-top: 1px dotted; margin: 6px 0;">
+      <hr style="border-top: 1px dotted;">
 
       <table>
         <tbody>
@@ -97,7 +106,7 @@
         </tbody>
       </table>
       
-      <hr style="border-top: 1px dotted; margin: 6px 0 6px;">
+      <hr style="border-top: 1px dotted;">
 
       <table>
         <tbody>
@@ -133,16 +142,16 @@
         </tbody>
       </table>
 
-      <hr style="border-top: 1px solid; margin: 6px 0 0;">
+      <hr style="border-top: 1px solid;">
 
-      <div class="text-center mt-1">
+      <div class="text-center">
         <small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
-        <p class="my-1">Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
+        <p style="margin-top: 4px; margin-bottom: 4px;">Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
         @if ($orderItem->first()->garansi != null)
-          <p class="mb-1">Cek status garansi {{ $users->link_toko }}/garansi</p>
+          <p style="margin-top: 4px; margin-bottom: 4px;">Cek status garansi {{ $users->link_toko }}/garansi</p>
         @endif
-        <p class="mb-0">Terima kasih atas kepercayaan Anda telah berbelanja di <br> {{ $users->nama_toko }}</p>
-        <p>Barang yang sudah dibeli tidak bisa dikembalikan.</p>
+        <p style="margin-top: 4px; margin-bottom: 4px;">Terima kasih atas kepercayaan Anda telah berbelanja di <br> {{ $users->nama_toko }}</p>
+        <p style="margin-top: 4px;">Barang yang sudah dibeli tidak bisa dikembalikan.</p>
       </div>
     </div>
   </body>

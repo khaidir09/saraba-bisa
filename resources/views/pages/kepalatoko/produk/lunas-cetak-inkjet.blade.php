@@ -141,14 +141,14 @@
     <tr>
         <td align="right" >
             <h2>
-              <span style="color: green;">Total:</span> Rp. {{ number_format($total) }}
+              <span>Total:</span> Rp. {{ number_format($total) }}
             </h2>
         </td>
     </tr>
   </table>
   <div class="thanks">
     <h4>Syarat & Ketentuan</h4>
-    <p >{!! $terms->description !!}</p>
+    <p >{!! $termpenjualan->description !!}</p>
   </div>
   <div class="thanks">
     @if ($orderItem->first()->garansi != null)
