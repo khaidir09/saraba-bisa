@@ -147,7 +147,7 @@
       <tr class="font">
         <th>No.</th>
         <th>Nama Produk</th>
-        <th>Garansi</th>
+        <th>Garansi Produk</th>
         @if ($orderItem->first()->garansi_imei != null)
             <th>Garansi IMEI</th>
         @endif
