@@ -97,7 +97,7 @@ class SudahDiambilController extends Controller
         $invoiceNumber = $items->nomor_servis;
         $namaPelanggan = $items->customer->nama;
 
-        $pdf = PDF::loadView('pages.kepalatoko.servis.cetak-termal-pengambilan', [
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-termal-pengambilan', [
             'users' => $users,
             'items' => $items,
             'imagePath' => $imagePath

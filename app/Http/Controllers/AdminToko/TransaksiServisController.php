@@ -127,7 +127,7 @@ class TransaksiServisController extends Controller
         $invoiceNumber = $items->nomor_servis;
         $namaPelanggan = $items->customer->nama;
 
-        $pdf = PDF::loadView('pages.kepalatoko.servis.notaterima-cetak-termal', [
+        $pdf = PDF::loadView('pages.kepalatoko.kepalatoko-cetak-termal', [
             'users' => $users,
             'items' => $items,
             'imagePath' => $imagePath
