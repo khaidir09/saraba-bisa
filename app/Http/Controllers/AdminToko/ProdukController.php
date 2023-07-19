@@ -41,13 +41,20 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $namakategori = Category::find($request->categories_id);
+
+        if ($request->stok === null) {
+            $stok = 1;
+        } else {
+            $stok = $request->stok;
+        }
+
         // Create product
         Product::create([
             'product_name' => $request->product_name,
             'product_code' => $request->product_code,
             'categories_id' => $request->categories_id,
             'category_name' => $namakategori->category_name,
-            'stok' => $request->stok,
+            'stok' => $stok,
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
             'supplier' => $request->supplier,

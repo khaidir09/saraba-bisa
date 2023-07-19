@@ -65,13 +65,9 @@
                         <!-- Modal content -->
                         <form action="{{ route('item.store') }}" method="post">
                             @csrf
-                            <div class="px-5 py-4">
+                            <div class="px-5 py-4" x-data="{ selectedCategory: '' }">
                                 <div class="space-y-3">
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk <span class="text-rose-500">*</span></label>
-                                        <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" required />
-                                    </div>
-                                    <div x-data="{ selectedCategory: '' }">
                                         <label class="block text-sm font-medium mb-1" for="categories_id">Kategori Produk <span class="text-rose-500">*</span></label>
                                         <select id="categories_id" name="categories_id" class="form-select text-sm w-full" x-model="selectedCategory" required>
                                             <option value="">Pilih Kategori</option>
@@ -79,38 +75,48 @@
                                                 <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                                             @endforeach
                                         </select>
-
-                                        <div x-show="selectedCategory === '1'" class="mt-3">
-                                            <label class="block text-sm font-medium mb-1" for="garansi_imei">Garansi IMEI</label>
-                                            <select id="garansi_imei" name="garansi_imei" class="form-select text-sm py-1 w-full">
-                                                <option value="">Tidak Ada</option>
-                                                <option value="1">1 Hari</option>
-                                                <option value="2">2 Hari</option>
-                                                <option value="3">3 Hari</option>
-                                                <option value="4">4 Hari</option>
-                                                <option value="5">5 Hari</option>
-                                                <option value="6">6 Hari</option>
-                                                <option value="7">1 Minggu</option>
-                                                <option value="14">2 Minggu</option>
-                                                <option value="21">3 Minggu</option>
-                                                <option value="30">1 Bulan</option>
-                                                <option value="60">2 Bulan</option>
-                                                <option value="90">3 Bulan</option>
-                                                <option value="120">4 Bulan</option>
-                                                <option value="150">5 Bulan</option>
-                                                <option value="180">6 Bulan</option>
-                                                <option value="210">7 Bulan</option>
-                                                <option value="240">8 Bulan</option>
-                                                <option value="270">9 Bulan</option>
-                                                <option value="300">10 Bulan</option>
-                                                <option value="330">11 Bulan</option>
-                                                <option value="365">1 Tahun</option>
-                                                <option value="730">2 Tahun</option>
-                                                <option value="1095">3 Tahun</option>
-                                                <option value="1460">4 Tahun</option>
-                                                <option value="1825">5 Tahun</option>
-                                            </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk <span class="text-rose-500">*</span></label>
+                                        <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" required />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
+                                        <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="product_code">Kode Produk</label>
+                                        <input id="product_code" name="product_code" class="form-input w-full px-2 py-1" type="text" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
+                                        <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" placeholder="Tidak perlu diisi jika bukan produk Handphone/Laptop" />
+                                    </div>
+                                    <div x-show="selectedCategory != '1'" class="mt-3">
+                                        <label class="block text-sm font-medium mb-1" for="stok">Stok <span class="text-rose-500">*</span></label>
+                                        <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="harga_modal">Harga Modal <span class="text-rose-500">*</span></label>
+                                        <div class="relative">
+                                            <input id="harga_modal" name="harga_modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="harga_jual">Harga Jual <span class="text-rose-500">*</span></label>
+                                        <div class="relative">
+                                            <input id="harga_jual" name="harga_jual" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="supplier">Agen <span class="text-rose-500">*</span></label>
+                                        <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="garansi">Garansi Produk</label>
@@ -143,43 +149,36 @@
                                             <option value="1825">5 Tahun</option>
                                         </select>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
-                                        <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" placeholder="Tidak perlu diisi jika bukan produk Handphone/Laptop" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
-                                        <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="product_code">Kode Produk</label>
-                                        <input id="product_code" name="product_code" class="form-input w-full px-2 py-1" type="text" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="stok">Stok <span class="text-rose-500">*</span></label>
-                                        <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_modal">Harga Modal <span class="text-rose-500">*</span></label>
-                                        <div class="relative">
-                                            <input id="harga_modal" name="harga_modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
-                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_jual">Harga Jual <span class="text-rose-500">*</span></label>
-                                        <div class="relative">
-                                            <input id="harga_jual" name="harga_jual" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
-                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="supplier">Agen <span class="text-rose-500">*</span></label>
-                                        <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" required />
+                                    <div x-show="selectedCategory === '1'" class="mt-3">
+                                        <label class="block text-sm font-medium mb-1" for="garansi_imei">Garansi IMEI</label>
+                                        <select id="garansi_imei" name="garansi_imei" class="form-select text-sm py-1 w-full">
+                                            <option value="">Tidak Ada</option>
+                                            <option value="1">1 Hari</option>
+                                            <option value="2">2 Hari</option>
+                                            <option value="3">3 Hari</option>
+                                            <option value="4">4 Hari</option>
+                                            <option value="5">5 Hari</option>
+                                            <option value="6">6 Hari</option>
+                                            <option value="7">1 Minggu</option>
+                                            <option value="14">2 Minggu</option>
+                                            <option value="21">3 Minggu</option>
+                                            <option value="30">1 Bulan</option>
+                                            <option value="60">2 Bulan</option>
+                                            <option value="90">3 Bulan</option>
+                                            <option value="120">4 Bulan</option>
+                                            <option value="150">5 Bulan</option>
+                                            <option value="180">6 Bulan</option>
+                                            <option value="210">7 Bulan</option>
+                                            <option value="240">8 Bulan</option>
+                                            <option value="270">9 Bulan</option>
+                                            <option value="300">10 Bulan</option>
+                                            <option value="330">11 Bulan</option>
+                                            <option value="365">1 Tahun</option>
+                                            <option value="730">2 Tahun</option>
+                                            <option value="1095">3 Tahun</option>
+                                            <option value="1460">4 Tahun</option>
+                                            <option value="1825">5 Tahun</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

@@ -31,19 +31,65 @@
         margin-top: -10px;
         margin-left: 35px;
     }
-    .thanks p {
-        font-size: 15px;
-        font-weight: normal;
-        font-family: serif;
-    }
 
     .informasi-toko {
       text-align: center;
     }
+
+    .w-50 {
+			width: 50%;
+		}
+		.w-25 {
+			width: 25%;
+		}
+    .text-center {
+			text-align: center;
+		}
+		.text-left {
+			text-align: left;
+		}
+		.text-justify {
+			text-align: justify;
+		}
 </style>
 
 </head>
 <body>
+
+  @php
+		function penyebut($nilai) {
+		$nilai = abs($nilai);
+		$huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+		$temp = "";
+		if ($nilai < 12) {
+			$temp = " ". $huruf[$nilai];
+		} else if ($nilai <20) {
+			$temp = penyebut($nilai - 10). " belas";
+		} else if ($nilai < 100) {
+			$temp = penyebut($nilai/10)." puluh". penyebut($nilai % 10);
+		} else if ($nilai < 200) {
+			$temp = " seratus" . penyebut($nilai - 100);
+		} else if ($nilai < 1000) {
+			$temp = penyebut($nilai/100) . " ratus" . penyebut($nilai % 100);
+		} else if ($nilai < 2000) {
+			$temp = " seribu" . penyebut($nilai - 1000);
+		} else if ($nilai < 1000000) {
+			$temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
+		} else if ($nilai < 1000000000) {
+			$temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
+		}
+		return $temp;
+	}
+ 
+	function terbilang($nilai) {
+		if($nilai<0) {
+			$hasil = "minus ". trim(penyebut($nilai));
+		} else {
+			$hasil = trim(penyebut($nilai));
+		}     		
+		return $hasil;
+	}
+	@endphp
 
   <div class="informasi-toko">
     @if ($users->profile_photo_path != null)
@@ -99,7 +145,10 @@
       <tr class="font">
         <th>No.</th>
         <th>Nama Produk</th>
-        <th>Garansi</th>
+        <th>Garansi Produk</th>
+        @if ($orderItem->first()->garansi_imei != null)
+            <th>Garansi IMEI</th>
+        @endif
         <th>Harga</th>
         <th>Quantity</th>
         <th>Total Harga</th>
@@ -122,11 +171,16 @@
         @else
             <td align="center">Tidak ada</td>
         @endif
+        @if ($item->garansi_imei != null)
+            <td align="center">Aktif s/d {{ $item->garansi_imei }}</td>
+        @else
+          <td align="center"></td>
+        @endif
         <td align="center">Rp. {{ number_format($item->product->harga_jual) }}</td>
         <td align="center">{{ $item->quantity }}</td>
         <td align="center">Rp. {{ number_format($item->product->harga_jual * $item->quantity) }}</td>
         @if ($item->sub_total === $item->total)
-            <td align="center">Tidak ada</td>
+            <td align="center">-</td>
         @else
             <td align="center">Rp. {{ number_format($item->sub_total - $item->total) }}</td>
         @endif
@@ -135,30 +189,41 @@
       @endforeach
     </tbody>
   </table>
-  <br>
-  <table width="100%" style=" padding:0 10px 0 10px;">
+  <table width="100%">
     <tr>
         <td align="right" >
             <h2>
-              <span>Total:</span> Rp. {{ number_format($total) }}
+              <span>Total:</span> Rp. {{ number_format($total) }} <br> <span style="text-transform: capitalize; font-size: 12px; font-weight: normal;">( {{ terbilang($total) }} rupiah )</span>
             </h2>
         </td>
     </tr>
   </table>
-  <div class="thanks">
-    <h4>Syarat & Ketentuan</h4>
-    <p >{!! $terms->description !!}</p>
-  </div>
-  <div class="thanks">
-    @if ($orderItem->first()->garansi != null)
-      <div>
-        <p>Cek status garansi di {{ $users->link_toko }}/garansi</p>
-      </div>
-    @endif
-  </div>
-  <div class="authority float-right mt-5">
-      <p>-----------------------------------</p>
-      <h5>{{ Auth::user()->name }}</h5>
+  <table>
+    <thead>
+      <tr>
+        <th class="w-50 text-left">Syarat & Ketentuan</th>
+        <th colspan="2" class="text-center w-25">Pembeli</th>
+        <th colspan="2" class="text-center w-25">Penjual</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-justify" style="font-style: italic;">
+          {!! $terms->description !!} <br>
+        </td>
+        <td colspan="2" class="pt-5 text-center capital">{{ $order->customer->nama }}</td>
+        @if ($item->user != null)
+          <td colspan="2" class="pt-5 text-center capital">{{ Auth::user()->name }}</td>
+        @else
+          <td colspan="2" class="pt-5 text-center capital">-</td>
+        @endif
+      </tr>
+    </tbody>
+  </table>
+  @if ($orderItem->first()->garansi != null)
+    <div>
+      <p style="font-size: x-small; text-decoration: underline;">Cek status garansi di {{ $users->link_toko }}/garansi</p>
     </div>
+  @endif
 </body>
 </html>
