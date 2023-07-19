@@ -145,10 +145,7 @@
       <tr class="font">
         <th>No.</th>
         <th>Nama Produk</th>
-        <th>Garansi Produk</th>
-        @if ($orderItem->first()->garansi_imei != null)
-            <th>Garansi IMEI</th>
-        @endif
+        <th>Garansi</th>
         <th>Harga</th>
         <th>Quantity</th>
         <th>Total Harga</th>
@@ -166,15 +163,12 @@
           {{ ++$i }}
         </td>
         <td align="center" style="text-transform: uppercase;">{{ $item->product->product_name }}</td>
-        @if ($item->garansi != null)
+        @if ($item->garansi != null && $item->garansi_imei != null)
+            <td align="center">Produk {{ $item->garansi }} & IMEI {{ $item->garansi_imei }}</td>
+        @elseif ($item->garansi != null)
             <td align="center">Aktif s/d {{ $item->garansi }}</td>
         @else
-            <td align="center">Tidak ada</td>
-        @endif
-        @if ($item->garansi_imei != null)
-            <td align="center">Aktif s/d {{ $item->garansi_imei }}</td>
-        @else
-          <td align="center"></td>
+          <td align="center">-</td>
         @endif
         <td align="center">Rp. {{ number_format($item->product->harga_jual) }}</td>
         <td align="center">{{ $item->quantity }}</td>
@@ -198,7 +192,7 @@
         </td>
     </tr>
   </table>
-  <table>
+  <table style="width: 100%;">
     <thead>
       <tr>
         <th class="w-50 text-left">Syarat & Ketentuan</th>
