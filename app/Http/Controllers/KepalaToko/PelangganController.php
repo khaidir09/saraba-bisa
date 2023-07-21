@@ -8,6 +8,8 @@ use App\Exports\PelangganExport;
 use App\Imports\PelangganImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Listeners\PreventCustomerDeletion;
 use App\Http\Requests\KepalaToko\CustomerRequest;
 
 class PelangganController extends Controller
@@ -117,7 +119,16 @@ class PelangganController extends Controller
     {
         $item = Customer::findOrFail($id);
 
+        if (
+            $item->servicetransaction()->exists() || $item->sale()->exists()
+        ) {
+            toast('Data Pelanggan yang memiliki riwayat transaksi servis/penjualan tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Pelanggan berhasil dihapus.', 'success');
 
         return redirect()->route('pelanggan.index');
     }

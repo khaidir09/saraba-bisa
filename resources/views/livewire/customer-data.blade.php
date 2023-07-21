@@ -299,7 +299,7 @@
                                                         <form action="{{ route('pelanggan.destroy', $customer->id) }}" method="post">
                                                             @method('delete')
                                                             @csrf
-                                                            <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus Akun</button>
+                                                            <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
                                                         </form>
                                                     </div>
                                                 </div>

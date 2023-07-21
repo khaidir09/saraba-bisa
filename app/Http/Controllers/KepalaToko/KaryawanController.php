@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
-use Carbon\Carbon;
 use App\Models\Debt;
 use App\Models\User;
 use App\Models\Budget;
 use App\Models\Salary;
 use App\Models\Worker;
-use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
@@ -138,7 +136,16 @@ class KaryawanController extends Controller
     {
         $item = Worker::findOrFail($id);
 
+        if (
+            $item->relasiDebt()->exists() || $item->relasiSalary()->exists()
+        ) {
+            toast('Data Karyawan yang memiliki riwayat bonus/kasbon tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Karyawan berhasil dihapus.', 'success');
 
         return redirect()->route('karyawan.index');
     }

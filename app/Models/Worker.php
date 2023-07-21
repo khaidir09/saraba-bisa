@@ -41,4 +41,14 @@ class Worker extends Model
             ->where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
+
+    public function relasiDebt()
+    {
+        return $this->hasMany(Debt::class, 'workers_id');
+    }
+
+    public function relasiSalary()
+    {
+        return $this->hasMany(Salary::class, 'workers_id');
+    }
 }
