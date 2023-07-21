@@ -27,4 +27,9 @@ class Category extends Model
         return $this->hasManyThrough(OrderDetail::class, Product::class, 'categories_id', 'products_id', 'id', 'id')
             ->whereMonth('order_details.created_at', $currentMonth);
     }
+
+    public function relasiProduct()
+    {
+        return $this->hasMany(Product::class, 'categories_id', 'id');
+    }
 }

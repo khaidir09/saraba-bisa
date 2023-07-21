@@ -149,7 +149,16 @@ class ProdukController extends Controller
     {
         $item = Product::findOrFail($id);
 
+        if (
+            $item->relasiOrder()->exists()
+        ) {
+            toast('Data Produk yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Produk berhasil dihapus.', 'success');
 
         return redirect()->route('admin-item.index');
     }

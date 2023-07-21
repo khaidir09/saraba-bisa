@@ -10,4 +10,9 @@ class Capacity extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function relasiService()
+    {
+        return $this->hasMany(ServiceTransaction::class, 'capacities_id', 'id');
+    }
 }

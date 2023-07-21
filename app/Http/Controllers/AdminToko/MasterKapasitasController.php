@@ -100,7 +100,16 @@ class MasterKapasitasController extends Controller
     {
         $item = Capacity::findOrFail($id);
 
+        if (
+            $item->relasiService()->exists()
+        ) {
+            toast('Data Kapasitas yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Kapasitas berhasil dihapus.', 'success');
 
         return redirect()->route('admin-master-kapasitas.index');
     }

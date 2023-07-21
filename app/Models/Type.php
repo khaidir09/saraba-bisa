@@ -19,4 +19,9 @@ class Type extends Model
             ->where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
+
+    public function relasiService()
+    {
+        return $this->hasMany(ServiceTransaction::class, 'types_id', 'id');
+    }
 }

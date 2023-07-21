@@ -35,4 +35,9 @@ class Product extends Model
         return $this->hasMany(OrderDetail::class, 'products_id', 'id')
             ->whereMonth('created_at', $currentMonth);
     }
+
+    public function relasiOrder()
+    {
+        return $this->hasMany(OrderDetail::class, 'products_id', 'id');
+    }
 }

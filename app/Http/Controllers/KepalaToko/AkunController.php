@@ -67,7 +67,7 @@ class AkunController extends Controller
         $item = User::findOrFail($id);
 
         if (
-            $item->servicetransaction()->exists() || $item->sale()->exists() || $item->incident()->exists() || $item->expense()->exists()
+            $item->relasiService()->exists() || $item->relasiSale()->exists() || $item->incident()->exists() || $item->expense()->exists()
             || $item->salary()->exists()
         ) {
             toast('Data Akun yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
