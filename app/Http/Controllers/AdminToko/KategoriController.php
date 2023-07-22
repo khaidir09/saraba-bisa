@@ -97,7 +97,16 @@ class KategoriController extends Controller
     {
         $item = Category::findOrFail($id);
 
+        if (
+            $item->relasiProduct()->exists()
+        ) {
+            toast('Data Kategori Produk yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Kategori Produk berhasil dihapus.', 'success');
 
         return redirect()->route('admin-kategori.index');
     }

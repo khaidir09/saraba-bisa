@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ServiceTransaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,4 +17,9 @@ class ServiceAction extends Model
         'harga_pelanggan',
         'garansi',
     ];
+
+    public function servicetransaction()
+    {
+        return $this->hasMany(ServiceTransaction::class, 'service_actions_id');
+    }
 }

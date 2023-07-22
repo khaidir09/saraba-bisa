@@ -88,6 +88,11 @@ class User extends Authenticatable
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
 
+    public function relasiService()
+    {
+        return $this->hasMany(ServiceTransaction::class, 'users_id', 'id');
+    }
+
     public function assembly()
     {
         $currentMonth = now()->month;
@@ -97,11 +102,36 @@ class User extends Authenticatable
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
 
+    public function relasiAssembly()
+    {
+        return $this->hasMany(Assembly::class, 'users_id', 'id');
+    }
+
     public function sale()
     {
         $currentMonth = now()->month;
 
         return $this->hasMany(OrderDetail::class, 'users_id', 'id')
-        ->whereMonth('created_at', $currentMonth);
+            ->whereMonth('created_at', $currentMonth);
+    }
+
+    public function relasiSale()
+    {
+        return $this->hasMany(OrderDetail::class, 'users_id', 'id');
+    }
+
+    public function incident()
+    {
+        return $this->hasMany(Incident::class, 'users_id', 'id');
+    }
+
+    public function expense()
+    {
+        return $this->hasMany(Expense::class, 'users_id', 'id');
+    }
+
+    public function salary()
+    {
+        return $this->hasMany(Salary::class, 'users_id', 'id');
     }
 }

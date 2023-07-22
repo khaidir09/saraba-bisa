@@ -119,7 +119,16 @@ class MasterModelSeriController extends Controller
     {
         $item = ModelSerie::findOrFail($id);
 
+        if (
+            $item->relasiService()->exists()
+        ) {
+            toast('Data Model Seri yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Model Seri berhasil dihapus.', 'success');
 
         return redirect()->route('master-model-seri.index');
     }

@@ -138,7 +138,16 @@ class KaryawanController extends Controller
     {
         $item = Worker::findOrFail($id);
 
+        if (
+            $item->relasiDebt()->exists() || $item->relasiSalary()->exists()
+        ) {
+            toast('Data Karyawan yang memiliki riwayat bonus/kasbon tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Karyawan berhasil dihapus.', 'success');
 
         return redirect()->route('karyawan.index');
     }
