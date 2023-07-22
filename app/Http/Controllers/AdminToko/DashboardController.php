@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\Budget;
 use App\Models\Category;
@@ -48,6 +49,16 @@ class DashboardController extends Controller
 
         $totalprofit = $totalbiayaservis + $totalpenjualan;
 
+        // Ambil data transaksi servis yang memiliki status "Belum cek"
+        $transactions = ServiceTransaction::where('status_servis', 'Belum cek')->get();
+
+        // Cek apakah ada transaksi yang lebih dari 7 hari dari data dibuat
+        $currentDate = Carbon::now();
+        $reminderThreshold = 7; // Jumlah hari sebelum pengingat ditampilkan
+        $reminders = $transactions->filter(function ($transaction) use ($currentDate, $reminderThreshold) {
+            return $transaction->created_at->addDays($reminderThreshold)->isPast();
+        })->count();
+
         return view('pages/admintoko/dashboard', compact(
             'types',
             'totalbiayaservis',
@@ -55,7 +66,8 @@ class DashboardController extends Controller
             'totalprofit',
             'totalpenjualan',
             'totalbonus',
-            'categories'
+            'categories',
+            'reminders'
         ));
     }
 }

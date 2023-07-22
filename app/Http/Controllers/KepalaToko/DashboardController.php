@@ -37,6 +37,17 @@ class DashboardController extends Controller
         $totalpengeluaran = Expense::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->sum('price');
+
+        // Ambil data transaksi servis yang memiliki status "Belum cek"
+        $transactions = ServiceTransaction::where('status_servis', 'Belum cek')->get();
+
+        // Cek apakah ada transaksi yang lebih dari 7 hari dari data dibuat
+        $currentDate = Carbon::now();
+        $reminderThreshold = 7; // Jumlah hari sebelum pengingat ditampilkan
+        $reminders = $transactions->filter(function ($transaction) use ($currentDate, $reminderThreshold) {
+            return $transaction->created_at->addDays($reminderThreshold)->isPast();
+        })->count();
+
         $approveservis = ServiceTransaction::where('is_approve', null)
             ->where('status_servis', 'Sudah Diambil')
             ->count();
@@ -96,7 +107,8 @@ class DashboardController extends Controller
             'bulantotalprofitbersih',
             'bulantotalprofitkotor',
             'bulanprofitbersihservis',
-            'bulanprofitbersihpenjualan'
+            'bulanprofitbersihpenjualan',
+            'reminders'
         ));
     }
 }
