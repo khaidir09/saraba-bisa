@@ -11,7 +11,22 @@
         <!-- Banner -->
         <div class="mb-6">
             <div class="space-y-3">
-                <!-- Start -->
+                <!-- Reminder Servis Start -->
+                @if ($reminders > 0)
+                    <div class="px-4 py-2 rounded-sm text-sm bg-red-700 text-white">
+                        <div class="flex w-full justify-between items-start">
+                            <div class="flex">
+                                <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
+                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
+                                </svg>
+                                <div class="font-medium">Ada {{ $reminders }} servis yang belum dikerjakan lebih dari 1 minggu nih, cek sekarang!</div>
+                            </div>
+                            <a class="font-medium text-white ml-4 mt-[3px]" href="{{ route('transaksi-servis.index') }}">-&gt;</a>
+                        </div>
+                    </div>
+                @endif
+                <!-- Reminder Servis End -->
+                <!-- Approve Servis Start -->
                 @if ($approveservis != null)
                     <div class="px-4 py-2 rounded-sm text-sm bg-emerald-500 text-white">
                         <div class="flex w-full justify-between items-start">
@@ -25,7 +40,7 @@
                         </div>
                     </div>
                 @endif
-                <!-- End -->
+                <!-- Approve Servis End -->
                 <!-- End -->
                 <!-- Start -->
                 @if ($approveassembly != null)

@@ -6,16 +6,10 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Budget;
 use App\Models\Category;
-use App\Models\DataFeed;
 use App\Models\OrderDetail;
-use Illuminate\Http\Request;
-use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\AccessoryTransaction;
-use App\Models\SparepartTransaction;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -57,6 +51,16 @@ class DashboardController extends Controller
 
         $totalprofit = $totalbiayaservis + $totalpenjualan;
 
+        // Ambil data transaksi servis yang memiliki status "Belum cek"
+        $transactions = ServiceTransaction::where('status_servis', 'Belum cek')->get();
+
+        // Cek apakah ada transaksi yang lebih dari 7 hari dari data dibuat
+        $currentDate = Carbon::now();
+        $reminderThreshold = 7; // Jumlah hari sebelum pengingat ditampilkan
+        $reminders = $transactions->filter(function ($transaction) use ($currentDate, $reminderThreshold) {
+            return $transaction->created_at->addDays($reminderThreshold)->isPast();
+        })->count();
+
         return view('pages/admintoko/dashboard', compact(
             'users',
             'categories',
@@ -64,7 +68,8 @@ class DashboardController extends Controller
             'totalpenjualan',
             'totalbudgets',
             'totalprofit',
-            'totalbonus'
+            'totalbonus',
+            'reminders'
         ));
     }
 }
