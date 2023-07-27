@@ -87,6 +87,7 @@ use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTrans
 use App\Http\Controllers\AdminToko\MasterJenisBarangController as AdminTokoMasterJenisBarangController;
 use App\Http\Controllers\Teknisi\UbahStatusProsesServisController as TeknisiUbahStatusProsesServisController;
 use App\Http\Controllers\Teknisi\ExpenseController as TeknisiExpenseController;
+use App\Http\Controllers\Teknisi\KasbonController as TeknisiKasbonController;
 // Sales
 use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
@@ -99,6 +100,7 @@ use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProduk
 use App\Http\Controllers\Sales\TransaksiProdukPaidController as SalesTransaksiProdukPaidController;
 use App\Http\Controllers\Sales\TransaksiProdukDueController as SalesTransaksiProdukDueController;
 use App\Http\Controllers\Sales\LaporanPenjualanController as SalesLaporanPenjualanController;
+use App\Http\Controllers\Sales\KasbonController as SalesKasbonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -290,6 +292,7 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::resource('teknisi-servis-sudah-diambil', TeknisiSudahDiambilController::class);
     Route::resource('teknisi-assembly', TeknisiAssemblyController::class);
     Route::resource('teknisi-pengeluaran', TeknisiExpenseController::class);
+    Route::resource('teknisi-kasbon', TeknisiKasbonController::class);
 
     Route::get('teknisi/tandaterima-inkjet/{id}', [TeknisiTransaksiServisController::class, 'cetakinkjet'])->name('teknisi-cetak-tanda-terima');
     Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');
@@ -312,6 +315,7 @@ Route::middleware('ensureSalesRole:Sales')->group(
         Route::get('/sales-dashboard', [SalesDashboardController::class, 'index'])->name('sales-dashboard');
         Route::resource('sales-pelanggan', SalesPelangganController::class);
         Route::resource('sales-pengeluaran', SalesExpenseController::class);
+        Route::resource('sales-kasbon', SalesKasbonController::class);
 
         Route::resource('produk/sales-kategori', SalesKategoriController::class);
         Route::resource('produk/sales-item', SalesProdukController::class);

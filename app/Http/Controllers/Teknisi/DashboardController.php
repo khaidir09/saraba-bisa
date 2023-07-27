@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers\Teknisi;
 
-use Carbon\Carbon;
 use App\Models\Budget;
 use App\Models\Assembly;
-use App\Models\DataFeed;
 use App\Models\OrderDetail;
-use Illuminate\Http\Request;
-use App\Models\PhoneTransaction;
+use App\Models\Debt;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\AccessoryTransaction;
-use App\Models\SparepartTransaction;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -27,6 +21,11 @@ class DashboardController extends Controller
     public function index()
     {
         $currentMonth = now()->month;
+
+        $kasbon = Debt::where('workers_id', Auth::user()->worker->id)
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', $currentMonth)
+            ->sum('total');
 
         $profitservis = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
@@ -41,7 +40,7 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('biaya');
-        $totalbonus = $bonusservis + $bonusassembly;
+        $totalbonus = $bonusservis + $bonusassembly - $kasbon;
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
@@ -58,7 +57,8 @@ class DashboardController extends Controller
             'totalbudgets',
             'totalprofit',
             'totalpenjualan',
-            'totalbonus'
+            'totalbonus',
+            'kasbon'
         ));
     }
 }

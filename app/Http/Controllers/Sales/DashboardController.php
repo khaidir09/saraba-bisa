@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers\Sales;
 
-use Carbon\Carbon;
+use App\Models\Debt;
 use App\Models\Budget;
-use App\Models\DataFeed;
 use App\Models\OrderDetail;
-use Illuminate\Http\Request;
-use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\AccessoryTransaction;
-use App\Models\SparepartTransaction;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -27,6 +21,11 @@ class DashboardController extends Controller
     {
         $currentMonth = now()->month;
 
+        $kasbon = Debt::where('workers_id', Auth::user()->worker->id)
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', $currentMonth)
+            ->sum('total');
+
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
@@ -34,19 +33,24 @@ class DashboardController extends Controller
             ->sum('profittoko');
         $totalpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
-            ->sum('profit_toko');
-
-        $bonusbulan = OrderDetail::where('users_id', Auth::user()->id)->whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
-
+            ->sum('profit_toko');    
         $totalprofit = $totalbiayaservis + $totalpenjualan;
 
+        $profitpenjualan = OrderDetail::where('users_id', Auth::user()->id)
+            ->whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('profit');
+        $bonuspenjualan = ($profitpenjualan / 100) * Auth::user()->persen;
+
+        $totalbonus = $bonuspenjualan - $kasbon;
+
+
         return view('pages/sales/dashboard', compact(
-            'bonusbulan',
+            'totalbonus',
             'totalbiayaservis',
             'totalbudgets',
-            'totalprofit'
+            'totalprofit',
+            'kasbon'
         ));
     }
 }

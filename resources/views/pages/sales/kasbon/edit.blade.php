@@ -2,7 +2,7 @@
     Edit Kasbon
 @endsection
 
-<x-admin-layout>
+<x-sales-layout>
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -64,7 +64,7 @@
                     <div class="px-5 py-3 border-b border-slate-200">
                         <div class="flex justify-between items-center">
                             <div class="font-semibold text-slate-800">Edit Kasbon</div>
-                            <a href="{{ route('admin-kasbon.index') }}" class="text-slate-400 hover:text-slate-500">
+                            <a href="{{ route('sales-kasbon.index') }}" class="text-slate-400 hover:text-slate-500">
                                 <div class="sr-only">Close</div>
                                 <svg class="w-4 h-4 fill-current">
                                     <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <!-- Modal content -->
-                    <form action="{{ route('admin-kasbon.update', $item->id) }}" method="post">
+                    <form action="{{ route('sales-kasbon.update', $item->id) }}" method="post">
                         @method('PUT')
                         @csrf
                         <div class="px-5 py-4">
@@ -81,15 +81,6 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="created_at">Tanggal Kasbon</label>
                                     <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="workers_id">Nama Karyawan</label>
-                                    <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->worker->id }}">{{ $item->worker->name }}</option>
-                                        @foreach ($workers as $worker)
-                                            <option value="{{ $worker->id }}">{{ $worker->name }}</option>
-                                        @endforeach
-                                    </select>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="item">Item Kasbon</label>
@@ -109,7 +100,7 @@
                         <!-- Modal footer -->
                         <div class="px-5 py-4 border-t border-slate-200">
                             <div class="flex flex-wrap justify-end space-x-2">
-                                <a href="{{ route('admin-kasbon.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                <a href="{{ route('sales-kasbon.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                     Batal
                                 </a>
                                 <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
@@ -121,4 +112,4 @@
         </div>
 
     </div>
-</x-admin-layout>
+</x-sales-layout>

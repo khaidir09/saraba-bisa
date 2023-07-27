@@ -63,18 +63,11 @@
                             </div>
                         </div>
                         <!-- Modal content -->
-                        <form action="{{ route('admin-kasbon.store') }}" method="post">
+                        <form action="{{ route('teknisi-kasbon.store') }}" method="post">
                             @csrf
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="workers_id">Nama Karyawan<span class="text-rose-500">*</span></label>
-                                        <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($workers as $worker)
-                                                <option value="{{ $worker->id }}">{{ $worker->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <input type="hidden" name="workers_id" value="{{ Auth::user()->worker->id }}">
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="item">Item Kasbon <span class="text-rose-500">*</span></label>
                                         <input id="item" name="item" class="form-input w-full px-2 py-1" type="text" required />
@@ -93,7 +86,7 @@
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <a href="{{ route('admin-kasbon.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                    <a href="{{ route('teknisi-kasbon.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                         Batal
                                     </a>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
@@ -144,7 +137,7 @@
                             <div class="font-semibold text-left">Item Kasbon</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nominal</div>
+                            <div class="font-semibold text-left">Total</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Status</div>
@@ -196,7 +189,7 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
-                                    <a href="{{ route('admin-kasbon.edit', $item->id) }}">
+                                    <a href="{{ route('teknisi-kasbon.edit', $item->id) }}">
                                         <button class="text-slate-400 hover:text-slate-500 rounded-full">
                                             <span class="sr-only">Edit</span>
                                             <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
@@ -264,7 +257,7 @@
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
                                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <form action="{{ route('admin-kasbon.destroy', $item->id) }}" method="post">
+                                                            <form action="{{ route('teknisi-kasbon.destroy', $item->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>

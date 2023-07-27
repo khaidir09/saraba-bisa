@@ -4,9 +4,9 @@ namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KepalaToko\UserRequest;
+use App\Models\Worker;
 
 class AkunController extends Controller
 {
@@ -14,7 +14,8 @@ class AkunController extends Controller
     {
         $users = User::paginate(10);
         $users_count = User::all()->count();
-        return view('pages/kepalatoko/akun', compact('users', 'users_count'));
+        $workers = Worker::all();
+        return view('pages/kepalatoko/akun', compact('users', 'users_count', 'workers'));
     }
 
     public function store(UserRequest $request)
@@ -30,14 +31,16 @@ class AkunController extends Controller
 
     public function edit($id)
     {
-        $item = User::findOrFail($id);
+        $item = User::with('worker')->findOrFail($id);
         $users = User::paginate(10);
         $users_count = User::all()->count();
+        $workers = Worker::all();
 
         return view('pages.kepalatoko.akun-edit', [
             'item' => $item,
             'users' => $users,
-            'users_count' => $users_count
+            'users_count' => $users_count,
+            'workers' => $workers
         ]);
     }
 

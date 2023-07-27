@@ -46,7 +46,8 @@ class User extends Authenticatable
         'bank',
         'rekening',
         'pemilik_rekening',
-        'profile_photo_path'
+        'profile_photo_path',
+        'workers_id'
     ];
 
     /**
@@ -133,5 +134,10 @@ class User extends Authenticatable
     public function salary()
     {
         return $this->hasMany(Salary::class, 'users_id', 'id');
+    }
+
+    public function worker()
+    {
+        return $this->belongsTo(Worker::class, 'workers_id', 'id');
     }
 }
