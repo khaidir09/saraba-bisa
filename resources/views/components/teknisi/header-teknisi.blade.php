@@ -14,11 +14,7 @@
                 <!-- User info -->
                 <div>
                     <div class="mb-2">Halo <strong class="font-medium text-slate-800">{{ Auth::user()->name }}</strong> 👋, ini adalah ringkasan bonus kamu sebagai Teknisi bulan ini:</div>
-                    @if ($kasbon != null)
-                        <div class="text-3xl font-bold text-emerald-500">Rp. {{ number_format($totalbonus) }} <span class="text-sm text-slate-800">(sudah dikurangi kasbon sebanyak Rp. {{ number_format($kasbon) }})</span></div>
-                    @else
-                        <div class="text-3xl font-bold text-emerald-500">Rp. {{ number_format($totalbonus) }}</div>
-                    @endif
+                    <div class="text-3xl font-bold text-emerald-500">Rp. {{ number_format($totalbonus) }}</div>
                 </div>
             </div>
         </div>

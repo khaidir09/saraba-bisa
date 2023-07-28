@@ -22,11 +22,6 @@ class DashboardController extends Controller
     {
         $currentMonth = now()->month;
 
-        $kasbon = Debt::where('workers_id', Auth::user()->worker->id)
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->sum('total');
-
         $profitservis = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
             ->where('users_id', Auth::user()->id)
@@ -40,7 +35,7 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('biaya');
-        $totalbonus = $bonusservis + $bonusassembly - $kasbon;
+        $totalbonus = $bonusservis + $bonusassembly;
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
@@ -57,8 +52,7 @@ class DashboardController extends Controller
             'totalbudgets',
             'totalprofit',
             'totalpenjualan',
-            'totalbonus',
-            'kasbon'
+            'totalbonus'
         ));
     }
 }
