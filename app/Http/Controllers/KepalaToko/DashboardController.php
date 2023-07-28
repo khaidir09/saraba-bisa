@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -55,6 +56,7 @@ class DashboardController extends Controller
             ->count();
         $approvekasbon = Debt::where('is_approve', null)->count();
         $approvepengeluaran = Expense::where('is_approve', null)->count();
+        $stokhabis = Product::where('stok', 0)->count();
 
         $totalbudgets = Budget::all()->sum('total');
 
@@ -125,7 +127,8 @@ class DashboardController extends Controller
             'bulanprofitbersihservis',
             'bulanprofitbersihpenjualan',
             'bonusassembly',
-            'reminders'
+            'reminders',
+            'stokhabis'
         ));
     }
 }
