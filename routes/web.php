@@ -13,7 +13,6 @@ use App\Http\Controllers\KepalaToko\AkunController as KepalaTokoAkunController;
 use App\Http\Controllers\KepalaToko\GajiController as KepalaTokoGajiController;
 use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
 use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
-use App\Http\Controllers\AdminToko\KasbonController as AdminTokoKasbonController;
 use App\Http\Controllers\Teknisi\AssemblyController as TeknisiAssemblyController;
 use App\Http\Controllers\AdminToko\InsidenController as AdminTokoInsidenController;
 use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
@@ -230,7 +229,6 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('master/admin-master-kapasitas', AdminTokoMasterKapasitasController::class);
     Route::resource('master/admin-master-model-seri', AdminTokoMasterModelSeriController::class);
     Route::resource('admin-insiden', AdminTokoInsidenController::class);
-    Route::resource('admin-kasbon', AdminTokoKasbonController::class);
     Route::resource('admin-pengeluaran', AdminTokoExpenseController::class);
 
     Route::get('tandaterima-termal/{id}', [AdminTokoTransaksiServisController::class, 'cetaktermal'])->name('admin-cetak-termal');
@@ -298,7 +296,7 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');
     Route::get('teknisi-nota-pengambilan-termal/{id}', [TeknisiSudahDiambilController::class, 'cetaktermal'])->name('teknisi-termal-pengambilan');
     Route::get('teknisi-nota-pengambilan-inkjet/{id}', [TeknisiSudahDiambilController::class, 'cetakinkjet'])->name('teknisi-inkjet-pengambilan');
-    
+
     Route::get('/teknisi-laporan', [TeknisiLaporanTeknisiController::class, 'index'])->name('teknisi-laporan');
     Route::get('/teknisi-laporan-assembly', [TeknisiLaporanAssemblyController::class, 'index'])->name('teknisi-laporan-assembly');
 
