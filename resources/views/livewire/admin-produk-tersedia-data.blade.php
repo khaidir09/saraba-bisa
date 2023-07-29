@@ -234,7 +234,7 @@
                 </select>
             </div>
             <!-- Start Export Excel -->
-            <a href="{{ route('produk-export') }}" class="hidden lg:block">
+            <a href="{{ route('admin-produk-export') }}" class="hidden lg:block">
                 <button class="btn bg-white border-blue-200 hover:border-blue-300 text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-export" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2563eb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -285,7 +285,7 @@
                         x-cloak
                     >
                         <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
-                            <form action="{{ route('import-produk') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin-import-produk') }}" method="post" enctype="multipart/form-data">
                             @csrf
                                 <!-- Modal header -->
                                 <div class="px-5 py-3 border-b border-slate-200">
