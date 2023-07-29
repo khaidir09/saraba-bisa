@@ -70,6 +70,8 @@ use App\Http\Controllers\AdminToko\UbahStatusProsesServisController as AdminToko
 use App\Http\Controllers\AdminToko\ExpenseController as AdminTokoExpenseController;
 use App\Http\Controllers\AdminToko\KategoriController as AdminTokoKategoriController;
 use App\Http\Controllers\AdminToko\ProdukController as AdminTokoProdukController;
+use App\Http\Controllers\AdminToko\ProdukTersediaController as AdminTokoProdukTersediaController;
+use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabisController;
 use App\Http\Controllers\AdminToko\PosController as AdminTokoPosController;
 use App\Http\Controllers\AdminToko\TransaksiProdukController as AdminTokoTransaksiProdukController;
 use App\Http\Controllers\AdminToko\TransaksiProdukPaidController as AdminTokoTransaksiProdukPaidController;
@@ -259,6 +261,8 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
 
     Route::resource('produk/admin-kategori', AdminTokoKategoriController::class);
     Route::resource('produk/admin-item', AdminTokoProdukController::class);
+    Route::resource('produk/admin-item-tersedia', AdminTokoProdukTersediaController::class);
+    Route::resource('produk/admin-item-habis', AdminTokoProdukHabisController::class);
     Route::resource('produk/admin-pos', AdminTokoPosController::class);
     Route::resource('produk/admin-transaksi-produk', AdminTokoTransaksiProdukController::class);
     Route::resource('produk/admin-transaksi-produk-paid', AdminTokoTransaksiProdukPaidController::class);
