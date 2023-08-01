@@ -66,6 +66,7 @@ class KaryawanController extends Controller
 
     public function cetak($id)
     {
+        $waktuSlipGaji = Carbon::now()->translatedFormat('F Y');
         $currentMonth = now()->month;
 
         $items = Worker::findOrFail($id);
@@ -82,6 +83,8 @@ class KaryawanController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->sum('total');
 
+        $namaKaryawan = $items->name;
+
         $pdf = PDF::loadView('pages.kepalatoko.karyawan.cetak', [
             'users' => $users,
             'items' => $items,
@@ -89,8 +92,11 @@ class KaryawanController extends Controller
             'bonus' => $bonus,
             'debts' => $debts,
             'totalkasbon' => $totalkasbon
-        ])->setPaper('a4', 'portrait')->setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
-        return $pdf->stream();
+        ]);
+
+        $filename = 'Slip Gaji ' . $namaKaryawan . ' ' . '(' . $waktuSlipGaji . ')' . '.pdf';
+
+        return $pdf->setPaper('a4', 'portrait')->setOption(['dpi' => 150, 'defaultFont' => 'sans-serif', 'isRemoteEnabled', true])->stream($filename);
     }
 
     /**
