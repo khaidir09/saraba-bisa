@@ -111,7 +111,7 @@
                                 <div class="font-medium text-blue-600">#{{ $item->invoice_no }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div>{{ \Carbon\Carbon::parse($item->order_date)->format('d/m/Y') }}</div>
+                                <div class="font-medium">{{ $item->order_date }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->customer->nama }}</div>
