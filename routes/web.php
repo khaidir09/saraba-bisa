@@ -28,6 +28,9 @@ use App\Http\Controllers\KepalaToko\KasbonController as KepalaTokoKasbonControll
 use App\Http\Controllers\KepalaToko\MasterJenisBarangController as KepalaTokoMasterJenisBarangController;
 use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriController;
 use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
+use App\Http\Controllers\KepalaToko\ProdukTersediaController as KepalaTokoProdukTersediaController;
+use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
+use App\Http\Controllers\KepalaToko\ProdukUpdateController as KepalaTokoProdukUpdateController;
 use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
 use App\Http\Controllers\KepalaToko\MasterKapasitasController as KepalaTokoMasterKapasitasController;
 use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
@@ -70,6 +73,9 @@ use App\Http\Controllers\AdminToko\UbahSudahDiambilController as AdminTokoUbahSu
 use App\Http\Controllers\AdminToko\MasterJenisBarangController as AdminTokoMasterJenisBarangController;
 use App\Http\Controllers\AdminToko\KategoriController as AdminTokoKategoriController;
 use App\Http\Controllers\AdminToko\ProdukController as AdminTokoProdukController;
+use App\Http\Controllers\AdminToko\ProdukTersediaController as AdminTokoProdukTersediaController;
+use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabisController;
+use App\Http\Controllers\AdminToko\ProdukUpdateController as AdminTokoProdukUpdateController;
 use App\Http\Controllers\AdminToko\PosController as AdminTokoPosController;
 use App\Http\Controllers\AdminToko\TransaksiProdukController as AdminTokoTransaksiProdukController;
 use App\Http\Controllers\AdminToko\TransaksiProdukPaidController as AdminTokoTransaksiProdukPaidController;
@@ -145,6 +151,9 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
 
     Route::resource('produk/kategori', KepalaTokoKategoriController::class);
     Route::resource('produk/item', KepalaTokoProdukController::class);
+    Route::resource('produk/item-tersedia', KepalaTokoProdukTersediaController::class);
+    Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
+    Route::resource('produk/produk-update', KepalaTokoProdukUpdateController::class);
     Route::resource('produk/pos', KepalaTokoPosController::class);
     Route::resource('produk/transaksi-produk', KepalaTokoTransaksiProdukController::class);
     Route::resource('produk/transaksi-produk-paid', KepalaTokoTransaksiProdukPaidController::class);
@@ -154,7 +163,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::post('produk/update-due', [KepalaTokoTransaksiProdukController::class, 'UpdateDue'])->name('produk.updateDue');
 
     Route::get('produk/pos', [KepalaTokoPosController::class, 'index'])->name('pos');
-    Route::get('produk/allitem', [KepalaTokoPosController::class, 'AllItem']);
     Route::post('produk/add-cart', [KepalaTokoPosController::class, 'AddCart']);
     Route::post('produk/cart-update/{rowId}', [KepalaTokoPosController::class, 'CartUpdate']);
     Route::post('produk/apply-discount', [KepalaTokoPosController::class, 'ApplyDiscount'])->name('produk.applyDiscount');
@@ -243,6 +251,9 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
 
     Route::resource('produk/admin-kategori', AdminTokoKategoriController::class);
     Route::resource('produk/admin-item', AdminTokoProdukController::class);
+    Route::resource('produk/admin-item-tersedia', AdminTokoProdukTersediaController::class);
+    Route::resource('produk/admin-item-habis', AdminTokoProdukHabisController::class);
+    Route::resource('produk/admin-produk-update', AdminTokoProdukUpdateController::class);
     Route::resource('produk/admin-pos', AdminTokoPosController::class);
     Route::resource('produk/admin-transaksi-produk', AdminTokoTransaksiProdukController::class);
     Route::resource('produk/admin-transaksi-produk-paid', AdminTokoTransaksiProdukPaidController::class);

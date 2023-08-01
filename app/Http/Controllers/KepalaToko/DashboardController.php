@@ -3,18 +3,15 @@
 namespace App\Http\Controllers\KepalaToko;
 
 use Carbon\Carbon;
-use App\Models\User;
+use App\Models\Debt;
+use App\Models\Type;
 use App\Models\Budget;
-use App\Models\PhoneTransaction;
+use App\Models\Expense;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\AccessoryTransaction;
-use App\Models\Category;
-use App\Models\Debt;
-use App\Models\Expense;
-use App\Models\OrderDetail;
-use App\Models\SparepartTransaction;
-use App\Models\Type;
 
 class DashboardController extends Controller
 {
@@ -53,6 +50,8 @@ class DashboardController extends Controller
             ->count();
         $approvekasbon = Debt::where('is_approve', null)->count();
         $approvepengeluaran = Expense::where('is_approve', null)->count();
+        $stokhabis = Product::where('stok', 0)->count();
+        
         $totalbudgets = Budget::all()->sum('total');
 
         $bulanprofitbersihservis = ServiceTransaction::where('is_approve', 'Setuju')
@@ -108,7 +107,8 @@ class DashboardController extends Controller
             'bulantotalprofitkotor',
             'bulanprofitbersihservis',
             'bulanprofitbersihpenjualan',
-            'reminders'
+            'reminders',
+            'stokhabis'
         ));
     }
 }

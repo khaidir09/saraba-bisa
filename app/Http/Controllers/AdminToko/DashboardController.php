@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminToko;
 use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\Budget;
+use App\Models\Product;
 use App\Models\Category;
 use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
@@ -59,6 +60,8 @@ class DashboardController extends Controller
             return $transaction->created_at->addDays($reminderThreshold)->isPast();
         })->count();
 
+        $stokhabis = Product::where('stok', 0)->count();
+
         return view('pages/admintoko/dashboard', compact(
             'types',
             'totalbiayaservis',
@@ -67,7 +70,8 @@ class DashboardController extends Controller
             'totalpenjualan',
             'totalbonus',
             'categories',
-            'reminders'
+            'reminders',
+            'stokhabis'
         ));
     }
 }

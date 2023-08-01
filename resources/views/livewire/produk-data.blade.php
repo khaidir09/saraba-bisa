@@ -203,17 +203,36 @@
     <!-- More actions -->
     <div class="sm:flex sm:justify-between sm:items-center mb-5">
         <!-- Left side -->
-        <div class="mb-0">
-            <select wire:model="paginate" id="" class="form-select">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
+        <div class="mb-4 sm:mb-0">
+            <ul class="flex flex-wrap -m-1">
+                <li class="m-1">
+                    <a href="{{ route('item.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Semua <span class="ml-1 text-indigo-200"></span></button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('item-tersedia.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Tersedia <span class="ml-1 text-slate-400"></span></button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('item-habis.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Habis <span class="ml-1 text-slate-400"></span></button>
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <!-- Right side -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+            <div>
+                <select wire:model="paginate" id="" class="form-select">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
             <!-- Start Export Excel -->
             <a href="{{ route('produk-export') }}" class="hidden lg:block">
                 <button class="btn bg-white border-blue-200 hover:border-blue-300 text-blue-600">
