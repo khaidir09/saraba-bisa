@@ -17,6 +17,7 @@ class OrderDetail extends Model
         'price',
         'total',
         'sub_total',
+        'ppn',
         'modal',
         'profit',
         'profit_toko',

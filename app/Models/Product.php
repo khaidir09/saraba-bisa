@@ -20,7 +20,8 @@ class Product extends Model
         'keterangan',
         'nomor_seri',
         'garansi',
-        'garansi_imei'
+        'garansi_imei',
+        'ppn'
     ];
 
     public function category()

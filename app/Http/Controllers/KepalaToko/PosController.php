@@ -35,18 +35,12 @@ class PosController extends Controller
                 'modal' => $request->modal,
                 'harga_asli' => $request->harga_asli,
                 'garansi' => $request->garansi,
-                'garansi_imei' => $request->garansi_imei
+                'garansi_imei' => $request->garansi_imei,
+                'ppn' => $request->ppn
             ]
         ]);
 
         return redirect()->route('pos');
-    }
-
-    public function AllItem()
-    {
-        $product_item = Cart::content();
-
-        return view('pages.kepalatoko.produk.text_item', compact('product_item'));
     }
 
     public function CartUpdate(Request $request, $rowId)
@@ -135,6 +129,8 @@ class PosController extends Controller
                 $expired_imei = null;
             }
 
+            $ppn = $content->price * $content->qty * ($content->options->ppn / 100);
+
             $pdata['orders_id'] = $orders_id;
             $pdata['products_id'] = $content->id;
             $pdata['product_name'] = $content->name;
@@ -142,7 +138,8 @@ class PosController extends Controller
             $pdata['garansi'] = $expired;
             $pdata['garansi_imei'] = $expired_imei;
             $pdata['price'] = $content->price;
-            $pdata['total'] = $content->total;
+            $pdata['ppn'] = $ppn;
+            $pdata['total'] = $content->total + $ppn;
             $pdata['sub_total'] = $content->options->harga_asli * $content->qty;
             $pdata['modal'] = $content->options->modal * $content->qty;
             $pdata['profit'] = $content->total - ($content->options->modal * $content->qty);
