@@ -7,5 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class StoreSetting extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'owner',
+        'nama_toko',
+        'deskripsi_toko',
+        'alamat_toko',
+        'nomor_hp_toko',
+        'link_toko',
+        'bank',
+        'rekening',
+        'pemilik_rekening',
+        'is_tax',
+        'ppn',
+    ];
 }

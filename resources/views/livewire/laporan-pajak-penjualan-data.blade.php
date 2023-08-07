@@ -13,7 +13,7 @@
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Jumlah Produk Terjual <span class="text-slate-400 font-medium">{{ $jumlah }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Jumlah Produk Terjual Kena Pajak <span class="text-slate-400 font-medium">{{ $jumlah }}</span></h2>
         </header>
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -25,22 +25,10 @@
                             <div class="font-semibold text-left">Tanggal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Sales</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Nama Produk</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Jumlah</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Modal</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Harga Jual</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Profit Toko</div>
                         </th>
                         @if ($toko->is_tax === 1)
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -58,9 +46,6 @@
                                 <div class="font-medium">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->user->name }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($item->product != null)
                                     <div class="font-medium">{{ $item->product->product_name }}</div>
                                 @else
@@ -69,17 +54,6 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->quantity }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($item->modal) }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($item->total) }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">
-                                    Rp. {{ number_format($item->profit_toko) }}
-                                </div>
                             </td>
                             @if ($toko->is_tax === 1)
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

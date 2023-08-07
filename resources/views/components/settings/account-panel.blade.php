@@ -66,11 +66,19 @@
                         {{ Auth::user()->alamat_toko }}
                     </textarea>
                 </div>
-                <div class="mt-4">
-                    <label class="block text-sm font-medium mb-1" for="syarat_ketentuan_toko">Syarat & Ketentuan</label>
-                    <textarea name="syarat_ketentuan_toko" id="syarat_ketentuan_toko" rows="3" class="w-full">
-                       {!! Auth::user()->syarat_ketentuan_toko !!}
-                    </textarea>
+            </section>
+            <!-- Smart Sync -->
+            <section>
+                <h3 class="text-xl leading-snug text-slate-800 font-bold mb-1">Smart Sync update for Mac</h3>
+                <div class="flex items-center mt-5" x-data="{ checked: true }">
+                    <div class="form-switch">
+                        <input type="checkbox" id="toggle" class="sr-only" x-model="checked" />
+                        <label class="bg-slate-400" for="toggle">
+                            <span class="bg-white shadow-sm" aria-hidden="true"></span>
+                            <span class="sr-only">Enable smart sync</span>
+                        </label>
+                    </div>
+                    <div class="text-sm text-slate-400 italic ml-2" x-text="checked ? 'On' : 'Off'"></div>
                 </div>
             </section>
         </div>

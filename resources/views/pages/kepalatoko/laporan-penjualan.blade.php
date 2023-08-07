@@ -22,7 +22,7 @@
         </div>
      
         <!-- Table -->
-        <livewire:laporan-penjualan-data></livewire:alaporan-handphone>
+        <livewire:laporan-penjualan-data></livewire:laporan-penjualan-data>
 
     </div>
 </x-toko-layout>

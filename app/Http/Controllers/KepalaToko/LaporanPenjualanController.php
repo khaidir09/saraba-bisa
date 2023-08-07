@@ -34,6 +34,7 @@ class LaporanPenjualanController extends Controller
         $profittahun = OrderDetail::whereYear('created_at', $currentYear)
             ->get()
             ->sum('profit_toko');
+
         return view('pages/kepalatoko/laporan-penjualan', compact('product_transactions', 'count', 'omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));
     }
 }
