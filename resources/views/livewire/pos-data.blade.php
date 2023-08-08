@@ -9,6 +9,10 @@
 
     </div>
 
+    @php
+        $allcart = Cart::content();
+    @endphp
+
     <div class="grid grid-cols-12 gap-6">
         <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-7 bg-white shadow-lg rounded-sm border border-slate-200">
             <header class="px-5 py-4 border-b border-slate-100"><h2 class="font-semibold text-slate-800">Keranjang</h2></header>
@@ -27,6 +31,9 @@
                                 <div class="font-semibold text-left">Harga</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-semibold text-left">PPN</div>
+                            </th>
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Sub Total</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -35,13 +42,12 @@
                         </tr>
                     </thead>
 
-                    @php
-                        $allcart = Cart::content();
-                    @endphp
-
                     <!-- Table body -->
                     <tbody class="text-sm divide-y divide-slate-200">
                         @foreach ($allcart as $cart)
+                        @php
+                            $ppn = ($cart->price * $cart->qty / 100) * $cart->options->ppn;
+                        @endphp
                             <!-- Row -->
                             <tr>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -67,7 +73,10 @@
                                     <div class="font-medium">{{ number_format($cart->price) }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ number_format($cart->price * $cart->qty) }}</div>
+                                    <div class="font-medium">{{ number_format($ppn) }}</div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-medium">{{ number_format($cart->price * $cart->qty + $ppn) }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="space-x-1 flex">
@@ -88,6 +97,16 @@
                 </table>
             </div>
 
+            @php
+                // Menghitung total pajak hanya untuk item yang dikenakan pajak
+                $totalTax = 0;
+                foreach ($allcart as $item) {
+                    if ($item->options->ppn > 0) {
+                        $totalTax += ($item->price * $item->qty * ($item->options->ppn / 100));
+                    }
+                }
+            @endphp
+
             <div class="bg-slate-50 p-5 shadow-lg">
                 <div class="text-slate-500 font-semibold mb-2">Ringkasan Penjualan</div>
                 <!-- Order details -->
@@ -98,7 +117,7 @@
                     </li>
                     <li class="text-sm w-full flex justify-between py-3 border-b border-slate-200">
                         <div>Total</div>
-                        <div class="font-medium text-emerald-600">Rp. {{ number_format(Cart::total()) }}</div>
+                        <div class="font-medium text-emerald-600">Rp. {{ number_format(Cart::total() + $totalTax) }}</div>
                     </li>
                 </ul>
                 <div x-data="{ modalOpen: false }">
@@ -161,7 +180,7 @@
                     @csrf
                     <input type="hidden" name="order_date" value="{{ \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y') }}">
                     <input type="hidden" name="total_products" value="{{ Cart::count() }}">
-                    <input type="hidden" name="sub_total" value="{{ Cart::subtotal() }}">
+                    <input type="hidden" name="sub_total" value="{{ Cart::total() + $totalTax }}">
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
@@ -212,7 +231,7 @@
                                     <!-- Modal content -->
                                     <div class="text-center my-3">
                                         <h6>Total Harga</h6>
-                                        <p>Rp. {{ number_format(Cart::total()) }}</p>
+                                        <p>Rp. {{ number_format(Cart::total() + $totalTax) }}</p>
                                     </div>
                                     <div class="px-5 py-4">
                                         <div class="space-y-3">
@@ -304,6 +323,7 @@
                                 <input type="hidden" name="price" value="{{ $item->harga_jual }}">
                                 <input type="hidden" name="garansi" value="{{ $item->garansi }}">
                                 <input type="hidden" name="garansi_imei" value="{{ $item->garansi_imei }}">
+                                <input type="hidden" name="ppn" value="{{ $item->ppn }}">
                                 
                                 <tr>    
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

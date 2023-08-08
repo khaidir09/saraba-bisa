@@ -99,9 +99,9 @@
                 @endif
               </tr>
               <tr>
-                <td> {{ number_format($item->product->harga_jual) }}</td>
+                <td> {{ number_format($item->price) }}</td>
                 <td>X {{ $item->quantity }}</td>
-                <td>= {{ number_format($item->sub_total) }}</td>                
+                <td>= {{ number_format($item->total - $item->ppn) }}</td>
               </tr>
           @endforeach
         </tbody>
@@ -119,11 +119,11 @@
           @else
               <tr>
               <td class="title">Sub Total</td>
-              <td class="value">: Rp. {{ number_format($subtotal) }}</td>
+              <td class="value">: Rp. {{ number_format($totalWithoutTax) }}</td>
               </tr>
               <tr>
-                <td class="title">Diskon</td>
-                <td class="value">: Rp. {{ number_format($subtotal - $total) }}</td>
+                <td class="title">Pajak</td>
+                <td class="value">: Rp. {{ number_format($totalTax) }}</td>
               </tr>
               <tr>
                 <td class="title">Total</td>

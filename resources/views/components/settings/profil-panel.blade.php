@@ -63,6 +63,7 @@
                     </textarea>
                 </div>
             </section>
+            <livewire:toggle-tax></livewire:toggle-tax>
         </div>
 
         <!-- Panel footer -->
@@ -75,19 +76,4 @@
             </div>
         </footer>
     </form>
-    {{-- <form action="" method="post">
-        @csrf
-        <div class="p-6 space-y-6">
-            <section>
-                <h3 class="text-xl leading-snug text-slate-800 font-bold mb-1">Profil Toko</h3>
-                <div class="text-sm">Informasi ini akan terlihat pada halaman web dan nota transaksi.</div>
-                <div class="mt-4">
-                    <label class="block text-sm font-medium mb-1" for="syarat_ketentuan_toko">Syarat & Ketentuan</label>
-                    <textarea name="syarat_ketentuan_toko" id="syarat_ketentuan_toko" rows="3" class="w-full">
-                       {!! $ketentuanterima->description !!}
-                    </textarea>
-                </div>
-            </section>
-        </div>
-    </form> --}}
 </div>

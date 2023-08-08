@@ -151,6 +151,9 @@
         <th>Total Harga</th>
         <th>Diskon</th>
         <th>Sub Total</th>
+        @if ($toko->is_tax === 1)
+            <th>PPN</th>
+        @endif
       </tr>
     </thead>
     <tbody>
@@ -176,9 +179,18 @@
         @if ($item->sub_total === $item->total)
             <td align="center">-</td>
         @else
-            <td align="center">Rp. {{ number_format($item->sub_total - $item->total) }}</td>
+            <td align="center">Rp. {{ number_format($item->sub_total - $item->total + $item->ppn) }}</td>
         @endif
-        <td align="center">Rp. {{ number_format($item->total) }}</td>
+          <td align="center">Rp. {{ number_format($item->total - $item->ppn) }}</td>
+            @if ($toko->is_tax === 1)
+              <td align="center">
+              @if ($item->ppn > 0)
+                  Rp. {{ number_format($item->ppn) }}
+              @else
+                  -
+            @endif
+          </td>
+        @endif
       </tr>
       @endforeach
     </tbody>

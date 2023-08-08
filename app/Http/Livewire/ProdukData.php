@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\Category;
+use App\Models\StoreSetting;
 use Livewire\WithPagination;
 
 class ProdukData extends Component
@@ -30,7 +31,9 @@ class ProdukData extends Component
     {
         $categories = Category::all();
         $products_count = Product::all()->count();
+        $toko = StoreSetting::find(1);
         return view('livewire.produk-data', [
+            'toko' => $toko,
             'categories' => $categories,
             'products_count' => $products_count,
             'products' => $this->search === null ?
