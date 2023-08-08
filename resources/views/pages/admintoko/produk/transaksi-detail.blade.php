@@ -38,7 +38,7 @@
                             <li class="flex items-center py-3 border-b border-slate-200">
                                 <div class="grow">
                                     <a href="#0">
-                                        <h4 class="text-sm font-medium text-slate-800 leading-tight">{{ $item->product->product_name }} (Rp. {{ number_format($item->product->harga_jual) }} x {{ $item->quantity }}
+                                        <h4 class="text-sm font-medium text-slate-800 leading-tight">{{ $item->product->product_name }} (Rp. {{ number_format($item->price) }} x {{ $item->quantity }}
                                             @if ($item->quantity == 1)
                                                 pc
                                             @else
@@ -47,26 +47,14 @@
                                         </h4>
                                     </a>
                                 </div>
-                                <div class="text-sm font-medium text-slate-800 ml-6">Rp. {{ number_format($item->product->harga_jual * $item->quantity) }}</div>
+                                <div class="text-sm font-medium text-slate-800 ml-6">
+                                    @if ($item->ppn > 0)
+                                        <span class="text-xs text-blue-500">(+PPN Rp. {{ number_format($item->ppn) }})</span>    
+                                    @endif
+                                     Rp. {{ number_format($item->price * $item->quantity + $item->ppn) }}
+                                </div>
                             </li>
                         @endforeach
-                    </ul>
-                    <!-- Fees, discount and total -->
-                    <ul>
-                        <li class="flex items-center justify-between py-3 border-b border-slate-200">
-                            <div class="text-sm">Subtotal</div>
-                            <div class="text-sm font-medium text-slate-800 ml-2">
-                                Rp. {{ number_format($subtotal) }}
-                            </div>
-                        </li>
-                        <li class="flex items-center justify-between py-3 border-b border-slate-200">
-                            <div class="flex items-center">
-                                <span class="text-sm mr-2">Diskon</span>
-                            </div>
-                            <div class="text-sm font-medium text-rose-700 ml-2">
-                                - Rp. {{ number_format($subtotal - $total) }}
-                            </div>
-                        </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Total</div>
                             <div class="text-sm font-medium text-emerald-600 ml-2">
