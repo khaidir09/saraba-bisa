@@ -198,7 +198,8 @@ class TransaksiServisController extends Controller
             'qc_masuk' => $request->qc_masuk,
             'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
-            'uang_muka' => $request->uang_muka
+            'uang_muka' => $request->uang_muka,
+            'penerima' => $request->penerima
         ]);
 
         return redirect()->route('admin-transaksi-servis.index');

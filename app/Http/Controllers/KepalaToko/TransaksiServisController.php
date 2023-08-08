@@ -148,7 +148,7 @@ class TransaksiServisController extends Controller
 
         $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
-        return $pdf->setOption(['dpi' => 300,'isRemoteEnabled', true])->stream($filename);
+        return $pdf->setOption(['dpi' => 300, 'isRemoteEnabled', true])->stream($filename);
     }
 
     /**
@@ -211,7 +211,8 @@ class TransaksiServisController extends Controller
             'qc_masuk' => $request->qc_masuk,
             'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
-            'uang_muka' => $request->uang_muka
+            'uang_muka' => $request->uang_muka,
+            'penerima' => $request->penerima
         ]);
 
         return redirect()->route('transaksi-servis.index');
