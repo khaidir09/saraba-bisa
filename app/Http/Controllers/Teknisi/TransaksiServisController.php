@@ -69,7 +69,7 @@ class TransaksiServisController extends Controller
             'uang_muka' => $request->uang_muka,
             'status_servis' => $request->status_servis,
             'users_id' => Auth::user()->id,
-            'penerima' => Auth::user()->name
+            'penerima' => Auth::user()->worker->name
         ]);
 
         return redirect()->route('teknisi-transaksi-servis.index');
@@ -109,7 +109,7 @@ class TransaksiServisController extends Controller
             'terms' => $terms,
             'imagePath' => $imagePath,
         ]);
-        
+
         $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
         return $pdf->setOption(['dpi' => 300])->stream($filename);

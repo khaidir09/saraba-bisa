@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminToko;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Exports\ProdukExport;
 use App\Imports\ProdukImport;
@@ -61,7 +62,8 @@ class ProdukController extends Controller
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri,
             'garansi' => $request->garansi,
-            'garansi_imei' => $request->garansi_imei
+            'garansi_imei' => $request->garansi_imei,
+            'ppn' => $request->ppn
         ]);
 
         return redirect()->route('admin-item.index');
@@ -88,10 +90,12 @@ class ProdukController extends Controller
     {
         $item = Product::findOrFail($id);
         $categories = Category::all();
+        $toko = StoreSetting::find(1);
 
         return view('pages.admintoko.produk.edit', [
             'item' => $item,
-            'categories' => $categories
+            'categories' => $categories,
+            'toko' => $toko
         ]);
     }
 
@@ -133,7 +137,8 @@ class ProdukController extends Controller
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri,
             'garansi' => $request->garansi,
-            'garansi_imei' => $request->garansi_imei
+            'garansi_imei' => $request->garansi_imei,
+            'ppn' => $request->ppn
         ]);
 
         return redirect()->route('admin-item.index');

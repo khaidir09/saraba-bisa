@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\StoreSetting;
 use Livewire\WithPagination;
 
 class AdminPosData extends Component
@@ -30,7 +31,9 @@ class AdminPosData extends Component
     {
         $sales = User::where('role', 'Sales')->get();
         $products_count = Product::all()->count();
+        $toko = StoreSetting::find(1);
         return view('livewire.admin-pos-data', [
+            'toko' => $toko,
             'sales' => $sales,
             'products_count' => $products_count,
             'products' => $this->search === null ?

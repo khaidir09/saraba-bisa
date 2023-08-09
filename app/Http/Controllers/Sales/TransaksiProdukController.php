@@ -6,6 +6,7 @@ use App\Models\Term;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
@@ -56,7 +57,8 @@ class TransaksiProdukController extends Controller
         $orderItem = OrderDetail::with('product')->where('orders_id', $orders_id)->orderBy('id', 'DESC')->get();
         $total = $orderItem->sum('total');
         $subtotal = $orderItem->sum('sub_total');
-        return view('pages.sales.produk.transaksi-detail', compact('order', 'orderItem', 'total', 'subtotal'));
+        $totalTax = $orderItem->sum('ppn');
+        return view('pages.sales.produk.transaksi-detail', compact('order', 'orderItem', 'total', 'subtotal', 'totalTax'));
     }
 
     public function OrderDueAjax($id)
@@ -99,6 +101,8 @@ class TransaksiProdukController extends Controller
         $orderItem = OrderDetail::with('product')->where('orders_id', $orders_id)->orderBy('id', 'DESC')->get();
         $total = $orderItem->sum('total');
         $subtotal = $orderItem->sum('sub_total');
+        $totalTax = $orderItem->sum('ppn');
+        $totalWithoutTax = $order->sub_total - $totalTax;
         $users = User::find(1);
 
         $logo = $users->profile_photo_path;
@@ -115,8 +119,10 @@ class TransaksiProdukController extends Controller
             'total' => $total,
             'subtotal' => $subtotal,
             'imagePath' => $imagePath,
+            'totalTax' => $totalTax,
+            'totalWithoutTax' => $totalWithoutTax,
         ]);
-        
+
         $filename = 'Nota Penjualan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
         return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
@@ -130,6 +136,7 @@ class TransaksiProdukController extends Controller
         $subtotal = $orderItem->sum('sub_total');
         $users = User::find(1);
         $terms = Term::find(3);
+        $toko = StoreSetting::find(1);
 
         $logo = $users->profile_photo_path;
         $imagePath = public_path('storage/' . $logo);
@@ -146,6 +153,7 @@ class TransaksiProdukController extends Controller
             'total' => $total,
             'subtotal' => $subtotal,
             'imagePath' => $imagePath,
+            'toko' => $toko,
         ]);
 
         $filename = 'Nota Penjualan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';

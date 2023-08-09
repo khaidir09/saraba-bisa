@@ -114,6 +114,29 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($toko->is_tax === 1)
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="ppn">Apakah produk dikenakan pajak?</label>
+                                            <div class="flex flex-wrap items-center -m-3">
+                                                <div class="m-3">
+                                                    <!-- Start -->
+                                                    <label class="flex items-center">
+                                                        <input type="radio" name="ppn" value="" class="form-radio" checked x-on:click="showDetails = true"/>
+                                                        <span class="text-sm ml-2">Tidak</span>
+                                                    </label>
+                                                    <!-- End -->
+                                                </div>
+                                                <div class="m-3">
+                                                    <!-- Start -->
+                                                    <label class="flex items-center">
+                                                        <input type="radio" name="ppn" value="{{ $toko->ppn }}" class="form-radio" x-on:click="showDetails = false"/>
+                                                        <span class="text-sm ml-2">Ya</span>
+                                                    </label>
+                                                    <!-- End -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="supplier">Agen <span class="text-rose-500">*</span></label>
                                         <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" required />

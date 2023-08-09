@@ -4,17 +4,10 @@ namespace App\Http\Controllers\Teknisi;
 
 use Carbon\Carbon;
 use App\Models\Budget;
-use App\Models\Expense;
-use App\Models\DataFeed;
 use App\Models\OrderDetail;
-use Illuminate\Http\Request;
-use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\AccessoryTransaction;
-use App\Models\SparepartTransaction;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -47,12 +40,23 @@ class DashboardController extends Controller
             ->sum('profit');
         $totalprofit = $totalbiayaservis + $totalpenjualan;
 
+        // Ambil data transaksi servis yang memiliki status "Belum cek"
+        $transactions = ServiceTransaction::where('penerima', Auth::user()->worker->name)->where('status_servis', 'Belum cek')->get();
+
+        // Cek apakah ada transaksi yang lebih dari 7 hari dari data dibuat
+        $currentDate = Carbon::now();
+        $reminderThreshold = 7; // Jumlah hari sebelum pengingat ditampilkan
+        $reminders = $transactions->filter(function ($transaction) use ($currentDate, $reminderThreshold) {
+            return $transaction->created_at->addDays($reminderThreshold)->isPast();
+        })->count();
+
         return view('pages/teknisi/dashboard', compact(
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
             'totalpenjualan',
-            'totalbonus'
+            'totalbonus',
+            'reminders'
         ));
     }
 }

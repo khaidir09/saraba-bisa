@@ -130,4 +130,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Salary::class, 'users_id', 'id');
     }
+
+    public function worker()
+    {
+        return $this->belongsTo(Worker::class, 'workers_id', 'id');
+    }
 }

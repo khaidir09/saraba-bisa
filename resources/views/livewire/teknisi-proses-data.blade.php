@@ -158,7 +158,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="users_id">Penerima</label>
-                                        <input type="text" id="users_id" name="users_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" value="{{ Auth::user()->name }}" disabled>
+                                        <input type="text" id="users_id" name="users_id" class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" value="{{ Auth::user()->worker->name }}" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -239,9 +239,6 @@
                             <div class="font-semibold text-left">Tgl Terima</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Penerima</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -317,9 +314,6 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div>{{ \Carbon\Carbon::parse($process->created_at)->format('d/m/Y') }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $process->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($process->customer)
