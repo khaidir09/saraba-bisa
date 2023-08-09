@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
+use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
@@ -129,6 +130,14 @@ class UbahSudahDiambilController extends Controller
             $persen_teknisi = null;
         }
 
+        $toko = StoreSetting::find(1);
+
+        if ($toko->is_tax === 1) {
+            $ppn = $toko->ppn;
+        } else {
+            $ppn = null;
+        }
+
         // Transaction create
         $item->update([
             'qc_keluar' => $request->qc_keluar,
@@ -147,8 +156,9 @@ class UbahSudahDiambilController extends Controller
             'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya - $request->diskon,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $request->persen_teknisi + $persen_backup->persen),
-            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100 - $request->diskon / 100) * $persen_backup->persen
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi + $persen_backup->persen),
+            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100 - $request->diskon / 100) * $persen_backup->persen,
+            'ppn' => ($request->biaya - $request->diskon) * $ppn / 100,
         ]);
 
         return redirect()->route('transaksi-servis-bisa-diambil.index');

@@ -51,6 +51,7 @@ class ServiceTransaction extends Model
         'omzet',
         'profit',
         'profittoko',
+        'ppn',
         'danabackup',
         'persen_admin',
         'persen_teknisi',

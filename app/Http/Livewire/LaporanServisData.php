@@ -3,14 +3,15 @@
 namespace App\Http\Livewire;
 
 use App\Models\Type;
+use App\Models\User;
 use App\Models\Brand;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
+use App\Models\StoreSetting;
 use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
-use App\Models\User;
 
 class LaporanServisData extends Component
 {
@@ -34,9 +35,11 @@ class LaporanServisData extends Component
 
     public function render()
     {
+        $toko = StoreSetting::find(1);
         $users = User::where('role', 'Teknisi')->get();
         $jumlah = ServiceTransaction::where('is_approve', 'Setuju')->count();
         return view('livewire.laporan-servis-data', [
+            'toko' => $toko,
             'jumlah' => $jumlah,
             'users' => $users,
             'services' => $this->search === null ?
