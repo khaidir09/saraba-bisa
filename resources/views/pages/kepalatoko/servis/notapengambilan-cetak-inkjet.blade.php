@@ -237,6 +237,23 @@
 						<td id="data" scope="row" style="border-left-style: solid;">Total</td>
 						<td id="data">: Rp. {{ number_format($items->biaya - $items->diskon + $items->ppn) }}</td>
 					</tr>
+				@elseif ($items->diskon === null && $items->uang_muka === null && $items->ppn != 0)
+					<tr style="border-right-style: solid;">
+						<td id="data" scope="row" style="border-left-style: solid;">Tindakan Servis</td>
+						<td id="data" class="capital">: {{ $items->tindakan_servis }}</td>
+						<td id="data" scope="row" style="border-left-style: solid;"></td>
+						<td id="data"></td>
+						<td id="data" scope="row" style="border-left-style: solid;">PPN 11%</td>
+						<td id="data">: Rp. {{ number_format($items->ppn) }}</td>
+					</tr>
+					<tr style="border-right-style: solid; border-bottom-style: solid;">
+						<td id="data" scope="row" style="border-left-style: solid;"></td>
+						<td id="data"></td>
+						<td id="data" scope="row" style="border-left-style: solid;"></td>
+						<td id="data"></td>
+						<td id="data" scope="row" style="border-left-style: solid;">Total</td>
+						<td id="data">: Rp. {{ number_format($items->biaya + $items->ppn) }}</td>
+					</tr>
 				@elseif ($items->diskon === null && $items->uang_muka === null)
 					<tr style="border-right-style: solid; border-bottom-style: solid;">
 						<td id="data" scope="row" style="border-left-style: solid;">Tindakan Servis</td>

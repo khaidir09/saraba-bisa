@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Teknisi;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
+use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
 class UbahBisaDiambilController extends Controller
@@ -130,6 +131,14 @@ class UbahBisaDiambilController extends Controller
 
         $profittransaksi = $request->biaya - $request->modal_sparepart;
         $bagihasil = ($request->biaya - $request->modal_sparepart) / 100;
+
+        $toko = StoreSetting::find(1);
+
+        if ($toko->is_tax === 1) {
+            $ppn = $toko->ppn;
+        } else {
+            $ppn = null;
+        }
         // Transaction create
         $item->update([
             'status_servis' => $request->status_servis,
@@ -146,7 +155,8 @@ class UbahBisaDiambilController extends Controller
             'omzet' => $request->biaya,
             'profit' => $profittransaksi,
             'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi + $persen_backup->persen),
-            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100) * $persen_backup->persen
+            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100) * $persen_backup->persen,
+            'ppn' => $request->biaya * $ppn / 100,
         ]);
 
         if ($request->products_id != null) {

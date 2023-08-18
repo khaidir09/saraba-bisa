@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
+use App\Models\StoreSetting;
 use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,10 @@ class TeknisiBisaDiambilData extends Component
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->count();
+        $pajaktoko = StoreSetting::find(1);
+
         return view('livewire.teknisi-bisa-diambil-data', [
+            'pajaktoko' => $pajaktoko,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,
