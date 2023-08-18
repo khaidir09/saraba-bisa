@@ -114,6 +114,22 @@
 				<td class="title">Biaya Servis</td>
 				<td class="value">: Rp. {{ number_format($items->biaya) }}</td>
 				</tr>
+				@if ($items->diskon != null)
+					<tr>
+					<td class="title">Diskon</td>
+					<td class="value">: Rp. {{ number_format($items->diskon) }}</td>
+					</tr>
+				@endif
+				@if ($items->ppn != 0)
+					<tr>
+					<td class="title">PPN 11%</td>
+					<td class="value">: Rp. {{ number_format($items->ppn) }}</td>
+					</tr>
+				@endif
+				<tr>
+					<td class="title">Total</td>
+					<td class="value">: Rp. {{ number_format($items->biaya - $items->diskon + $items->ppn) }}</td>
+					</tr>
 				<tr>
 				<td class="title">Pembayaran</td>
 				<td class="value">: {{ $items->cara_pembayaran }}</td>
