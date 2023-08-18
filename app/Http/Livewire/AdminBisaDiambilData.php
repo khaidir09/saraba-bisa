@@ -10,6 +10,7 @@ use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
+use App\Models\StoreSetting;
 use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
 
@@ -47,9 +48,11 @@ class AdminBisaDiambilData extends Component
             ->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', 'Admin')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('is_admin_toko', 'Admin')->count();
+        $pajaktoko = StoreSetting::find(1);
         return view('livewire.admin-bisa-diambil-data', [
             'users' => $users,
             'toko' => $toko,
+            'pajaktoko' => $pajaktoko,
             'workers' => $workers,
             'customers' => $customers,
             'types' => $types,

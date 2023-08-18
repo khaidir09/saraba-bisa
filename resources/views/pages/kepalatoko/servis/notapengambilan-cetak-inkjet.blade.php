@@ -184,8 +184,8 @@
 						<td id="data"></td>
 						<td id="data" scope="row" style="border-left-style: solid;"></td>
 						<td id="data"></td>
-						<td id="data" scope="row" style="border-left-style: solid;">Total</td>
-						<td id="data">: Rp. {{ number_format($items->biaya - $items->uang_muka - $items->diskon) }}</td>
+						<td id="data" scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
+						<td id="data">: Rp. {{ number_format($items->biaya - $items->uang_muka - $items->diskon + $items->ppn) }}</td>
 					</tr>
 				@elseif ($items->uang_muka != null && $items->diskon === null && $items->ppn != 0)
 					<tr style="border-right-style: solid;">
@@ -209,8 +209,8 @@
 						<td id="data"></td>
 						<td id="data" scope="row" style="border-left-style: solid;"></td>
 						<td id="data"></td>
-						<td id="data" scope="row" style="border-left-style: solid;">Total</td>
-						<td id="data">: Rp. {{ number_format($items->biaya - $items->uang_muka) }}</td>
+						<td id="data" scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
+						<td id="data">: Rp. {{ number_format($items->biaya - $items->uang_muka + $items->ppn) }}</td>
 					</tr>
 				@elseif ($items->diskon != null && $items->uang_muka === null && $items->ppn != 0)
 					<tr style="border-right-style: solid;">

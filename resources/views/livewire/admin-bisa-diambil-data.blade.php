@@ -271,11 +271,16 @@
                             <div class="font-semibold text-left">Teknisi</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Biaya</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal Sparepart</div>
                         </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Biaya</div>
+                        </th>
+                        @if ($pajaktoko->is_tax === 1)
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-semibold text-left">PPN 11%</div>
+                            </th>
+                        @endif
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Tgl Selesai</div>
                         </th>
@@ -409,11 +414,16 @@
                                 @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($transaction->biaya) }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($transaction->modal_sparepart) }}</div>
                             </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">Rp. {{ number_format($transaction->biaya) }}</div>
+                            </td>
+                            @if ($pajaktoko->is_tax === 1)
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-medium">Rp. {{ number_format($transaction->ppn) }}</div>
+                                </td>
+                            @endif
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div>{{ \Carbon\Carbon::parse($transaction->tgl_selesai)->format('d/m/Y') }}</div>
                             </td>
