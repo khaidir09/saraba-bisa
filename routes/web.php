@@ -49,7 +49,6 @@ use App\Http\Controllers\KepalaToko\TransaksiProdukController as KepalaTokoTrans
 use App\Http\Controllers\KepalaToko\TransaksiProdukPaidController as KepalaTokoTransaksiProdukPaidController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukDueController as KepalaTokoTransaksiProdukDueController;
 use App\Http\Controllers\KepalaToko\LaporanPenjualanController as KepalaTokoLaporanPenjualanController;
-use App\Http\Controllers\KepalaToko\LaporanPajakPenjualanController as KepalaTokoLaporanPajakPenjualanController;
 use App\Http\Controllers\KepalaToko\TermController as KepalaTokoTermController;
 // Admin Toko
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
@@ -221,7 +220,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('transaksi-produk-termal/{orders_id}', [KepalaTokoTransaksiProdukController::class, 'cetaktermal'])->name('cetak-termal');
 
     Route::get('laporan/laporan-penjualan', [KepalaTokoLaporanPenjualanController::class, 'index'])->name('laporan-penjualan');
-    Route::get('laporan/laporan-pajak-penjualan', [KepalaTokoLaporanPajakPenjualanController::class, 'index'])->name('laporan-pajak-penjualan');
 
     Route::post('/import-produk', [KepalaTokoProdukController::class, 'import'])->name('import-produk');
     Route::get('export-produk', [KepalaTokoProdukController::class, 'export'])->name('produk-export');
