@@ -179,6 +179,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('nota-terima-inkjet/{id}', [KepalaTokoTransaksiServisController::class, 'cetakinkjet'])->name('kepalatoko-cetak-inkjet');
     Route::get('nota-pengambilan-inkjet/{id}', [KepalaTokoSudahDiambilController::class, 'cetakinkjet'])->name('kepalatoko-pengambilan-cetak-inkjet');
 
+    Route::get('cetak-laporan-ppn', [KepalaTokoLaporanServisController::class, 'laporanppn'])->name('cetak-laporan-ppn');
+
     Route::get('slip-gaji/{id}', [KepalaTokoKaryawanController::class, 'cetak'])->name('cetak-slip-gaji');
 
     Route::post('/impor-pelanggan', [KepalaTokoPelangganController::class, 'import'])->name('impor-pelanggan');
