@@ -43,7 +43,6 @@ use App\Http\Controllers\KepalaToko\TindakanServisController as KepalaTokoTindak
 use App\Http\Controllers\KepalaToko\InformasiTokoController as KepalaTokoInformasiTokoController;
 use App\Http\Controllers\KepalaToko\LaporanServisController as KepalaTokoLaporanServisController;
 use App\Http\Controllers\KepalaToko\LaporanPenjualanController as KepalaTokoLaporanPenjualanController;
-use App\Http\Controllers\KepalaToko\LaporanPajakPenjualanController as KepalaTokoLaporanPajakPenjualanController;
 use App\Http\Controllers\KepalaToko\LaporanAdminController as KepalaTokoLaporanAdminController;
 use App\Http\Controllers\KepalaToko\LaporanSalesController as KepalaTokoLaporanSalesController;
 use App\Http\Controllers\KepalaToko\SudahDiambilController as KepalaTokoSudahDiambilController;
@@ -177,7 +176,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('laporan/laporan-servis', [KepalaTokoLaporanServisController::class, 'index'])->name('laporan-servis');
     Route::get('laporan/laporan-teknisi', [KepalaTokoLaporanTeknisiController::class, 'index'])->name('laporan-teknisi');
     Route::get('laporan/laporan-penjualan', [KepalaTokoLaporanPenjualanController::class, 'index'])->name('laporan-penjualan');
-    Route::get('laporan/laporan-pajak-penjualan', [KepalaTokoLaporanPajakPenjualanController::class, 'index'])->name('laporan-pajak-penjualan');
     Route::get('laporan/laporan-sales', [KepalaTokoLaporanSalesController::class, 'index'])->name('laporan-sales');
     Route::get('laporan/laporan-admin', [KepalaTokoLaporanAdminController::class, 'index'])->name('laporan-admin');
 
