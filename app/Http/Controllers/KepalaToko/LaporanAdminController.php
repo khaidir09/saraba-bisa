@@ -15,7 +15,7 @@ class LaporanAdminController extends Controller
 {
     public function index()
     {
-        $users = User::with('adminservice')->where('role', 'Admin Toko')
+        $users = User::with('adminservice', 'adminsale')->where('role', 'Admin Toko')
             ->get();
 
         return view('pages/kepalatoko/laporan-admin', compact(

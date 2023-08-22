@@ -89,6 +89,11 @@ class User extends Authenticatable
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
 
+    public function adminsale()
+    {
+        return $this->hasMany(OrderDetail::class, 'admin_id', 'id');
+    }
+
     public function servicetransaction()
     {
         $currentMonth = now()->month;

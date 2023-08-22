@@ -23,6 +23,7 @@ class OrderDetail extends Model
         'profit_toko',
         'persen_sales',
         'is_admin_toko',
+        'admin_id',
         'persen_admin',
         'created_at',
         'updated_at',
@@ -38,6 +39,11 @@ class OrderDetail extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(User::class, 'admin_id', 'id');
     }
 
     public function order()

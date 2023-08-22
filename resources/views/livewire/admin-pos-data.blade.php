@@ -189,6 +189,7 @@
                     <input type="hidden" name="sub_total" value="{{ Cart::total() + $totalTax }}">
                     <input type="hidden" name="is_admin_toko" value="Admin">
                     <input type="hidden" name="persen_admin" value="{{ Auth::user()->persen }}">
+                    <input type="hidden" name="admin_id" value="{{ Auth::user()->id }}">
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
