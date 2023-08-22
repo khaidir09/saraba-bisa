@@ -24,10 +24,7 @@
         </div>
      
         <!-- Table -->
-        <x-kepalatoko.laporan-admin-table
-        :users="$users" :biayaservis="$biayaservis" :jumlahservis="$jumlahservis"
-        :jumlahpenjualan="$jumlahpenjualan" :profitpenjualan="$profitpenjualan"
-        />
+        <x-kepalatoko.laporan-admin-table :users="$users" />
 
     </div>
 </x-toko-layout>

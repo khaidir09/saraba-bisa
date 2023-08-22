@@ -8,7 +8,6 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
-use App\Models\Sparepart;
 use App\Models\ModelSerie;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
@@ -160,6 +159,7 @@ class UbahBisaDiambilController extends Controller
             'biaya' => $request->biaya,
             'catatan' => $request->catatan,
             'is_admin_toko' => $request->is_admin_toko,
+            'admin_id' => $request->admin_id,
             'persen_admin' => $persen_admin,
             'persen_teknisi' => $persen_teknisi,
             'persen_backup' => $persen_backup->persen,

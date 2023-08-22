@@ -69,6 +69,7 @@ class TransaksiServisController extends Controller
             'uang_muka' => $request->uang_muka,
             'status_servis' => $request->status_servis,
             'is_admin_toko' => $request->is_admin_toko,
+            'admin_id' => $request->admin_id,
             'penerima' => $request->penerima
         ]);
 

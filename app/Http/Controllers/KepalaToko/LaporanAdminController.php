@@ -15,33 +15,11 @@ class LaporanAdminController extends Controller
 {
     public function index()
     {
-        $currentMonth = now()->month;
-
-        $users = User::where('role', 'Admin Toko')
+        $users = User::with('adminservice')->where('role', 'Admin Toko')
             ->get();
-        $jumlahservis = ServiceTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->count();
-        $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-        $jumlahpenjualan = OrderDetail::where('is_admin_toko', 'Admin')
-            ->whereMonth('created_at', $currentMonth)
-            ->count();
-        $profitpenjualan = OrderDetail::where('is_admin_toko', 'Admin')
-            ->whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
 
         return view('pages/kepalatoko/laporan-admin', compact(
             'users',
-            'biayaservis',
-            'jumlahservis',
-            'jumlahpenjualan',
-            'profitpenjualan',
         ));
     }
 }
