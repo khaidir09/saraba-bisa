@@ -135,6 +135,18 @@
                                             </div>
                                         </div>
                                         <div>
+                                            <label class="block text-sm font-medium" for="workers_id">Relasi Data Karyawan</label>
+                                            <div class="text-xs text-slate-600 mb-1">
+                                                Tidak perlu dipilih jika tidak ada relasi data karyawan
+                                            </div>
+                                            <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full">
+                                                <option selected value=""></option>
+                                                @foreach ($workers as $worker)
+                                                    <option value="{{ $worker->id }}">{{ $worker->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
                                             <label class="block text-sm font-medium mb-1" for="persen">Persen</label>
                                             <input id="persen" name="persen" class="form-input w-full px-2 py-1" type="number" />
                                         </div>

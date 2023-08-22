@@ -5,7 +5,7 @@
 <x-teknisi-layout>
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
-        <x-teknisi.header-teknisi :totalbonus="$totalbonus"/>
+         <x-teknisi.header-teknisi :totalbonus="$totalbonus"/>
 
         <div class="space-y-3 my-6">
             <!-- Reminder Servis Start -->

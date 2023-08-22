@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Sales;
 
+use App\Models\Debt;
 use App\Models\Budget;
+use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -28,15 +29,18 @@ class DashboardController extends Controller
         $totalpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
             ->get()
             ->sum('profit_toko');
-
-        $bonusbulan = OrderDetail::where('users_id', Auth::user()->id)->whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
-
         $totalprofit = $totalbiayaservis + $totalpenjualan;
 
+        $profitpenjualan = OrderDetail::where('users_id', Auth::user()->id)
+            ->whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('profit');
+        $bonuspenjualan = ($profitpenjualan / 100) * Auth::user()->persen;
+
+        $totalbonus = $bonuspenjualan;
+
         return view('pages/sales/dashboard', compact(
-            'bonusbulan',
+            'totalbonus',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit'

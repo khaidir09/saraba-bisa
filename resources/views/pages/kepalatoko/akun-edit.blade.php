@@ -145,6 +145,19 @@
                                     </div>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="workers_id">Relasi Data Karyawan</label>
+                                    <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full">
+                                        @if ($item->worker != null)
+                                            <option selected value="{{ $item->worker->id }}">{{ $item->worker->name }}</option>
+                                        @else
+                                            <option selected value=""></option>
+                                        @endif
+                                        @foreach ($workers as $worker)
+                                            <option value="{{ $worker->id }}">{{ $worker->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="persen">Persen</label>
                                     <input id="persen" name="persen" class="form-input w-full px-2 py-1" type="number" value="{{ $item->persen }}" />
                                 </div>

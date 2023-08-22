@@ -89,6 +89,7 @@ use App\Http\Controllers\Teknisi\ExpenseController as TeknisiExpenseController;
 use App\Http\Controllers\Teknisi\MasterModelSeriController as TeknisiMasterModelSeriController;
 use App\Http\Controllers\Teknisi\UbahStatusProsesServisController as TeknisiUbahStatusProsesServisController;
 use App\Http\Controllers\Teknisi\ProdukController as TeknisiProdukController;
+use App\Http\Controllers\Teknisi\KasbonController as TeknisiKasbonController;
 // Sales
 use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
 use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
@@ -100,6 +101,7 @@ use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProduk
 use App\Http\Controllers\Sales\TransaksiProdukPaidController as SalesTransaksiProdukPaidController;
 use App\Http\Controllers\Sales\TransaksiProdukDueController as SalesTransaksiProdukDueController;
 use App\Http\Controllers\Sales\LaporanPenjualanController as SalesLaporanPenjualanController;
+use App\Http\Controllers\Sales\KasbonController as SalesKasbonController;
 
 
 /*
@@ -302,6 +304,7 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::get('teknisi-nota-pengambilan-inkjet/{id}', [TeknisiSudahDiambilController::class, 'cetakinkjet'])->name('teknisi-inkjet-pengambilan');
 
     Route::resource('produk/teknisi-item', TeknisiProdukController::class);
+    Route::resource('teknisi-kasbon', TeknisiKasbonController::class);
 });
 
 Route::middleware('ensureSalesRole:Sales')->group(
@@ -336,6 +339,8 @@ Route::middleware('ensureSalesRole:Sales')->group(
         Route::get('sales-export-produk', [SalesProdukController::class, 'export'])->name('sales-produk-export');
 
         Route::get('sales-laporan-penjualan', [SalesLaporanPenjualanController::class, 'index'])->name('sales-laporan-penjualan');
+
+        Route::resource('sales-kasbon', SalesKasbonController::class);
     }
 );
 
