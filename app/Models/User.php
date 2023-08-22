@@ -91,7 +91,10 @@ class User extends Authenticatable
 
     public function adminsale()
     {
-        return $this->hasMany(OrderDetail::class, 'admin_id', 'id');
+        $currentMonth = now()->month;
+
+        return $this->hasMany(OrderDetail::class, 'admin_id', 'id')
+            ->whereMonth('created_at', $currentMonth);
     }
 
     public function servicetransaction()
