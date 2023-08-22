@@ -136,4 +136,21 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Worker::class, 'workers_id', 'id');
     }
+
+    public function adminservice()
+    {
+        $currentMonth = now()->month;
+
+        return $this->hasMany(ServiceTransaction::class, 'admin_id', 'id')
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', $currentMonth);
+    }
+
+    public function adminsale()
+    {
+        $currentMonth = now()->month;
+
+        return $this->hasMany(OrderDetail::class, 'admin_id', 'id')
+            ->whereMonth('created_at', $currentMonth);
+    }
 }

@@ -150,6 +150,7 @@ class UbahBisaDiambilController extends Controller
             'biaya' => $request->biaya,
             'catatan' => $request->catatan,
             'is_admin_toko' => $request->is_admin_toko,
+            'admin_id' => $request->admin_id,
             'persen_admin' => $persen_admin,
             'persen_teknisi' => $persen_teknisi,
             'persen_backup' => $persen_backup->persen,

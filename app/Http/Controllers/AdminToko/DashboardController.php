@@ -37,7 +37,19 @@ class DashboardController extends Controller
             ->get()
             ->sum('profit');
 
-        $totalbonus = ($biayaservis/100 + $profitpenjualan/100) * Auth::user()->persen;
+        $adminbiayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
+            ->where('admin_id', Auth::user()->id)
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', $currentMonth)
+            ->get()
+            ->sum('profit');
+        $adminprofitpenjualan = OrderDetail::where('is_admin_toko', 'Admin')
+            ->where('admin_id', Auth::user()->id)
+            ->whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('profit');
+
+        $totalbonus = ($adminbiayaservis / 100 + $adminprofitpenjualan / 100) * Auth::user()->persen;
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')

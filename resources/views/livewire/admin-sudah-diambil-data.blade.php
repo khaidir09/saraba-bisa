@@ -67,6 +67,7 @@
                             @csrf
                             <input type="hidden" name="status_servis" value="Belum cek">
                             <input type="hidden" name="is_admin_toko" value="Admin">
+                            <input type="hidden" name="admin_id" value="{{ Auth::user()->id }}">
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>

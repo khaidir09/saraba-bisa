@@ -48,6 +48,7 @@ class ServiceTransaction extends Model
         'tgl_selesai',
         'tgl_disetujui',
         'is_admin_toko',
+        'admin_id',
         'omzet',
         'profit',
         'profittoko',
@@ -56,6 +57,11 @@ class ServiceTransaction extends Model
         'persen_teknisi',
         'persen_backup'
     ];
+
+    public function admin()
+    {
+        return $this->belongsTo(User::class, 'admin_id', 'id');
+    }
 
     public function user()
     {

@@ -25,15 +25,17 @@
                             <div class="font-medium">{{ $item->name }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-medium">{{ $jumlahservis + $jumlahpenjualan }}</div>
+                            <div class="font-medium">{{ $item->adminservice->count() + $item->adminsale->count() }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium">
-                                 @php
-                                    $bonus = ($biayaservis + $profitpenjualan) / 100;
-                                    $bonus *= $item->persen;
+                                @php
+                                $bonusservice = $item->adminservice->sum('profit')/100;
+                                $bonusservice *= $item->persen;
+                                $bonussale = $item->adminsale->sum('profit')/100;
+                                $bonussale *= $item->persen;
                                 @endphp
-                                Rp. {{ number_format($bonus) }}
+                                Rp. {{ number_format($bonusservice + $bonussale) }}
                             </div>
                         </td>
                     </tr>
