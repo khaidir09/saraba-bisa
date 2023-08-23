@@ -146,7 +146,7 @@
       <hr style="border-top: 1px solid;">
 
       <div class="text-center">
-        <small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
+        <small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }}]</small>
         <p style="margin-top: 4px; margin-bottom: 4px;">Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
         @if ($orderItem->first()->garansi != null)
           <p style="margin-top: 4px; margin-bottom: 4px;">Cek status garansi {{ $users->link_toko }}/garansi</p>

@@ -92,7 +92,7 @@
   		<table width="75%" style="font-size: 11px;">
   			<tr>
   				<td style="padding-bottom: 2px;">
-            Dicetak Admin [10/01/2023 23:16 WIB]          </td>
+            Dicetak Admin [10/01/2023 23:16]          </td>
   			</tr>
   			<tr>
   				<td align="center">Silahkan bawa Nota Tanda Terima Servis</td>
