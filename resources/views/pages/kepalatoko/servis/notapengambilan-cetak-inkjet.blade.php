@@ -250,7 +250,7 @@
 					{!! $terms->description !!} <br> <br>
 					<span style="font-weight: bold;">Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</span>
 				</td>
-				<td colspan="2" class="pt-5 text-center capital">{{ $items->customer->nama }}</td>
+				<td colspan="2" class="pt-5 text-center capital">{{ $items->pengambil }}</td>
 				@if ($items->user != null)
 					<td colspan="2" class="pt-5 text-center capital">{{ $items->user->name }}</td>
 				@else
