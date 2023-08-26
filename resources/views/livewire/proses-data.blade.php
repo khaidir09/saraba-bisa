@@ -6,7 +6,6 @@
         <div class="mb-4 sm:mb-0">
             <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Transaksi Servis ✨</h1>
         </div>
-
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
@@ -234,6 +233,9 @@
                 <thead class="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
                     <tr>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div></div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">No.</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -306,6 +308,17 @@
                             endif;
                         @endphp
                         <tr>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <button wire:click="addToInvoice({{ $process->id }})">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#009988" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                    <path d="M12 11l0 6" />
+                                    <path d="M9 14l6 0" />
+                                    </svg>
+                                </button>
+                            </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $i++ }}</div>
                             </td>
@@ -670,5 +683,83 @@
     <!-- Pagination -->
     <div class="mt-8">
         {{ $processes->links() }}
+    </div>
+
+    <!-- Page header -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-3">
+
+        <!-- Left: Title -->
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Cetak Nota Gabungan ✨</h1>
+        </div>
+
+    </div>
+
+    <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
+        <header class="px-5 py-4">
+            <h2 class="font-semibold text-slate-800">Gabungan Data</h2>
+        </header>
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full">
+                <!-- Table header -->
+                <thead class="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
+                    <tr>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div></div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Nomor Servis</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Pelanggan</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Nama Barang</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Kerusakan</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">DP</div>
+                        </th>
+                    </tr>
+                </thead>
+                <!-- Table body -->
+                <tbody class="text-sm divide-y divide-slate-200">
+                    <!-- Row -->
+                    @foreach($invoiceItems as $item)
+                        <tr>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-minus" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                <path d="M9 14l6 0" />
+                                </svg>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="flex items-center text-blue-600">
+                                    <div class="font-medium">{{ $item->nomor_servis }}</div>
+                                </div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $item->nama_pelanggan }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $item->type->name }} {{ $item->brand->name }} {{ $item->modelserie->name }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium capitalize">{{ $item->kerusakan }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">Rp. {{ number_format($item->uang_muka) }}</div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+        </div>
     </div>
 </div>

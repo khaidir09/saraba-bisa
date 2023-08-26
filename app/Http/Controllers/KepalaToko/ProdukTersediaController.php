@@ -4,6 +4,8 @@ namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Exports\ProdukExport;
 use App\Imports\ProdukImport;
@@ -40,7 +42,7 @@ class ProdukTersediaController extends Controller
      */
     public function store(Request $request)
     {
-        $namakategori = Category::find($request->categories_id);
+        $namakategori = SubCategory::find($request->sub_categories_id);
 
         if ($request->stok === null) {
             $stok = 1;
@@ -52,8 +54,8 @@ class ProdukTersediaController extends Controller
         Product::create([
             'product_name' => $request->product_name,
             'product_code' => $request->product_code,
-            'categories_id' => $request->categories_id,
-            'category_name' => $namakategori->category_name,
+            'sub_categories_id' => $request->sub_categories_id,
+            'category_name' => $namakategori->name,
             'stok' => $stok,
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
@@ -61,7 +63,8 @@ class ProdukTersediaController extends Controller
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri,
             'garansi' => $request->garansi,
-            'garansi_imei' => $request->garansi_imei
+            'garansi_imei' => $request->garansi_imei,
+            'ppn' => $request->ppn
         ]);
 
         return redirect()->route('item-tersedia.index');
@@ -87,11 +90,13 @@ class ProdukTersediaController extends Controller
     public function edit($id)
     {
         $item = Product::findOrFail($id);
-        $categories = Category::all();
+        $categories = SubCategory::all();
+        $toko = StoreSetting::find(1);
 
         return view('pages.kepalatoko.produk.tersedia-edit', [
             'item' => $item,
-            'categories' => $categories
+            'categories' => $categories,
+            'toko' => $toko
         ]);
     }
 
@@ -119,13 +124,13 @@ class ProdukTersediaController extends Controller
     public function update(Request $request, $id)
     {
         $item = Product::findOrFail($id);
-        $namakategori = Category::find($request->categories_id);
+        $namakategori = SubCategory::find($request->sub_categories_id);
         // Create product
         $item->update([
             'product_name' => $request->product_name,
             'product_code' => $request->product_code,
-            'categories_id' => $request->categories_id,
-            'category_name' => $namakategori->category_name,
+            'sub_categories_id' => $request->sub_categories_id,
+            'category_name' => $namakategori->name,
             'stok' => $request->stok,
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
@@ -133,7 +138,8 @@ class ProdukTersediaController extends Controller
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri,
             'garansi' => $request->garansi,
-            'garansi_imei' => $request->garansi_imei
+            'garansi_imei' => $request->garansi_imei,
+            'ppn' => $request->ppn
         ]);
 
         return redirect()->route('item-tersedia.index');

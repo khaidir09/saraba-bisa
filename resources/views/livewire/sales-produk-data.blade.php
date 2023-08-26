@@ -82,7 +82,7 @@
                                 <div class="font-medium">{{ $item->product_name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->category->category_name }}</div>
+                                <div class="font-medium">{{ $item->subCategory->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">
@@ -112,10 +112,12 @@
                                 <div class="font-medium">Rp. {{ number_format($item->harga_jual) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if ($item->garansi_imei != null)
+                                @if ($item->garansi != null && $item->garansi_imei != null)
                                     <div class="font-medium">{{ $item->garansi }} hari / {{ $item->garansi_imei }} hari</div>
                                 @elseif ($item->garansi != null)
-                                    <div class="font-medium">{{ $item->garansi }} hari</div>
+                                    <div class="font-medium">{{ $item->garansi }} hari / -</div>
+                                @elseif ($item->garansi_imei != null)
+                                    <div class="font-medium">- / {{ $item->garansi_imei }} hari</div>
                                 @else
                                     <div class="font-medium">Tidak ada</div>
                                 @endif

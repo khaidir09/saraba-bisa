@@ -11,7 +11,7 @@ class Product extends Model
     protected $fillable = [
         'product_name',
         'product_code',
-        'categories_id',
+        'sub_categories_id',
         'category_name',
         'stok',
         'harga_modal',
@@ -24,17 +24,9 @@ class Product extends Model
         'ppn'
     ];
 
-    public function category()
+    public function subCategory()
     {
-        return $this->belongsTo(Category::class, 'categories_id', 'id');
-    }
-
-    public function order()
-    {
-        $currentMonth = now()->month;
-
-        return $this->hasMany(OrderDetail::class, 'products_id', 'id')
-            ->whereMonth('created_at', $currentMonth);
+        return $this->belongsTo(SubCategory::class, 'sub_categories_id', 'id');
     }
 
     public function relasiOrder()

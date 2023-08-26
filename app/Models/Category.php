@@ -19,17 +19,13 @@ class Category extends Model
             ->whereMonth('created_at', $currentMonth);
     }
 
-    // make this category connected to order detail with product model
-    public function order()
-    {
-        $currentMonth = now()->month;
-
-        return $this->hasManyThrough(OrderDetail::class, Product::class, 'categories_id', 'products_id', 'id', 'id')
-            ->whereMonth('order_details.created_at', $currentMonth);
-    }
-
     public function relasiProduct()
     {
         return $this->hasMany(Product::class, 'categories_id', 'id');
+    }
+
+    public function subCategory()
+    {
+        return $this->hasMany(SubCategory::class, 'categories_id', 'id');
     }
 }

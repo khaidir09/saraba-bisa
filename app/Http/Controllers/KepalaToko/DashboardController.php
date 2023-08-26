@@ -7,12 +7,13 @@ use App\Models\Debt;
 use App\Models\User;
 use App\Models\Budget;
 use App\Models\Expense;
+use App\Models\Product;
 use App\Models\Assembly;
 use App\Models\Category;
 use App\Models\OrderDetail;
+use App\Models\SubCategory;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -25,8 +26,17 @@ class DashboardController extends Controller
     public function index()
     {
         $dataService = new ServiceTransaction();
-        
-        $categories = Category::with('order')->get();
+
+        $categories = Category::all();
+
+        $categorySales = [];
+        foreach ($categories as $category) {
+            $totalSales = OrderDetail::totalSales($category->id);
+            $categorySales[] = [
+                'category' => $category->category_name,
+                'total_sales' => $totalSales,
+            ];
+        }
 
         $currentMonth = now()->month;
 
@@ -109,6 +119,7 @@ class DashboardController extends Controller
             ->sum('biaya');
 
         return view('pages/kepalatoko/dashboard', compact(
+            'categorySales',
             'dataService',
             'categories',
             'approveassembly',

@@ -166,14 +166,14 @@
                                 </tr>
                                 </thead>
                                 <tbody class="text-sm divide-y divide-slate-100">
-                                    @foreach ($categories as $item)
+                                    @foreach ($categorySales as $categorySale)
                                         <tr>
                                             <td class="py-2">
-                                                <div class="text-left uppercase">{{ $item->category_name }}</div>
+                                                <div class="text-left uppercase">{{ $categorySale['category'] }}</div>
                                             </td>
                                             <td class="py-2">
                                                 <div class="font-medium text-right text-slate-800">
-                                                    Rp. {{ number_format($item->order->sum('profit_toko')) }}
+                                                    Rp. {{ number_format($categorySale['total_sales']) }}
                                                 </div>
                                             </td>
                                         </tr>

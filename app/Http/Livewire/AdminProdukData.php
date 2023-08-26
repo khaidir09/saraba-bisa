@@ -6,6 +6,7 @@ use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\StoreSetting;
+use App\Models\SubCategory;
 use Livewire\WithPagination;
 
 class AdminProdukData extends Component
@@ -29,7 +30,7 @@ class AdminProdukData extends Component
 
     public function render()
     {
-        $categories = Category::all();
+        $categories = SubCategory::all();
         $products_count = Product::all()->count();
         $toko = StoreSetting::find(1);
         return view('livewire.admin-produk-data', [

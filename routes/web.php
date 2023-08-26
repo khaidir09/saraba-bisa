@@ -40,6 +40,7 @@ use App\Http\Controllers\KepalaToko\ExpenseController as KepalaTokoExpenseContro
 use App\Http\Controllers\KepalaToko\ApprovePengeluaranController as KepalaTokoApprovePengeluaranController;
 
 use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriController;
+use App\Http\Controllers\KepalaToko\SubKategoriController as KepalaTokoSubKategoriController;
 use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
 use App\Http\Controllers\KepalaToko\ProdukTersediaController as KepalaTokoProdukTersediaController;
 use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
@@ -70,6 +71,7 @@ use App\Http\Controllers\AdminToko\MasterModelSeriController as AdminTokoMasterM
 use App\Http\Controllers\AdminToko\UbahStatusProsesServisController as AdminTokoUbahStatusProsesServisController;
 use App\Http\Controllers\AdminToko\ExpenseController as AdminTokoExpenseController;
 use App\Http\Controllers\AdminToko\KategoriController as AdminTokoKategoriController;
+use App\Http\Controllers\AdminToko\SubKategoriController as AdminTokoSubKategoriController;
 use App\Http\Controllers\AdminToko\ProdukController as AdminTokoProdukController;
 use App\Http\Controllers\AdminToko\ProdukTersediaController as AdminTokoProdukTersediaController;
 use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabisController;
@@ -99,6 +101,7 @@ use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbah
 use App\Http\Controllers\KepalaToko\MasterJenisBarangController as KepalaTokoMasterJenisBarangController;
 use App\Http\Controllers\Sales\ExpenseController as SalesExpenseController;
 use App\Http\Controllers\Sales\KategoriController as SalesKategoriController;
+use App\Http\Controllers\Sales\SubKategoriController as SalesSubKategoriController;
 use App\Http\Controllers\Sales\ProdukController as SalesProdukController;
 use App\Http\Controllers\Sales\PosController as SalesPosController;
 use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProdukController;
@@ -137,6 +140,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('servis/tindakan-servis', KepalaTokoTindakanServisController::class);
     Route::resource('pelanggan', KepalaTokoPelangganController::class);
     Route::resource('servis/transaksi-servis', KepalaTokoTransaksiServisController::class);
+    Route::post('servis/nota-gabungan-proses/{id}', [KepalaTokoTransaksiServisController::class, 'add'])->name('add-nota-gabungan-proses');
     Route::resource('servis/transaksi-servis-approve', KepalaTokoApproveController::class);
     Route::resource('servis/transaksi-servis-bisa-diambil', KepalaTokoBisaDiambilController::class);
     Route::resource('servis/transaksi-servis-sudah-diambil', KepalaTokoSudahDiambilController::class);
@@ -197,6 +201,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('export-modelseri', [KepalaTokoMasterModelSeriController::class, 'export'])->name('modelseri-export');
 
     Route::resource('produk/kategori', KepalaTokoKategoriController::class);
+    Route::resource('produk/sub-kategori', KepalaTokoSubKategoriController::class);
     Route::resource('produk/item', KepalaTokoProdukController::class);
     Route::resource('produk/item-tersedia', KepalaTokoProdukTersediaController::class);
     Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
@@ -265,6 +270,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::get('customer/export', [AdminTokoPelangganController::class, 'export'])->name('admin-pelanggan-export');
 
     Route::resource('produk/admin-kategori', AdminTokoKategoriController::class);
+    Route::resource('produk/admin-sub-kategori', AdminTokoSubKategoriController::class);
     Route::resource('produk/admin-item', AdminTokoProdukController::class);
     Route::resource('produk/admin-item-tersedia', AdminTokoProdukTersediaController::class);
     Route::resource('produk/admin-item-habis', AdminTokoProdukHabisController::class);
@@ -330,6 +336,7 @@ Route::middleware('ensureSalesRole:Sales')->group(
         Route::resource('sales-kasbon', SalesKasbonController::class);
 
         Route::resource('produk/sales-kategori', SalesKategoriController::class);
+        Route::resource('produk/sales-sub-kategori', SalesSubKategoriController::class);
         Route::resource('produk/sales-item', SalesProdukController::class);
         Route::resource('produk/sales-pos', SalesPosController::class);
         Route::resource('produk/sales-transaksi-produk', SalesTransaksiProdukController::class);

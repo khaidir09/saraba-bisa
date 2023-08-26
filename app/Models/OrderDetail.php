@@ -50,4 +50,11 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Order::class, 'orders_id', 'id');
     }
+
+    public function scopeTotalSales($query, $categories_id)
+    {
+        return $query->whereHas('product.subCategory.category', function ($q) use ($categories_id) {
+            $q->where('categories_id', $categories_id);
+        })->sum('profit_toko');
+    }
 }
