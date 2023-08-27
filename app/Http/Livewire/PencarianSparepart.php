@@ -29,11 +29,11 @@ class PencarianSparepart extends Component
             'products' => $this->search === null ?
                 Product::latest()->
                 // get the product that has category name sparepart
-                whereHas('category', function ($query) {
+                whereHas('subCategory.category', function ($query) {
                     $query->where('category_name', 'Sparepart');
                 })->where('stok', '>=', '1')->get()
                 :
-                Product::latest()->whereHas('category', function ($query) {
+                Product::latest()->whereHas('subCategory.category', function ($query) {
                     $query->where('category_name', 'Sparepart');
                 })->where('stok', '>=', '1')
                 ->where('name', 'like', '%' . $this->search . '%')->get()

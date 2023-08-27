@@ -26,12 +26,16 @@ class ProdukExport implements FromCollection, WithMapping, WithHeadings, ShouldA
             $product->product_name,
             $product->product_code,
             $product->nomor_seri,
-            $product->categories_id,
+            $product->sub_categories_id,
+            $product->category_name,
             $product->stok,
             $product->harga_modal,
             $product->harga_jual,
             $product->supplier,
             $product->keterangan,
+            $product->garansi,
+            $product->garansi_imei,
+            $product->ppn,
         ];
     }
 
@@ -41,12 +45,16 @@ class ProdukExport implements FromCollection, WithMapping, WithHeadings, ShouldA
             'Nama Produk',
             'Kode Produk',
             'Nomor Seri',
-            'ID Kategori',
+            'ID Sub Kategori',
+            'Nama Sub Kategori',
             'Stok',
             'Harga Modal',
             'Harga Jual',
             'Agen',
             'Keterangan',
+            'Garansi Produk',
+            'Garansi IMEI',
+            'PPN 11%',
         ];
     }
 

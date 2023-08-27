@@ -49,4 +49,12 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(User::class, 'admin_id', 'id');
     }
+
+    public function scopeTotalSales($query, $categories_id)
+    {
+        $currentMonth = now()->month;
+        return $query->whereHas('product.subCategory.category', function ($q) use ($categories_id) {
+            $q->where('categories_id', $categories_id);
+        })->whereMonth('created_at', $currentMonth)->sum('profit_toko');
+    }
 }

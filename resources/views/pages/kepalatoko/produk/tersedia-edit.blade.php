@@ -83,11 +83,11 @@
                                     <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" value="{{ $item->product_name }}"/>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="categories_id">Kategori Produk</label>
-                                    <select id="categories_id" name="categories_id" class="form-select text-sm w-full">
-                                        <option selected value="{{ $item->category->id }}">{{ $item->category->category_name }}</option>
+                                    <label class="block text-sm font-medium mb-1" for="sub_categories_id">Kategori Produk</label>
+                                    <select id="sub_categories_id" name="sub_categories_id" class="form-select text-sm w-full">
+                                        <option selected value="{{ $item->subCategory->id }}">{{ $item->subCategory->name }}</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -224,6 +224,35 @@
                                     <label class="block text-sm font-medium mb-1" for="supplier">Agen</label>
                                     <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" value="{{ $item->supplier }}" />
                                 </div>                                
+                                @if ($toko->is_tax === 1)
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="ppn">Apakah produk dikenakan pajak?</label>
+                                        <div class="flex flex-wrap items-center -m-3">
+                                            <div class="m-3">
+                                                <!-- Start -->
+                                                <label class="flex items-center">
+                                                    <input type="radio" name="ppn" value="" class="form-radio"
+                                                    @if ($item->ppn === null)
+                                                checked
+                                            @endif/>
+                                                    <span class="text-sm ml-2">Tidak</span>
+                                                </label>
+                                                <!-- End -->
+                                            </div>
+                                            <div class="m-3">
+                                                <!-- Start -->
+                                                <label class="flex items-center">
+                                                    <input type="radio" name="ppn" value="{{ $toko->ppn }}" class="form-radio"
+                                                    @if ($item->ppn != null)
+                                                        checked
+                                                    @endif/>
+                                                    <span class="text-sm ml-2">Ya</span>
+                                                </label>
+                                                <!-- End -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <!-- Modal footer -->

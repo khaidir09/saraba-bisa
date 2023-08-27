@@ -26,7 +26,17 @@ class DashboardController extends Controller
         $currentMonth = now()->month;
 
         $types = Type::with('service')->get();
-        $categories = Category::with('order')->get();
+
+        $categories = Category::all();
+
+        $categorySales = [];
+        foreach ($categories as $category) {
+            $totalSales = OrderDetail::totalSales($category->id);
+            $categorySales[] = [
+                'category' => $category->category_name,
+                'total_sales' => $totalSales,
+            ];
+        }
 
         $pengeluaran = Expense::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
@@ -51,7 +61,7 @@ class DashboardController extends Controller
         $approvekasbon = Debt::where('is_approve', null)->count();
         $approvepengeluaran = Expense::where('is_approve', null)->count();
         $stokhabis = Product::where('stok', 0)->count();
-        
+
         $totalbudgets = Budget::all()->sum('total');
 
         $bulanprofitbersihservis = ServiceTransaction::where('is_approve', 'Setuju')
@@ -95,6 +105,7 @@ class DashboardController extends Controller
         return view('pages/kepalatoko/dashboard', compact(
             'types',
             'categories',
+            'categorySales',
             'totalpengeluaran',
             'pengeluaran',
             'approveservis',

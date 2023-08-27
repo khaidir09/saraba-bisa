@@ -25,7 +25,16 @@ class DashboardController extends Controller
         $currentMonth = now()->month;
 
         $types = Type::with('service')->get();
-        $categories = Category::with('order')->get();
+        $categories = Category::all();
+
+        $categorySales = [];
+        foreach ($categories as $category) {
+            $totalSales = OrderDetail::totalSales($category->id);
+            $categorySales[] = [
+                'category' => $category->category_name,
+                'total_sales' => $totalSales,
+            ];
+        }
 
         $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
             ->where('is_approve', 'Setuju')
@@ -82,6 +91,7 @@ class DashboardController extends Controller
             'totalpenjualan',
             'totalbonus',
             'categories',
+            'categorySales',
             'reminders',
             'stokhabis'
         ));
