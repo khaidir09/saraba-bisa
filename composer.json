@@ -20,6 +20,7 @@
         "livewire/livewire": "^2.5",
         "maatwebsite/excel": "^3.1",
         "realrashid/sweet-alert": "^7.0",
+        "spatie/laravel-activitylog": "^4.7",
         "wireui/wireui": "^1.17"
     },
     "require-dev": {
