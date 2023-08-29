@@ -51,6 +51,7 @@ use App\Http\Controllers\KepalaToko\TransaksiProdukPaidController as KepalaTokoT
 use App\Http\Controllers\KepalaToko\TransaksiProdukDueController as KepalaTokoTransaksiProdukDueController;
 use App\Http\Controllers\KepalaToko\LaporanPenjualanController as KepalaTokoLaporanPenjualanController;
 use App\Http\Controllers\KepalaToko\TermController as KepalaTokoTermController;
+use App\Http\Controllers\KepalaToko\LogServisController as KepalaTokoLogServisController;
 // Admin Toko
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
@@ -145,6 +146,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('servis/transaksi-servis-bisa-diambil', KepalaTokoBisaDiambilController::class);
     Route::resource('servis/transaksi-servis-sudah-diambil', KepalaTokoSudahDiambilController::class);
     Route::resource('servis/assembly', KepalaTokoAssemblyController::class);
+    Route::get('servis/log-servis', [KepalaTokoLogServisController::class, 'index'])->name('log-servis');
+    Route::post('servis/log-servis-destroy/{model}', [KepalaTokoLogServisController::class, 'destroy'])->name('log-servis-destroy');
     Route::resource('master/master-jenis-barang', KepalaTokoMasterJenisBarangController::class);
     Route::resource('master/master-merek', KepalaTokoMasterMerekController::class);
     Route::resource('master/master-kapasitas', KepalaTokoMasterKapasitasController::class);

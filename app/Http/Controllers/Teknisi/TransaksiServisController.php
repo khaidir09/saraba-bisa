@@ -153,7 +153,6 @@ class TransaksiServisController extends Controller
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
         $capacities = Capacity::all();
-        $users = User::all();
 
         return view('pages.teknisi.transaksi-servis-edit', [
             'item' => $item,
@@ -162,8 +161,7 @@ class TransaksiServisController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'service_actions' => $service_actions,
-            'capacities' => $capacities,
-            'users' => $users
+            'capacities' => $capacities
         ]);
     }
 
