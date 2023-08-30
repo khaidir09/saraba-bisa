@@ -37,15 +37,13 @@
                         @foreach ($orderItem as $item)
                             <li class="flex items-center py-3 border-b border-slate-200">
                                 <div class="grow">
-                                    <a href="#0">
-                                        <h4 class="text-sm font-medium text-slate-800 leading-tight">{{ $item->product->product_name }} (Rp. {{ number_format($item->price) }} x {{ $item->quantity }}
-                                            @if ($item->quantity == 1)
-                                                pc
-                                            @else
-                                                pcs
-                                            @endif)
-                                        </h4>
-                                    </a>
+                                    <h4 class="text-sm font-medium text-slate-800 leading-tight">{{ $item->product->product_name }} (Rp. {{ number_format($item->price) }} x {{ $item->quantity }}
+                                        @if ($item->quantity == 1)
+                                            pc
+                                        @else
+                                            pcs
+                                        @endif)
+                                    </h4>
                                 </div>
                                 <div class="text-sm font-medium text-slate-800 ml-6">
                                     @if ($item->ppn > 0)

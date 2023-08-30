@@ -15,7 +15,7 @@
                         <div class="font-semibold text-left">Waktu</div>
                     </th>
                     <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                        <div class="font-semibold text-left">User</div>
+                        <div class="font-semibold text-left">Akun</div>
                     </th>
                     <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                         <div class="font-semibold text-left">Aktivitas</div>
@@ -30,10 +30,10 @@
                         <div class="font-semibold text-left">Nama Barang</div>
                     </th>
                     <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                        <div class="font-semibold text-left">Before</div>
+                        <div class="font-semibold text-left">Sebelum</div>
                     </th>
                     <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                        <div class="font-semibold text-left">After</div>
+                        <div class="font-semibold text-left">Sesudah</div>
                     </th>
                 </tr>
             </thead>
