@@ -341,9 +341,9 @@
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium">
                                             @if ($item->product_code != null)
-                                                ({{ $item->product_code }}) {{ $item->product_name }}
+                                                ({{ $item->product_code }}) {{ $item->product_name }} ({{ $item->stok }} item)
                                             @else
-                                                {{ $item->product_name }} {{ $item->nomor_seri }}
+                                                {{ $item->product_name }} {{ $item->nomor_seri }} ({{ $item->stok }} item)
                                             @endif
                                         </div>
                                     </td>
