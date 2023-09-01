@@ -52,6 +52,7 @@ use App\Http\Controllers\KepalaToko\TransaksiProdukDueController as KepalaTokoTr
 use App\Http\Controllers\KepalaToko\LaporanPenjualanController as KepalaTokoLaporanPenjualanController;
 use App\Http\Controllers\KepalaToko\TermController as KepalaTokoTermController;
 use App\Http\Controllers\KepalaToko\LogServisController as KepalaTokoLogServisController;
+use App\Http\Controllers\KepalaToko\LogPenjualanController as KepalaTokoLogPenjualanController;
 // Admin Toko
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
@@ -213,6 +214,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('produk/transaksi-produk', KepalaTokoTransaksiProdukController::class);
     Route::resource('produk/transaksi-produk-paid', KepalaTokoTransaksiProdukPaidController::class);
     Route::resource('produk/transaksi-produk-due', KepalaTokoTransaksiProdukDueController::class);
+    Route::get('produk/log-penjualan', [KepalaTokoLogPenjualanController::class, 'index'])->name('log-penjualan');
+    Route::post('produk/log-penjualan-destroy/{model}', [KepalaTokoLogPenjualanController::class, 'destroy'])->name('log-penjualan-destroy');
 
     Route::get('/order/due/{id}', [KepalaTokoTransaksiProdukController::class, 'OrderDueAjax']);
     Route::post('produk/update-due', [KepalaTokoTransaksiProdukController::class, 'UpdateDue'])->name('produk.updateDue');

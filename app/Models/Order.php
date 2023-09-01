@@ -2,17 +2,24 @@
 
 namespace App\Models;
 
-use App\Models\Customer;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
-    use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
 
     protected $guarded = [];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName('Transaksi Penjualan')
+            ->logOnly(['*']); // Ganti dengan atribut yang ingin dicatat
+    }
 
     public function customer()
     {

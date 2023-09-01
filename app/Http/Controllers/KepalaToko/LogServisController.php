@@ -15,7 +15,7 @@ class LogServisController extends Controller
      */
     public function index()
     {
-        $activities = Activity::orderBy('created_at', 'desc')->paginate(10);
+        $activities = Activity::where('subject_type', 'App\Models\ServiceTransaction')->orderBy('created_at', 'desc')->paginate(10);
         return view('pages/kepalatoko/log-servis', compact('activities'));
     }
 
