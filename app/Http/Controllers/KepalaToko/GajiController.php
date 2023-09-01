@@ -40,18 +40,6 @@ class GajiController extends Controller
      */
     public function store(Request $request)
     {
-        $currentMonth = now()->month;
-
-        $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-
-        $profitpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
-
         $user = User::find($request->users_id);
         if ($user->role === 'Teknisi') {
             $hasil = $user->servicetransaction->sum('profit') / 100;
@@ -61,7 +49,9 @@ class GajiController extends Controller
             $bonus = $user->sale->sum('profit') / 100;
             $bonus *= $user->persen;
         } else {
-            $bonus = ($biayaservis + $profitpenjualan) / 100;
+            $bonusadminservis = $user->adminservice->sum('profit') / 100;
+            $bonusadminsale = $user->adminsale->sum('profit') / 100;
+            $bonus = $bonusadminservis + $bonusadminsale;
             $bonus *= $user->persen;
         }
 
