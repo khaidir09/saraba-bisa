@@ -164,6 +164,11 @@ class PosController extends Controller
 
         Cart::destroy();
 
+        $order = Order::find($orders_id); // Ganti dengan cara Anda mendapatkan ID pesanan
+        activity()
+            ->performedOn($order) // Tentukan model yang terkait dengan aktivitas
+            ->log('created');
+
         return redirect()->route('admin-transaksi-produk.index');
     }
 }
