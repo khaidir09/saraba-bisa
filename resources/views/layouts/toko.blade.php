@@ -13,6 +13,8 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        @stack('styles')
+
         <!-- Styles -->
         @livewireStyles
 
@@ -56,6 +58,6 @@
         </div>
         
         @livewireScripts
-        @stack('js')
+        @stack('scripts')
     </body>
 </html>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GaransiController;
 use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\AutoBiayaServisController;
 // Kepala Toko
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KepalaToko\DataServisController;
@@ -131,6 +132,7 @@ Route::get('/garansi', [GaransiController::class, 'index'])->name('garansi');
 Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-data');
 Route::get('/json-data-servis', [DataServisController::class, 'getDataServis'])->name('json_data_servis');
 Route::get('/json-data-penjualan', [DataPenjualanController::class, 'getDataPenjualan'])->name('json_data_penjualan');
+Route::get('/get-action/{service_actions_id}', [AutoBiayaServisController::class, 'getAction']);
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
@@ -257,6 +259,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::get('nota-pengambilan-termal/{id}', [AdminTokoSudahDiambilController::class, 'cetaktermal'])->name('admin-termal-pengambilan');
     Route::get('tandaterima-inkjet/{id}', [AdminTokoTransaksiServisController::class, 'cetakinkjet'])->name('admin-cetak-tanda-terima');
     Route::get('admin-nota-pengambilan-inkjet/{id}', [AdminTokoSudahDiambilController::class, 'cetakinkjet'])->name('admin-inkjet-pengambilan');
+
 
     Route::get('servis/admin-ubah-status-proses/{id}', [AdminTokoUbahStatusProsesServisController::class, 'edit'])->name('admin-ubah-status-proses-edit');
     Route::post('servis/admin-ubah-status-proses{id}', [AdminTokoUbahStatusProsesServisController::class, 'update'])->name('admin-ubah-status-proses-update');

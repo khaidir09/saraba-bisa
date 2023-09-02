@@ -133,7 +133,12 @@
                                     <div x-show="showDetails" class="mt-3 space-y-3">
                                         <div>
                                             <label class="block text-sm font-medium mb-1">Tindakan Servis</label>
-                                            <livewire:pencarian-tindakan></livewire:pencarian-tindakan>
+                                            <select id="selectjs" name="service_actions_id" class="form-select text-sm py-1 w-full">
+                                                <option selected value="">Pilih Tindakan</option>
+                                                @foreach ($service_actions as $action)
+                                                    <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div x-data="{ showDetails: false }">
                                             <label class="block text-sm font-medium mb-1" for="modal_sparepart">Apakah menggunakan stok sparepart toko?</label>
@@ -166,7 +171,7 @@
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium mb-1" for="biaya">Biaya Servis <span class="text-rose-500">*</span></label>
-                                            <input class="form-input w-full px-2 py-1" type="text" name="biaya" />
+                                            <input class="form-input w-full px-2 py-1" type="text" name="biaya" id="biaya"/>
                                         </div>
                                     </div>
                                 </div>
@@ -191,4 +196,37 @@
         </div>
 
     </div>
+
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    @endpush
+
+    @push('scripts')
+        <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#selectjs').select2();
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#selectjs').on('change', function () {
+                    var serviceActionId = $(this).val();
+                    if (serviceActionId) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/get-action/' + serviceActionId,
+                            dataType: 'json',
+                            success: function (data) {
+                                $('#biaya').val(data.biaya);
+                            }
+                        });
+                    } else {
+                        $('#biaya').val('');
+                    }
+                });
+            });
+        </script>
+    @endpush
 </x-teknisi-layout>

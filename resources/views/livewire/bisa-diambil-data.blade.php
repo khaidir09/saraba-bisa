@@ -411,10 +411,10 @@
                                 @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($transaction->biaya) }}</div>
+                                <div class="font-medium">Rp. {{ number_format($transaction->modal_sparepart) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">Rp. {{ number_format($transaction->modal_sparepart) }}</div>
+                                <div class="font-medium">Rp. {{ number_format($transaction->biaya) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($transaction->ppn) }}</div>
