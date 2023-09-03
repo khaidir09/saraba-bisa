@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers\AdminToko;
 
-use App\Models\Type;
 use App\Models\User;
-use App\Models\Brand;
-use App\Models\Capacity;
-use App\Models\Customer;
-use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
@@ -17,82 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UbahBisaDiambilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $processes = ServiceTransaction::with('customer')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orderByDesc('updated_at')->paginate(10);
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
-        $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
-        $users = User::where('role', 'Teknisi')->get();
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
-        $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/admintoko/transaksi-servis', compact(
-            'processes',
-            'processes_count',
-            'users',
-            'customers',
-            'types',
-            'brands',
-            'model_series',
-            'capacities',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil',
-            'jumlah_semua',
-            'bisadiambil',
-            'jumlahbisadiambil'
-        ));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
     public function edit($id)
     {
         $item = ServiceTransaction::findOrFail($id);
@@ -167,16 +86,5 @@ class UbahBisaDiambilController extends Controller
         }
 
         return redirect()->route('admin-transaksi-servis.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

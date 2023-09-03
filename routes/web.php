@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GaransiController;
 use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\AutoBiayaServisController;
 // Kepala Toko
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KepalaToko\DataServisController;
@@ -126,6 +127,7 @@ Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
 Route::get('/tracking-data', [TrackingController::class, 'data'])->name('tracking-data');
 Route::get('/garansi', [GaransiController::class, 'index'])->name('garansi');
 Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-data');
+Route::get('/get-action/{service_actions_id}', [AutoBiayaServisController::class, 'getAction']);
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
