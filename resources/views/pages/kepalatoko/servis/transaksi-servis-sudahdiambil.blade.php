@@ -126,6 +126,7 @@
                                     <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
                                         <option selected value="Tunai">Tunai</option>
+                                        <option value="Transfer">Transfer</option>
                                         <option value="Tempo 1 Hari">Tempo 1 Hari</option>
                                         <option value="Tempo 2 Hari">Tempo 2 Hari</option>
                                         <option value="Tempo 3 Hari">Tempo 3 Hari</option>
