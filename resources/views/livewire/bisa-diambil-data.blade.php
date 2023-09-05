@@ -70,7 +70,12 @@
                                 <div class="space-y-3">
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
-                                        <livewire:customer-search></livewire:customer-search>
+                                        <select name="customers_id" class="form-select text-sm py-1 w-full" id="selectjs1" required style="width: 100%">
+                                            <option selected value="">Pilih Pelanggan</option>
+                                            @foreach ($customers as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang <span class="text-rose-500">*</span></label>
@@ -90,7 +95,11 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <livewire:pencarian-model-seri></livewire:pencarian-model-seri>
+                                        <select id="selectjs2" name="model_series_id" class="form-select text-sm py-1 w-full" required style="width: 100%">
+                                            @foreach ($model_series as $model_serie)
+                                                <option value="{{ $model_serie->id }}">{{ $model_serie->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>

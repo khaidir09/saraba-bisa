@@ -94,7 +94,7 @@
                                 <div>
                                     @if ($item->customer != null)
                                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
-                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                        <select id="selectjs1" name="customers_id" class="form-select text-sm py-1 w-full">
                                             <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
                                             @foreach ($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
@@ -102,7 +102,7 @@
                                         </select>
                                     @else
                                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
-                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                        <select id="selectjs1" name="customers_id" class="form-select text-sm py-1 w-full">
                                             <option selected value="">Data pelanggan sudah dihapus</option>
                                             @foreach ($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
@@ -130,7 +130,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri </label>
-                                    <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full" >
+                                    <select id="selectjs2" name="model_series_id" class="form-select text-sm py-1 w-full" >
                                         <option selected value="{{ $item->modelserie->id }}">{{ $item->modelserie->name }}</option>
                                         @foreach ($model_series as $model_serie)
                                             <option value="{{ $model_serie->id }}">{{ $model_serie->name }}</option>
@@ -160,7 +160,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="service_actions_id">Tindakan Servis  </label>
-                                    <select id="service_actions_id" name="service_actions_id" class="form-select text-sm py-1 w-full">
+                                    <select id="selectjs3" name="service_actions_id" class="form-select text-sm py-1 w-full">
                                         @if ($item->serviceaction != null)
                                             <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
                                         @else
@@ -168,6 +168,19 @@
                                         @endif
                                         @foreach ($service_actions as $action)
                                             <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="products_id">Sparepart yang digunakan  </label>
+                                    <select id="selectjs4" name="products_id" class="form-select text-sm py-1 w-full">
+                                        @if ($item->product != null)
+                                            <option selected value="{{ $item->product->id }}">{{ $item->product->product_name }}</option>
+                                        @else
+                                            <option selected value=""></option>
+                                        @endif
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}">{{ $product->product_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -211,6 +224,7 @@
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full" >
                                             <option selected value="{{ $item->cara_pembayaran }}">{{ $item->cara_pembayaran }}</option>
                                             <option value="Tunai">Tunai</option>
+                                            <option value="Transfer">Transfer</option>
                                             <option value="Tempo 1 Hari">Tempo 1 Hari</option>
                                             <option value="Tempo 2 Hari">Tempo 2 Hari</option>
                                             <option value="Tempo 3 Hari">Tempo 3 Hari</option>
@@ -258,4 +272,21 @@
         </div>
         
     </div>
+
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    @endpush
+
+    @push('scripts')
+        <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#selectjs1').select2();
+                $('#selectjs2').select2();
+                $('#selectjs3').select2();
+                $('#selectjs4').select2();
+            });
+        </script>
+    @endpush
 </x-admin-layout>

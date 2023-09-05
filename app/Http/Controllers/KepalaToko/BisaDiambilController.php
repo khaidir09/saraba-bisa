@@ -48,6 +48,7 @@ class BisaDiambilController extends Controller
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         $nama_pelanggan = Customer::find($request->customers_id);
+        $nama_tindakan = ServiceAction::find($request->kerusakan);
 
         // Transaction create
         ServiceTransaction::create([
@@ -61,7 +62,7 @@ class BisaDiambilController extends Controller
             'warna' => $request->warna,
             'capacities_id' => $request->capacities_id,
             'kelengkapan' => $request->kelengkapan,
-            'kerusakan' => $request->kerusakan,
+            'kerusakan' => $nama_tindakan->nama_tindakan,
             'qc_masuk' => $request->qc_masuk,
             'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
@@ -98,7 +99,7 @@ class BisaDiambilController extends Controller
         $brands = Brand::all();
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
-        $products = Product::whereHas('category', function ($query) {
+        $products = Product::whereHas('subCategory', function ($query) {
             $query->where('category_name', 'Sparepart');
         })->where('stok', '>=', '1')->get();
         $capacities = Capacity::all();

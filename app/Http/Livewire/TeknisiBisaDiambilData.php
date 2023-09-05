@@ -10,6 +10,7 @@ use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
+use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +44,7 @@ class TeknisiBisaDiambilData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $actions = ServiceAction::all();
         return view('livewire.teknisi-bisa-diambil-data', [
             'toko' => $toko,
             'customers' => $customers,
@@ -50,6 +52,7 @@ class TeknisiBisaDiambilData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
+            'actions' => $actions,
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,

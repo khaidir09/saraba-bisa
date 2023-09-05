@@ -2,13 +2,7 @@
 
 namespace App\Http\Controllers\Teknisi;
 
-use App\Models\Type;
 use App\Models\User;
-use App\Models\Brand;
-use App\Models\Capacity;
-use App\Models\Customer;
-use App\Models\Sparepart;
-use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
@@ -22,10 +16,14 @@ class UbahBisaDiambilController extends Controller
     {
         $item = ServiceTransaction::findOrFail($id);
         $service_actions = ServiceAction::all();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->where('category_name', 'Sparepart');
+        })->where('stok', '>=', '1')->get();
 
         return view('pages.teknisi.transaksi-servis-bisadiambil', [
             'item' => $item,
-            'service_actions' => $service_actions
+            'service_actions' => $service_actions,
+            'products' => $products
         ]);
     }
 

@@ -11,6 +11,7 @@ use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
+use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 
 class SudahDiambilData extends Component
@@ -43,6 +44,7 @@ class SudahDiambilData extends Component
         $model_series = ModelSerie::all();
         $users = User::where('role', 'Teknisi')->get();
         $workers = User::all();
+        $actions = ServiceAction::all();
 
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
@@ -57,6 +59,7 @@ class SudahDiambilData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
+            'actions' => $actions,
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,

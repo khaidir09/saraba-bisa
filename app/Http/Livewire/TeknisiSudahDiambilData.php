@@ -10,6 +10,7 @@ use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
+use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,6 +41,7 @@ class TeknisiSudahDiambilData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $actions = ServiceAction::all();
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('penerima', Auth::user()->worker->name)->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
@@ -53,6 +55,7 @@ class TeknisiSudahDiambilData extends Component
             'brands' => $brands,
             'capacities' => $capacities,
             'model_series' => $model_series,
+            'actions' => $actions,
             'service_transactions' => $this->search === null ?
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->paginate($this->paginate) :
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)

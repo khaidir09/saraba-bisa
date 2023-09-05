@@ -7,6 +7,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Worker;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
@@ -153,6 +154,9 @@ class SudahDiambilController extends Controller
         $capacities = Capacity::all();
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->where('category_name', 'Sparepart');
+        })->where('stok', '>=', '1')->get();
 
         return view('pages.admintoko.sudah-diambil-edit', [
             'item' => $item,
@@ -163,7 +167,8 @@ class SudahDiambilController extends Controller
             'service_actions' => $service_actions,
             'capacities' => $capacities,
             'users' => $users,
-            'workers' => $workers
+            'workers' => $workers,
+            'products' => $products,
         ]);
     }
 

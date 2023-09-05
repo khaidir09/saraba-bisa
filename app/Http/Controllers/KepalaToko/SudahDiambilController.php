@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\Term;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Worker;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
@@ -14,7 +16,6 @@ use App\Models\ServiceAction;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\Term;
 
 class SudahDiambilController extends Controller
 {
@@ -48,6 +49,7 @@ class SudahDiambilController extends Controller
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         $nama_pelanggan = Customer::find($request->customers_id);
+        $nama_tindakan = ServiceAction::find($request->kerusakan);
 
         // Transaction create
         ServiceTransaction::create([
@@ -61,7 +63,7 @@ class SudahDiambilController extends Controller
             'warna' => $request->warna,
             'capacities_id' => $request->capacities_id,
             'kelengkapan' => $request->kelengkapan,
-            'kerusakan' => $request->kerusakan,
+            'kerusakan' => $nama_tindakan->nama_tindakan,
             'qc_masuk' => $request->qc_masuk,
             'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
@@ -105,7 +107,6 @@ class SudahDiambilController extends Controller
         $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
         return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
-        
     }
 
     /**
@@ -125,6 +126,9 @@ class SudahDiambilController extends Controller
         $capacities = Capacity::all();
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->where('category_name', 'Sparepart');
+        })->where('stok', '>=', '1')->get();
 
         return view('pages.kepalatoko.servis.sudah-diambil-edit', [
             'item' => $item,
@@ -135,7 +139,8 @@ class SudahDiambilController extends Controller
             'service_actions' => $service_actions,
             'capacities' => $capacities,
             'users' => $users,
-            'workers' => $workers
+            'workers' => $workers,
+            'products' => $products
         ]);
     }
 
@@ -181,6 +186,7 @@ class SudahDiambilController extends Controller
             'qc_keluar' => $request->qc_keluar,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
+            'products_id' => $request->products_id,
             'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
@@ -220,10 +226,10 @@ class SudahDiambilController extends Controller
             'terms' => $terms,
             'imagePath' => $imagePath,
         ]);
-        
+
         $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
-        return $pdf->setOption(['dpi' => 300,'isRemoteEnabled', true])->stream($filename);
+        return $pdf->setOption(['dpi' => 300, 'isRemoteEnabled', true])->stream($filename);
     }
 
     /**
