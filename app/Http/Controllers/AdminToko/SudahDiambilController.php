@@ -51,7 +51,6 @@ class SudahDiambilController extends Controller
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         Auth::user();
         $nama_pelanggan = Customer::find($request->customers_id);
-        $nama_tindakan = ServiceAction::find($request->kerusakan);
 
         // Transaction create
         ServiceTransaction::create([

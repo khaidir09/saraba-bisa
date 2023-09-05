@@ -43,7 +43,6 @@ class TeknisiBisaDiambilData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
-        $actions = ServiceAction::all();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->count();
         $pajaktoko = StoreSetting::find(1);
 
@@ -54,7 +53,6 @@ class TeknisiBisaDiambilData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
-            'actions' => $actions,
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,

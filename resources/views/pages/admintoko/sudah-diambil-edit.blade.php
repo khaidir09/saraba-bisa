@@ -221,6 +221,7 @@
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full" >
                                             <option selected value="{{ $item->cara_pembayaran }}">{{ $item->cara_pembayaran }}</option>
                                             <option value="Tunai">Tunai</option>
+                                            <option value="Transfer">Transfer</option>
                                             <option value="Tempo 1 Hari">Tempo 1 Hari</option>
                                             <option value="Tempo 2 Hari">Tempo 2 Hari</option>
                                             <option value="Tempo 3 Hari">Tempo 3 Hari</option>

@@ -21,26 +21,6 @@
             $(document).ready(function() {
                 $('#selectjs1').select2();
                 $('#selectjs2').select2();
-                $('#selectjs3').select2();
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#selectjs3').on('change', function () {
-                    var serviceActionId = $(this).val();
-                    if (serviceActionId) {
-                        $.ajax({
-                            type: 'GET',
-                            url: '/get-tindakan/' + serviceActionId,
-                            dataType: 'json',
-                            success: function (data) {
-                                $('#estimasi_biaya').val(data.estimasi_biaya);
-                            }
-                        });
-                    } else {
-                        $('#estimasi_biaya').val('');
-                    }
-                });
             });
         </script>
     @endpush

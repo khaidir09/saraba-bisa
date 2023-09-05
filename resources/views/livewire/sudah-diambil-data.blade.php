@@ -124,12 +124,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan <span class="text-rose-500">*</span> </label>
-                                        <select name="kerusakan" class="form-select text-sm py-1 w-full" id="selectjs3" required style="width: 100%">
-                                            <option selected value="">Pilih Kerusakan</option>
-                                            @foreach ($actions as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama_tindakan }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input id="kerusakan" name="kerusakan" class="form-input w-full px-2 py-1" type="text" required/>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi <span class="text-rose-500">*</span></label>

@@ -40,7 +40,6 @@ class BisaDiambilData extends Component
         $types = Type::all();
         $brands = Brand::all();
         $capacities = Capacity::all();
-        $actions = ServiceAction::all();
         $model_series = ModelSerie::all();
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
@@ -58,7 +57,6 @@ class BisaDiambilData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
-            'actions' => $actions,
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
