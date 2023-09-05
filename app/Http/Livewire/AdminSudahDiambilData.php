@@ -11,6 +11,7 @@ use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
+use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 
 class AdminSudahDiambilData extends Component
@@ -42,6 +43,7 @@ class AdminSudahDiambilData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $actions = ServiceAction::all();
         $jumlahsudahdiambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->where('is_admin_toko', 'Admin')
             ->count();
@@ -63,6 +65,7 @@ class AdminSudahDiambilData extends Component
             'brands' => $brands,
             'capacities' => $capacities,
             'model_series' => $model_series,
+            'actions' => $actions,
             'service_transactions' => $this->search === null ?
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')
                 ->where('is_admin_toko', 'Admin')

@@ -70,7 +70,12 @@
                                 <div class="space-y-3">
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
-                                        <livewire:customer-search></livewire:customer-search>
+                                        <select name="customers_id" class="form-select text-sm py-1 w-full" id="selectjs1" required style="width: 100%">
+                                            <option selected value="">Pilih Pelanggan</option>
+                                            @foreach ($customers as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang <span class="text-rose-500">*</span></label>
@@ -90,7 +95,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full" required>
+                                        <select name="model_series_id" class="form-select text-sm py-1 w-full" id="selectjs2" required style="width: 100%">
                                             @foreach ($model_series as $model_serie)
                                                 <option value="{{ $model_serie->id }}">{{ $model_serie->name }}</option>
                                             @endforeach
@@ -122,7 +127,12 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan <span class="text-rose-500">*</span> </label>
-                                        <livewire:kerusakan-search></livewire:kerusakan-search>
+                                        <select name="kerusakan" class="form-select text-sm py-1 w-full" id="selectjs3" required style="width: 100%">
+                                            <option selected value="">Pilih Kerusakan</option>
+                                            @foreach ($actions as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama_tindakan }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi <span class="text-rose-500">*</span></label>

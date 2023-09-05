@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\ModelSerie;
 use App\Models\StoreSetting;
 use Livewire\WithPagination;
+use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 
 class AdminBisaDiambilData extends Component
@@ -43,6 +44,7 @@ class AdminBisaDiambilData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $actions = ServiceAction::all();
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])
             ->where('is_admin_toko', 'Admin')
             ->count();
@@ -59,6 +61,7 @@ class AdminBisaDiambilData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
+            'actions' => $actions,
             'processes_count' => $processes_count,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,

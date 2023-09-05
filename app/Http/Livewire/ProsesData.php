@@ -10,6 +10,7 @@ use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
+use App\Models\ServiceAction;
 use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
 
@@ -40,6 +41,7 @@ class ProsesData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $actions = ServiceAction::all();
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
@@ -54,6 +56,7 @@ class ProsesData extends Component
             'types' => $types,
             'brands' => $brands,
             'model_series' => $model_series,
+            'actions' => $actions,
             'capacities' => $capacities,
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,

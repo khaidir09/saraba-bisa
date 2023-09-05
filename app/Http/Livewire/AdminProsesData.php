@@ -5,14 +5,15 @@ namespace App\Http\Livewire;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Worker;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
 use Barryvdh\DomPDF\PDF;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
+use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
-use App\Models\Worker;
 use Doctrine\Inflector\Rules\Word;
 
 class AdminProsesData extends Component
@@ -44,6 +45,7 @@ class AdminProsesData extends Component
         $types = Type::all();
         $brands = Brand::all();
         $capacities = Capacity::all();
+        $actions = ServiceAction::all();
         $model_series = ModelSerie::all();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')
             ->where('is_admin_toko', 'Admin')
@@ -62,6 +64,7 @@ class AdminProsesData extends Component
             'types' => $types,
             'brands' => $brands,
             'model_series' => $model_series,
+            'actions' => $actions,
             'capacities' => $capacities,
             'processes' => $this->search === null ?
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->paginate($this->paginate) :

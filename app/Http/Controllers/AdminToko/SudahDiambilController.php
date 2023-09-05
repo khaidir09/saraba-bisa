@@ -7,6 +7,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Worker;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
@@ -49,11 +50,14 @@ class SudahDiambilController extends Controller
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         Auth::user();
+        $nama_pelanggan = Customer::find($request->customers_id);
+        $nama_tindakan = ServiceAction::find($request->kerusakan);
 
         // Transaction create
         ServiceTransaction::create([
             'nomor_servis' => $nomor_servis,
             'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
@@ -149,6 +153,9 @@ class SudahDiambilController extends Controller
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
         $capacities = Capacity::all();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->where('category_name', 'Sparepart');
+        })->where('stok', '>=', '1')->get();
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
 
@@ -159,6 +166,7 @@ class SudahDiambilController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'service_actions' => $service_actions,
+            'products' => $products,
             'capacities' => $capacities,
             'users' => $users,
             'workers' => $workers

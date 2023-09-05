@@ -11,6 +11,7 @@ use App\Models\Customer;
 use Barryvdh\DomPDF\PDF;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
+use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,6 +45,7 @@ class TeknisiProsesData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $actions = ServiceAction::all();
         return view('livewire.teknisi-proses-data', [
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
@@ -54,6 +56,7 @@ class TeknisiProsesData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
+            'actions' => $actions,
             'processes' => $this->search === null ?
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('penerima', Auth::user()->worker->name)->paginate($this->paginate) :
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('penerima', Auth::user()->worker->name)->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)

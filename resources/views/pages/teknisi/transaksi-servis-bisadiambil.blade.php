@@ -162,16 +162,21 @@
                                             </div>
                                             <div x-show="showDetails" class="mt-3">
                                                 <label class="block text-sm font-medium mb-1" for="products_id">Sparepart Toko yg Digunakan</label>
-                                                <livewire:pencarian-sparepart></livewire:pencarian-sparepart>
+                                                <select id="selectjs2" name="products_id" class="form-select text-sm py-1 w-full" style="width: 100%;">
+                                                    <option selected value="">Pilih Sparepart</option>
+                                                    @foreach ($products as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->product_name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>
-                                            <input class="form-input w-full px-2 py-1" type="text" name="modal_sparepart" />
+                                            <input class="form-input w-full px-2 py-1" type="number" name="modal_sparepart" id="modal_sparepart"/>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium mb-1" for="biaya">Biaya Servis <span class="text-rose-500">*</span></label>
-                                            <input class="form-input w-full px-2 py-1" type="text" name="biaya" id="biaya"/>
+                                            <input class="form-input w-full px-2 py-1" type="number" name="biaya" id="biaya"/>
                                         </div>
                                     </div>
                                 </div>
@@ -207,6 +212,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#selectjs').select2();
+                $('#selectjs2').select2();
             });
         </script>
         <script>
@@ -220,10 +226,12 @@
                             dataType: 'json',
                             success: function (data) {
                                 $('#biaya').val(data.biaya);
+                                $('#modal_sparepart').val(data.modal_sparepart);
                             }
                         });
                     } else {
                         $('#biaya').val('');
+                        $('#modal_sparepart').val('');
                     }
                 });
             });

@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers\AdminToko;
 
-use App\Models\Type;
 use App\Models\User;
-use App\Models\Brand;
 use App\Models\Product;
-use App\Models\Capacity;
-use App\Models\Customer;
-use App\Models\ModelSerie;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
@@ -23,11 +18,15 @@ class UbahBisaDiambilController extends Controller
         $item = ServiceTransaction::findOrFail($id);
         $users = User::where('role', 'Teknisi')->get();
         $service_actions = ServiceAction::all();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->where('category_name', 'Sparepart');
+        })->where('stok', '>=', '1')->get();
 
         return view('pages.admintoko.transaksi-servis-bisadiambil', [
             'item' => $item,
             'users' => $users,
-            'service_actions' => $service_actions
+            'service_actions' => $service_actions,
+            'products' => $products
         ]);
     }
 

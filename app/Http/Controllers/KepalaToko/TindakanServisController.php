@@ -51,13 +51,18 @@ class TindakanServisController extends Controller
         ]);
     }
 
-    public function update(ServiceActionRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $data = $request->all();
-
         $item = ServiceAction::findOrFail($id);
 
-        $item->update($data);
+        // Transaction update
+        $item->update([
+            'nama_tindakan' => $request->nama_tindakan,
+            'modal_sparepart' => $request->modal_sparepart,
+            'harga_toko' => $request->harga_toko,
+            'harga_pelanggan' => $request->harga_pelanggan,
+            'garansi' => $request->garansi,
+        ]);
 
         return redirect()->route('tindakan-servis.index');
     }
