@@ -63,7 +63,6 @@ class TransaksiServisController extends Controller
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         $nama_pelanggan = Customer::find($request->customers_id);
-        $nama_tindakan = ServiceAction::find($request->kerusakan);
 
         // Transaction create
         ServiceTransaction::create([
@@ -77,7 +76,7 @@ class TransaksiServisController extends Controller
             'warna' => $request->warna,
             'capacities_id' => $request->capacities_id,
             'kelengkapan' => $request->kelengkapan,
-            'kerusakan' => $nama_tindakan->nama_tindakan,
+            'kerusakan' => $request->kerusakan,
             'qc_masuk' => $request->qc_masuk,
             'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
             'estimasi_biaya' => $request->estimasi_biaya,
