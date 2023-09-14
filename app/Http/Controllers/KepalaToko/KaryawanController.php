@@ -65,7 +65,8 @@ class KaryawanController extends Controller
 
     public function cetak($id)
     {
-        $currentMonth = Carbon::now()->translatedFormat('F Y');
+        $currentMonth = now()->month;
+        $namaBulanFile = Carbon::now()->translatedFormat('F Y');
 
         $items = Worker::findOrFail($id);
         $salaries = Salary::where('workers_id', $id)
@@ -92,7 +93,7 @@ class KaryawanController extends Controller
             'totalkasbon' => $totalkasbon
         ]);
 
-        $filename = 'Slip Gaji ' . $namaKaryawan . ' ' . '(' . $currentMonth . ')' . '.pdf';
+        $filename = 'Slip Gaji ' . $namaKaryawan . ' ' . '(' . $namaBulanFile . ')' . '.pdf';
 
         return $pdf->setPaper('a4', 'portrait')->setOption(['dpi' => 150, 'defaultFont' => 'sans-serif', 'isRemoteEnabled', true])->stream($filename);
     }
