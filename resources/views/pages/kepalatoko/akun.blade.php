@@ -128,6 +128,7 @@
                                             <div x-show="showDetails" class="mt-3">
                                                 <label class="block text-sm font-medium mb-1" for="types_id">Spealisasi jenis barang</label>
                                                 <select id="types_id" name="types_id" class="form-select text-sm py-1 w-full">
+                                                    <option selected value="">Pilih spesialisasi</option>
                                                     @foreach ($types as $type)
                                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                                     @endforeach
