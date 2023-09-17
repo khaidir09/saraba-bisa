@@ -13,11 +13,14 @@ class Incident extends Model
     protected $fillable = [
         'name',
         'price',
-        'users_id',
+        'workers_id',
+        'persen_teknisi',
+        'biaya_teknisi',
+        'biaya_toko',
     ];
 
-    public function user()
+    public function worker()
     {
-        return $this->belongsTo(User::class, 'users_id', 'id');
+        return $this->belongsTo(Worker::class, 'workers_id', 'id');
     }
 }

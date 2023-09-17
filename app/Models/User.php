@@ -117,11 +117,6 @@ class User extends Authenticatable
         return $this->hasMany(OrderDetail::class, 'users_id', 'id');
     }
 
-    public function incident()
-    {
-        return $this->hasMany(Incident::class, 'users_id', 'id');
-    }
-
     public function expense()
     {
         return $this->hasMany(Expense::class, 'users_id', 'id');

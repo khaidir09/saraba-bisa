@@ -84,12 +84,16 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <label class="block text-sm font-medium mb-1" for="users_id">Teknisi <span class="text-rose-500">*</span></label>
-                                            <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
+                                            <label class="block text-sm font-medium mb-1" for="workers_id">Teknisi <span class="text-rose-500">*</span></label>
+                                            <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full" required>
                                                 @foreach ($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="persen_teknisi">Persen yang dibebankan kepada teknisi <span class="text-rose-500">*</span></label>
+                                            <input id="persen_teknisi" name="persen_teknisi" class="form-input w-full px-2 py-1" type="number" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -114,8 +118,9 @@
         </div>
 
         <div class="grid grid-cols-12 gap-6 mb-5">
-            <x-kepalatoko.total-insiden :total="$total_incidents" />
-            <x-kepalatoko.total-danabackup :danabackuptersedia="$danabackuptersedia" />
+            <x-insiden.card-laporan-hari :jumlahhari="$jumlahhari" :totalbiaya="$totalbiaya"/>
+            <x-insiden.card-laporan-bulan :jumlahbulan="$jumlahbulan" :totalbiayabulan="$totalbiayabulan"/>
+            <x-insiden.card-laporan-tahun :jumlahtahun="$jumlahtahun" :totalbiayatahun="$totalbiayatahun"/>
         </div>
      
         <!-- Table -->

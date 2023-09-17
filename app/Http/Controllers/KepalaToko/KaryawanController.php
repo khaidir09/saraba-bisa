@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KepalaToko\WorkerRequest;
+use App\Models\Incident;
 
 class KaryawanController extends Controller
 {
@@ -78,9 +79,15 @@ class KaryawanController extends Controller
         $debts = Debt::where('workers_id', $id)
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get();
+        $incidents = Incident::where('workers_id', $id)
+            ->whereMonth('created_at', $currentMonth)
+            ->get();
         $totalkasbon = Debt::where('workers_id', $id)
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->sum('total');
+        $totalinsiden = Incident::where('workers_id', $id)
+            ->whereMonth('created_at', $currentMonth)
+            ->sum('biaya_teknisi');
 
         $namaKaryawan = $items->name;
 
@@ -90,7 +97,9 @@ class KaryawanController extends Controller
             'salaries' => $salaries,
             'bonus' => $bonus,
             'debts' => $debts,
-            'totalkasbon' => $totalkasbon
+            'incidents' => $incidents,
+            'totalkasbon' => $totalkasbon,
+            'totalinsiden' => $totalinsiden
         ]);
 
         $filename = 'Slip Gaji ' . $namaKaryawan . ' ' . '(' . $namaBulanFile . ')' . '.pdf';

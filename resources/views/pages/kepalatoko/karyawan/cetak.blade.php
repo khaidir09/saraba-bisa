@@ -154,6 +154,12 @@
 			<td class="text-right">Rp. {{ number_format($item->total) }}</td>
 			</tr>
 			@endforeach
+			@foreach ($incidents as $item)
+			<tr>
+			<td>{{ $item->name }}</td>
+			<td class="text-right">Rp. {{ number_format($item->biaya_teknisi) }}</td>
+			</tr>
+			@endforeach
 		</tbody>
 	</table>
 
@@ -161,7 +167,7 @@
 		<thead>
 			<tr>
 			<th scope="col">Total Pengurangan</th>
-			<th scope="col" class="text-right text-danger">Rp. {{ number_format($totalkasbon) }}</th>
+			<th scope="col" class="text-right text-danger">Rp. {{ number_format($totalkasbon + $totalinsiden) }}</th>
 			</tr>
 		</thead>
 	</table>
@@ -170,14 +176,14 @@
 		<thead>
 			<tr>
 			<th scope="col">TOTAL DITERIMA KARYAWAN</th>
-			<th scope="col" class="text-right text-success">Rp. {{ number_format($items->gaji + $items->absen + $items->bpjs + $bonus - $totalkasbon) }}</th>
+			<th scope="col" class="text-right text-success">Rp. {{ number_format($items->gaji + $items->absen + $items->bpjs + $bonus - $totalkasbon - $totalinsiden) }}</th>
 			</tr>
 		</thead>
 	</table>
 
 	<div class="text-center">
 		@php
-			$angka = $items->gaji + $items->absen + $items->bpjs + $bonus - $totalkasbon;
+			$angka = $items->gaji + $items->absen + $items->bpjs + $bonus - $totalkasbon - $totalinsiden;
 		@endphp
 		<span class="badge badge-light px-4 py-3">
 			<p class="text-capitalize mb-0">

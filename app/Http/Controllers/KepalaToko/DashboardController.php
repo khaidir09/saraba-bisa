@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\Incident;
 
 class DashboardController extends Controller
 {
@@ -44,6 +45,8 @@ class DashboardController extends Controller
         $totalpengeluaran = Expense::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->sum('price');
+        $totalinsiden = Incident::whereMonth('created_at', $currentMonth)
+            ->sum('biaya_toko');
 
         // Ambil data transaksi servis yang memiliki status "Belum cek"
         $transactions = ServiceTransaction::where('status_servis', 'Belum cek')->get();
@@ -107,6 +110,7 @@ class DashboardController extends Controller
             'categories',
             'categorySales',
             'totalpengeluaran',
+            'totalinsiden',
             'pengeluaran',
             'approveservis',
             'approvekasbon',

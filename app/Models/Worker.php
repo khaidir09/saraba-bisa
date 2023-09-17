@@ -42,6 +42,13 @@ class Worker extends Model
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
 
+    public function incident()
+    {
+        $currentMonth = now()->month;
+        return $this->hasMany(Incident::class, 'workers_id')
+            ->whereMonth('created_at', $currentMonth);
+    }
+
     public function relasiDebt()
     {
         return $this->hasMany(Debt::class, 'workers_id');
