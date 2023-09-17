@@ -110,7 +110,6 @@ class UbahSudahDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $persen_backup = User::find(1);
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
         $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
 
@@ -144,11 +143,9 @@ class UbahSudahDiambilController extends Controller
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'persen_teknisi' => $persen_teknisi,
-            'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya - $request->diskon,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi + $persen_backup->persen),
-            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100 - $request->diskon / 100) * $persen_backup->persen
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi)
         ]);
 
         return redirect()->route('transaksi-servis-bisa-diambil.index');

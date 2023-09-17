@@ -171,7 +171,7 @@
         <div class="bg-emerald-100 rounded border border-emerald-200 text-emerald-600 p-4">
             <div class="text-left md:flex md:items-center md:space-x-2">
                 <div class="text-sm">
-                    Silahkan atur persen pada tiap-tiap akun untuk implementasi pembagian hasil. Persen Kepala Toko adalah alokasi untuk dana backup, jika toko Anda tidak memerlukan dana backup, kosongkan persen akun Kepala Toko.
+                    Silahkan atur persen pada tiap-tiap akun untuk implementasi pembagian hasil. Persen Kepala Toko tidak perlu diisi.
                 </div>
             </div>
         </div>

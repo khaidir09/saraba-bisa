@@ -182,7 +182,6 @@ class SudahDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $persen_backup = User::find(1);
 
         if ($request->users_id != null) {
             $persen_teknisi = User::find($request->users_id)->persen;
@@ -225,11 +224,9 @@ class SudahDiambilController extends Controller
             'pengambil' => $request->pengambil,
             'persen_admin' => $request->persen_admin,
             'persen_teknisi' => $persen_teknisi,
-            'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya - $request->diskon,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $request->persen_admin + $persen_teknisi + $persen_backup->persen),
-            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100 - $request->diskon / 100) * $persen_backup->persen
+            'profittoko' => $profittransaksi - ($bagihasil *= $request->persen_admin + $persen_teknisi)
         ]);
 
         return redirect()->route('admin-servis-sudah-diambil.index');

@@ -125,7 +125,6 @@ class BisaDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $persen_backup = User::find(1);
 
         if ($item->kondisi_servis === "Sudah jadi") {
             $persen_teknisi = Auth::user()->persen;
@@ -161,11 +160,9 @@ class BisaDiambilController extends Controller
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'persen_teknisi' => $persen_teknisi,
-            'persen_backup' => $persen_backup->persen,
             'omzet' => $request->biaya,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi + $persen_backup->persen),
-            'danabackup' => ($request->biaya / 100 - $request->modal_sparepart / 100) * $persen_backup->persen
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi)
         ]);
 
         return redirect()->route('teknisi-servis-bisa-diambil.index');

@@ -54,10 +54,8 @@ class ServiceTransaction extends Model
         'omzet',
         'profit',
         'profittoko',
-        'danabackup',
         'persen_admin',
-        'persen_teknisi',
-        'persen_backup'
+        'persen_teknisi'
     ];
 
     public function getActivitylogOptions(): LogOptions
