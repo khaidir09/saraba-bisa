@@ -87,13 +87,17 @@
                                     <input id="price" name="price" class="form-input w-full px-2 py-1" type="text" value="{{ $item->price }}" />
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="users_id">Teknisi</label>
-                                    <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
+                                    <label class="block text-sm font-medium mb-1" for="workers_id">Teknisi</label>
+                                    <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full">
+                                        <option selected value="{{ $item->worker->id }}">{{ $item->worker->name }}</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="persen_teknisi">Persen yang dibebankan kepada teknisi</label>
+                                    <input id="persen_teknisi" name="persen_teknisi" class="form-input w-full px-2 py-1" type="number" value="{{ $item->persen_teknisi }}" />
                                 </div>
                             </div>
                         </div>

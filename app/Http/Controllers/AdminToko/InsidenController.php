@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminToko;
 
 use App\Models\User;
+use App\Models\Worker;
 use App\Models\Incident;
 use Illuminate\Http\Request;
 use App\Models\ServiceTransaction;
@@ -17,14 +18,40 @@ class InsidenController extends Controller
      */
     public function index()
     {
-        $users = User::where('role', 'Teknisi')->get();
-        $incidents = Incident::with('user')->get();
-        $incidents_count = Incident::all()->count();
-        $total_incidents = Incident::all()->sum('price');
-        $total_danabackup = ServiceTransaction::where('is_approve', 'Setuju')->get()->sum('danabackup');
-        $danabackuptersedia = $total_danabackup - $total_incidents;
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
 
-        return view('pages/admintoko/insiden', compact('users', 'incidents', 'incidents_count', 'total_incidents', 'total_danabackup', 'danabackuptersedia'));
+        $jumlahhari = Incident::whereDate('created_at', today())
+            ->count();
+        $totalbiaya = Incident::whereDate('created_at', today())
+            ->get()
+            ->sum('biaya_toko');
+        $jumlahbulan = Incident::whereMonth('created_at', $currentMonth)
+            ->count();
+        $totalbiayabulan = Incident::whereMonth('created_at', $currentMonth)
+            ->get()
+            ->sum('biaya_toko');
+        $jumlahtahun = Incident::whereYear('created_at', $currentYear)
+            ->count();
+        $totalbiayatahun = Incident::whereYear('created_at', $currentYear)
+            ->get()
+            ->sum('biaya_toko');
+
+        $users = Worker::where('jabatan', 'like', '%' . 'Teknisi' . '%')->get();
+        $incidents = Incident::with('worker')->get();
+        $incidents_count = Incident::all()->count();
+
+        return view('pages/admintoko/insiden', compact(
+            'users',
+            'incidents',
+            'incidents_count',
+            'jumlahhari',
+            'jumlahbulan',
+            'jumlahtahun',
+            'totalbiaya',
+            'totalbiayabulan',
+            'totalbiayatahun'
+        ));
     }
 
     /**
@@ -49,7 +76,10 @@ class InsidenController extends Controller
         Incident::create([
             'name' => $request->name,
             'price' => $request->price,
-            'users_id' => $request->users_id
+            'workers_id' => $request->workers_id,
+            'persen_teknisi' => $request->persen_teknisi,
+            'biaya_teknisi' => $request->price * $request->persen_teknisi / 100,
+            'biaya_toko' => $request->price - ($request->price * $request->persen_teknisi / 100)
         ]);
 
         return redirect()->route('admin-insiden.index');
@@ -75,7 +105,7 @@ class InsidenController extends Controller
     public function edit($id)
     {
         $item = Incident::findOrFail($id);
-        $users = User::where('role', 'Teknisi')->get();
+        $users = Worker::where('jabatan', 'like', '%' . 'Teknisi' . '%')->get();
 
         return view('pages.admintoko.insiden-edit', [
             'item' => $item,
@@ -96,7 +126,10 @@ class InsidenController extends Controller
         $item->update([
             'name' => $request->name,
             'price' => $request->price,
-            'users_id' => $request->users_id
+            'workers_id' => $request->workers_id,
+            'persen_teknisi' => $request->persen_teknisi,
+            'biaya_teknisi' => $request->price * $request->persen_teknisi / 100,
+            'biaya_toko' => $request->price - ($request->price * $request->persen_teknisi / 100)
         ]);
 
         return redirect()->route('admin-insiden.index');
