@@ -29,6 +29,7 @@ use App\Http\Controllers\KepalaToko\KasbonController as KepalaTokoKasbonControll
 use App\Http\Controllers\KepalaToko\MasterJenisBarangController as KepalaTokoMasterJenisBarangController;
 use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriController;
 use App\Http\Controllers\KepalaToko\SubKategoriController as KepalaTokoSubKategoriController;
+use App\Http\Controllers\KepalaToko\SupplierController as KepalaTokoSupplierController;
 use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
 use App\Http\Controllers\KepalaToko\ProdukTersediaController as KepalaTokoProdukTersediaController;
 use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
@@ -78,6 +79,7 @@ use App\Http\Controllers\AdminToko\MasterJenisBarangController as AdminTokoMaste
 use App\Http\Controllers\AdminToko\KategoriController as AdminTokoKategoriController;
 use App\Http\Controllers\AdminToko\SubKategoriController as AdminTokoSubKategoriController;
 use App\Http\Controllers\AdminToko\ProdukController as AdminTokoProdukController;
+use App\Http\Controllers\AdminToko\SupplierController as AdminTokoSupplierController;
 use App\Http\Controllers\AdminToko\ProdukTersediaController as AdminTokoProdukTersediaController;
 use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabisController;
 use App\Http\Controllers\AdminToko\ProdukUpdateController as AdminTokoProdukUpdateController;
@@ -162,6 +164,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
 
     Route::resource('produk/kategori', KepalaTokoKategoriController::class);
     Route::resource('produk/sub-kategori', KepalaTokoSubKategoriController::class);
+    Route::resource('produk/supplier', KepalaTokoSupplierController::class);
     Route::resource('produk/item', KepalaTokoProdukController::class);
     Route::resource('produk/item-tersedia', KepalaTokoProdukTersediaController::class);
     Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
@@ -268,6 +271,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('produk/admin-item', AdminTokoProdukController::class);
     Route::resource('produk/admin-item-tersedia', AdminTokoProdukTersediaController::class);
     Route::resource('produk/admin-item-habis', AdminTokoProdukHabisController::class);
+    Route::resource('produk/admin-supplier', AdminTokoSupplierController::class);
     Route::resource('produk/admin-produk-update', AdminTokoProdukUpdateController::class);
     Route::resource('produk/admin-pos', AdminTokoPosController::class);
     Route::resource('produk/admin-transaksi-produk', AdminTokoTransaksiProdukController::class);
