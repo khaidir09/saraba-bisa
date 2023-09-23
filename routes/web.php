@@ -6,6 +6,7 @@ use App\Http\Controllers\GaransiController;
 use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\AutoBiayaServisController;
+use App\Http\Controllers\DefaultController;
 // Kepala Toko
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KepalaToko\DataServisController;
@@ -133,6 +134,11 @@ Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-d
 Route::get('/json-data-servis', [DataServisController::class, 'getDataServis'])->name('json_data_servis');
 Route::get('/json-data-penjualan', [DataPenjualanController::class, 'getDataPenjualan'])->name('json_data_penjualan');
 Route::get('/get-action/{service_actions_id}', [AutoBiayaServisController::class, 'getAction']);
+
+// Default All Route 
+Route::controller(DefaultController::class)->group(function () {
+    Route::get('/get-modelserie', 'GetModelSerie')->name('get-modelserie');
+});
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');

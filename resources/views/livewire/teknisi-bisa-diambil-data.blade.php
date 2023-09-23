@@ -88,6 +88,7 @@
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
                                         <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full" required>
+                                            <option selected="">Pilih Merek</option>
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach
@@ -95,10 +96,8 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <select name="model_series_id" class="form-select text-sm py-1 w-full" id="selectjs2" required style="width: 100%">
-                                            @foreach ($model_series as $model_serie)
-                                                <option value="{{ $model_serie->id }}">{{ $model_serie->name }}</option>
-                                            @endforeach
+                                        <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full selectjs2" required style="width: 100%">
+                                            <option selected="">Pilih Model Seri</option>
                                         </select>
                                     </div>
                                     <div>
