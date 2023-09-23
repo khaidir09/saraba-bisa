@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\DefaultController;
+
 use App\Http\Controllers\GaransiController;
 use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
@@ -33,7 +35,7 @@ use App\Http\Controllers\KepalaToko\SupplierController as KepalaTokoSupplierCont
 use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
 use App\Http\Controllers\KepalaToko\ProdukTersediaController as KepalaTokoProdukTersediaController;
 use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
-use App\Http\Controllers\KepalaToko\ProdukUpdateController as KepalaTokoProdukUpdateController;
+use App\Http\Controllers\KepalaToko\PurchaseProductController as KepalaTokoPurchaseProductController;
 use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
 use App\Http\Controllers\KepalaToko\MasterKapasitasController as KepalaTokoMasterKapasitasController;
 use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
@@ -131,6 +133,11 @@ Route::get('/garansi', [GaransiController::class, 'index'])->name('garansi');
 Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-data');
 Route::get('/get-action/{service_actions_id}', [AutoBiayaServisController::class, 'getAction']);
 
+// Default All Route 
+Route::controller(DefaultController::class)->group(function () {
+    Route::get('/get-modelserie', 'GetModelSerie')->name('get-modelserie');
+});
+
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
     Route::get('/json-data-servis', [DataServisController::class, 'getDataServis'])->name('json_data_servis');
@@ -168,7 +175,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('produk/item', KepalaTokoProdukController::class);
     Route::resource('produk/item-tersedia', KepalaTokoProdukTersediaController::class);
     Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
-    Route::resource('produk/produk-update', KepalaTokoProdukUpdateController::class);
+    Route::resource('produk/purchase', KepalaTokoPurchaseProductController::class);
     Route::resource('produk/pos', KepalaTokoPosController::class);
     Route::resource('produk/transaksi-produk', KepalaTokoTransaksiProdukController::class);
     Route::resource('produk/transaksi-produk-paid', KepalaTokoTransaksiProdukPaidController::class);
