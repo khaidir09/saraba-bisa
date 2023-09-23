@@ -38,7 +38,7 @@ class SalesTransaksiProdukData extends Component
             'jumlah_tidaklunas' => $jumlah_tidaklunas,
             'orders' => $this->search === null ?
                 Order::latest()->where('users_id', Auth::user()->id)->paginate($this->paginate) :
-                Order::latest()->where('users_id', Auth::user()->id)->where('invoice_no', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Order::latest()->where('users_id', Auth::user()->id)->where('invoice_no', 'like', '%' . $this->search . '%')->orWhere('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

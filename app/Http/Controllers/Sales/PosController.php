@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Customer;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -89,9 +90,11 @@ class PosController extends Controller
         $rtotal = $request->sub_total;
         $rpay = $request->pay;
         $mtotal = $rtotal - $rpay;
+        $nama_pelanggan = Customer::find($request->customers_id);
 
         $data = array();
         $data['customers_id'] = $request->customers_id;
+        $data['nama_pelanggan'] = $nama_pelanggan->nama;
         $data['users_id'] = $request->users_id;
         $data['order_date'] = $request->order_date;
         $data['total_products'] = $request->total_products;
