@@ -42,7 +42,7 @@ class SudahDiambilData extends Component
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         $users = User::where('role', 'Teknisi')->get();
-        $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
+        $workers = Worker::all();
 
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
