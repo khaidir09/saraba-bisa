@@ -76,12 +76,7 @@ class PurchaseProductController extends Controller
             }
         }
 
-        $notification = array(
-            'message' => 'Data Save Successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('purchase.index')->with($notification);
+        return redirect()->route('purchase.index');
     }
 
     /**
@@ -130,15 +125,10 @@ class PurchaseProductController extends Controller
 
         $item->delete();
 
-        $notification = array(
-            'message' => 'Purchase Iteam Deleted Successfully',
-            'alert-type' => 'success'
-        );
-
         $products = Product::find($item->products_id);
         $products->stok -= $item->quantity;
         $products->save();
 
-        return redirect()->back()->with($notification);
+        return redirect()->back();
     }
 }
