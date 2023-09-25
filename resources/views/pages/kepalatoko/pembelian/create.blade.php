@@ -198,7 +198,7 @@
 
             <div class="mt-3">
                 <button type="submit" id="storeButton" class="btn bg-emerald-500 hover:bg-emerald-600 text-white w-full">
-                    <span class="hidden xs:block ml-2">Simpan Data Pembelian</span>
+                    Simpan Data Pembelian
                 </button>
             </div>
         </form>
