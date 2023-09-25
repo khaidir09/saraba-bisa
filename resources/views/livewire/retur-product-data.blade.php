@@ -83,7 +83,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Retur</label>
-                                        <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" value="{{ $item->keterangan }}" />
+                                        <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="date">Tanggal</label>
