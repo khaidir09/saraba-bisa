@@ -151,18 +151,18 @@
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('item.index', 'item.edit', 'item-tersedia.index', 'item-tersedia.edit', 'item-habis.index', 'item-habis.edit')){{ '!text-indigo-500' }}@endif" href="{{ route('item.index') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Item Produk</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
                                     <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('supplier.index', 'supplier.edit')){{ '!text-indigo-500' }}@endif" href="{{ route('supplier.index') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Supplier</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('produk-update.index')){{ '!text-indigo-500' }}@endif" href="{{ route('produk-update.index') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Update Produk</span>
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('item.index', 'item.edit', 'item-tersedia.index', 'item-tersedia.edit', 'item-habis.index', 'item-habis.edit')){{ '!text-indigo-500' }}@endif" href="{{ route('item.index') }}">
+                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Item Produk</span>
+                                    </a>
+                                </li>
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('purchase.index', 'purchase.create')){{ '!text-indigo-500' }}@endif" href="{{ route('purchase.index') }}">
+                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pembelian Produk</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
