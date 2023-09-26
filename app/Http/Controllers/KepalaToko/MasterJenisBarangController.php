@@ -77,7 +77,7 @@ class MasterJenisBarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TypeRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
