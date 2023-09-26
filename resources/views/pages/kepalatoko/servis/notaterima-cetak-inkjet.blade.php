@@ -163,7 +163,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td style="padding-bottom: 52px;"></td>
+				<td style="padding-bottom: 30px;"></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -171,22 +171,38 @@
 				<td></td>
 			</tr>
 			<tr>
-				<th colspan="2">Syarat & Ketentuan</th>
+				<th colspan="6" style="text-align: left">Syarat & Ketentuan</th>
+			</tr>
+			<tr>
+				<td colspan="6" style="text-align: justify">
+					{!! $terms->description !!}
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-bottom: 30px;"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th></th>
 				<th>PIN</th>
 				<th class="text-center">Pola</th>
 				<th class="text-center">Pelanggan</th>
 				<th class="text-center">Diterima</th>
+				<th></th>
 			</tr>
 			<tr>
-				<td colspan="2" style="width: 70px;">
-					{!! $terms->description !!}
-				</td>
+				<td></td>
 				<td>
 					<hr style="border-top: 3px dashed;">
 				</td>
 				<td class="text-center" style="padding-top: 32px;"><img src="{{ asset('images/pola.png') }}" alt=""></td>
 				<td class="text-center capital" style="padding-top: 52px;">{{ $items->customer->nama }}</td>
 				<td class="text-center capital" style="padding-top: 52px;">{{ $items->penerima }}</td>
+				<td></td>
 			</tr>
 		</tfoot>
 	</table>
