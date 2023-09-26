@@ -72,6 +72,7 @@
                             </a>
                         </div>
                     </div>
+
                     <!-- Modal content -->
                     <form action="{{ route('master-model-seri.update', $item->id) }}" method="post">
                         @method('PUT')
