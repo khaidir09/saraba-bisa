@@ -35,10 +35,10 @@
 		tr,
 		table {
 			border-collapse: collapse;
-			font-size: 36px;
+			font-size: 14px;
 			line-height: 1em;
 			width: 100%;
-			padding: 12px;
+			padding: 4px;
 			color: #000000;
 		}
 
@@ -50,7 +50,7 @@
 <body>
 	<div class="text-center">
 		@if ($users->profile_photo_path != null)
-			<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="150" style="margin-top: 4px; margin-bottom: 8px;">
+			<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
 		@endif
 	</div>
 	<table>
@@ -60,7 +60,7 @@
 			<td scope="col" class="w-50"></td>
 			</tr>
 			<tr>
-			<td scope="col" style="font-size: 40px; font-weight: 600;">{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</td>
+			<td scope="col" style="font-size: 14px; font-weight: 600;">{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</td>
 			<td scope="col" class="text-right">No. Servis : {{ $items->nomor_servis }}</td>
 			</tr>
 			<tr>
@@ -76,7 +76,7 @@
 
 	<hr style="border-top: 1px dashed;">
 
-		<h4 class="text-center">
+		<h4 class="text-center" style="margin-bottom: 12px; margin-top: 12px;">
 			NOTA TERIMA SERVIS
 		</h4>
 
@@ -118,7 +118,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<table style="margin-top: 12px;">
+	<table>
 		<thead>
 			<tr style="border-top-style: solid; border-right-style: solid;">
 				<th id="data" colspan="2" class="text-left" style="border-left-style: solid;">Pengecekan</th>
@@ -163,7 +163,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td style="padding-bottom: 30px;"></td>
+				<td style="padding-bottom: 12px;"></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -179,7 +179,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="padding-bottom: 30px;"></td>
+				<td style="padding-bottom: 12px;"></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -197,9 +197,9 @@
 			<tr>
 				<td></td>
 				<td>
-					<hr style="border-top: 3px dashed;">
+					<hr style="border-top: 1px dashed;">
 				</td>
-				<td class="text-center" style="padding-top: 32px;"><img src="{{ asset('images/pola.png') }}" alt=""></td>
+				<td class="text-center" style="padding-top: 32px;"><img src="{{ asset('images/pola.png') }}" alt="" style="height: 50"></td>
 				<td class="text-center capital" style="padding-top: 52px;">{{ $items->customer->nama }}</td>
 				<td class="text-center capital" style="padding-top: 52px;">{{ $items->penerima }}</td>
 				<td></td>
