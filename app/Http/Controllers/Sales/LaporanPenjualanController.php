@@ -11,24 +11,49 @@ class LaporanPenjualanController extends Controller
     public function index()
     {
         $currentMonth = now()->month;
-        $currentYear = now()->year;
 
-        $penjualanhari = OrderDetail::where('users_id', Auth::user()->id)->whereDate('created_at', today())
+        $penjualanhari = OrderDetail::where('users_id', Auth::user()->id)
+            ->whereHas('order', function ($query) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereDate('tgl_disetujui', today());
+            })
             ->get()
             ->sum('quantity');
-        $bonushari = OrderDetail::where('users_id', Auth::user()->id)->whereDate('created_at', today())
+        $bonushari = OrderDetail::where('users_id', Auth::user()->id)
+            ->whereHas('order', function ($query) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereDate('tgl_disetujui', today());
+            })
             ->get()
             ->sum('profit');
-        $penjualanbulan = OrderDetail::where('users_id', Auth::user()->id)->whereMonth('created_at', $currentMonth)
+        $penjualanbulan = OrderDetail::where('users_id', Auth::user()->id)
+            ->whereHas('order', function ($query) use ($currentMonth) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereYear('tgl_disetujui', now()->year)
+                    ->whereMonth('tgl_disetujui', $currentMonth);
+            })
             ->get()
             ->sum('quantity');
-        $bonusbulan = OrderDetail::where('users_id', Auth::user()->id)->whereMonth('created_at', $currentMonth)
+        $bonusbulan = OrderDetail::where('users_id', Auth::user()->id)
+            ->whereHas('order', function ($query) use ($currentMonth) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereYear('tgl_disetujui', now()->year)
+                    ->whereMonth('tgl_disetujui', $currentMonth);
+            })
             ->get()
             ->sum('profit');
-        $penjualantahun = OrderDetail::where('users_id', Auth::user()->id)->whereYear('created_at', $currentYear)
+        $penjualantahun = OrderDetail::where('users_id', Auth::user()->id)
+            ->whereHas('order', function ($query) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereYear('tgl_disetujui', now()->year);
+            })
             ->get()
             ->sum('quantity');
-        $bonustahun = OrderDetail::where('users_id', Auth::user()->id)->whereYear('created_at', $currentYear)
+        $bonustahun = OrderDetail::where('users_id', Auth::user()->id)
+            ->whereHas('order', function ($query) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereYear('tgl_disetujui', now()->year);
+            })
             ->get()
             ->sum('profit');
         return view('pages/sales/laporan-penjualan', compact('penjualanhari', 'bonushari', 'penjualanbulan', 'bonusbulan', 'penjualantahun', 'bonustahun'));

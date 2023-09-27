@@ -52,9 +52,13 @@ class OrderDetail extends Model
 
     public function scopeTotalSales($query, $categories_id)
     {
-        $currentMonth = now()->month;
         return $query->whereHas('product.subCategory.category', function ($q) use ($categories_id) {
             $q->where('categories_id', $categories_id);
-        })->whereMonth('created_at', $currentMonth)->sum('profit_toko');
+        })->whereHas('order', function ($q) {
+            $q->where('is_approve', 'Setuju')
+                ->whereYear('tgl_disetujui', now()->year)
+                ->whereMonth('tgl_disetujui', now()->month);
+        })
+            ->sum('profit_toko');
     }
 }
