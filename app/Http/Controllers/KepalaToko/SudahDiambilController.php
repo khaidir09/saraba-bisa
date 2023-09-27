@@ -225,7 +225,7 @@ class SudahDiambilController extends Controller
 
         $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
-        return $pdf->setOption(['dpi' => 300, 'isRemoteEnabled', true])->stream($filename);
+        return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     /**

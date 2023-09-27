@@ -12,7 +12,7 @@
 		}
 
 		.pt-5 {
-			padding-top: 20px;
+			padding-top: 60px;
 		}
 
 		.text-center {
@@ -49,9 +49,9 @@
 		tr,
 		table {
 			border-collapse: collapse;
-			font-size: 36px;
+			font-size: 14px;
 			line-height: 1em;
-			padding: 12px;
+			padding: 4px;
 			color: #000000;
 		}
 
@@ -63,7 +63,7 @@
 <body>
 	<div class="text-center">
 		@if ($users->profile_photo_path != null)
-			<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="150" style="margin-top: 4px; margin-bottom: 8px;">
+			<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
 		@endif
 	</div>
 	<table class="w-100">
@@ -73,7 +73,7 @@
 			<td scope="col" class="w-50"></td>
 			</tr>
 			<tr>
-			<td scope="col" style="font-size: 40px; font-weight: 600;">{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</td>
+			<td scope="col" style="font-size: 14px; font-weight: 600;">{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</td>
 			<td scope="col" class="text-right">No. Servis : {{ $items->nomor_servis }}</td>
 			</tr>
 			<tr>
@@ -89,7 +89,7 @@
 
 	<hr style="border-top: 1px dashed;">
 
-	<h4 class="text-center">NOTA PENGAMBILAN SERVIS</h4>
+	<h4 class="text-center" style="margin-bottom: 12px; margin-top: 12px;">NOTA PENGAMBILAN SERVIS</h4>
 
 	<table class="w-100">
 		<thead>
@@ -129,7 +129,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<table class="w-100" style="margin-top: 12px;">
+	<table class="w-100">
 		<thead>
 			<tr style="border-top-style: solid; border-right-style: solid;">
 				<th id="data" colspan="2" class="text-left" style="border-left-style: solid;">Tindakan</th>
@@ -229,32 +229,36 @@
 		<thead>
 			<tr>
 				@if ($items->exp_garansi === null)
-					<td class="capital">
+					<td colspan="6" class="capital">
 						Tidak ada garansi untuk tindakan servis ini.
 					</td>
 				@else
-					<td class="capital">
+					<td colspan="6" class="capital">
 						Garansi servis Anda aktif sampai tanggal <strong>{{ $items->exp_garansi }}</strong>
 					</td>
 				@endif
 			</tr>
-			<tr>
-				<th class="w-50 text-left">Syarat & Ketentuan</th>
-				<th colspan="2" class="text-center w-25">Pengambil</th>
-				<th colspan="2" class="text-center w-25">Teknisi</th>
-			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td class="text-justify" style="font-style: italic;">
+				<th colspan="6" class="text-left">Syarat & Ketentuan</th>
+			</tr>
+			<tr>
+				<td colspan="6" class="text-justify" style="font-style: italic; padding-bottom: 30px;">
 					{!! $terms->description !!} <br> <br>
 					<span style="font-weight: bold;">Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</span>
 				</td>
-				<td colspan="2" class="pt-5 text-center capital">{{ $items->pengambil }}</td>
+			</tr>
+			<tr>
+				<th colspan="3" class="text-center w-50">Pengambil</th>
+				<th colspan="3" class="text-center w-50">Teknisi</th>
+			</tr>
+			<tr>
+				<td colspan="3" class="pt-5 text-center capital">{{ $items->pengambil }}</td>
 				@if ($items->user != null)
-					<td colspan="2" class="pt-5 text-center capital">{{ $items->user->name }}</td>
+					<td colspan="3" class="pt-5 text-center capital">{{ $items->user->name }}</td>
 				@else
-					<td colspan="2" class="pt-5 text-center capital">-</td>
+					<td colspan="3" class="pt-5 text-center capital">-</td>
 				@endif
 			</tr>
 		</tbody>
