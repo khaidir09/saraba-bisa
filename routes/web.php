@@ -48,6 +48,7 @@ use App\Http\Controllers\KepalaToko\ProdukTersediaController as KepalaTokoProduk
 use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
 use App\Http\Controllers\KepalaToko\ProdukUpdateController as KepalaTokoProdukUpdateController;
 use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
+use App\Http\Controllers\KepalaToko\ApprovePenjualanController as KepalaTokoApprovePenjualanController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukController as KepalaTokoTransaksiProdukController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukPaidController as KepalaTokoTransaksiProdukPaidController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukDueController as KepalaTokoTransaksiProdukDueController;
@@ -219,6 +220,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
     Route::resource('produk/produk-update', KepalaTokoProdukUpdateController::class);
     Route::resource('produk/pos', KepalaTokoPosController::class);
+    Route::resource('produk/transaksi-penjualan-approve', KepalaTokoApprovePenjualanController::class);
     Route::resource('produk/transaksi-produk', KepalaTokoTransaksiProdukController::class);
     Route::resource('produk/transaksi-produk-paid', KepalaTokoTransaksiProdukPaidController::class);
     Route::resource('produk/transaksi-produk-due', KepalaTokoTransaksiProdukDueController::class);

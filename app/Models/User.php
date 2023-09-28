@@ -94,7 +94,11 @@ class User extends Authenticatable
         $currentMonth = now()->month;
 
         return $this->hasMany(OrderDetail::class, 'admin_id', 'id')
-            ->whereMonth('created_at', $currentMonth);
+            ->whereHas('order', function ($query) use ($currentMonth) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereYear('tgl_disetujui', now()->year)
+                    ->whereMonth('tgl_disetujui', $currentMonth);
+            });
     }
 
     public function servicetransaction()
@@ -130,7 +134,11 @@ class User extends Authenticatable
         $currentMonth = now()->month;
 
         return $this->hasMany(OrderDetail::class, 'users_id', 'id')
-            ->whereMonth('created_at', $currentMonth);
+            ->whereHas('order', function ($query) use ($currentMonth) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereYear('tgl_disetujui', now()->year)
+                    ->whereMonth('tgl_disetujui', $currentMonth);
+            });
     }
 
     public function relasiSale()

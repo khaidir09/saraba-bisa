@@ -2,14 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\User;
-use App\Models\Phone;
 use Livewire\Component;
-use App\Models\Customer;
 use App\Models\OrderDetail;
 use App\Models\StoreSetting;
 use Livewire\WithPagination;
-use App\Models\PhoneTransaction;
 
 class LaporanPenjualanData extends Component
 {
@@ -32,14 +28,20 @@ class LaporanPenjualanData extends Component
 
     public function render()
     {
-        $jumlah = OrderDetail::all()->sum('quantity');
+        $jumlah = OrderDetail::whereHas('order', function ($query) {
+            $query->where('is_approve', 'Setuju');
+        })->sum('quantity');
         $toko = StoreSetting::find(1);
         return view('livewire.laporan-penjualan-data', [
             'toko' => $toko,
             'jumlah' => $jumlah,
             'product_transactions' => $this->search === null ?
-                OrderDetail::latest()->paginate($this->paginate) :
-                OrderDetail::latest()->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                OrderDetail::whereHas('order', function ($query) {
+                    $query->where('is_approve', 'Setuju');
+                })->latest()->paginate($this->paginate) :
+                OrderDetail::whereHas('order', function ($query) {
+                    $query->where('is_approve', 'Setuju');
+                })->latest()->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

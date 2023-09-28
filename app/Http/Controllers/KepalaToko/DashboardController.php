@@ -5,6 +5,7 @@ namespace App\Http\Controllers\KepalaToko;
 use Carbon\Carbon;
 use App\Models\Debt;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Budget;
 use App\Models\Expense;
 use App\Models\Product;
@@ -13,6 +14,7 @@ use App\Models\Category;
 use App\Models\OrderDetail;
 use App\Models\SubCategory;
 use App\Models\ServiceTransaction;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
@@ -62,6 +64,7 @@ class DashboardController extends Controller
         $approveservis = ServiceTransaction::where('is_approve', null)
             ->where('status_servis', 'Sudah Diambil')
             ->count();
+        $approvepenjualan = Order::where('is_approve', null)->count();
         $approveassembly = Assembly::where('is_approve', null)
             ->count();
         $approvekasbon = Debt::where('is_approve', null)->count();
@@ -74,9 +77,21 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
-        $bulanprofitbersihpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit_toko');
+        $profitpenjualan = Order::whereHas('detailOrders', function ($query) {
+            $query->where('is_approve', 'Setuju')
+                ->whereYear('tgl_disetujui', now()->year)
+                ->whereMonth('tgl_disetujui', now()->month);
+        })
+            ->with(['detailOrders' => function ($query) {
+                $query->select('orders_id', DB::raw('SUM(profit_toko) as total_profit'))
+                    ->groupBy('orders_id');
+            }])
+            ->select('id')
+            ->get();
+
+        $bulanprofitbersihpenjualan = $profitpenjualan->sum(function ($order) {
+            return $order->detailOrders->sum('total_profit');
+        });
 
         $bulantotalprofitbersih = ($bulanprofitbersihservis + $bulanprofitbersihpenjualan);
 
@@ -84,9 +99,21 @@ class DashboardController extends Controller
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
-        $bulanprofitkotorpenjualan = OrderDetail::whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
+        $rumusprofitkotorpenjualan = Order::whereHas('detailOrders', function ($query) {
+            $query->where('is_approve', 'Setuju')
+                ->whereYear('tgl_disetujui', now()->year)
+                ->whereMonth('tgl_disetujui', now()->month);
+        })
+            ->with(['detailOrders' => function ($query) {
+                $query->select('orders_id', DB::raw('SUM(profit) as total_profit'))
+                    ->groupBy('orders_id');
+            }])
+            ->select('id')
+            ->get();
+
+        $bulanprofitkotorpenjualan = $rumusprofitkotorpenjualan->sum(function ($order) {
+            return $order->detailOrders->sum('total_profit');
+        });
 
         $bulantotalprofitkotor = ($bulanprofitkotorservis + $bulanprofitkotorpenjualan);
 
@@ -124,6 +151,7 @@ class DashboardController extends Controller
             'categories',
             'approveassembly',
             'approveservis',
+            'approvepenjualan',
             'approvekasbon',
             'users',
             'totalbudgets',
