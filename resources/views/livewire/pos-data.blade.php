@@ -185,6 +185,7 @@
                     <input type="hidden" name="order_date" value="{{ \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y') }}">
                     <input type="hidden" name="total_products" value="{{ Cart::count() }}">
                     <input type="hidden" name="sub_total" value="{{ Cart::total() + $totalTax }}">
+                    <input type="hidden" name="tgl_disetujui" value="<?php echo date('Y/m/d') ?>"/>
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>

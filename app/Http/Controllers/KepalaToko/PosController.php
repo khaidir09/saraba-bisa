@@ -102,6 +102,8 @@ class PosController extends Controller
 
         $data['invoice_no'] = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         $data['payment_method'] = $request->payment_method;
+        $data['is_approve'] = 'Setuju';
+        $data['tgl_disetujui'] = $request->tgl_disetujui;
         $data['pay'] = $request->pay;
         $data['due'] = $mtotal;
         $data['created_at'] = Carbon::now();
