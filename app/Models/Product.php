@@ -14,7 +14,6 @@ class Product extends Model
         'stok',
         'harga_modal',
         'harga_jual',
-        'supplier',
         'keterangan',
         'nomor_seri',
         'garansi',
