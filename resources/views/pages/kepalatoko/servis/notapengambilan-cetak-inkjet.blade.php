@@ -269,6 +269,13 @@
 		<table>
 			<thead>
 				<tr>
+					@if ($items->catatan != null)
+						<td colspan="6" class="capital">
+							<strong>Catatan</strong> : {{ $items->catatan }}
+						</td>
+					@endif
+				</tr>
+				<tr>
 					@if ($items->exp_garansi === null)
 						<td class="capital">
 							Tidak ada garansi untuk tindakan servis ini.
