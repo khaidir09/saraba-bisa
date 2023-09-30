@@ -134,7 +134,7 @@ class SudahDiambilController extends Controller
 
         $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
-        return $pdf->setOption(['dpi' => 300])->stream($filename);
+        return $pdf->stream($filename);
     }
 
     /**

@@ -113,7 +113,7 @@ class TransaksiServisController extends Controller
 
         $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
-        return $pdf->setOption(['dpi' => 300])->stream($filename);
+        return $pdf->stream($filename);
     }
 
     public function cetaktermal($id)
