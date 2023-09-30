@@ -220,10 +220,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="supplier">Agen</label>
-                                    <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" value="{{ $item->supplier }}" />
-                                </div>                                
                             </div>
                         </div>
                         <!-- Modal footer -->

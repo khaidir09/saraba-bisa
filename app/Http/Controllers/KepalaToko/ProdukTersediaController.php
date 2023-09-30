@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\Product;
-use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
@@ -59,7 +58,6 @@ class ProdukTersediaController extends Controller
             'stok' => $stok,
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
-            'supplier' => $request->supplier,
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri,
             'garansi' => $request->garansi,
@@ -134,7 +132,6 @@ class ProdukTersediaController extends Controller
             'stok' => $request->stok,
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
-            'supplier' => $request->supplier,
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri,
             'garansi' => $request->garansi,
