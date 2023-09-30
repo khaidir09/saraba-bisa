@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
-use App\Models\Worker;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
@@ -45,11 +44,9 @@ class AdminBisaDiambilData extends Component
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         $actions = ServiceAction::all();
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])
-            ->where('is_admin_toko', 'Admin')
-            ->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('is_admin_toko', 'Admin')->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('is_admin_toko', 'Admin')->count();
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
         return view('livewire.admin-bisa-diambil-data', [
             'users' => $users,
             'toko' => $toko,
@@ -66,12 +63,10 @@ class AdminBisaDiambilData extends Component
             'bisadiambil' => $this->search === null ?
                 ServiceTransaction::latest()->with('customer', 'serviceaction')
                 ->where('status_servis', 'Bisa Diambil')
-                ->where('is_admin_toko', 'Admin')
                 ->where('types_id', 'like', '%' . $this->type . '%')
                 ->paginate($this->paginate) :
                 ServiceTransaction::latest()->with('customer', 'serviceaction')
                 ->where('status_servis', 'Bisa Diambil')
-                ->where('is_admin_toko', 'Admin')
                 ->where('nama_pelanggan', 'like', '%' . $this->search . '%')
                 ->paginate($this->paginate)
         ]);

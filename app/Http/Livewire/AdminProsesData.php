@@ -5,11 +5,9 @@ namespace App\Http\Livewire;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
-use App\Models\Worker;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
-use Barryvdh\DomPDF\PDF;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
 use App\Models\ServiceAction;
@@ -39,7 +37,7 @@ class AdminProsesData extends Component
     public function render()
     {
         $toko = User::find(1);
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->count();
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $users = User::where('role', 'Teknisi')->get();
         $penerima = User::all();
         $customers = Customer::all();
@@ -48,12 +46,8 @@ class AdminProsesData extends Component
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         $actions = ServiceAction::all();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')
-            ->where('is_admin_toko', 'Admin')
-            ->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->where('is_admin_toko', 'Admin')
-            ->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
         return view('livewire.admin-proses-data', [
             'toko' => $toko,
             'processes_count' => $processes_count,
@@ -68,52 +62,8 @@ class AdminProsesData extends Component
             'capacities' => $capacities,
             'actions' => $actions,
             'processes' => $this->search === null ?
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->where('types_id', 'like', '%' . $this->type . '%')->paginate($this->paginate) :
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('is_admin_toko', 'Admin')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('types_id', 'like', '%' . $this->type . '%')->paginate($this->paginate) :
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
-    }
-
-    public function cetak($id)
-    {
-        $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
-        $users = User::find(1);
-
-        $pdf = PDF::loadView('pages.kepalatoko.cetak', [
-            'users' => $users,
-            'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
-        ])->setPaper('a4', 'landscape');
-        return $pdf->stream();
-    }
-
-    public function cetaktermal($id)
-    {
-        $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
-        $users = User::find(1);
-
-        $pdf = PDF::loadView('pages.kepalatoko.cetak-termal', [
-            'users' => $users,
-            'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
-        ])->setPaper('a4', 'potrait');
-        return $pdf->stream();
     }
 }
