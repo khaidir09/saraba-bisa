@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\AdminToko;
 
 use App\Models\Product;
-use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
@@ -57,6 +56,7 @@ class ProdukTersediaController extends Controller
             'sub_categories_id' => $request->sub_categories_id,
             'category_name' => $namakategori->name,
             'stok' => $stok,
+            'stok_minimal' => $request->stok_minimal,
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
             'keterangan' => $request->keterangan,
@@ -131,6 +131,7 @@ class ProdukTersediaController extends Controller
             'sub_categories_id' => $request->sub_categories_id,
             'category_name' => $namakategori->name,
             'stok' => $request->stok,
+            'stok_minimal' => $request->stok_minimal,
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
             'keterangan' => $request->keterangan,

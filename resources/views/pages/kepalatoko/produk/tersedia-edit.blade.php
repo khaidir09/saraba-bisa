@@ -203,6 +203,10 @@
                                     <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" value="{{ $item->stok }}"/>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="stok_minimal">Stok Minimal</label>
+                                    <input id="stok_minimal" name="stok_minimal" class="form-input w-full px-2 py-1" type="number" value="{{ $item->stok_minimal }}"/>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="harga_modal">Harga Modal</label>
                                     <div class="relative">
                                         <input id="harga_modal" name="harga_modal" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->harga_modal }}"/>

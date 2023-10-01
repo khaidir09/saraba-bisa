@@ -96,6 +96,10 @@
                                         <label class="block text-sm font-medium mb-1" for="stok">Stok <span class="text-rose-500">*</span></label>
                                         <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" value="1"/>
                                     </div>
+                                    <div class="mt-3">
+                                        <label class="block text-sm font-medium mb-1" for="stok_minimal">Stok Minimal <small>(Sebagai pengingat untuk menambah stok produk)</small></label>
+                                        <input id="stok_minimal" name="stok_minimal" class="form-input w-full px-2 py-1" type="number" placeholder="Abaikan jika produk tidak memerlukan pengingat"/>
+                                    </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="harga_modal">Harga Modal <span class="text-rose-500">*</span></label>
                                         <div class="relative">
@@ -395,6 +399,9 @@
                             <div class="font-semibold text-left">Stok</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Stok Minimal</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -445,6 +452,15 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->stok }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">
+                                    @if ($item->stok_minimal != null)
+                                        {{ $item->stok_minimal }}
+                                    @else
+                                        -
+                                    @endif
+                                </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($item->harga_modal) }}</div>
