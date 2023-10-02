@@ -36,9 +36,9 @@ class TeknisiBisaDiambilData extends Component
     public function render()
     {
         $toko = User::find(1);
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('penerima', Auth::user()->worker->name)->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->count();
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
@@ -57,8 +57,8 @@ class TeknisiBisaDiambilData extends Component
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'bisadiambil' => $this->search === null ?
-                ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->where('users_id', Auth::user()->id)->paginate($this->paginate) :
-                ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('is_admin_toko', null)->where('users_id', Auth::user()->id)->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->paginate($this->paginate) :
+                ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

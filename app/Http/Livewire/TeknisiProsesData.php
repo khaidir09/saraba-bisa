@@ -37,9 +37,9 @@ class TeknisiProsesData extends Component
     public function render()
     {
         $toko = User::find(1);
-        $processes_count = ServiceTransaction::where('penerima', Auth::user()->worker->name)->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->where('is_admin_toko', null)->count();
+        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
+        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->count();
+        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->count();
         $users = User::whereIn('role', ['Kepala Toko', 'Teknisi'])->get();
         $customers = Customer::all();
         $types = Type::all();
@@ -60,52 +60,8 @@ class TeknisiProsesData extends Component
             'capacities' => $capacities,
             'actions' => $actions,
             'processes' => $this->search === null ?
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('penerima', Auth::user()->worker->name)->paginate($this->paginate) :
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('penerima', Auth::user()->worker->name)->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->paginate($this->paginate) :
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
-    }
-
-    public function cetak($id)
-    {
-        $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
-        $users = User::find(1);
-
-        $pdf = PDF::loadView('pages.kepalatoko.cetak', [
-            'users' => $users,
-            'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
-        ])->setPaper('a4', 'landscape');
-        return $pdf->stream();
-    }
-
-    public function cetaktermal($id)
-    {
-        $items = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
-        $users = User::find(1);
-
-        $pdf = PDF::loadView('pages.kepalatoko.cetak-termal', [
-            'users' => $users,
-            'items' => $items,
-            'customers' => $customers,
-            'types' => $types,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'capacities' => $capacities
-        ])->setPaper('a4', 'potrait');
-        return $pdf->stream();
     }
 }
