@@ -31,7 +31,7 @@ class CustomerCreate extends Component
             'nama' => 'required|min:3',
             'kategori' => 'required',
             'alamat' => 'required',
-            'nomor_hp' => 'required|unique:customers,nomor_hp'
+            'nomor_hp' => 'required'
         ]);
         $customer = Customer::create([
             'nama' => $this->nama,

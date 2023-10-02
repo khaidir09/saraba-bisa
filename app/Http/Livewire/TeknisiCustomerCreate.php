@@ -18,20 +18,13 @@ class TeknisiCustomerCreate extends Component
         return view('livewire.customer-create');
     }
 
-    public function messages()
-    {
-        return [
-            'nomor_hp.unique' => 'Mohon maaf, inputan tidak dapat diproses karena pelanggan dengan nomor hp ini sudah tersedia.',
-        ];
-    }
-
     public function store()
     {
         $this->validate([
             'nama' => 'required|min:3',
             'kategori' => 'required',
             'alamat' => 'required',
-            'nomor_hp' => 'required|unique:customers,nomor_hp'
+            'nomor_hp' => 'required'
         ]);
         $customer = Customer::create([
             'nama' => $this->nama,
