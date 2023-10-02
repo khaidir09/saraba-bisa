@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <!-- Modal content -->
-                        <form action="{{ route('item-tersedia.store') }}" method="post">
+                        <form action="{{ route('item.store') }}" method="post">
                             @csrf
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
@@ -241,6 +241,11 @@
                     </a>
                 </li>
                 <li class="m-1">
+                    <a href="{{ route('item-hampir-habis.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Hampir Habis <span class="ml-1 text-slate-400"></span></button>
+                    </a>
+                </li>
+                <li class="m-1">
                     <a href="{{ route('item-habis.index') }}">
                         <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Habis <span class="ml-1 text-slate-400"></span></button>
                     </a>
@@ -399,9 +404,6 @@
                             <div class="font-semibold text-left">Stok</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Stok Minimal</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -454,15 +456,6 @@
                                 <div class="font-medium">{{ $item->stok }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">
-                                    @if ($item->stok_minimal != null)
-                                        {{ $item->stok_minimal }}
-                                    @else
-                                        -
-                                    @endif
-                                </div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($item->harga_modal) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -481,7 +474,7 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
-                                    <a href="{{ route('item-tersedia.edit', $item->id) }}">
+                                    <a href="{{ route('item.edit', $item->id) }}">
                                         <button class="text-slate-400 hover:text-slate-500 rounded-full">
                                             <span class="sr-only">Edit</span>
                                             <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">

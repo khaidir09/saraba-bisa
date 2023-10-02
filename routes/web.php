@@ -34,6 +34,7 @@ use App\Http\Controllers\KepalaToko\SubKategoriController as KepalaTokoSubKatego
 use App\Http\Controllers\KepalaToko\SupplierController as KepalaTokoSupplierController;
 use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
 use App\Http\Controllers\KepalaToko\ProdukTersediaController as KepalaTokoProdukTersediaController;
+use App\Http\Controllers\KepalaToko\ProdukHampirHabisController as KepalaTokoProdukHampirHabisController;
 use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
 use App\Http\Controllers\KepalaToko\ProdukUpdateController as KepalaTokoProdukUpdateController;
 use App\Http\Controllers\KepalaToko\PurchaseProductController as KepalaTokoPurchaseProductController;
@@ -177,6 +178,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('produk/supplier', KepalaTokoSupplierController::class);
     Route::resource('produk/item', KepalaTokoProdukController::class);
     Route::resource('produk/item-tersedia', KepalaTokoProdukTersediaController::class);
+    Route::resource('produk/item-hampir-habis', KepalaTokoProdukHampirHabisController::class);
     Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
     Route::resource('produk/produk-update', KepalaTokoProdukUpdateController::class);
     Route::resource('produk/purchase', KepalaTokoPurchaseProductController::class);

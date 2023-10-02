@@ -210,7 +210,7 @@
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <a href="{{ route('item.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                    <a href="{{ route('item-hampir-habis.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                         Batal
                                     </a>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
@@ -232,7 +232,7 @@
             <ul class="flex flex-wrap -m-1">
                 <li class="m-1">
                     <a href="{{ route('item.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Semua <span class="ml-1 text-indigo-200"></span></button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Semua <span class="ml-1 text-slate-400"></span></button>
                     </a>
                 </li>
                 <li class="m-1">
@@ -242,7 +242,7 @@
                 </li>
                 <li class="m-1">
                     <a href="{{ route('item-hampir-habis.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Hampir Habis <span class="ml-1 text-slate-400"></span></button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Hampir Habis <span class="ml-1 text-indigo-200"></span></button>
                     </a>
                 </li>
                 <li class="m-1">
@@ -377,7 +377,7 @@
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Semua Produk <span class="text-slate-400 font-medium">{{ $products_count }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Produk Hampir Habis <span class="text-slate-400 font-medium">{{ $products_count }}</span></h2>
         </header>
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -554,7 +554,7 @@
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
                                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <form action="{{ route('item.destroy', $item->id) }}" method="post">
+                                                            <form action="{{ route('item-hampir-habis.destroy', $item->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>

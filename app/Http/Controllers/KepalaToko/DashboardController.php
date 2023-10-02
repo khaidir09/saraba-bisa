@@ -66,7 +66,7 @@ class DashboardController extends Controller
         $approvepenjualan = Order::where('is_approve', null)->count();
         $approvekasbon = Debt::where('is_approve', null)->count();
         $approvepengeluaran = Expense::where('is_approve', null)->count();
-        $stokhabis = Product::where('stok', 0)->count();
+        $stokhabis = Product::where('stok', '<=', DB::raw('`stok_minimal`'))->count();
 
         $totalbudgets = Budget::all()->sum('total');
 

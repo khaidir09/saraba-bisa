@@ -11,7 +11,7 @@ use App\Imports\ProdukImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ProdukHabisController extends Controller
+class ProdukHampirHabisController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class ProdukHabisController extends Controller
      */
     public function index()
     {
-        return view('pages/kepalatoko/produk/habis');
+        return view('pages/kepalatoko/produk/hampir-habis');
     }
 
     /**
@@ -99,6 +99,6 @@ class ProdukHabisController extends Controller
 
         toast('Data Produk berhasil dihapus.', 'success');
 
-        return redirect()->route('item-habis.index');
+        return redirect()->route('item-hampir-habis.index');
     }
 }

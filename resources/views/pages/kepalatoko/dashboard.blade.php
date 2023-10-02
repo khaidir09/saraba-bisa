@@ -18,9 +18,9 @@
                                 <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
                                     <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
                                 </svg>
-                                <div class="font-medium">Ada {{ $stokhabis }} produk yang kehabisan stok nih, cek sekarang!</div>
+                                <div class="font-medium">Ada {{ $stokhabis }} produk yang hampir kehabisan stok nih, cek sekarang!</div>
                             </div>
-                            <a class="font-medium ml-4 mt-[3px]" href="{{ route('item-habis.index') }}">-&gt;</a>
+                            <a class="font-medium ml-4 mt-[3px]" href="{{ route('item-hampir-habis.index') }}">-&gt;</a>
                         </div>
                     </div>
                 @endif
