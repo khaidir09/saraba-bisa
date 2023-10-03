@@ -159,8 +159,11 @@ class SudahDiambilController extends Controller
         } else {
             $persen_teknisi = null;
         }
+
         if ($request->service_actions_id != null) {
             $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
+        } elseif ($request->tindakan_servis != null) {
+            $tindakan_servis = $request->tindakan_servis;
         } else {
             $tindakan_servis = null;
         }

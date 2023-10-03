@@ -133,7 +133,7 @@
                                     </div>
                                     <div x-show="showDetails" class="mt-3 space-y-3">
                                         <div>
-                                            <label class="block text-sm font-medium mb-1" for="users_id">Teknisi</label>
+                                            <label class="block text-sm font-medium mb-1" for="users_id">Teknisi <span class="text-rose-500">*</span></label>
                                             <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full">
                                                 <option selected value="">Pilih Teknisi</option>
                                                 @foreach ($users as $user)
@@ -141,14 +141,26 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div>
-                                            <label class="block text-sm font-medium mb-1">Tindakan Servis</label>
+                                        <div x-data="{ showInputManual: false }">
+                                            <div class="flex justify-between items-center mb-1">
+                                                <label class="block text-sm font-medium">
+                                                    Tindakan Servis
+                                                    <span class="text-rose-500">*</span>
+                                                </label>
+                                                <label class="flex items-center">
+                                                    <input type="checkbox" class="form-checkbox" x-on:click="showInputManual = true"/>
+                                                    <span class="text-sm ml-2">Isi Manual</span>
+                                                </label>
+                                            </div>
                                             <select id="selectjs" name="service_actions_id" class="form-select text-sm py-1 w-full">
                                                 <option selected value="">Pilih Tindakan</option>
                                                 @foreach ($service_actions as $action)
                                                     <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
                                                 @endforeach
                                             </select>
+                                            <div x-show="showInputManual" class="mt-2">
+                                                <input class="form-input w-full px-2 py-1" type="text" name="tindakan_servis"/>
+                                            </div>
                                         </div>
                                         <div x-data="{ showDetails: false }">
                                             <label class="block text-sm font-medium mb-1" for="modal_sparepart">Apakah menggunakan stok sparepart toko?</label>
@@ -219,6 +231,13 @@
     @push('scripts')
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                Alpine.data('form', () => ({
+                    isManual: false,
+                }));
+            });
+        </script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#selectjs').select2();

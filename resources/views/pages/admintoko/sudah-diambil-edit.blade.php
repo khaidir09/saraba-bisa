@@ -161,18 +161,22 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="service_actions_id">Tindakan Servis  </label>
-                                    <select id="selectjs3" name="service_actions_id" class="form-select text-sm py-1 w-full">
-                                        @if ($item->serviceaction != null)
-                                            <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
-                                        @else
-                                            <option selected value=""></option>
-                                        @endif
-                                        @foreach ($service_actions as $action)
-                                            <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
-                                        @endforeach
-                                    </select>
+                                    @if ($item->service_actions_id != null)
+                                        <select id="selectjs3" name="service_actions_id" class="form-select text-sm py-1 w-full">
+                                            @if ($item->serviceaction != null)
+                                                <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
+                                            @else
+                                                <option selected value=""></option>
+                                            @endif
+                                            @foreach ($service_actions as $action)
+                                                <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <input id="tindakan_servis" name="tindakan_servis" class="form-input w-full px-2 py-1" type="text" value="{{ $item->tindakan_servis }}"/>
+                                    @endif
                                 </div>
-                                 <div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="products_id">Sparepart yang digunakan  </label>
                                     <select id="selectjs4" name="products_id" class="form-select text-sm py-1 w-full">
                                         @if ($item->product != null)
