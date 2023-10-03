@@ -133,7 +133,7 @@
                                     <div x-show="showDetails" class="mt-3 space-y-3">
                                         <div>
                                             <label class="block text-sm font-medium mb-1">Tindakan Servis</label>
-                                            <select id="selectjs" name="service_actions_id" class="form-select text-sm py-1 w-full" required>
+                                            <select id="selectjs" name="service_actions_id" class="form-select text-sm py-1 w-full">
                                                 <option selected value="">Pilih Tindakan</option>
                                                 @foreach ($service_actions as $action)
                                                     <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
@@ -172,11 +172,11 @@
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>
-                                            <input class="form-input w-full px-2 py-1" type="number" name="modal_sparepart" id="modal_sparepart" required/>
+                                            <input class="form-input w-full px-2 py-1" type="number" name="modal_sparepart" id="modal_sparepart"/>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium mb-1" for="biaya">Biaya Servis <span class="text-rose-500">*</span></label>
-                                            <input class="form-input w-full px-2 py-1" type="number" name="biaya" id="biaya" required/>
+                                            <input class="form-input w-full px-2 py-1" type="number" name="biaya" id="biaya"/>
                                         </div>
                                     </div>
                                 </div>
