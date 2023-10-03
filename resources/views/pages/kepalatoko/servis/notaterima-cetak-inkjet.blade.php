@@ -35,7 +35,7 @@
 		tr,
 		table {
 			border-collapse: collapse;
-			font-size: 14px;
+			font-size: 12px;
 			line-height: 1em;
 			width: 100%;
 			padding: 4px;
@@ -76,7 +76,7 @@
 
 	<hr style="border-top: 1px dashed;">
 
-		<h4 class="text-center" style="margin-bottom: 12px; margin-top: 12px;">
+		<h4 class="text-center" style="margin-bottom: 6px; margin-top: 6px;">
 			NOTA TERIMA SERVIS
 		</h4>
 
@@ -118,7 +118,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<table>
+	<table style="padding-top: 0px;">
 		<thead>
 			<tr style="border-top-style: solid; border-right-style: solid;">
 				<th id="data" colspan="2" class="text-left" style="border-left-style: solid;">Pengecekan</th>
@@ -163,7 +163,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td style="padding-bottom: 12px;"></td>
+				<td style="padding-bottom: 0;"></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -179,7 +179,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="padding-bottom: 12px;"></td>
+				<td style="padding-bottom: 4px;"></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -199,9 +199,9 @@
 				<td>
 					<hr style="border-top: 1px dashed;">
 				</td>
-				<td class="text-center" style="padding-top: 32px;"><img src="{{ asset('images/pola.png') }}" alt="" style="height: 50"></td>
-				<td class="text-center capital" style="padding-top: 52px;">{{ $items->customer->nama }}</td>
-				<td class="text-center capital" style="padding-top: 52px;">{{ $items->penerima }}</td>
+				<td class="text-center"><img src="{{ asset('images/pola.png') }}" alt="" style="height: 40"></td>
+				<td class="text-center capital" style="padding-top: 36px;">{{ $items->customer->nama }}</td>
+				<td class="text-center capital" style="padding-top: 36px;">{{ $items->penerima }}</td>
 				<td></td>
 			</tr>
 		</tfoot>
