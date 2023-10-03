@@ -54,6 +54,7 @@ class UbahBisaDiambilController extends Controller
         $bagihasil = ($request->biaya - $request->modal_sparepart) / 100;
         // Transaction create
         $item->update([
+            'users_id' => Auth::user()->id,
             'status_servis' => $request->status_servis,
             'tgl_selesai' => $request->tgl_selesai,
             'kondisi_servis' => $request->kondisi_servis,
