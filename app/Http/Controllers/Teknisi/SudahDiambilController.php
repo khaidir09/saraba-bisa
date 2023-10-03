@@ -16,7 +16,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use League\CommonMark\Node\Query\AndExpr;
 
 class SudahDiambilController extends Controller
 {
@@ -143,27 +142,7 @@ class SudahDiambilController extends Controller
      */
     public function edit($id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $model_series = ModelSerie::all();
-        $service_actions = ServiceAction::all();
-        $capacities = Capacity::all();
-        $products = Product::whereHas('subCategory', function ($query) {
-            $query->where('category_name', 'Sparepart');
-        })->where('stok', '>=', '1')->get();
-
-        return view('pages.teknisi.sudah-diambil-edit', [
-            'item' => $item,
-            'types' => $types,
-            'customers' => $customers,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'service_actions' => $service_actions,
-            'capacities' => $capacities,
-            'products' => $products
-        ]);
+        //
     }
 
     /**
@@ -175,53 +154,7 @@ class SudahDiambilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-        $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
-        $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
-        $nama_pelanggan = Customer::find($request->customers_id);
-
-        if ($item->kondisi_servis === "Sudah jadi") {
-            $persen_teknisi = Auth::user()->persen;
-        } else {
-            $persen_teknisi = null;
-        }
-
-        if ($request->service_actions_id != null) {
-            $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
-        } else {
-            $tindakan_servis = null;
-        }
-
-        // Transaction create
-        $item->update([
-            'created_at' => $request->created_at,
-            'users_id' => $request->users_id,
-            'customers_id' => $request->customers_id,
-            'nama_pelanggan' => $nama_pelanggan->nama,
-            'types_id' => $request->types_id,
-            'brands_id' => $request->brands_id,
-            'model_series_id' => $request->model_series_id,
-            'kerusakan' => $request->kerusakan,
-            'qc_masuk' => $request->qc_masuk,
-            'qc_keluar' => $request->qc_keluar,
-            'kondisi_servis' => $request->kondisi_servis,
-            'service_actions_id' => $request->service_actions_id,
-            'tindakan_servis' => $tindakan_servis,
-            'modal_sparepart' => $request->modal_sparepart,
-            'biaya' => $request->biaya,
-            'uang_muka' => $request->uang_muka,
-            'diskon' => $request->diskon,
-            'cara_pembayaran' => $request->cara_pembayaran,
-            'exp_garansi' => $request->exp_garansi,
-            'tgl_ambil' => $request->tgl_ambil,
-            'pengambil' => $request->pengambil,
-            'persen_teknisi' => $persen_teknisi,
-            'omzet' => $request->biaya - $request->diskon,
-            'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi)
-        ]);
-
-        return redirect()->route('teknisi-servis-sudah-diambil.index');
+        //
     }
 
     /**
@@ -232,10 +165,6 @@ class SudahDiambilController extends Controller
      */
     public function destroy($id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-
-        $item->delete();
-
-        return redirect()->route('teknisi-servis-sudah-diambil.index');
+        //
     }
 }

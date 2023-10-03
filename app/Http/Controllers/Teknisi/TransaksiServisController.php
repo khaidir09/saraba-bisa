@@ -15,7 +15,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use League\CommonMark\Node\Query\AndExpr;
 
 class TransaksiServisController extends Controller
 {
@@ -145,23 +144,7 @@ class TransaksiServisController extends Controller
      */
     public function edit($id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $model_series = ModelSerie::all();
-        $service_actions = ServiceAction::all();
-        $capacities = Capacity::all();
-
-        return view('pages.teknisi.transaksi-servis-edit', [
-            'item' => $item,
-            'types' => $types,
-            'customers' => $customers,
-            'brands' => $brands,
-            'model_series' => $model_series,
-            'service_actions' => $service_actions,
-            'capacities' => $capacities
-        ]);
+        //
     }
 
     /**
@@ -173,29 +156,7 @@ class TransaksiServisController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-        $nama_pelanggan = Customer::find($request->customers_id);
-
-        // Transaction update
-        $item->update([
-            'created_at' => $request->created_at,
-            'customers_id' => $request->customers_id,
-            'nama_pelanggan' => $nama_pelanggan->nama,
-            'types_id' => $request->types_id,
-            'brands_id' => $request->brands_id,
-            'model_series_id' => $request->model_series_id,
-            'imei' => $request->imei,
-            'warna' => $request->warna,
-            'capacities_id' => $request->capacities_id,
-            'kelengkapan' => $request->kelengkapan,
-            'kerusakan' => $request->kerusakan,
-            'qc_masuk' => $request->qc_masuk,
-            'estimasi_pengerjaan' => $request->estimasi_pengerjaan,
-            'estimasi_biaya' => $request->estimasi_biaya,
-            'uang_muka' => $request->uang_muka
-        ]);
-
-        return redirect()->route('teknisi-transaksi-servis.index');
+        //
     }
 
     /**
@@ -206,10 +167,6 @@ class TransaksiServisController extends Controller
      */
     public function destroy($id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-
-        $item->delete();
-
-        return redirect()->route('teknisi-transaksi-servis.index');
+        //
     }
 }
