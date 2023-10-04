@@ -78,7 +78,7 @@
                                 <div class="font-medium">{{ $item->product_name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->category->category_name }}</div>
+                                <div class="font-medium">{{ $item->category_name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">
