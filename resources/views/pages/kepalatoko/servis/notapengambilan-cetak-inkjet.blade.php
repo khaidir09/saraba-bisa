@@ -12,7 +12,7 @@
 		}
 
 		.pt-5 {
-			padding-top: 60px;
+			padding-top: 40px;
 		}
 
 		.text-center {
@@ -49,7 +49,7 @@
 		tr,
 		table {
 			border-collapse: collapse;
-			font-size: 14px;
+			font-size: 12px;
 			line-height: 1em;
 			padding: 4px;
 			color: #000000;
@@ -89,7 +89,7 @@
 
 	<hr style="border-top: 1px dashed;">
 
-	<h4 class="text-center" style="margin-bottom: 12px; margin-top: 12px;">NOTA PENGAMBILAN SERVIS</h4>
+	<h4 class="text-center" style="margin-bottom: 6px; margin-top: 6px;">NOTA PENGAMBILAN SERVIS</h4>
 
 	<table class="w-100">
 		<thead>
@@ -129,7 +129,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<table class="w-100">
+	<table class="w-100" style="padding-top: 0px;">
 		<thead>
 			<tr style="border-top-style: solid; border-right-style: solid;">
 				<th id="data" colspan="2" class="text-left" style="border-left-style: solid;">Tindakan</th>
@@ -251,8 +251,8 @@
 				<th colspan="6" class="text-left">Syarat & Ketentuan</th>
 			</tr>
 			<tr>
-				<td colspan="6" class="text-justify" style="font-style: italic; padding-bottom: 30px;">
-					{!! $terms->description !!} <br> <br>
+				<td colspan="6" class="text-justify" style="font-style: italic; padding-bottom: 4px;">
+					{!! $terms->description !!} <br>
 					<span style="font-weight: bold;">Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</span>
 				</td>
 			</tr>
