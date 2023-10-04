@@ -116,6 +116,9 @@ class DashboardController extends Controller
 
         $bulantotalprofitkotor = ($bulanprofitkotorservis + $bulanprofitkotorpenjualan);
 
+        $haripengeluaran = Expense::where('is_approve', 'Setuju')
+            ->whereDate('tgl_disetujui', today())
+            ->sum('price');
         $hariomzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', today())
             ->get()
@@ -146,6 +149,7 @@ class DashboardController extends Controller
             'approvekasbon',
             'approvepengeluaran',
             'totalbudgets',
+            'haripengeluaran',
             'haritotalomzet',
             'haritotalprofitkotor',
             'bulantotalprofitbersih',
