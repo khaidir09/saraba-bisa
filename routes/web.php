@@ -75,7 +75,6 @@ use App\Http\Controllers\Teknisi\TindakanServisController as TeknisiTindakanServ
 use App\Http\Controllers\Teknisi\TransaksiServisController as TeknisiTransaksiServisController;
 use App\Http\Controllers\Teknisi\UbahBisaDiambilController as TeknisiUbahBisaDiambilController;
 use App\Http\Controllers\AdminToko\TindakanServisController as AdminTokoTindakanServisController;
-use App\Http\Controllers\Teknisi\UbahSudahDiambilController as TeknisiUbahSudahDiambilController;
 use App\Http\Controllers\AdminToko\MasterKapasitasController as AdminTokoMasterKapasitasController;
 use App\Http\Controllers\AdminToko\MasterModelSeriController as AdminTokoMasterModelSeriController;
 use App\Http\Controllers\AdminToko\TransaksiServisController as AdminTokoTransaksiServisController;
@@ -95,8 +94,6 @@ use App\Http\Controllers\AdminToko\TransaksiProdukPaidController as AdminTokoTra
 use App\Http\Controllers\AdminToko\TransaksiProdukDueController as AdminTokoTransaksiProdukDueController;
 // Teknisi
 use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
-use App\Http\Controllers\Teknisi\SudahDiambilController as TeknisiSudahDiambilController;
-use App\Http\Controllers\Teknisi\BisaDiambilController as TeknisiBisaDiambilController;
 use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganController;
 use App\Http\Controllers\Teknisi\ExpenseController as TeknisiExpenseController;
 use App\Http\Controllers\Teknisi\MasterModelSeriController as TeknisiMasterModelSeriController;
@@ -318,8 +315,6 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::resource('teknisi-pelanggan', TeknisiPelangganController::class);
     Route::resource('teknisi-tindakan-servis', TeknisiTindakanServisController::class);
     Route::resource('teknisi-transaksi-servis', TeknisiTransaksiServisController::class);
-    Route::resource('teknisi-servis-bisa-diambil', TeknisiBisaDiambilController::class);
-    Route::resource('teknisi-servis-sudah-diambil', TeknisiSudahDiambilController::class);
     Route::resource('master/teknisi-master-model-seri', TeknisiMasterModelSeriController::class);
     Route::get('teknisi/tandaterima-inkjet/{id}', [TeknisiTransaksiServisController::class, 'cetakinkjet'])->name('teknisi-cetak-tanda-terima');
     Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');
@@ -329,11 +324,6 @@ Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
     Route::post('teknisi/ubah-status-proses{id}', [TeknisiUbahStatusProsesServisController::class, 'update'])->name('teknisi-ubah-status-proses-update');
     Route::get('teknisi/servis-ubah-bisa-diambil/{id}', [TeknisiUbahBisaDiambilController::class, 'edit'])->name('teknisi-ubah-bisa-diambil-edit');
     Route::post('teknisi/servis-ubah-bisa-diambil{id}', [TeknisiUbahBisaDiambilController::class, 'update'])->name('teknisi-ubah-bisa-diambil-update');
-    Route::get('teknisi/servis-ubah-sudah-diambil/{id}', [TeknisiUbahSudahDiambilController::class, 'edit'])->name('teknisi-ubah-sudah-diambil-edit');
-    Route::post('teknisi/servis-ubah-sudah-diambil{id}', [TeknisiUbahSudahDiambilController::class, 'update'])->name('teknisi-ubah-sudah-diambil-update');
-
-    Route::get('teknisi-nota-pengambilan-termal/{id}', [TeknisiSudahDiambilController::class, 'cetaktermal'])->name('teknisi-termal-pengambilan');
-    Route::get('teknisi-nota-pengambilan-inkjet/{id}', [TeknisiSudahDiambilController::class, 'cetakinkjet'])->name('teknisi-inkjet-pengambilan');
 
     Route::resource('produk/teknisi-item', TeknisiProdukController::class);
     Route::resource('teknisi-kasbon', TeknisiKasbonController::class);

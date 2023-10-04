@@ -3,14 +3,9 @@
 namespace App\Http\Controllers\Teknisi;
 
 use App\Models\Term;
-use App\Models\Type;
 use App\Models\User;
-use App\Models\Brand;
-use App\Models\Capacity;
 use App\Models\Customer;
-use App\Models\ModelSerie;
 use Illuminate\Http\Request;
-use App\Models\ServiceAction;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;

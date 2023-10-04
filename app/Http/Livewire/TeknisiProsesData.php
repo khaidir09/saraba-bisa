@@ -8,7 +8,6 @@ use App\Models\Brand;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
-use Barryvdh\DomPDF\PDF;
 use App\Models\ModelSerie;
 use Livewire\WithPagination;
 use App\Models\ServiceAction;
@@ -38,9 +37,6 @@ class TeknisiProsesData extends Component
     {
         $toko = User::find(1);
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->where('users_id', Auth::user()->id)->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', Auth::user()->id)->count();
-        $users = User::whereIn('role', ['Kepala Toko', 'Teknisi'])->get();
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
@@ -50,9 +46,6 @@ class TeknisiProsesData extends Component
         return view('livewire.teknisi-proses-data', [
             'toko' => $toko,
             'processes_count' => $processes_count,
-            'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
-            'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
-            'users' => $users,
             'customers' => $customers,
             'types' => $types,
             'brands' => $brands,
