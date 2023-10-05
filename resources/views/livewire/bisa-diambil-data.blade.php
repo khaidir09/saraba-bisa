@@ -342,7 +342,22 @@
                     @php
                         $i = 1
                     @endphp
-                    @foreach($bisadiambil as $transaction)                 
+                    @foreach($bisadiambil as $transaction)
+                        @php
+                            if ($transaction->kondisi_servis === 'Sudah jadi') :
+                                $status_color = 'bg-emerald-100 text-emerald-600';
+                                $total_color = 'text-emerald-500';
+                            elseif ($transaction->kondisi_servis === 'Menunggu konfirmasi') :
+                                $status_color = 'bg-amber-100 text-amber-600';
+                                $total_color = 'text-amber-500';
+                            elseif ($transaction->kondisi_servis === 'Tidak bisa') :
+                                $status_color = 'bg-rose-100 text-rose-500';
+                                $total_color = 'text-rose-500';
+                            else :
+                                $status_color = 'bg-slate-100 text-slate-500';
+                                $total_color = 'text-slate-500';
+                            endif;
+                        @endphp
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $i++ }}</div>
@@ -458,7 +473,7 @@
                                 <div class="font-medium capitalize">{{ $transaction->qc_masuk }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $transaction->kondisi_servis }}</div>
+                                <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 {{$status_color}}">{{ $transaction->kondisi_servis }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $transaction->tindakan_servis }}</div>

@@ -116,6 +116,14 @@
                                         <div class="m-3">
                                             <!-- Start -->
                                             <label class="flex items-center">
+                                                <input type="radio" name="kondisi_servis" value="Menunggu konfirmasi" class="form-radio" x-on:click="showDetails = true"/>
+                                                <span class="text-sm ml-2">Menunggu konfirmasi</span>
+                                            </label>
+                                            <!-- End -->
+                                        </div>
+                                        <div class="m-3">
+                                            <!-- Start -->
+                                            <label class="flex items-center">
                                                 <input type="radio" name="kondisi_servis" value="Tidak bisa" class="form-radio" x-on:click="showDetails = false"/>
                                                 <span class="text-sm ml-2">Tidak bisa</span>
                                             </label>

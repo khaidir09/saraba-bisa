@@ -154,8 +154,9 @@
                                     <label class="block text-sm font-medium mb-1" for="kondisi_servis">Kondisi Servis  </label>
                                     <select id="kondisi_servis" name="kondisi_servis" class="form-select text-sm py-1 w-full" >
                                             <option selected value="{{ $item->kondisi_servis }}">{{ $item->kondisi_servis }}</option>
-                                            <option value="Sudah Jadi">Sudah Jadi</option>
-                                            <option value="Tidak Bisa">Tidak Bisa</option>
+                                            <option value="Sudah jadi">Sudah Jadi</option>
+                                            <option value="Menunggu konfirmasi">Menunggu Konfirmasi</option>
+                                            <option value="Tidak bisa">Tidak Bisa</option>
                                             <option value="Dibatalkan">Dibatalkan</option>
                                     </select>
                                 </div>
