@@ -30,6 +30,7 @@
 
                 <!-- Info button -->
                 {{-- <x-dropdown-help align="right" /> --}}
+                <x-exp-date align="right" />
 
                 <!-- Divider -->
                 <hr class="w-px h-6 bg-slate-200" />
