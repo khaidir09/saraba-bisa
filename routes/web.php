@@ -12,6 +12,7 @@ use App\Http\Controllers\AutoBiayaServisController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KepalaToko\DataServisController;
 use App\Http\Controllers\KepalaToko\DataPenjualanController;
+use App\Http\Controllers\KepalaToko\DataPengeluaranController;
 use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\UbahStatusProsesServisController as KepalaTokoUbahStatusProsesServisController;
@@ -143,6 +144,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
     Route::get('/json-data-servis', [DataServisController::class, 'getDataServis'])->name('json_data_servis');
     Route::get('/json-data-penjualan', [DataPenjualanController::class, 'getDataPenjualan'])->name('json_data_penjualan');
+    Route::get('/json-data-pengeluaran', [DataPengeluaranController::class, 'getDataPengeluaran'])->name('pengeluaran');
     Route::get('/akun', [KepalaTokoAkunController::class, 'index'])->name('akun');
     Route::post('/akun', [KepalaTokoAkunController::class, 'store'])->name('akun-store');
     Route::get('/akun/{id}', [KepalaTokoAkunController::class, 'edit'])->name('akun-edit');
