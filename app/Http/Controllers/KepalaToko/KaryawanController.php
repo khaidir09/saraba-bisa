@@ -64,34 +64,44 @@ class KaryawanController extends Controller
         //
     }
 
-    public function cetak($id)
+    public function cetak(Request $request, $id)
     {
-        $currentMonth = now()->month;
+        $tanggal = $request->penanggalan;
+        $periode = $request->input('periode');
+        $date = Carbon::createFromFormat('Y-m', $periode);
+
         $namaBulanFile = Carbon::now()->translatedFormat('F Y');
 
         $items = Worker::findOrFail($id);
         $salaries = Salary::where('workers_id', $id)
-            ->whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $date->year)
+            ->whereMonth('created_at', $date->month)
             ->get();
-        $bonus = Salary::where('workers_id', $id)->whereMonth('created_at', $currentMonth)
+        $bonus = Salary::where('workers_id', $id)->whereMonth('created_at', $date->month)
             ->sum('bonus');
         $users = User::find(1);
         $debts = Debt::where('workers_id', $id)
-            ->whereMonth('tgl_disetujui', $currentMonth)
+            ->whereYear('tgl_disetujui', $date->year)
+            ->whereMonth('tgl_disetujui', $date->month)
             ->get();
         $incidents = Incident::where('workers_id', $id)
-            ->whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $date->year)
+            ->whereMonth('created_at', $date->month)
             ->get();
         $totalkasbon = Debt::where('workers_id', $id)
-            ->whereMonth('tgl_disetujui', $currentMonth)
+            ->whereYear('tgl_disetujui', $date->year)
+            ->whereMonth('tgl_disetujui', $date->month)
             ->sum('total');
         $totalinsiden = Incident::where('workers_id', $id)
-            ->whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $date->year)
+            ->whereMonth('created_at', $date->month)
             ->sum('biaya_teknisi');
 
         $namaKaryawan = $items->name;
 
         $pdf = PDF::loadView('pages.kepalatoko.karyawan.cetak', [
+            'tanggal' => $tanggal,
+            'periode' => $periode,
             'users' => $users,
             'items' => $items,
             'salaries' => $salaries,

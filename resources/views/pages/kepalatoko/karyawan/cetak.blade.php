@@ -69,7 +69,7 @@
 		<tbody>
 			<tr>
 			<th class="w-50">{{ $users->nama_toko }}</th>
-			<td class="w-50 text-right">Periode : {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('F Y') }}</td>
+			<td class="w-50 text-right">Periode : {{ \Carbon\Carbon::parse($periode)->locale('id')->translatedFormat('F Y') }}</td>
 			</tr>
 			<tr>
 			<th>{{ $users->deskripsi_toko }}</th>
@@ -90,7 +90,7 @@
 			<tr>
 			<td></td>
 			@php
-				$dt     = \Carbon\Carbon::today()->locale('id');
+				$dt     = \Carbon\Carbon::parse($tanggal)->locale('id');
 			@endphp
 			<td class="text-right">Masa Kerja :
 				{{ \Carbon\Carbon::parse($items->bulankerja)->diffForHumans
@@ -195,7 +195,7 @@
 	<hr>
 
 	<div class="text-center">
-		{{ $users->kota }}, {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d F Y') }}
+		{{ $users->kota }}, {{ \Carbon\Carbon::parse($tanggal)->locale('id')->translatedFormat('d F Y') }}
 	</div>
 
 	<table class="table table-sm table-borderless text-center mt-2">

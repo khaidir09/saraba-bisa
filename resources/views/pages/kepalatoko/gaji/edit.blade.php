@@ -108,6 +108,10 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="created_at">Tgl. Input Bonus </label>
+                                    <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
+                                </div>
                             </div>
                         </div>
                         <!-- Modal footer -->

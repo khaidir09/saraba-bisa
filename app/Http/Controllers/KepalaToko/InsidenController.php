@@ -129,7 +129,8 @@ class InsidenController extends Controller
             'workers_id' => $request->workers_id,
             'persen_teknisi' => $request->persen_teknisi,
             'biaya_teknisi' => $request->price * $request->persen_teknisi / 100,
-            'biaya_toko' => $request->price - ($request->price * $request->persen_teknisi / 100)
+            'biaya_toko' => $request->price - ($request->price * $request->persen_teknisi / 100),
+            'created_at' => $request->created_at,
         ]);
 
         return redirect()->route('insiden.index');

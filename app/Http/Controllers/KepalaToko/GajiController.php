@@ -5,9 +5,7 @@ namespace App\Http\Controllers\KepalaToko;
 use App\Models\User;
 use App\Models\Salary;
 use App\Models\Worker;
-use App\Models\OrderDetail;
 use Illuminate\Http\Request;
-use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 
 class GajiController extends Controller

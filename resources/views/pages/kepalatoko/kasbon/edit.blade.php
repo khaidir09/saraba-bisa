@@ -82,6 +82,12 @@
                                     <label class="block text-sm font-medium mb-1" for="created_at">Tanggal Kasbon</label>
                                     <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
                                 </div>
+                                @if ($item->is_approve != null)
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="tgl_disetujui">Tanggal Disetujui</label>
+                                        <input id="tgl_disetujui" name="tgl_disetujui" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->tgl_disetujui)->format('Y-m-d') }}"/>
+                                    </div>
+                                @endif
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="workers_id">Nama Karyawan</label>
                                     <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full">

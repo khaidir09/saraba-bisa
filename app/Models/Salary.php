@@ -14,7 +14,8 @@ class Salary extends Model
         'name',
         'users_id',
         'workers_id',
-        'bonus'
+        'bonus',
+        'created_at'
     ];
 
     public function user()
