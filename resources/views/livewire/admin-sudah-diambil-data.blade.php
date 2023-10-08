@@ -739,8 +739,8 @@
                                     </div>
                                     <!-- End Printer-->
                                     <!-- Start -->
-                                    <div x-data="{ modalOpen: false }">
-                                        <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="modalOpen = true" aria-controls="danger-modal">
+                                    <div x-data="{ deleteOpen: false }">
+                                        <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="deleteOpen = true" aria-controls="danger-modal">
                                             <span class="sr-only">Delete</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -754,7 +754,7 @@
                                         <!-- Modal backdrop -->
                                         <div
                                             class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                            x-show="modalOpen"
+                                            x-show="deleteOpen"
                                             x-transition:enter="transition ease-out duration-200"
                                             x-transition:enter-start="opacity-0"
                                             x-transition:enter-end="opacity-100"
@@ -770,7 +770,7 @@
                                             class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                                             role="dialog"
                                             aria-modal="true"
-                                            x-show="modalOpen"
+                                            x-show="deleteOpen"
                                             x-transition:enter="transition ease-in-out duration-200"
                                             x-transition:enter-start="opacity-0 translate-y-4"
                                             x-transition:enter-end="opacity-100 translate-y-0"
@@ -779,7 +779,7 @@
                                             x-transition:leave-end="opacity-0 translate-y-4"
                                             x-cloak
                                         >
-                                            <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                                            <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="deleteOpen = false" @keydown.escape.window="deleteOpen = false">
                                                 <div class="p-5 flex space-x-4">
                                                     <!-- Icon -->
                                                     <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-rose-100">
@@ -801,7 +801,6 @@
                                                         </div>
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
-                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
                                                             <form action="{{ route('admin-servis-sudah-diambil.destroy', $transaction->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
@@ -811,7 +810,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>                                            
+                                        </div>
                                     </div>
                                     <!-- End -->
                                 </div>
