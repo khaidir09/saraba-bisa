@@ -100,6 +100,8 @@ class ExpenseController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'users_id' => $request->users_id,
+            'created_at' => $request->created_at,
+            'tgl_disetujui' => $request->tgl_disetujui,
         ]);
 
         return redirect()->route('pengeluaran.index');

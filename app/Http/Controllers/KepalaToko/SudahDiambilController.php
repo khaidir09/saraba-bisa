@@ -175,6 +175,7 @@ class SudahDiambilController extends Controller
         // Transaction create
         $item->update([
             'created_at' => $request->created_at,
+            'tgl_disetujui' => $request->tgl_disetujui,
             'users_id' => $request->users_id,
             'penerima' => $request->penerima,
             'customers_id' => $request->customers_id,

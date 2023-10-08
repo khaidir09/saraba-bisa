@@ -63,7 +63,7 @@
                     <!-- Modal header -->
                     <div class="px-5 py-3 border-b border-slate-200">
                         <div class="flex justify-between items-center">
-                            <div class="font-semibold text-slate-800">Edit Kasbon</div>
+                            <div class="font-semibold text-slate-800">Edit Pengeluaran</div>
                             <a href="{{ route('pengeluaran.index') }}" class="text-slate-400 hover:text-slate-500">
                                 <div class="sr-only">Close</div>
                                 <svg class="w-4 h-4 fill-current">
@@ -82,6 +82,12 @@
                                     <label class="block text-sm font-medium mb-1" for="created_at">Tanggal Pengeluaran</label>
                                     <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
                                 </div>
+                                @if ($item->is_approve != null)
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="tgl_disetujui">Tgl. Disetujui </label>
+                                    <input id="tgl_disetujui" name="tgl_disetujui" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->tgl_disetujui)->format('Y-m-d') }}"/>
+                                </div>
+                                @endif
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="name">Nama Pengeluaran</label>
                                     <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" value="{{ $item->name }}"/>

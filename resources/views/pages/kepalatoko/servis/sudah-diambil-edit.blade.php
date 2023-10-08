@@ -83,6 +83,16 @@
                                     <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="tgl_ambil">Tgl. Ambil </label>
+                                    <input id="tgl_ambil" name="tgl_ambil" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('Y-m-d') }}"/>
+                                </div>
+                                @if ($item->is_approve != null)
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="tgl_disetujui">Tgl. Disetujui </label>
+                                    <input id="tgl_disetujui" name="tgl_disetujui" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->tgl_disetujui)->format('Y-m-d') }}"/>
+                                </div>
+                                @endif
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="penerima">Penerima </label>
                                     <select id="penerima" name="penerima" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->penerima }}">{{ $item->penerima }}</option>
@@ -251,10 +261,6 @@
                                     @else
                                         <input id="exp_garansi" name="exp_garansi" class="form-input w-full px-2 py-1" type="date" value=""/>
                                     @endif
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="tgl_ambil">Tgl. Ambil </label>
-                                    <input id="tgl_ambil" name="tgl_ambil" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('Y-m-d') }}"/>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="pengambil">Pengambil</label>
