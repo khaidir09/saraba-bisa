@@ -3,13 +3,8 @@
 namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\Product;
-use App\Models\SubCategory;
-use App\Models\StoreSetting;
 use Illuminate\Http\Request;
-use App\Exports\ProdukExport;
-use App\Imports\ProdukImport;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukHabisController extends Controller
 {
