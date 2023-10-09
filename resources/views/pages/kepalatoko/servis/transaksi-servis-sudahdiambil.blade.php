@@ -121,7 +121,9 @@
                                     <label class="block text-sm font-medium mb-1" for="qc_keluar">Pengecekan Fungsi Keluar <span class="text-rose-500">*</span></label>
                                     <input id="qc_keluar" name="qc_keluar" class="form-input w-full px-2 py-1" type="text" placeholder="Contoh: Tombol, Kamera, Speaker, dll" required/>
                                 </div>
-                                @if ($item->tindakan_servis != null)
+                                @if ($item->kondisi_servis != "Sudah jadi")
+
+                                @else
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
@@ -142,13 +144,17 @@
                                     </select>
                                 </div>
                                 @endif
-                                @if ($item->tindakan_servis != null)
+                                @if ($item->kondisi_servis != "Sudah jadi")
+
+                                @else
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="diskon">Diskon</label>
                                     <input id="diskon" name="diskon" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika tidak ada diskon"/>
                                 </div>
                                 @endif
-                                @if ($item->tindakan_servis != null)
+                                @if ($item->kondisi_servis != "Sudah jadi")
+
+                                @else
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="garansi">Garansi</label>
                                     <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
