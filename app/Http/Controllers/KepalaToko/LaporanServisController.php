@@ -54,6 +54,9 @@ class LaporanServisController extends Controller
         // Mengambil logo dan nama toko
         $users = User::find(1);
 
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
         // Filter tanggal
         $start_date = $request->start_date;
         $end_date = $request->end_date;
@@ -134,6 +137,7 @@ class LaporanServisController extends Controller
 
         $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-servis', [
             'users' => $users,
+            'imagePath' => $imagePath,
             'services' => $services,
             'start_date' => $start_date,
             'end_date' => $end_date,
