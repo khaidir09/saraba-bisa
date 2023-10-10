@@ -128,11 +128,11 @@
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
 					<td style="width: 60px;">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
-					<td class="capital">{{ $item->tindakan_servis }}</td>
-					<td style="width: 80px;">Rp. {{ number_format($item->modal_sparepart) }}</td>
-					<td style="width: 80px;">Rp. {{ number_format($item->biaya) }}</td>
-					<td style="width: 80px;">Rp. {{ number_format($item->diskon) }}</td>
-					<td style="width: 80px;">Rp. {{ number_format($item->profittoko) }}</td>
+					<td class="capital" style="text-align: left;">{{ $item->tindakan_servis }}</td>
+					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
+					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
+					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
+					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->profittoko) }}</td>
 				</tr>
 			@endforeach
 		</tbody>
