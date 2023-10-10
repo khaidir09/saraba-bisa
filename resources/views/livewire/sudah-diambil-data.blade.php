@@ -639,6 +639,83 @@
                                     @endif
                                 </a>
                             </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                                <div class="space-x-1 flex">
+                                    <!-- Start Printer -->
+                                    <div x-data="{ showPrint : false }" x-show = "showPrint" x-on:open-print.window="showPrint = true" x-on:close-print.window = "showPrint = false" x-on:keydown.escape.window = "showPrint = false" class="fixed z-50 inset-0">
+                                            <!-- Modal backdrop -->
+                                            <div x-on:click="showPrint = false" class="fixed inset-0 bg-slate-900 bg-opacity-40"></div>
+                                            <!-- Modal dialog -->
+                                            <div
+                                                class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                                                x-show="showPrint"
+                                            >
+                                                <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" x-on:keydown.escape.window="showPrint = false">
+                                                    <!-- Modal header -->
+                                                    <div class="px-5 py-3 border-b border-slate-200">
+                                                        <div class="flex justify-between items-center">
+                                                            <div class="font-semibold text-slate-800">Pilih Jenis Printer</div>
+                                                            <button class="text-slate-400 hover:text-slate-500" x-on:click="$dispatch('close-print')">
+                                                                <div class="sr-only">Close</div>
+                                                                <svg class="w-4 h-4 fill-current">
+                                                                    <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Modal content -->
+                                                    <div class="px-5 pt-4 pb-1">
+                                                        <div class="text-sm">
+                                                            <div class="space-y-2">
+                                                                <p>Silahkan pilih printer untuk cetak Nota Pengambilan Servis Selesai.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Modal footer -->
+                                                    <div class="px-5 py-4">
+                                                        <div class="flex flex-wrap justify-end space-x-2">
+                                                            <a href="{{ route('kepalatoko-nota-pengambilan-termal', $transaction->id) }}" target="__blank">
+                                                                <button class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
+                                                                    <span class="mr-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                        <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                                                                        <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                                                                        <rect x="7" y="13" width="10" height="8" rx="2" />
+                                                                        </svg>
+                                                                    </span>
+                                                                    Printer Termal
+                                                                </button>
+                                                            </a>
+                                                            <a href="{{ route('kepalatoko-pengambilan-cetak-inkjet', $transaction->id) }}" target="__blank">
+                                                                <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
+                                                                    <span class="mr-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                        <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                                                                        <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                                                                        <rect x="7" y="13" width="10" height="8" rx="2" />
+                                                                        </svg>
+                                                                    </span>
+                                                                    Printer Inkjet
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                    </div>
+                                    <!-- End Printer-->
+                                    <button x-data x-on:click="$dispatch('open-print')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                                        <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                                        <rect x="7" y="13" width="10" height="8" rx="2" />
+                                    </svg>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
