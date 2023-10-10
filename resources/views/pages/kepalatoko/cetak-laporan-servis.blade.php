@@ -91,15 +91,15 @@
 		<tbody>
 			<tr>
 				<th>Total Modal Sparepart</th>
-				<td>: Rp. {{ number_format($total_modal) }}</td>
+				<th style="color: brown">: Rp. {{ number_format($total_modal) }}</th>
 				<th>Total Biaya Servis</th>
-				<td style="color: #0505bb;">: Rp. {{ number_format($total_biaya) }}</td>
+				<th style="color: blue;">: Rp. {{ number_format($total_biaya) }}</th>
 			</tr>
 			<tr>
 				<th>Total Diskon</th>
-				<td>: Rp. {{ number_format($total_diskon) }}</td>
+				<th style="color: red">: Rp. {{ number_format($total_diskon) }}</th>
 				<th>Total Profit</th>
-				<td style="color: #00900c">: Rp. {{ number_format($total_profit) }}</td>
+				<th style="color: green">: Rp. {{ number_format($total_profit) }}</th>
 			</tr>
 		</tbody>
 	</table>
@@ -127,12 +127,12 @@
 			@foreach ($services as $item)
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
-					<td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+					<td style="width: 60px;">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
 					<td class="capital">{{ $item->tindakan_servis }}</td>
-					<td>Rp. {{ number_format($item->modal_sparepart) }}</td>
-					<td>Rp. {{ number_format($item->biaya) }}</td>
-					<td>Rp. {{ number_format($item->diskon) }}</td>
-					<td>Rp. {{ number_format($item->profittoko) }}</td>
+					<td style="width: 80px;">Rp. {{ number_format($item->modal_sparepart) }}</td>
+					<td style="width: 80px;">Rp. {{ number_format($item->biaya) }}</td>
+					<td style="width: 80px;">Rp. {{ number_format($item->diskon) }}</td>
+					<td style="width: 80px;">Rp. {{ number_format($item->profittoko) }}</td>
 				</tr>
 			@endforeach
 		</tbody>
@@ -141,6 +141,30 @@
 	<h4 style="margin-bottom: 6px;">
 		<span style="background:color: blue; padding: 6px 12px; border-radius: 50%; color: #fff;">Analisis</span>
 	</h4>
+
+	{{-- <table id="analisis">
+		<tr>
+			<th>No.</th>
+			<th>Merek</th>
+			<th>Model Seri</th>
+			<th>Tindakan</th>
+		</tr>
+		@php
+			$i = 1
+		@endphp
+		@foreach($topbrands as $brand)
+			@foreach($topmodelseries as $model)
+				@foreach($topactions as $action)
+					<tr>
+						<td>{{ $i++ }}</td>
+						<td>{{ $brand->brand_name }}</td>
+						<td>{{ $model->model_name }}</td>
+						<td>{{ $action->action_name }}</td>
+					</tr>
+				@endforeach
+			@endforeach
+		@endforeach
+	</table> --}}
 
 	<table id="analisis">
 		<thead>

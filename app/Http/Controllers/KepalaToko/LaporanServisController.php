@@ -150,7 +150,7 @@ class LaporanServisController extends Controller
             'topactions' => $topactions,
         ]);
 
-        $filename = 'Laporan Transaksi Servis' . '.pdf';
+        $filename = 'Laporan Transaksi Servis' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
 
         return $pdf->setPaper('a4')->setOption(['defaultFont' => 'sans-serif', 'isRemoteEnabled', true])->stream($filename);
     }
