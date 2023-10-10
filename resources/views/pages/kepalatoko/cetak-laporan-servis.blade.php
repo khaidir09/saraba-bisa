@@ -113,8 +113,6 @@
 			<tr>
 				<th>No.</th>
 				<th>Tgl. Transaksi</th>
-				<th>Teknisi</th>
-				<th>Merek & Model</th>
 				<th>Tindakan</th>
 				<th>Modal Sparepart</th>
 				<th>Biaya Servis</th>
@@ -130,8 +128,6 @@
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
 					<td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
-					<td class="capital">{{ $item->user->name }}</td>
-					<td>{{ $item->brand->name }} {{ $item->modelserie->name }}</td>
 					<td class="capital">{{ $item->tindakan_servis }}</td>
 					<td>Rp. {{ number_format($item->modal_sparepart) }}</td>
 					<td>Rp. {{ number_format($item->biaya) }}</td>

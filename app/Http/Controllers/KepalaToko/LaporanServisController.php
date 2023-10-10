@@ -62,7 +62,7 @@ class LaporanServisController extends Controller
         $end_date = $request->end_date;
 
         // Mengambil data servis
-        $services = ServiceTransaction::with('user', 'brand', 'modelserie')->where('is_approve', 'Setuju')
+        $services = ServiceTransaction::with('brand', 'modelserie')->where('is_approve', 'Setuju')
             ->where('kondisi_servis', "Sudah jadi")
             ->whereDate('tgl_disetujui', '>=', $start_date)
             ->whereDate('tgl_disetujui', '<=', $end_date)
