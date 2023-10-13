@@ -44,6 +44,7 @@ use App\Http\Controllers\KepalaToko\ApprovePenjualanController as KepalaTokoAppr
 use App\Http\Controllers\KepalaToko\MasterKapasitasController as KepalaTokoMasterKapasitasController;
 use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
 use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTransaksiServisController;
+use App\Http\Controllers\KepalaToko\TransaksiServisLangsungController as KepalaTokoTransaksiServisLangsungController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukController as KepalaTokoTransaksiProdukController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukPaidController as KepalaTokoTransaksiProdukPaidController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukDueController as KepalaTokoTransaksiProdukDueController;
@@ -148,6 +149,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/akun/{id}', [KepalaTokoAkunController::class, 'edit'])->name('akun-edit');
     Route::post('/akun{id}', [KepalaTokoAkunController::class, 'update'])->name('akun-update');
     Route::delete('/akun/{id}', [KepalaTokoAkunController::class, 'destroy'])->name('akun-destroy');
+    Route::post('/servis/transaksi-servis-langsung', [KepalaTokoTransaksiServisLangsungController::class, 'store'])->name('servis-langsung');
     Route::resource('servis/tindakan-servis', KepalaTokoTindakanServisController::class);
     Route::resource('pelanggan', KepalaTokoPelangganController::class);
     Route::resource('servis/transaksi-servis', KepalaTokoTransaksiServisController::class);

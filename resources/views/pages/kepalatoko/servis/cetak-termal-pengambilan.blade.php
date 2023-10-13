@@ -114,6 +114,16 @@
 				<td class="title">Biaya Servis</td>
 				<td class="value">: Rp. {{ number_format($items->biaya) }}</td>
 				</tr>
+				@if ($items->diskon != null)
+					<tr>
+					<td class="title">Diskon</td>
+					<td class="value">: Rp. {{ number_format($items->diskon) }}</td>
+					</tr>
+					<tr>
+					<td class="title">Dibayarkan</td>
+					<td class="value">: Rp. {{ number_format($items->biaya - $items->diskon) }}</td>
+					</tr>
+				@endif
 				<tr>
 				<td class="title">Pembayaran</td>
 				<td class="value">: {{ $items->cara_pembayaran }}</td>

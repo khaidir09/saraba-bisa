@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Product;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
@@ -43,7 +44,10 @@ class ProsesData extends Component
         $model_series = ModelSerie::all();
         $users = User::where('role', 'Teknisi')->get();
         $penerima = User::all();
-        $actions = ServiceAction::all();
+        $service_actions = ServiceAction::all();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->where('category_name', 'Sparepart');
+        })->where('stok', '>=', '1')->get();
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
@@ -57,7 +61,8 @@ class ProsesData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
-            'actions' => $actions,
+            'service_actions' => $service_actions,
+            'products' => $products,
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
