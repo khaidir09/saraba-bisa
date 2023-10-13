@@ -642,88 +642,145 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
                                     <!-- Start Printer -->
-                                    <div x-data="{ showPrint : false }" x-show = "showPrint" x-on:open-print.window="showPrint = true" x-on:close-print.window = "showPrint = false" x-on:keydown.escape.window = "showPrint = false" class="fixed z-50 inset-0">
-                                        <!-- Modal backdrop -->
-                                        <div x-on:click="showPrint = false" class="fixed inset-0 bg-slate-900 bg-opacity-40"></div>
-                                        <!-- Modal dialog -->
-                                        <div
-                                            class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                                            x-show="showPrint"
+                                    <div x-data="{ modalOpen: false }">
+                                        <button
+                                            @click.prevent="modalOpen = true"
+                                            aria-controls="basic-modal"
                                         >
-                                            <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" x-on:keydown.escape.window="showPrint = false">
-                                                <!-- Modal header -->
-                                                <div class="px-5 py-3 border-b border-slate-200">
-                                                    <div class="flex justify-between items-center">
-                                                        <div class="font-semibold text-slate-800">Pilih Jenis Printer</div>
-                                                        <button class="text-slate-400 hover:text-slate-500" x-on:click="$dispatch('close-print')">
-                                                            <div class="sr-only">Close</div>
-                                                            <svg class="w-4 h-4 fill-current">
-                                                                <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
-                                                            </svg>
-                                                        </button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                                            <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                                            <rect x="7" y="13" width="10" height="8" rx="2" />
+                                        </svg>
+                                        </button>
+                                            <!-- Modal backdrop -->
+                                            <div
+                                                class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                                x-show="modalOpen"
+                                                x-transition:enter="transition ease-out duration-200"
+                                                x-transition:enter-start="opacity-0"
+                                                x-transition:enter-end="opacity-100"
+                                                x-transition:leave="transition ease-out duration-100"
+                                                x-transition:leave-start="opacity-100"
+                                                x-transition:leave-end="opacity-0"
+                                                aria-hidden="true"
+                                                x-cloak
+                                            ></div>
+                                            <!-- Modal dialog -->
+                                            <div
+                                                id="basic-modal"
+                                                class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                                                role="dialog"
+                                                aria-modal="true"
+                                                x-show="modalOpen"
+                                                x-transition:enter="transition ease-in-out duration-200"
+                                                x-transition:enter-start="opacity-0 translate-y-4"
+                                                x-transition:enter-end="opacity-100 translate-y-0"
+                                                x-transition:leave="transition ease-in-out duration-200"
+                                                x-transition:leave-start="opacity-100 translate-y-0"
+                                                x-transition:leave-end="opacity-0 translate-y-4"
+                                                x-cloak
+                                            >
+                                                <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                                                    <!-- Modal header -->
+                                                    <div class="px-5 py-3 border-b border-slate-200">
+                                                        <div class="flex justify-between items-center">
+                                                            <div class="font-semibold text-slate-800">Pilih Jenis Printer</div>
+                                                            <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
+                                                                <div class="sr-only">Close</div>
+                                                                <svg class="w-4 h-4 fill-current">
+                                                                    <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!-- Modal content -->
-                                                <div class="px-5 pt-4 pb-1">
-                                                    <div class="text-sm">
-                                                        <div class="space-y-2">
-                                                            <p>Silahkan pilih printer untuk cetak Nota Pengambilan Servis Selesai.</p>
+                                                    <!-- Modal content -->
+                                                    <div class="px-5 pt-4 pb-1">
+                                                        <div class="text-sm">
+                                                            <div class="space-y-2">
+                                                                <p>Silahkan pilih printer untuk cetak Nota Pengambilan Servis Selesai.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Modal footer -->
+                                                    <div class="px-5 py-4">
+                                                        <div class="flex flex-wrap justify-end space-x-2">
+                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
+                                                            <a href="{{ route('kepalatoko-nota-pengambilan-termal', $transaction->id) }}" target="__blank">
+                                                                <button class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
+                                                                    <span class="mr-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                        <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                                                                        <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                                                                        <rect x="7" y="13" width="10" height="8" rx="2" />
+                                                                        </svg>
+                                                                    </span>
+                                                                    Printer Termal
+                                                                </button>
+                                                            </a>
+                                                                                                                        <a href="{{ route('kepalatoko-pengambilan-cetak-inkjet', $transaction->id) }}" target="__blank">
+                                                                <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
+                                                                    <span class="mr-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                        <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                                                                        <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                                                                        <rect x="7" y="13" width="10" height="8" rx="2" />
+                                                                        </svg>
+                                                                    </span>
+                                                                    Printer Inkjet/Laser
+                                                                </button>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Modal footer -->
-                                                <div class="px-5 py-4">
-                                                    <div class="flex flex-wrap justify-end space-x-2">
-                                                        <a href="{{ route('kepalatoko-nota-pengambilan-termal', $transaction->id) }}" target="__blank">
-                                                            <button class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
-                                                                <span class="mr-1">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                                    <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
-                                                                    <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
-                                                                    <rect x="7" y="13" width="10" height="8" rx="2" />
-                                                                    </svg>
-                                                                </span>
-                                                                Printer Termal
-                                                            </button>
-                                                        </a>
-                                                        <a href="{{ route('kepalatoko-pengambilan-cetak-inkjet', $transaction->id) }}" target="__blank">
-                                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
-                                                                <span class="mr-1">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                                    <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
-                                                                    <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
-                                                                    <rect x="7" y="13" width="10" height="8" rx="2" />
-                                                                    </svg>
-                                                                </span>
-                                                                Printer Inkjet
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            </div>                                            
                                     </div>
                                     <!-- End Printer-->
-                                    <button x-data x-on:click="$dispatch('open-print')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
-                                        <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
-                                        <rect x="7" y="13" width="10" height="8" rx="2" />
-                                    </svg>
-                                    </button>
                                     <!-- Start -->
-                                    <div x-data="{ showDelete : false }" x-show = "showDelete" x-on:open-delete.window="showDelete = true" x-on:close-delete.window = "showDelete = false" x-on:keydown.escape.window = "showDelete = false" class="fixed z-50 inset-0">
+                                    <div x-data="{ modalOpen: false }">
+                                        <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="modalOpen = true" aria-controls="danger-modal">
+                                            <span class="sr-only">Delete</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <line x1="4" y1="7" x2="20" y2="7" />
+                                                <line x1="10" y1="11" x2="10" y2="17" />
+                                                <line x1="14" y1="11" x2="14" y2="17" />
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                            </svg>
+                                        </button>
                                         <!-- Modal backdrop -->
-                                        <div x-on:click="showDelete = false" class="fixed inset-0 bg-slate-900 bg-opacity-40"></div>
+                                        <div
+                                            class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                            x-show="modalOpen"
+                                            x-transition:enter="transition ease-out duration-200"
+                                            x-transition:enter-start="opacity-0"
+                                            x-transition:enter-end="opacity-100"
+                                            x-transition:leave="transition ease-out duration-100"
+                                            x-transition:leave-start="opacity-100"
+                                            x-transition:leave-end="opacity-0"
+                                            aria-hidden="true"
+                                            x-cloak
+                                        ></div>
                                         <!-- Modal dialog -->
                                         <div
+                                            id="danger-modal"
                                             class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                                            x-show="showDelete"
+                                            role="dialog"
+                                            aria-modal="true"
+                                            x-show="modalOpen"
+                                            x-transition:enter="transition ease-in-out duration-200"
+                                            x-transition:enter-start="opacity-0 translate-y-4"
+                                            x-transition:enter-end="opacity-100 translate-y-0"
+                                            x-transition:leave="transition ease-in-out duration-200"
+                                            x-transition:leave-start="opacity-100 translate-y-0"
+                                            x-transition:leave-end="opacity-0 translate-y-4"
+                                            x-cloak
                                         >
-                                            <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" x-on:keydown.escape.window="showDelete = false">
+                                            <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
                                                 <div class="p-5 flex space-x-4">
                                                     <!-- Icon -->
                                                     <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-rose-100">
@@ -745,8 +802,8 @@
                                                         </div>
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
-                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" x-on:click="$dispatch('close-delete')">Batal</button>
-                                                            <form action="{{ route('admin-servis-sudah-diambil.destroy', $transaction->id) }}" method="post">
+                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
+                                                            <form action="{{ route('transaksi-servis-sudah-diambil.destroy', $transaction->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -755,20 +812,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>                                            
                                     </div>
                                     <!-- End -->
-                                    <button x-data x-on:click="$dispatch('open-delete')" class="text-rose-500 hover:text-rose-600 rounded-full">
-                                        <span class="sr-only">Delete</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <line x1="4" y1="7" x2="20" y2="7" />
-                                            <line x1="10" y1="11" x2="10" y2="17" />
-                                            <line x1="14" y1="11" x2="14" y2="17" />
-                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                        </svg>
-                                    </button>
                                 </div>
                             </td>
                         </tr>
