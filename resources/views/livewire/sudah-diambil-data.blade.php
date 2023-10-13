@@ -659,7 +659,6 @@
                                                 class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
                                                 x-show="modalOpen"
                                                 aria-hidden="true"
-                                                x-cloak
                                             ></div>
                                             <!-- Modal dialog -->
                                             <div
@@ -668,7 +667,6 @@
                                                 role="dialog"
                                                 aria-modal="true"
                                                 x-show="modalOpen"
-                                                x-cloak
                                             >
                                                 <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
                                                     <!-- Modal header -->
@@ -745,7 +743,6 @@
                                             class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
                                             x-show="modalOpen"
                                             aria-hidden="true"
-                                            x-cloak
                                         ></div>
                                         <!-- Modal dialog -->
                                         <div
@@ -754,7 +751,6 @@
                                             role="dialog"
                                             aria-modal="true"
                                             x-show="modalOpen"
-                                            x-cloak
                                         >
                                             <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
                                                 <div class="p-5 flex space-x-4">
