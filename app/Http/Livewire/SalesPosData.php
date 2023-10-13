@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\Customer;
 use App\Models\StoreSetting;
 use Livewire\WithPagination;
 
@@ -30,8 +31,11 @@ class SalesPosData extends Component
     {
         $products_count = Product::all()->count();
         $toko = StoreSetting::find(1);
+        $customers = Customer::all();
+
         return view('livewire.sales-pos-data', [
             'toko' => $toko,
+            'customers' => $customers,
             'products_count' => $products_count,
             'products' => $this->search === null ?
                 Product::latest()->where('stok', '>=', '1')->simplePaginate($this->paginate) :

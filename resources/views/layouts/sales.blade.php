@@ -13,10 +13,10 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        @stack('styles')
+
         <!-- Styles -->
         @livewireStyles
-
-        <wireui:scripts />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -55,5 +55,7 @@
         </div>
 
         @livewireScripts
+
+        @stack('scripts')
     </body>
 </html>

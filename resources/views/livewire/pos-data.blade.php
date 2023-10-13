@@ -189,7 +189,12 @@
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
-                        <livewire:customer-search></livewire:customer-search>
+                        <select name="customers_id" class="form-select text-sm py-1 w-full" id="selectjs1" required style="width: 100%">
+                            <option selected value="">Pilih Pelanggan</option>
+                            @foreach ($customers as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-4 space-y-3">
                         <!-- Create invoice button -->

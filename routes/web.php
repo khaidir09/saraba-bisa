@@ -37,7 +37,6 @@ use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukControll
 use App\Http\Controllers\KepalaToko\ProdukTersediaController as KepalaTokoProdukTersediaController;
 use App\Http\Controllers\KepalaToko\ProdukHampirHabisController as KepalaTokoProdukHampirHabisController;
 use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
-use App\Http\Controllers\KepalaToko\ProdukUpdateController as KepalaTokoProdukUpdateController;
 use App\Http\Controllers\KepalaToko\PurchaseProductController as KepalaTokoPurchaseProductController;
 use App\Http\Controllers\KepalaToko\ReturProductController as KepalaTokoReturProductController;
 use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
@@ -88,7 +87,6 @@ use App\Http\Controllers\AdminToko\ProdukController as AdminTokoProdukController
 use App\Http\Controllers\AdminToko\SupplierController as AdminTokoSupplierController;
 use App\Http\Controllers\AdminToko\ProdukTersediaController as AdminTokoProdukTersediaController;
 use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabisController;
-use App\Http\Controllers\AdminToko\ProdukUpdateController as AdminTokoProdukUpdateController;
 use App\Http\Controllers\AdminToko\PosController as AdminTokoPosController;
 use App\Http\Controllers\AdminToko\TransaksiProdukController as AdminTokoTransaksiProdukController;
 use App\Http\Controllers\AdminToko\TransaksiProdukPaidController as AdminTokoTransaksiProdukPaidController;
@@ -179,7 +177,6 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('produk/item-tersedia', KepalaTokoProdukTersediaController::class);
     Route::resource('produk/item-hampir-habis', KepalaTokoProdukHampirHabisController::class);
     Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
-    Route::resource('produk/produk-update', KepalaTokoProdukUpdateController::class);
     Route::resource('produk/purchase', KepalaTokoPurchaseProductController::class);
     Route::resource('produk/retur', KepalaTokoReturProductController::class);
     Route::resource('produk/pos', KepalaTokoPosController::class);
@@ -287,7 +284,6 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('produk/admin-item-tersedia', AdminTokoProdukTersediaController::class);
     Route::resource('produk/admin-item-habis', AdminTokoProdukHabisController::class);
     Route::resource('produk/admin-supplier', AdminTokoSupplierController::class);
-    Route::resource('produk/admin-produk-update', AdminTokoProdukUpdateController::class);
     Route::resource('produk/admin-pos', AdminTokoPosController::class);
     Route::resource('produk/admin-transaksi-produk', AdminTokoTransaksiProdukController::class);
     Route::resource('produk/admin-transaksi-produk-paid', AdminTokoTransaksiProdukPaidController::class);
