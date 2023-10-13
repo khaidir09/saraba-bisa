@@ -5,20 +5,16 @@ namespace App\Http\Livewire;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
-use App\Models\Worker;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
-use Livewire\WithPagination;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 
 class SudahDiambilData extends Component
 {
-    use WithPagination;
 
-    public $paginate = 10;
     public $search;
     public $type;
 
@@ -65,8 +61,8 @@ class SudahDiambilData extends Component
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'jumlahsudahdiambil' => $jumlahsudahdiambil,
             'service_transactions' => $this->search === null ?
-                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('types_id', 'like', '%' . $this->type . '%')->paginate($this->paginate) :
-                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('types_id', 'like', '%' . $this->type . '%')->get() :
+                ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->get()
         ]);
     }
 }
