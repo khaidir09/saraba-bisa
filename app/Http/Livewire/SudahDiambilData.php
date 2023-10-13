@@ -18,9 +18,16 @@ class SudahDiambilData extends Component
     public $search;
     public $type;
 
+    protected $updatesQueryString = ['search'];
+
     public function mount()
     {
         $this->search = request()->query('search', $this->search);
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function render()
