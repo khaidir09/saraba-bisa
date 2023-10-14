@@ -48,37 +48,32 @@
 	</style>
 </head>
 <body>
-	<div class="text-center">
-		@if ($users->profile_photo_path != null)
-			<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
-		@endif
-	</div>
-	<table>
-		<tbody>
-			<tr>
-			<td scope="col" class="w-50"></td>
-			<td scope="col" class="w-50"></td>
-			</tr>
-			<tr>
-			<td scope="col" style="font-size: 14px; font-weight: 600;">{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</td>
-			<td scope="col" class="text-right">No. Servis : {{ $items->nomor_servis }}</td>
-			</tr>
-			<tr>
-			<td scope="col">{{ $users->alamat_toko }}</td>
-			<td scope="col" class="text-right">Tanggal : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
-			</tr>
-			<tr>
-			<td scope="col">Nomor HP/WA {{ $users->nomor_hp_toko }}</td>
-			<td scope="col" class="text-right">Dicetak oleh : {{ Auth::user()->name }}</td>
-			</tr>
-		</tbody>
+	<table id="header">
+		<tr>
+			<td class="w-50">
+				@if ($users->profile_photo_path != null)
+					<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
+				@endif
+			</td>
+			<th style="height: 50px; vertical-align: middle; text-align: left; line-height: 1.5em;">{{ $users->nama_toko }} ({{ $users->deskripsi_toko }}) <br>
+				{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
+			</th>
+		</tr>
 	</table>
 
 	<hr style="border-top: 1px dashed;">
 
-		<h4 class="text-center" style="margin-bottom: 6px; margin-top: 6px;">
-			NOTA TERIMA SERVIS
-		</h4>
+	<h4 class="text-center" style="margin-bottom: 6px; margin-top: 6px;">
+		NOTA TERIMA SERVIS
+	</h4>
+
+	<table>
+		<tr>
+			<td class="text-center"><strong>No. Servis</strong> : {{ $items->nomor_servis }}</td>
+			<td class="text-center"><strong>Tanggal</strong> : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
+			<td class="text-center"><strong>Dicetak oleh</strong> {{ Auth::user()->name }}</td>
+		</tr>
+	</table>
 
 	<table>
 		<thead>
