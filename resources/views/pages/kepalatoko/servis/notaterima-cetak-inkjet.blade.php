@@ -48,16 +48,16 @@
 	</style>
 </head>
 <body>
-	<table id="header">
+	<table>
 		<tr>
-			<td class="w-50">
+			<td class="w-50 text-center">
 				@if ($users->profile_photo_path != null)
 					<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
 				@endif
 			</td>
-			<th style="height: 50px; vertical-align: middle; text-align: left; line-height: 1.5em;">{{ $users->nama_toko }} ({{ $users->deskripsi_toko }}) <br>
+			<td style="height: 50px; vertical-align: middle; text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
 				{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
-			</th>
+			</td>
 		</tr>
 	</table>
 
