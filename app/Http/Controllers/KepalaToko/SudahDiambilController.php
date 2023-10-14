@@ -126,8 +126,10 @@ class SudahDiambilController extends Controller
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();
         $products = Product::whereHas('subCategory', function ($query) {
-            $query->where('category_name', 'Sparepart');
-        })->where('stok', '>=', '1')->get();
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('category_name', 'Sparepart');
+            });
+        })->where('stok', '>=', 1)->get();
 
         return view('pages.kepalatoko.servis.sudah-diambil-edit', [
             'item' => $item,

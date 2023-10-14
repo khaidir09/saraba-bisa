@@ -99,8 +99,10 @@ class BisaDiambilController extends Controller
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
         $products = Product::whereHas('subCategory', function ($query) {
-            $query->where('category_name', 'Sparepart');
-        })->where('stok', '>=', '1')->get();
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('category_name', 'Sparepart');
+            });
+        })->where('stok', '>=', 1)->get();
         $capacities = Capacity::all();
         $users = User::where('role', 'Teknisi')->get();
         $workers = Worker::where('jabatan', 'like', '%' . 'teknisi')->get();

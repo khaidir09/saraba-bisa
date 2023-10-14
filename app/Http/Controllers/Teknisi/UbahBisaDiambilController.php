@@ -17,8 +17,10 @@ class UbahBisaDiambilController extends Controller
         $item = ServiceTransaction::findOrFail($id);
         $service_actions = ServiceAction::all();
         $products = Product::whereHas('subCategory', function ($query) {
-            $query->where('category_name', 'Sparepart');
-        })->where('stok', '>=', '1')->get();
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('category_name', 'Sparepart');
+            });
+        })->where('stok', '>=', 1)->get();
 
         return view('pages.teknisi.transaksi-servis-bisadiambil', [
             'item' => $item,
