@@ -46,8 +46,10 @@ class ProsesData extends Component
         $penerima = User::all();
         $service_actions = ServiceAction::all();
         $products = Product::whereHas('subCategory', function ($query) {
-            $query->where('category_name', 'Sparepart');
-        })->where('stok', '>=', '1')->get();
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('category_name', 'Sparepart');
+            });
+        })->where('stok', '>=', 1)->get();
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();

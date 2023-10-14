@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Product;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
@@ -45,7 +46,12 @@ class AdminProsesData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
-        $actions = ServiceAction::all();
+        $service_actions = ServiceAction::all();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('category_name', 'Sparepart');
+            });
+        })->where('stok', '>=', 1)->get();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
         return view('livewire.admin-proses-data', [
@@ -60,7 +66,8 @@ class AdminProsesData extends Component
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
-            'actions' => $actions,
+            'service_actions' => $service_actions,
+            'products' => $products,
             'processes' => $this->search === null ?
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('types_id', 'like', '%' . $this->type . '%')->paginate($this->paginate) :
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)

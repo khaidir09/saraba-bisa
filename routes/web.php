@@ -79,6 +79,7 @@ use App\Http\Controllers\AdminToko\TindakanServisController as AdminTokoTindakan
 use App\Http\Controllers\AdminToko\MasterKapasitasController as AdminTokoMasterKapasitasController;
 use App\Http\Controllers\AdminToko\MasterModelSeriController as AdminTokoMasterModelSeriController;
 use App\Http\Controllers\AdminToko\TransaksiServisController as AdminTokoTransaksiServisController;
+use App\Http\Controllers\AdminToko\TransaksiServisLangsungController as AdminTokoTransaksiServisLangsungController;
 use App\Http\Controllers\AdminToko\UbahBisaDiambilController as AdminTokoUbahBisaDiambilController;
 use App\Http\Controllers\AdminToko\UbahSudahDiambilController as AdminTokoUbahSudahDiambilController;
 use App\Http\Controllers\AdminToko\MasterJenisBarangController as AdminTokoMasterJenisBarangController;
@@ -248,6 +249,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('servis/admin-tindakan-servis', AdminTokoTindakanServisController::class);
     Route::resource('admin-pelanggan', AdminTokoPelangganController::class);
     Route::resource('servis/admin-transaksi-servis', AdminTokoTransaksiServisController::class);
+    Route::post('/servis/admin-transaksi-servis-langsung', [AdminTokoTransaksiServisLangsungController::class, 'store'])->name('admin-servis-langsung');
     Route::resource('servis/admin-servis-bisa-diambil', AdminTokoBisaDiambilController::class);
     Route::resource('servis/admin-servis-sudah-diambil', AdminTokoSudahDiambilController::class);
     Route::resource('master/admin-master-jenis-barang', AdminTokoMasterJenisBarangController::class);

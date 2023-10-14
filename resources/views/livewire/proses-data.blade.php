@@ -257,6 +257,26 @@
                                             </select>
                                         </div>
                                         <div>
+                                            <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>
+                                            <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="warna">Warna <span class="text-rose-500">*</span></label>
+                                            <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="capacities_id">Kapasitas <span class="text-rose-500">*</span></label>
+                                            <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full" required>
+                                                @foreach ($capacities as $capacity)
+                                                    <option value="{{ $capacity->id }}">{{ $capacity->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="kelengkapan">Kelengkapan</label>
+                                            <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika kelengkapannya hanya unit"/>
+                                        </div>
+                                        <div>
                                             <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan <span class="text-rose-500">*</span></label>
                                             <input id="kerusakan" name="kerusakan" class="form-input w-full px-2 py-1" type="text" required/>
                                         </div>

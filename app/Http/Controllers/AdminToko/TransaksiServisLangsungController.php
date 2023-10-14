@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\KepalaToko;
+namespace App\Http\Controllers\AdminToko;
 
 use Carbon\Carbon;
 use App\Models\User;
@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TransaksiServisLangsungController extends Controller
 {
@@ -24,17 +25,12 @@ class TransaksiServisLangsungController extends Controller
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         $nama_pelanggan = Customer::find($request->customers_id);
-        if ($request->users_id != null) {
-            $persen_teknisi = User::find($request->users_id)->persen;
-        } else {
-            $persen_teknisi = null;
-        }
+        $persen_teknisi = User::find($request->users_id)->persen;
+
         if ($request->service_actions_id != null) {
             $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
-        } elseif ($request->tindakan_servis != null) {
-            $tindakan_servis = $request->tindakan_servis;
         } else {
-            $tindakan_servis = null;
+            $tindakan_servis = $request->tindakan_servis;
         }
 
         $garansi = Carbon::now();
@@ -76,16 +72,17 @@ class TransaksiServisLangsungController extends Controller
             'persen_teknisi' => $persen_teknisi,
             'omzet' => $request->biaya,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil * $persen_teknisi),
+            'profittoko' => $profittransaksi - ($bagihasil *= Auth::user()->persen + $persen_teknisi),
             'qc_keluar' => $request->qc_keluar,
             'cara_pembayaran' => $request->cara_pembayaran,
             'diskon' => $request->diskon,
             'garansi' => $request->garansi,
             'exp_garansi' => $expired,
-            'is_approve' => 'Setuju',
-            'tgl_disetujui' => $request->tgl_disetujui,
             'tgl_ambil' => $request->tgl_ambil,
             'pengambil' => $nama_pelanggan->nama,
+            'is_admin_toko' => "Admin",
+            'admin_id' => Auth::user()->id,
+            'persen_admin' => Auth::user()->persen,
         ]);
 
         if ($request->products_id != null) {
@@ -94,6 +91,6 @@ class TransaksiServisLangsungController extends Controller
             $spareparts->save();
         }
 
-        return redirect()->route('transaksi-servis-sudah-diambil.index');
+        return redirect()->route('admin-servis-sudah-diambil.index');
     }
 }
