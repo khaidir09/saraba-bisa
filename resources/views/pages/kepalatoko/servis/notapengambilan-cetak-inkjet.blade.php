@@ -73,7 +73,7 @@
 	<table class="w-100">
 		<tr>
 			@if ($users->profile_photo_path != null)
-				<td class="w-50 text-center">
+				<td class="text-center" style="width: 30%">
 					<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
 				</td>
 				<td style="height: 50px; vertical-align: middle; text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
@@ -95,7 +95,7 @@
 		<tr>
 			<td class="text-left"><strong>No. Servis</strong> : {{ $items->nomor_servis }}</td>
 			<td class="text-right"><strong>Tanggal</strong> : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
-			<td class="text-right"><strong>Dicetak oleh</strong> {{ Auth::user()->name }}</td>
+			<td class="text-right"><strong>Dicetak oleh</strong> : {{ Auth::user()->name }}</td>
 		</tr>
 	</table>
 

@@ -80,7 +80,7 @@
 		<tr>
 			<td class="text-left"><strong>No. Servis</strong> : {{ $items->nomor_servis }}</td>
 			<td class="text-center"><strong>Tanggal</strong> : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
-			<td class="text-right"><strong>Dicetak oleh</strong> {{ Auth::user()->name }}</td>
+			<td class="text-right"><strong>Dicetak oleh</strong> : {{ Auth::user()->name }}</td>
 		</tr>
 	</table>
 
