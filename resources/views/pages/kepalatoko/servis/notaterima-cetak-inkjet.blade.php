@@ -6,8 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tanda Terima Servis #{{ $items->nomor_servis }}</title>
 	<style>
+		@page {
+            size: A4; /* Ukuran halaman A4, bisa disesuaikan */
+            margin: 3mm 10mm 3mm 10mm; /* Atur margin atas, kanan, bawah, dan kiri */
+        }
 		body {
 			color: #000000;
+			margin: 0;
 		}
 
 		.text-center {
@@ -50,14 +55,18 @@
 <body>
 	<table>
 		<tr>
-			<td class="w-50 text-center">
-				@if ($users->profile_photo_path != null)
+			@if ($users->profile_photo_path != null)
+				<td class="w-50 text-center">
 					<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
-				@endif
-			</td>
-			<td style="height: 50px; vertical-align: middle; text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
-				{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
-			</td>
+				</td>
+				<td style="height: 50px; vertical-align: middle; text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
+					{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
+				</td>
+			@else
+				<td style="text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
+					{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
+				</td>
+			@endif
 		</tr>
 	</table>
 
@@ -69,9 +78,9 @@
 
 	<table>
 		<tr>
-			<td class="text-center"><strong>No. Servis</strong> : {{ $items->nomor_servis }}</td>
+			<td class="text-left"><strong>No. Servis</strong> : {{ $items->nomor_servis }}</td>
 			<td class="text-center"><strong>Tanggal</strong> : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
-			<td class="text-center"><strong>Dicetak oleh</strong> {{ Auth::user()->name }}</td>
+			<td class="text-right"><strong>Dicetak oleh</strong> {{ Auth::user()->name }}</td>
 		</tr>
 	</table>
 

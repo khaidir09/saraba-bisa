@@ -7,8 +7,13 @@
 	
     <title>Nota Pengambilan Servis #{{ $items->nomor_servis }}</title>
 	<style>
+		@page {
+            size: A4; /* Ukuran halaman A4, bisa disesuaikan */
+            margin: 3mm 10mm 3mm 10mm; /* Atur margin atas, kanan, bawah, dan kiri */
+        }
 		body {
 			color: #000000;
+			margin: 0;
 		}
 
 		.pt-5 {
@@ -40,6 +45,10 @@
 			width: 50%;
 		}
 
+		.w-75 {
+			width: 75%;
+		}
+
 		.w-25 {
 			width: 25%;
 		}
@@ -61,35 +70,34 @@
 	</style>
 </head>
 <body>
-	<div class="text-center">
-		@if ($users->profile_photo_path != null)
-			<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
-		@endif
-	</div>
 	<table class="w-100">
-		<tbody>
-			<tr>
-			<td scope="col" class="w-50"></td>
-			<td scope="col" class="w-50"></td>
-			</tr>
-			<tr>
-			<td scope="col" style="font-size: 14px; font-weight: 600;">{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</td>
-			<td scope="col" class="text-right">No. Servis : {{ $items->nomor_servis }}</td>
-			</tr>
-			<tr>
-			<td scope="col">{{ $users->alamat_toko }}</td>
-			<td scope="col" class="text-right">Tanggal : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
-			</tr>
-			<tr>
-			<td scope="col">Nomor HP/WA {{ $users->nomor_hp_toko }}</td>
-			<td scope="col" class="text-right">Dicetak oleh : {{ Auth::user()->name }}</td>
-			</tr>
-		</tbody>
+		<tr>
+			@if ($users->profile_photo_path != null)
+				<td class="w-50 text-center">
+					<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
+				</td>
+				<td style="height: 50px; vertical-align: middle; text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
+					{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
+				</td>
+			@else
+				<td style="text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
+					{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
+				</td>
+			@endif
+		</tr>
 	</table>
 
 	<hr style="border-top: 1px dashed;">
 
 	<h4 class="text-center" style="margin-bottom: 6px; margin-top: 6px;">NOTA PENGAMBILAN SERVIS</h4>
+
+	<table class="w-100">
+		<tr>
+			<td class="text-left"><strong>No. Servis</strong> : {{ $items->nomor_servis }}</td>
+			<td class="text-right"><strong>Tanggal</strong> : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
+			<td class="text-right"><strong>Dicetak oleh</strong> {{ Auth::user()->name }}</td>
+		</tr>
+	</table>
 
 	<table class="w-100">
 		<thead>
@@ -226,46 +234,46 @@
 		</tbody>
 	</table>
 	<table>
-		<thead>
+		<tbody>
 			<tr>
 				@if ($items->catatan != null)
-					<td colspan="6" class="capital">
+					<td>
 						<strong>Catatan</strong> : {{ $items->catatan }}
 					</td>
 				@endif
 			</tr>
 			<tr>
+				<th class="text-left w-75">Syarat & Ketentuan</th>
 				@if ($items->exp_garansi === null)
-					<td colspan="6" class="capital">
-						Tidak ada garansi untuk tindakan servis ini.
-					</td>
+					<th class="w-25 text-right">
+						(Tidak ada garansi)
+					</th>
 				@else
-					<td colspan="6" class="capital">
-						Garansi servis Anda aktif sampai tanggal <strong>{{ $items->exp_garansi }}</strong>
-					</td>
+					<th class="w-25 text-right">
+						(Garansi <strong>{{ $items->exp_garansi }}</strong>)
+					</th>
 				@endif
 			</tr>
-		</thead>
-		<tbody>
 			<tr>
-				<th colspan="6" class="text-left">Syarat & Ketentuan</th>
-			</tr>
-			<tr>
-				<td colspan="6" class="text-justify" style="font-style: italic; padding-bottom: 4px;">
+				<td class="text-justify" style="font-style: italic; padding-bottom: 4px;">
 					{!! $terms->description !!} <br>
 					<span style="font-weight: bold;">Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</span>
 				</td>
 			</tr>
+		</tbody>
+	</table>
+	<table class="w-100">
+		<tbody>
 			<tr>
-				<th colspan="3" class="text-center w-50">Pengambil</th>
-				<th colspan="3" class="text-center w-50">Teknisi</th>
+				<th class="w-50 text-center">Pengambil</th>
+				<th class="w-50 text-center">Teknisi</th>
 			</tr>
 			<tr>
-				<td colspan="3" class="pt-5 text-center capital">{{ $items->pengambil }}</td>
+				<td class="pt-5 text-center capital">{{ $items->pengambil }}</td>
 				@if ($items->user != null)
-					<td colspan="3" class="pt-5 text-center capital">{{ $items->user->name }}</td>
+					<td class="pt-5 text-center capital">{{ $items->user->name }}</td>
 				@else
-					<td colspan="3" class="pt-5 text-center capital">-</td>
+					<td class="pt-5 text-center capital">-</td>
 				@endif
 			</tr>
 		</tbody>
