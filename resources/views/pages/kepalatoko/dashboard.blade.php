@@ -49,7 +49,7 @@
                                 </svg>
                                 <div class="font-medium">Hore! Ada {{ $approveservis }} transaksi servis selesai nih, cek sekarang!</div>
                             </div>
-                            <a class="font-medium text-white ml-4 mt-[3px]" href="{{ route('transaksi-servis-sudah-diambil.index') }}">-&gt;</a>
+                            <a class="font-medium text-white ml-4 mt-[3px]" href="{{ route('transaksi-servis-belum-disetujui.index') }}">-&gt;</a>
                         </div>
                     </div>
                 @endif

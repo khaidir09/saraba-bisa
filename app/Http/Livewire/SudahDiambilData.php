@@ -49,7 +49,8 @@ class SudahDiambilData extends Component
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
         $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
         $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
-        $jumlahsudahdiambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
+        $jumlah_belum_disetujui = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('is_approve', '=', null)->count();
+
         return view('livewire.sudah-diambil-data', [
             'toko' => $toko,
             'users' => $users,
@@ -63,7 +64,7 @@ class SudahDiambilData extends Component
             'processes_count' => $processes_count,
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
-            'jumlahsudahdiambil' => $jumlahsudahdiambil,
+            'jumlah_belum_disetujui' => $jumlah_belum_disetujui,
             'service_transactions' => $this->search === null ?
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('types_id', 'like', '%' . $this->type . '%')->paginate($this->paginate) :
                 ServiceTransaction::latest()->where('status_servis', 'Sudah Diambil')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
