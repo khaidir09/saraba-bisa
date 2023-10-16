@@ -64,16 +64,17 @@ class LaporanServisController extends Controller
         // Mengambil data servis
         $services = ServiceTransaction::with('brand', 'modelserie')->where('is_approve', 'Setuju')
             ->where('kondisi_servis', "Sudah jadi")
-            ->whereDate('tgl_disetujui', '>=', $start_date)
-            ->whereDate('tgl_disetujui', '<=', $end_date)
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
+            ->orderBy('tgl_ambil', 'asc')
             ->get();
 
         // Mengambil data brand terbanyak
         $topbrands =
             ServiceTransaction::where('is_approve', 'Setuju')
             ->where('kondisi_servis', "Sudah jadi")
-            ->whereDate('tgl_disetujui', '>=', $start_date)
-            ->whereDate('tgl_disetujui', '<=', $end_date)
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
             ->select('brands.name as brand_name')
             ->join('brands', 'service_transactions.brands_id', '=', 'brands.id')
             ->groupBy('brand_name')
@@ -85,8 +86,8 @@ class LaporanServisController extends Controller
         $topmodelseries =
             ServiceTransaction::where('is_approve', 'Setuju')
             ->where('kondisi_servis', "Sudah jadi")
-            ->whereDate('tgl_disetujui', '>=', $start_date)
-            ->whereDate('tgl_disetujui', '<=', $end_date)
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
             ->select('model_series.name as model_name')
             ->join('model_series', 'service_transactions.model_series_id', '=', 'model_series.id')
             ->groupBy('model_name')
@@ -98,8 +99,8 @@ class LaporanServisController extends Controller
         $topactions =
             ServiceTransaction::where('is_approve', 'Setuju')
             ->where('kondisi_servis', "Sudah jadi")
-            ->whereDate('tgl_disetujui', '>=', $start_date)
-            ->whereDate('tgl_disetujui', '<=', $end_date)
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
             ->select('service_actions.nama_tindakan as action_name')
             ->join('service_actions', 'service_transactions.service_actions_id', '=', 'service_actions.id')
             ->groupBy('action_name')
@@ -110,29 +111,29 @@ class LaporanServisController extends Controller
         // Menghitung total modal
         $total_modal = ServiceTransaction::where('is_approve', 'Setuju')
             ->where('kondisi_servis', "Sudah jadi")
-            ->whereDate('tgl_disetujui', '>=', $start_date)
-            ->whereDate('tgl_disetujui', '<=', $end_date)
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('modal_sparepart');
 
         // Menghitung total biaya
         $total_biaya = ServiceTransaction::where('is_approve', 'Setuju')
             ->where('kondisi_servis', "Sudah jadi")
-            ->whereDate('tgl_disetujui', '>=', $start_date)
-            ->whereDate('tgl_disetujui', '<=', $end_date)
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('biaya');
 
         // Menghitung total diskon
         $total_diskon = ServiceTransaction::where('is_approve', 'Setuju')
             ->where('kondisi_servis', "Sudah jadi")
-            ->whereDate('tgl_disetujui', '>=', $start_date)
-            ->whereDate('tgl_disetujui', '<=', $end_date)
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('diskon');
 
         // Menghitung total profit
         $total_profit = ServiceTransaction::where('is_approve', 'Setuju')
             ->where('kondisi_servis', "Sudah jadi")
-            ->whereDate('tgl_disetujui', '>=', $start_date)
-            ->whereDate('tgl_disetujui', '<=', $end_date)
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('profittoko');
 
         $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-servis', [

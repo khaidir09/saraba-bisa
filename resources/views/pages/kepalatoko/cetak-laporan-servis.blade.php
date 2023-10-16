@@ -112,7 +112,8 @@
 		<thead>
 			<tr>
 				<th>No.</th>
-				<th>Tgl. Transaksi</th>
+				<th>Tgl. Masuk</th>
+				<th>Tgl. Diambil</th>
 				<th>Tindakan</th>
 				<th>Modal Sparepart</th>
 				<th>Biaya Servis</th>
@@ -127,11 +128,12 @@
 			@foreach ($services as $item)
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
-					<td style="width: 60px;">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+					<td style="width: 70px;">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+					<td style="width: 70px;">{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('d-m-Y') }}</td>
 					<td class="capital" style="text-align: left;">{{ $item->tindakan_servis }}</td>
 					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
 					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
-					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
+					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
 					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->profittoko) }}</td>
 				</tr>
 			@endforeach
@@ -139,7 +141,7 @@
 	</table>
 
 	<h4 style="margin-bottom: 6px;">
-		<span style="background:color: blue; padding: 6px 12px; border-radius: 50%; color: #fff;">Analisis</span>
+		<span style="background:color: blue; padding: 6px 12px; border-radius: 50%; color: #fff;">Statistik</span>
 	</h4>
 
 	{{-- <table id="analisis">
