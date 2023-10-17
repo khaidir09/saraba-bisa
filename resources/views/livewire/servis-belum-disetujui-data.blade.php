@@ -45,6 +45,18 @@
                 </li>
             </ul>
         </div>
+        <!-- Right side -->
+        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+            <div class="mb-0">
+                <select wire:model="paginate" id="" class="form-select">
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="250">250</option>
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
@@ -480,5 +492,10 @@
             </table>
 
         </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-8">
+        {{ $service_transactions->links() }}
     </div>
 </div>

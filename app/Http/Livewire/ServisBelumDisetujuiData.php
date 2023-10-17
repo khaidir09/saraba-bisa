@@ -4,10 +4,14 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
 
 class ServisBelumDisetujuiData extends Component
 {
+    use WithPagination;
+
+    public $paginate = 50;
     public $search;
 
     protected $updatesQueryString = ['search'];
@@ -37,8 +41,8 @@ class ServisBelumDisetujuiData extends Component
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'jumlah_belum_disetujui' => $jumlah_belum_disetujui,
             'service_transactions' => $this->search === null ?
-                ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')->where('is_approve', null)->get() :
-                ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')->where('is_approve', null)->where('nama_pelanggan', 'like', '%' . $this->search . '%')->get()
+                ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')->where('is_approve', null)->paginate($this->paginate) :
+                ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')->where('is_approve', null)->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }
