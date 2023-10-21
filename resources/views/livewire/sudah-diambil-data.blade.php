@@ -263,6 +263,24 @@
                                 </label>
                             </li>
                         @endforeach
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.0" value="Sudah jadi"/>
+                                <span class="text-sm font-medium ml-2">Sudah jadi</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.1" value="Tidak bisa"/>
+                                <span class="text-sm font-medium ml-2">Tidak bisa</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.2" value="Dibatalkan"/>
+                                <span class="text-sm font-medium ml-2">Dibatalkan</span>
+                            </label>
+                        </li>
                     </ul>
                 </div>
             </div>
