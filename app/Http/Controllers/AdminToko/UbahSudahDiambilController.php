@@ -151,10 +151,11 @@ class UbahSudahDiambilController extends Controller
             'persen_teknisi' => $persen_teknisi,
             'omzet' => $request->biaya - $request->diskon,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_admin + $persen_teknisi)
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_admin + $persen_teknisi),
+            'penyerah' => Auth::user()->name,
         ]);
 
-        return redirect()->route('admin-servis-bisa-diambil.index');
+        return redirect()->route('admin-servis-sudah-diambil.index');
     }
 
     /**

@@ -55,14 +55,15 @@ class ServiceTransaction extends Model
         'profit',
         'profittoko',
         'persen_admin',
-        'persen_teknisi'
+        'persen_teknisi',
+        'penyerah'
     ];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->useLogName('Transaksi Servis')
-            ->logOnly(['modal_sparepart', 'biaya', 'diskon', 'uang_muka', 'imei', 'kerusakan', 'qc_masuk', 'qc_keluar', 'tindakan_servis', 'kelengkapan', 'pengambil'])
+            ->logOnly(['modal_sparepart', 'biaya', 'diskon', 'uang_muka', 'imei', 'kerusakan', 'qc_masuk', 'qc_keluar', 'tindakan_servis', 'kelengkapan', 'pengambil', 'penyerah'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options

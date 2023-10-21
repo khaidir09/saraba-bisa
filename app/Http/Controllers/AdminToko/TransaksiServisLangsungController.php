@@ -83,6 +83,7 @@ class TransaksiServisLangsungController extends Controller
             'is_admin_toko' => "Admin",
             'admin_id' => Auth::user()->id,
             'persen_admin' => Auth::user()->persen,
+            'penyerah' => Auth::user()->name,
         ]);
 
         if ($request->products_id != null) {

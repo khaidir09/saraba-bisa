@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TransaksiServisLangsungController extends Controller
 {
@@ -86,6 +87,7 @@ class TransaksiServisLangsungController extends Controller
             'tgl_disetujui' => $request->tgl_disetujui,
             'tgl_ambil' => $request->tgl_ambil,
             'pengambil' => $nama_pelanggan->nama,
+            'penyerah' => Auth::user()->name,
         ]);
 
         if ($request->products_id != null) {

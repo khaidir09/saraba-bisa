@@ -264,11 +264,13 @@
 	<table class="w-100">
 		<tbody>
 			<tr>
-				<th class="w-50 text-center">Pengambil</th>
-				<th class="w-50 text-center">Teknisi</th>
+				<th class="text-center">Pengambil</th>
+				<th class="text-center">Penyerah</th>
+				<th class="text-center">Teknisi</th>
 			</tr>
 			<tr>
 				<td class="pt-5 text-center capital">{{ $items->pengambil }}</td>
+				<td class="pt-5 text-center capital">{{ $items->penyerah }}</td>
 				@if ($items->user != null)
 					<td class="pt-5 text-center capital">{{ $items->user->name }}</td>
 				@else

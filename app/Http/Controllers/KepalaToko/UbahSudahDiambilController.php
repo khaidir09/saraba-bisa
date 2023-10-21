@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UbahSudahDiambilController extends Controller
 {
@@ -145,10 +146,11 @@ class UbahSudahDiambilController extends Controller
             'persen_teknisi' => $persen_teknisi,
             'omzet' => $request->biaya - $request->diskon,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi)
+            'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi),
+            'penyerah' => Auth::user()->name,
         ]);
 
-        return redirect()->route('transaksi-servis-bisa-diambil.index');
+        return redirect()->route('transaksi-servis-sudah-diambil.index');
     }
 
     /**
