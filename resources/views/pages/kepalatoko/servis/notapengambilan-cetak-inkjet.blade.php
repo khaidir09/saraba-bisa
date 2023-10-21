@@ -12,9 +12,7 @@
             margin: 3mm; /* Atur margin atas, kanan, bawah, dan kiri */
         }
 		body {
-			color: #000000;
 			margin: 0;
-			font-family: "Courier New", Courier, monospace;
 		}
 
 		.pt-5 {
