@@ -8,11 +8,12 @@
 	<style>
 		@page {
             size: A4; /* Ukuran halaman A4, bisa disesuaikan */
-            margin: 3mm 10mm 3mm 10mm; /* Atur margin atas, kanan, bawah, dan kiri */
+            margin: 3mm; /* Atur margin atas, kanan, bawah, dan kiri */
         }
 		body {
 			color: #000000;
 			margin: 0;
+			font-family: "Courier New", Courier, monospace;
 		}
 
 		.text-center {
