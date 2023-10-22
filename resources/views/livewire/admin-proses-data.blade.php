@@ -471,7 +471,7 @@
         <!-- Right side -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
             <!-- Filter button -->
-            <div class="relative inline-flex hidden md:block" x-data="{ open: false }">
+            <div class="relative inline-flex" x-data="{ open: false }">
                 <button
                     class="btn bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600"
                     aria-haspopup="true"
@@ -484,7 +484,7 @@
                     </svg>
                 </button>
                 <div
-                    class="origin-top-right z-10 absolute top-full min-w-56 bg-white border border-slate-200 pt-1.5 rounded shadow-lg overflow-hidden mt-1 right-4"                
+                    class="origin-top-left z-10 absolute top-full min-w-56 bg-white border border-slate-200 pt-1.5 rounded shadow-lg overflow-hidden mt-1 left-4"                
                     @click.outside="open = false"
                     @keydown.escape.window="open = false"
                     x-show="open"
@@ -506,6 +506,36 @@
                                 </label>
                             </li>
                         @endforeach
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.0" value="Belum cek"/>
+                                <span class="text-sm font-medium ml-2">Belum Cek</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.1" value="Sedang Tes"/>
+                                <span class="text-sm font-medium ml-2">Sedang Tes</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.2" value="Menunggu Konfirmasi"/>
+                                <span class="text-sm font-medium ml-2">Menunggu Konfirmasi</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.3" value="Sedang Dikerjakan"/>
+                                <span class="text-sm font-medium ml-2">Sedang Dikerjakan</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.4" value="Menunggu Sparepart"/>
+                                <span class="text-sm font-medium ml-2">Menunggu Sparepart</span>
+                            </label>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -19,7 +19,19 @@ class AdminBisaDiambilData extends Component
 
     public $paginate = 10;
     public $search;
-    public $type;
+    public $type = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6'
+    ];
+    public $kondisi = [
+        'Sudah jadi',
+        'Tidak bisa',
+        'Dibatalkan'
+    ];
 
     protected $updatesQueryString = ['search'];
 
@@ -31,6 +43,13 @@ class AdminBisaDiambilData extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function updatedKondisi($value, $index)
+    {
+        if (!$value) {
+            unset($this->kondisi[$index]);
+        }
     }
 
     public function render()
@@ -63,7 +82,8 @@ class AdminBisaDiambilData extends Component
             'bisadiambil' => $this->search === null ?
                 ServiceTransaction::latest()->with('customer', 'serviceaction')
                 ->where('status_servis', 'Bisa Diambil')
-                ->where('types_id', 'like', '%' . $this->type . '%')
+                ->whereIn('types_id', $this->type)
+                ->whereIn('kondisi_servis', $this->kondisi)
                 ->paginate($this->paginate) :
                 ServiceTransaction::latest()->with('customer', 'serviceaction')
                 ->where('status_servis', 'Bisa Diambil')

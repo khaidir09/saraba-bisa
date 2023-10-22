@@ -20,7 +20,21 @@ class ProsesData extends Component
 
     public $paginate = 10;
     public $search;
-    public $type;
+    public $type = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6'
+    ];
+    public $status = [
+        'Belum cek',
+        'Sedang Tes',
+        'Menunggu Konfirmasi',
+        'Sedang Dikerjakan',
+        'Menunggu Sparepart'
+    ];
 
     protected $updatesQueryString = ['search'];
 
@@ -32,6 +46,13 @@ class ProsesData extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function updatedStatus($value, $index)
+    {
+        if (!$value) {
+            unset($this->status[$index]);
+        }
     }
 
     public function render()
@@ -71,7 +92,7 @@ class ProsesData extends Component
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'jumlah_belum_disetujui' => $jumlah_belum_disetujui,
             'processes' => $this->search === null ?
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('types_id', 'like', '%' . $this->type . '%')->paginate($this->paginate) :
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->whereIn('types_id', $this->type)->whereIn('status_servis', $this->status)->paginate($this->paginate) :
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
