@@ -9,7 +9,7 @@
 		@page {
             margin: 10mm 5mm; /* Atur margin atas, kanan, bawah, dan kiri */
         }
-		
+
 		.text-center {
 			text-align: center;
 		}
@@ -165,33 +165,9 @@
 		</tbody>
 	</table>
 
-	<h4 style="margin-bottom: 6px;">
+	{{-- <h4 style="margin-bottom: 6px;">
 		<span style="background:color: blue; padding: 6px 12px; border-radius: 50%; color: #fff;">Statistik</span>
 	</h4>
-
-	{{-- <table id="analisis">
-		<tr>
-			<th>No.</th>
-			<th>Merek</th>
-			<th>Model Seri</th>
-			<th>Tindakan</th>
-		</tr>
-		@php
-			$i = 1
-		@endphp
-		@foreach($topbrands as $brand)
-			@foreach($topmodelseries as $model)
-				@foreach($topactions as $action)
-					<tr>
-						<td>{{ $i++ }}</td>
-						<td>{{ $brand->brand_name }}</td>
-						<td>{{ $model->model_name }}</td>
-						<td>{{ $action->action_name }}</td>
-					</tr>
-				@endforeach
-			@endforeach
-		@endforeach
-	</table> --}}
 
 	<table id="analisis">
 		<thead>
@@ -239,6 +215,6 @@
 				@endforeach
 			</tr>
 		</tbody>
-	</table>
+	</table> --}}
 </body>
 </html>
