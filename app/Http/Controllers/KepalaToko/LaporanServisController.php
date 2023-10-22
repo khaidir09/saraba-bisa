@@ -62,7 +62,7 @@ class LaporanServisController extends Controller
         $end_date = $request->end_date;
 
         // Mengambil data servis
-        $services = ServiceTransaction::with('brand', 'modelserie')->where('status_servis', 'Sudah Diambil')
+        $services = ServiceTransaction::with('brand', 'modelserie', 'user')->where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->orderBy('tgl_ambil', 'asc')
@@ -146,6 +146,6 @@ class LaporanServisController extends Controller
 
         $filename = 'Laporan Transaksi Servis' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
 
-        return $pdf->setPaper('a4')->setOption(['defaultFont' => 'sans-serif', 'isRemoteEnabled', true])->stream($filename);
+        return $pdf->setPaper('a4', 'landscape')->setOption(['defaultFont' => 'sans-serif', 'isRemoteEnabled', true])->stream($filename);
     }
 }

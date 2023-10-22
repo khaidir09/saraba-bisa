@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Laporan Transaksi Servis</title>
 	<style>
-
+		@page {
+            margin: 10mm 5mm; /* Atur margin atas, kanan, bawah, dan kiri */
+        }
+		
 		.text-center {
 			text-align: center;
 		}
@@ -114,7 +117,12 @@
 				<th>No.</th>
 				<th>Tgl. Masuk</th>
 				<th>Tgl. Diambil</th>
+				<th>No. Servis</th>
+				<th>Pelanggan</th>
+				<th>Model Seri</th>
 				<th>Tindakan</th>
+				<th>Teknisi</th>
+				<th>Penyerah</th>
 				<th>Modal Sparepart</th>
 				<th>Biaya Servis</th>
 				<th>Diskon</th>
@@ -128,8 +136,11 @@
 			@foreach ($services as $item)
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
-					<td style="width: 70px;">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
-					<td style="width: 70px;">{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('d-m-Y') }}</td>
+					<td style="width: 60px;">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+					<td style="width: 60px;">{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('d-m-Y') }}</td>
+					<td class="text-center" style="width: 70px;">{{ $item->nomor_servis }}</td>
+					<td style="text-align: left; width: 100px;">{{ $item->nama_pelanggan }}</td>
+					<td style="text-align: left; width: 80px;">{{ $item->modelserie->name }}</td>
 					<td class="capital" style="text-align: left;">
 						@if ($item->kondisi_servis != 'Sudah jadi')
 							{{ $item->kondisi_servis }}
@@ -137,6 +148,14 @@
 							{{ $item->tindakan_servis }}
 						@endif
 					</td>
+					<td style="text-align: left; width: 70px;">
+						@if ($item->users_id != null)
+							{{ $item->user->name }}
+						@else
+							-
+						@endif
+					</td>
+					<td style="text-align: left; width: 70px;">{{ $item->penyerah }}</td>
 					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
 					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
