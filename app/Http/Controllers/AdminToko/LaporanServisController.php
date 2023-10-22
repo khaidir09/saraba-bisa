@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\KepalaToko;
+namespace App\Http\Controllers\AdminToko;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -46,7 +46,7 @@ class LaporanServisController extends Controller
             ->whereYear('tgl_disetujui', $currentYear)
             ->get()
             ->sum('profittoko');
-        return view('pages/kepalatoko/laporan-servis', compact('omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));
+        return view('pages/admintoko/laporan-servis', compact('omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));
     }
 
     public function cetak(Request $request)
@@ -129,7 +129,7 @@ class LaporanServisController extends Controller
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('profittoko');
 
-        $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-servis', [
+        $pdf = PDF::loadView('pages.admintoko.cetak-laporan-servis', [
             'users' => $users,
             'imagePath' => $imagePath,
             'services' => $services,

@@ -95,6 +95,7 @@ use App\Http\Controllers\AdminToko\PosController as AdminTokoPosController;
 use App\Http\Controllers\AdminToko\TransaksiProdukController as AdminTokoTransaksiProdukController;
 use App\Http\Controllers\AdminToko\TransaksiProdukPaidController as AdminTokoTransaksiProdukPaidController;
 use App\Http\Controllers\AdminToko\TransaksiProdukDueController as AdminTokoTransaksiProdukDueController;
+use App\Http\Controllers\AdminToko\LaporanServisController as AdminTokoLaporanServisController;
 // Teknisi
 use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboardController;
 use App\Http\Controllers\Teknisi\PelangganController as TeknisiPelangganController;
@@ -314,6 +315,9 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
 
     Route::post('/admin-import-produk', [AdminTokoProdukController::class, 'import'])->name('admin-import-produk');
     Route::get('admin-export-produk', [AdminTokoProdukController::class, 'export'])->name('admin-produk-export');
+
+    Route::get('laporan/admin-laporan-servis', [AdminTokoLaporanServisController::class, 'index'])->name('admin-laporan-servis');
+    Route::get('admin-cetak-laporan-servis', [AdminTokoLaporanServisController::class, 'cetak'])->name('admin-cetak-laporan-servis');
 });
 
 Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {

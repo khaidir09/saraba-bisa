@@ -7,7 +7,7 @@ use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
 use App\Models\User;
 
-class LaporanServisData extends Component
+class AdminLaporanServisData extends Component
 {
     use WithPagination;
 
@@ -31,7 +31,7 @@ class LaporanServisData extends Component
     {
         $users = User::where('role', 'Teknisi')->get();
         $jumlah = ServiceTransaction::where('is_approve', 'Setuju')->where('kondisi_servis', "Sudah jadi")->count();
-        return view('livewire.laporan-servis-data', [
+        return view('livewire.admin-laporan-servis-data', [
             'jumlah' => $jumlah,
             'users' => $users,
             'services' => $this->search === null ?
