@@ -36,7 +36,7 @@ class TransaksiProdukData extends Component
             'jumlah_lunas' => $jumlah_lunas,
             'jumlah_tidaklunas' => $jumlah_tidaklunas,
             'orders' => $this->search === null ?
-                Order::latest()->paginate($this->paginate) :
+                Order::select('orders.*', 'order_details.modal')->join('order_details', 'orders.id', '=', 'order_details.orders_id')->latest()->paginate($this->paginate) :
                 Order::latest()
                 ->where('invoice_no', 'like', '%' . $this->search . '%')
                 ->orWhere('nama_pelanggan', 'like', '%' . $this->search . '%')
