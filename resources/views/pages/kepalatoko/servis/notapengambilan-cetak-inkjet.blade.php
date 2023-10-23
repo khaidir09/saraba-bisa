@@ -232,11 +232,11 @@
 			@endif
 		</tbody>
 	</table>
-	<table>
+	<table class="w-100">
 		<tbody>
 			<tr>
 				@if ($items->catatan != null)
-					<td>
+					<td colspan="4">
 						<strong>Catatan</strong> : {{ $items->catatan }}
 					</td>
 				@endif
@@ -244,37 +244,31 @@
 			<tr>
 				<th class="text-left w-75">Syarat & Ketentuan</th>
 				@if ($items->exp_garansi === null)
-					<th class="w-25 text-right">
+					<th colspan="3" class="w-25 text-right">
 						(Tidak ada garansi)
 					</th>
 				@else
-					<th class="w-25 text-right">
+					<th colspan="3" class="w-25 text-right">
 						(Garansi <strong>{{ $items->exp_garansi }}</strong>)
 					</th>
 				@endif
 			</tr>
 			<tr>
-				<td class="text-justify" style="font-style: italic; padding-bottom: 4px;">
-					{!! $terms->description !!} <br>
-					<span style="font-weight: bold;">Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</span>
+				<td class="text-justify" style="font-style: italic; padding-bottom: 4px; padding-right: 30px;">
+					{!! $terms->description !!}
 				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table class="w-100">
-		<tbody>
-			<tr>
 				<th class="text-center">Pengambil</th>
 				<th class="text-center">Penyerah</th>
 				<th class="text-center">Teknisi</th>
 			</tr>
 			<tr>
-				<td class="pt-5 text-center capital">{{ $items->pengambil }}</td>
-				<td class="pt-5 text-center capital">{{ $items->penyerah }}</td>
+				<td></td>
+				<td class="text-center capital">{{ $items->pengambil }}</td>
+				<td class="text-center capital">{{ $items->penyerah }}</td>
 				@if ($items->user != null)
-					<td class="pt-5 text-center capital">{{ $items->user->name }}</td>
+					<td class="text-center capital">{{ $items->user->name }}</td>
 				@else
-					<td class="pt-5 text-center capital">-</td>
+					<td class="text-center capital">-</td>
 				@endif
 			</tr>
 		</tbody>
