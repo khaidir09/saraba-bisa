@@ -16,7 +16,7 @@
 		}
 
 		.pt-5 {
-			padding-top: 40px;
+			padding-top: 20px;
 		}
 
 		.text-center {
@@ -263,12 +263,16 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td class="text-center capital">{{ $items->pengambil }}</td>
-				<td class="text-center capital">{{ $items->penyerah }}</td>
-				@if ($items->user != null)
-					<td class="text-center capital">{{ $items->user->name }}</td>
+				<td class="pt-5 text-center capital">{{ $items->pengambil }}</td>
+				@if ($items->penyerah != null)
+					<td class="pt-5 text-center capital">{{ $items->penyerah }}</td>
 				@else
-					<td class="text-center capital">-</td>
+					<td class="pt-5 text-center capital">-</td>
+				@endif
+				@if ($items->user != null)
+					<td class="pt-5 text-center capital">{{ $items->user->name }}</td>
+				@else
+					<td class="pt-5 text-center capital">-</td>
 				@endif
 			</tr>
 		</tbody>
