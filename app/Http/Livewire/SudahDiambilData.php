@@ -85,7 +85,7 @@ class SudahDiambilData extends Component
             'jumlah_belum_disetujui' => $jumlah_belum_disetujui,
             'service_transactions' => $this->search === null ?
                 ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')->whereIn('types_id', $this->type)->whereIn('kondisi_servis', $this->kondisi)->paginate($this->paginate) :
-                ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->orWhere('nomor_servis', $this->search)->paginate($this->paginate)
         ]);
     }
 }

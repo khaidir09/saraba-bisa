@@ -90,7 +90,7 @@ class AdminProsesData extends Component
             'products' => $products,
             'processes' => $this->search === null ?
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->whereIn('types_id', $this->type)->whereIn('status_servis', $this->status)->paginate($this->paginate) :
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->orWhere('nomor_servis', $this->search)->paginate($this->paginate)
         ]);
     }
 }

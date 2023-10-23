@@ -54,7 +54,7 @@ class TeknisiProsesData extends Component
             'actions' => $actions,
             'processes' => $this->search === null ?
                 ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->paginate($this->paginate) :
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->orWhere('nomor_servis', $this->search)->paginate($this->paginate)
         ]);
     }
 }

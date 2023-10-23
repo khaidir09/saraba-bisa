@@ -88,6 +88,7 @@ class AdminSudahDiambilData extends Component
                 ->paginate($this->paginate) :
                 ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')
                 ->where('nama_pelanggan', 'like', '%' . $this->search . '%')
+                ->orWhere('nomor_servis', $this->search)
                 ->paginate($this->paginate)
         ]);
     }
