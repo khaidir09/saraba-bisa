@@ -254,15 +254,14 @@
 				@endif
 			</tr>
 			<tr>
-				<td class="text-justify" style="font-style: italic; padding-bottom: 4px; padding-right: 30px;">
+				<td rowspan="2" class="text-justify" style="font-style: italic; padding-right: 30px;">
 					{!! $terms->description !!}
 				</td>
-				<th class="text-center">Pengambil</th>
-				<th class="text-center">Penyerah</th>
-				<th class="text-center">Teknisi</th>
+				<th class="text-center" style="vertical-align: top;">Pengambil</th>
+				<th class="text-center" style="vertical-align: top;">Penyerah</th>
+				<th class="text-center" style="vertical-align: top;">Teknisi</th>
 			</tr>
 			<tr>
-				<td></td>
 				<td class="pt-5 text-center capital">{{ $items->pengambil }}</td>
 				@if ($items->penyerah != null)
 					<td class="pt-5 text-center capital">{{ $items->penyerah }}</td>
