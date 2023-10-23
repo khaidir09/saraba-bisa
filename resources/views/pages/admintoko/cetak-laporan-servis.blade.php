@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan Transaksi Servis</title>
+	<style>
+		@page {
+            margin: 10mm 5mm; /* Atur margin atas, kanan, bawah, dan kiri */
+        }
+
+		.text-center {
+			text-align: center;
+		}
+
+		.text-right {
+			text-align: right;
+		}
+
+		.text-left {
+			text-align: left;
+		}
+
+		.capital {
+			text-transform: uppercase;
+		}
+
+		#ringkasan td,
+		th,
+		tr,
+		table {
+			border-collapse: collapse;
+			font-size: 14px;
+			line-height: 1em;
+			width: 100%;
+			padding: 4px 0 4px 0;
+			text-align: left;
+		}
+
+		#detail td,
+		#detail th,
+		#detail tr,
+		#detail table {
+			border-collapse: collapse;
+			font-size: 12px;
+			line-height: 1em;
+			width: 100%;
+			padding: 4px;
+			text-align: center;
+			border: solid;
+		}
+
+		#data {
+			border-bottom: 1px solid #ddd;
+		}
+	</style>
+</head>
+<body>
+	<div class="text-center">
+		@if ($users->profile_photo_path != null)
+			<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
+		@endif
+		<h4 style="margin-bottom: 0">{{ $users->nama_toko }}</h4>
+		<p style="margin-top: 3px;">{{ $users->alamat_toko }}</p>
+	</div>
+
+	<hr style="border-top: 1px dashed;">
+
+	<div class="text-center">
+		<h4 style="margin-bottom: 6px; margin-top: 6px;">
+			Laporan Transaksi Servis
+		</h4>
+		<p style="margin-top: 0">Periode : {{ \Carbon\Carbon::parse($start_date)->format('d-m-Y') }} s/d {{ \Carbon\Carbon::parse($end_date)->format('d-m-Y') }}</p>
+	</div>
+	
+	<h4 style="margin-bottom: 6px;">
+		<span style="background:color: blue; padding: 6px 12px; border-radius: 50%; color: #fff;">Ringkasan</span>
+	</h4>
+
+	<table id="ringkasan">
+		<tbody>
+			<tr>
+				<th>Total Modal Sparepart</th>
+				<th style="color: brown">: Rp. {{ number_format($total_modal) }}</th>
+				<th>Total Biaya Servis</th>
+				<th style="color: blue;">: Rp. {{ number_format($total_biaya) }}</th>
+			</tr>
+			<tr>
+				<th>Total Diskon</th>
+				<th style="color: red">: Rp. {{ number_format($total_diskon) }}</th>
+				<th>Total Profit</th>
+				<th style="color: green">: Rp. {{ number_format($total_profit) }}</th>
+			</tr>
+		</tbody>
+	</table>
+
+	<h4 style="margin-bottom: 12px;">
+		<span style="background:color: blue; padding: 6px 12px; border-radius: 50%; color: #fff;">Detail Transaksi</span>
+	</h4>
+
+	<table id="detail">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Tgl. Masuk</th>
+				<th>Tgl. Diambil</th>
+				<th>No. Servis</th>
+				<th>Pelanggan</th>
+				<th>Model Seri</th>
+				<th>Tindakan</th>
+				<th>Teknisi</th>
+				<th>Penyerah</th>
+				<th>Modal Sparepart</th>
+				<th>Biaya Servis</th>
+				<th>Diskon</th>
+				<th>Profit Toko</th>
+			</tr>
+		</thead>
+		<tbody>
+			@php
+				$i = 1
+			@endphp
+			@foreach ($services as $item)
+				<tr>
+					<td style="width: 10px;">{{ $i++ }}</td>
+					<td style="width: 60px;">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+					<td style="width: 60px;">{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('d-m-Y') }}</td>
+					<td class="text-center" style="width: 70px;">{{ $item->nomor_servis }}</td>
+					<td style="text-align: left; width: 100px;">{{ $item->nama_pelanggan }}</td>
+					<td style="text-align: left; width: 80px;">{{ $item->modelserie->name }}</td>
+					<td class="capital" style="text-align: left;">
+						@if ($item->kondisi_servis != 'Sudah jadi')
+							{{ $item->kondisi_servis }}
+						@else
+							{{ $item->tindakan_servis }}
+						@endif
+					</td>
+					<td style="text-align: left; width: 70px;">
+						@if ($item->users_id != null)
+							{{ $item->user->name }}
+						@else
+							-
+						@endif
+					</td>
+					<td style="text-align: left; width: 70px;">{{ $item->penyerah }}</td>
+					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
+					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
+					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
+					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->profittoko) }}</td>
+				</tr>
+			@endforeach
+		</tbody>
+	</table>
+</body>
+</html>
