@@ -7,7 +7,7 @@
     <title>Laporan Transaksi Servis</title>
 	<style>
 		@page {
-            margin: 10mm 5mm; /* Atur margin atas, kanan, bawah, dan kiri */
+            margin: 5mm 6mm 5mm 20mm; /* Atur margin atas, kanan, bawah, dan kiri */
         }
 
 		.text-center {
@@ -31,9 +31,8 @@
 		tr,
 		table {
 			border-collapse: collapse;
-			font-size: 14px;
+			font-size: 12px;
 			line-height: 1em;
-			width: 100%;
 			padding: 4px 0 4px 0;
 			text-align: left;
 		}
@@ -45,7 +44,6 @@
 			border-collapse: collapse;
 			font-size: 12px;
 			line-height: 1em;
-			width: 100%;
 			padding: 4px;
 			text-align: center;
 			border: solid;
@@ -95,14 +93,14 @@
 			<tr>
 				<th>Total Modal Sparepart</th>
 				<th style="color: brown">: Rp. {{ number_format($total_modal) }}</th>
-				<th>Total Biaya Servis</th>
-				<th style="color: blue;">: Rp. {{ number_format($total_biaya) }}</th>
+				<th class="text-right">Total Biaya Servis</th>
+				<th class="text-right" style="color: blue;">: Rp. {{ number_format($total_biaya) }}</th>
 			</tr>
 			<tr>
 				<th>Total Diskon</th>
 				<th style="color: red">: Rp. {{ number_format($total_diskon) }}</th>
-				<th>Total Profit</th>
-				<th style="color: green">: Rp. {{ number_format($total_profit) }}</th>
+				<th class="text-right">Total Profit</th>
+				<th class="text-right" style="color: green">: Rp. {{ number_format($total_profit) }}</th>
 			</tr>
 		</tbody>
 	</table>
@@ -138,7 +136,7 @@
 					<td style="width: 10px;">{{ $i++ }}</td>
 					<td style="width: 60px;">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
 					<td style="width: 60px;">{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('d-m-Y') }}</td>
-					<td class="text-center" style="width: 70px;">{{ $item->nomor_servis }}</td>
+					<td class="text-center" style="width: 60px;">{{ $item->nomor_servis }}</td>
 					<td style="text-align: left; width: 100px;">{{ $item->nama_pelanggan }}</td>
 					<td style="text-align: left; width: 80px;">{{ $item->modelserie->name }}</td>
 					<td class="capital" style="text-align: left;">
@@ -156,10 +154,10 @@
 						@endif
 					</td>
 					<td style="text-align: left; width: 70px;">{{ $item->penyerah }}</td>
-					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
-					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
+					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
+					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
-					<td style="width: 80px; text-align: right;">Rp. {{ number_format($item->profittoko) }}</td>
+					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->profittoko) }}</td>
 				</tr>
 			@endforeach
 		</tbody>
