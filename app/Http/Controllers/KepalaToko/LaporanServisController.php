@@ -146,6 +146,6 @@ class LaporanServisController extends Controller
 
         $filename = 'Laporan Transaksi Servis' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
 
-        return $pdf->setPaper('a4', 'landscape')->setOption(['defaultFont' => 'sans-serif', 'isRemoteEnabled', true])->stream($filename);
+        return $pdf->setPaper('a4')->setOption(['defaultFont' => 'sans-serif', 'isRemoteEnabled', true])->stream($filename);
     }
 }
