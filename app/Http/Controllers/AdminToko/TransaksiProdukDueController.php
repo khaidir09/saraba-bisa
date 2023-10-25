@@ -91,12 +91,6 @@ class TransaksiProdukDueController extends Controller
      */
     public function destroy($id)
     {
-        $item = Order::findOrFail($id);
-
-        $item->delete();
-
-        OrderDetail::where('orders_id', $item->id)->delete();
-
-        return redirect()->route('admin-transaksi-produk.index');
+        //
     }
 }
