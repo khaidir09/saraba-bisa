@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tanda Terima Servis #{{ $items->nomor_servis }}</title>
+	<link href="https://fonts.cdnfonts.com/css/dot-matrix" rel="stylesheet">
 	<style>
 		@page {
             size: A4; /* Ukuran halaman A4, bisa disesuaikan */
@@ -12,6 +13,7 @@
         }
 		body {
 			margin: 0;
+			font-family: 'Dot Matrix', sans-serif;
 		}
 
 		.text-center {
