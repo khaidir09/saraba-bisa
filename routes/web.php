@@ -298,9 +298,6 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('produk/admin-transaksi-produk-paid', AdminTokoTransaksiProdukPaidController::class);
     Route::resource('produk/admin-transaksi-produk-due', AdminTokoTransaksiProdukDueController::class);
 
-    Route::get('/admin-order/due/{id}', [AdminTokoTransaksiProdukController::class, 'OrderDueAjax']);
-    Route::post('produk/admin-update-due', [AdminTokoTransaksiProdukController::class, 'UpdateDue'])->name('admin-produk.updateDue');
-
     Route::get('produk/admin-pos', [AdminTokoPosController::class, 'index'])->name('admin-pos');
     Route::get('produk/admin-allitem', [AdminTokoPosController::class, 'AllItem']);
     Route::post('produk/admin-add-cart', [AdminTokoPosController::class, 'AddCart']);
@@ -353,9 +350,6 @@ Route::middleware('ensureSalesRole:Sales')->group(
         Route::resource('produk/sales-transaksi-produk', SalesTransaksiProdukController::class);
         Route::resource('produk/sales-transaksi-produk-paid', SalesTransaksiProdukPaidController::class);
         Route::resource('produk/sales-transaksi-produk-due', SalesTransaksiProdukDueController::class);
-
-        Route::get('/sales-order/due/{id}', [SalesTransaksiProdukController::class, 'OrderDueAjax']);
-        Route::post('produk/sales-update-due', [SalesTransaksiProdukController::class, 'UpdateDue'])->name('sales-produk.updateDue');
 
         Route::get('produk/sales-pos', [SalesPosController::class, 'index'])->name('sales-pos');
         Route::get('produk/sales-allitem', [SalesPosController::class, 'AllItem']);

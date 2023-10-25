@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\AdminToko;
 
 use App\Models\Order;
-use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
