@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<style>
+	
+	<style type="text/css">
 		html {
 			margin: 0;
 			padding: 0;
@@ -14,7 +14,17 @@
 			font-size: 10px;
 			color: #000000;
 		}
+		
+		footer {
+			margin-top: 5px;
+		}
+
+		.text-center {
+			text-align: center;
+		}
+
 		.resi {
+			margin-top: 5px;
 			width: 155px;
     		max-width: 155px;
 		}
@@ -43,11 +53,16 @@
 </head>
 <body>
 	<div class="resi">
-		<p class="text-center mb-1">
-			NOTA PENGAMBILAN SERVIS <br>
-			<strong>{{ $users->nama_toko }}</strong> <br>
-			Telp/WA {{ $users->nomor_hp_toko }}
-		</p>
+		<div class="text-center">
+			@if ($users->profile_photo_path != null)
+				<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="50">
+			@endif
+			<p>
+				NOTA PENGAMBILAN SERVIS <br>
+				<strong>{{ $users->nama_toko }}</strong> <br>
+				Telp/WA {{ $users->nomor_hp_toko }}
+			</p>
+		</div>
 
 		<hr style="border-top: 1px solid; margin: 0px;">
 
@@ -93,25 +108,45 @@
 				</tr>
 				<tr>
 				<td class="title">Tindakan</td>
-				<td class="value">: {{ $items->tindakan_servis }}</td>
-				</tr>
-				<tr>
-				<td class="title">Biaya Servis</td>
-				<td class="value">: Rp. {{ number_format($items->biaya) }}</td>
-				</tr>
-				<tr>
-				<td class="title">Pembayaran</td>
-				<td class="value">: {{ $items->cara_pembayaran }}</td>
-				</tr>
-				<tr>
-				@if ($items->exp_garansi === null)
-					<td class="title">Garansi</td>
-					<td class="value">: Tidak Ada</td>
+				@if ($items->kondisi_servis != 'Sudah jadi')
+					<td class="value">: {{ $items->kondisi_servis }}</td>
 				@else
-					<td class="title">Masa Garansi</td>
-					<td class="value">: {{ \Carbon\Carbon::parse($items->exp_garansi)->locale('id')->translatedFormat('d/m/Y') }}</td>
+					<td class="value">: {{ $items->tindakan_servis }}</td>
 				@endif
 				</tr>
+				@if ($items->kondisi_servis === 'Sudah jadi')
+					<tr>
+					<td class="title">Biaya Servis</td>
+					<td class="value">: Rp. {{ number_format($items->biaya) }}</td>
+					</tr>
+				@endif
+				@if ($items->diskon != null)
+					<tr>
+					<td class="title">Diskon</td>
+					<td class="value">: Rp. {{ number_format($items->diskon) }}</td>
+					</tr>
+					<tr>
+					<td class="title">Dibayarkan</td>
+					<td class="value">: Rp. {{ number_format($items->biaya - $items->diskon) }}</td>
+					</tr>
+				@endif
+				@if ($items->kondisi_servis === 'Sudah jadi')
+					<tr>
+					<td class="title">Pembayaran</td>
+					<td class="value">: {{ $items->cara_pembayaran }}</td>
+					</tr>
+				@endif
+				@if ($items->kondisi_servis === 'Sudah jadi')
+					<tr>
+					@if ($items->exp_garansi === null)
+						<td class="title">Garansi</td>
+						<td class="value">: Tidak Ada</td>
+					@else
+						<td class="title">Masa Garansi</td>
+						<td class="value">: {{ \Carbon\Carbon::parse($items->exp_garansi)->locale('id')->translatedFormat('d/m/Y') }}</td>
+					@endif
+					</tr>
+				@endif
 				<tr>
 				<td class="title">Pengecekan Masuk</td>
 				<td class="value">: {{ $items->qc_masuk }}</td>
@@ -133,12 +168,12 @@
 
 		<hr style="border-top: 1px solid; margin: 0px;">
 
-		<div class="text-center mt-1">
-			<small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
-			<p class="my-1">Rek {{ Auth::user()->bank }} {{ Auth::user()->rekening }} <br> a.n. {{ Auth::user()->pemilik_rekening }}</p>
-			<p class="mb-1">Cek status garansi {{ $users->link_toko }}/tracking</p>
+		<footer class="text-center">
+			<small>Dicetak [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }}]</small>
+			<p>Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
+			<p>Cek status garansi {{ $users->link_toko }}/tracking</p>
 			<p>Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</p>
-		</div>
+		</footer>
 	</div>
 </body>
 </html>

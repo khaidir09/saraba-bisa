@@ -4,225 +4,266 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
     <title>Nota Pengambilan Servis #{{ $items->nomor_servis }}</title>
 	<style>
+		@page {
+            size: A4; /* Ukuran halaman A4, bisa disesuaikan */
+            margin: 3mm; /* Atur margin atas, kanan, bawah, dan kiri */
+        }
 		body {
-			color: #000000;
+			margin: 0;
+		}
+
+		.pt-5 {
+			padding-top: 20px;
+		}
+
+		.text-center {
+			text-align: center;
+		}
+		.text-right {
+			text-align: right;
+		}
+		.text-left {
+			text-align: left;
+		}
+		.text-justify {
+			text-align: justify;
 		}
 
 		.capital {
 			text-transform: uppercase;
 		}
 
-		.nama-toko {
-			font-size: 72px;
-			font-weight: 800;
+		.w-100 {
+			width: 100%;
 		}
 
+		.w-50 {
+			width: 50%;
+		}
+
+		.w-75 {
+			width: 75%;
+		}
+
+		.w-25 {
+			width: 25%;
+		}
+
+		td,
+		th,
+		tr,
 		table {
-			font-size: 36px;
+			border-collapse: collapse;
+			font-size: 12px;
 			line-height: 1em;
+			padding: 4px;
+			color: #000000;
 		}
 
-		tbody, thead {
-			color: #000000;
+		#data {
+			border-bottom: 1px solid #ddd;
 		}
 	</style>
 </head>
 <body>
-	<table class="table table-sm table-borderless">
+	<table class="w-100">
+		<tr>
+			@if ($users->profile_photo_path != null)
+				<td class="text-center" style="width: 30%">
+					<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
+				</td>
+				<td style="height: 50px; vertical-align: middle; text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
+					{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
+				</td>
+			@else
+				<td style="text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
+					{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
+				</td>
+			@endif
+		</tr>
+	</table>
+
+	<hr style="border-top: 1px dashed;">
+
+	<h4 class="text-center" style="margin-bottom: 6px; margin-top: 6px;">NOTA PENGAMBILAN SERVIS</h4>
+
+	<table class="w-100">
+		<tr>
+			<td class="text-left"><strong>No. Servis</strong> : {{ $items->nomor_servis }}</td>
+			<td class="text-right"><strong>Tanggal</strong> : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
+		</tr>
+	</table>
+
+	<table class="w-100">
+		<thead>
+			<tr style="border-top-style: solid; border-right-style: solid;">
+				<th id="data" colspan="2" class="text-left" style="border-left-style: solid;">Data Pelanggan</th>
+				<th id="data" colspan="4" class="text-left" style="border-left-style: solid;">Data Barang</th>
+			</tr>
+		</thead>
 		<tbody>
-			<tr>
-			<td scope="col" class="w-75 nama-toko">{{ $users->nama_toko }}</td>
-			<td scope="col" class="w-25">No. Servis : {{ $items->nomor_servis }}</td>
+			<tr style="border-right-style: solid;">
+				<td id="data" scope="row" style="border-left-style: solid;">Nama</th>
+				<td id="data" class="capital">: {{ $items->customer->nama }}</td>
+				<td id="data" scope="row" style="border-left-style: solid;">Jenis Barang</th>
+				<td id="data" class="capital">: {{ $items->type->name }}</td>
+				<td id="data" scope="row">IMEI/SN</th>
+				<td id="data">: {{ $items->imei }}</td>
 			</tr>
-			<tr>
-			<td scope="col deskripsi-toko" style="font-size: 40px; font-weight: 600;">{{ $users->deskripsi_toko }}</td>
-			<td scope="col">Tanggal : {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }}</td>
+			<tr style="border-right-style: solid;">
+				<td id="data" scope="row" style="border-left-style: solid;">Nomor HP</th>
+				<td id="data">: {{ $items->customer->nomor_hp }}</td>
+				<td id="data" scope="row" style="border-left-style: solid;">Merek</th>
+				<td id="data" class="capital">: {{ $items->brand->name }}</td>
+				<td id="data" scope="row">Kelengkapan</th>
+				@if ($items->kelengkapan != null)
+					<td id="data" class="capital">: {{ $items->kelengkapan }}</td>
+				@else
+					<td id="data" class="capital">: Hanya Unit</td>
+				@endif
 			</tr>
-			<tr>
-			<td scope="col alamat-toko">{{ $users->alamat_toko }}</td>
-			<td scope="col"></td>
-			</tr>
-			<tr>
-			<td scope="col">Nomor HP/WA {{ $users->nomor_hp_toko }}</td>
-			<td scope="col"></td>
+			<tr style="border-bottom-style: solid; border-right-style: solid;">
+				<td scope="row" style="border-left-style: solid;">Alamat</th>
+				<td class="capital">: {{ $items->customer->alamat }}</td>
+				<td scope="row" style="border-left-style: solid;">Model Seri</th>
+				<td class="capital">: {{ $items->modelserie->name }}</td>
+				<td scope="row">Warna/Kapasitas</th>
+				<td class="capital">: {{ $items->warna }} / {{ $items->capacity->name }}</td>
 			</tr>
 		</tbody>
 	</table>
-
-	<hr style="border-top: 1px dashed; margin-top: 0px; margin-bottom: 30px;">
-
-	<h6 class="text-center">NOTA PENGAMBILAN SERVIS</h6>
-
-	<section>
-		<table class="table table-sm">
-			<thead>
-				<tr style="border-top-style: solid; border-right-style: solid;">
-					<th colspan="2" style="border-left-style: solid;">Data Pelanggan</th>
-					<th colspan="4" style="border-left-style: solid;">Data Barang</th>
-				</tr>
-			</thead>
-			<tbody>
+	<table class="w-100" style="padding-top: 0px;">
+		<thead>
+			<tr style="border-top-style: solid; border-right-style: solid;">
+				<th id="data" colspan="2" class="text-left" style="border-left-style: solid;">Tindakan</th>
+				<th id="data" colspan="2" class="text-left" style="border-left-style: solid;">Pengecekan (Tombol, Kamera, dll)</th>
+				<th id="data" colspan="2" class="text-left" style="border-left-style: solid;">Pembayaran</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr style="border-right-style: solid;">
+				<td id="data" scope="row" style="border-left-style: solid;">Kerusakan</th>
+				<td id="data" class="capital">: {{ $items->kerusakan }}</td>
+				<td id="data" scope="row" style="border-left-style: solid;">Fungsi (Masuk)</th>
+				<td id="data" class="capital">: {{ $items->qc_masuk }}</td>
+				<td id="data" scope="row" style="border-left-style: solid;">Metode Pembayaran</td>
+				<td id="data" class="capital">: {{ $items->cara_pembayaran }}</td>
+			</tr>
+			<tr style="border-right-style: solid;">
+				<td id="data" scope="row" style="border-left-style: solid;">Kondisi Servis</th>
+				<td id="data" class="capital">: {{ $items->kondisi_servis }}</td>
+				<td id="data" scope="row" style="border-left-style: solid;">Fungsi (Keluar)</th>
+				<td id="data" class="capital">: {{ $items->qc_keluar }}</td>
+				<td id="data" scope="row" style="border-left-style: solid;">Biaya Servis</td>
+				<td id="data">: Rp. {{ number_format($items->biaya) }}</td>
+			</tr>
+			@if ($items->uang_muka != null && $items->diskon != null)
 				<tr style="border-right-style: solid;">
-					<td scope="row" style="border-left-style: solid;">Nama</th>
-					<td class="capital">: {{ $items->customer->nama }}</td>
-					<td scope="row" style="border-left-style: solid;">Jenis Barang</th>
-					<td class="capital">: {{ $items->type->name }}</td>
-					<td scope="row">IMEI/SN</th>
-					<td>: {{ $items->imei }}</td>
+					<td id="data" scope="row" style="border-left-style: solid;">Tindakan Servis</td>
+					<td id="data" class="capital">: {{ $items->tindakan_servis }}</td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;">Uang Muka</td>
+					<td id="data">: Rp. {{ number_format($items->uang_muka) }}</td>
 				</tr>
 				<tr style="border-right-style: solid;">
-					<td scope="row" style="border-left-style: solid;">Nomor HP</th>
-					<td>: {{ $items->customer->nomor_hp }}</td>
-					<td scope="row" style="border-left-style: solid;">Merek</th>
-					<td class="capital">: {{ $items->brand->name }}</td>
-					<td scope="row">Kelengkapan</th>
-					@if ($items->kelengkapan != null)
-						<td class="capital">: {{ $items->kelengkapan }}</td>
-					@else
-						<td class="capital">: Hanya Unit</td>
-					@endif
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;">Diskon</td>
+					<td id="data">: Rp. {{ number_format($items->diskon) }}</td>
 				</tr>
 				<tr style="border-bottom-style: solid; border-right-style: solid;">
-					<td scope="row" style="border-left-style: solid;">Alamat</th>
-					<td class="capital">: {{ $items->customer->alamat }}</td>
-					<td scope="row" style="border-left-style: solid;">Model Seri</th>
-					<td class="capital">: {{ $items->modelserie->name }}</td>
-					<td scope="row">Warna/Kapasitas</th>
-					<td class="capital">: {{ $items->warna }} / {{ $items->capacity->name }}</td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
+					<td id="data">: Rp. {{ number_format($items->biaya - $items->uang_muka - $items->diskon) }}</td>
 				</tr>
-			</tbody>
-		</table>
-		<table class="table table-sm">
-			<thead>
-				<tr style="border-top-style: solid; border-right-style: solid;">
-					<th colspan="2" style="border-left-style: solid;">Tindakan</th>
-					<th colspan="2" style="border-left-style: solid;">Pengecekan (Tombol, Kamera, dll)</th>
-					<th colspan="2" style="border-left-style: solid;">Pembayaran</th>
-				</tr>
-			</thead>
-			<tbody>
+			@elseif ($items->uang_muka != null && $items->diskon === null)
 				<tr style="border-right-style: solid;">
-					<td scope="row" style="border-left-style: solid;">Kerusakan</th>
-					<td class="capital">: {{ $items->kerusakan }}</td>
-					<td scope="row" style="border-left-style: solid;">Fungsi (Masuk)</th>
-					<td class="capital">: {{ $items->qc_masuk }}</td>
-					<td scope="row" style="border-left-style: solid;">Metode Pembayaran</td>
-					<td class="capital">: {{ $items->cara_pembayaran }}</td>
+					<td id="data" scope="row" style="border-left-style: solid;">Tindakan Servis</td>
+					<td id="data" class="capital">: {{ $items->tindakan_servis }}</td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;">Uang Muka</td>
+					<td id="data">: Rp. {{ number_format($items->uang_muka) }}</td>
 				</tr>
+				<tr style="border-bottom-style: solid; border-right-style: solid;">
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
+					<td id="data">: Rp. {{ number_format($items->biaya - $items->uang_muka) }}</td>
+				</tr>
+			@elseif ($items->diskon != null && $items->uang_muka === null)
 				<tr style="border-right-style: solid;">
-					<td scope="row" style="border-left-style: solid;">Kondisi Servis</th>
-					<td class="capital">: {{ $items->kondisi_servis }}</td>
-					<td scope="row" style="border-left-style: solid;">Fungsi (Keluar)</th>
-					<td class="capital">: {{ $items->qc_keluar }}</td>
-					<td scope="row" style="border-left-style: solid;">Biaya Servis</td>
-					<td>: Rp. {{ number_format($items->biaya) }}</td>
+					<td id="data" scope="row" style="border-left-style: solid;">Tindakan Servis</td>
+					<td id="data" class="capital">: {{ $items->tindakan_servis }}</td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;">Diskon</td>
+					<td id="data">: Rp. {{ number_format($items->diskon) }}</td>
 				</tr>
-				@if ($items->uang_muka != null && $items->diskon != null)
-					<tr style="border-right-style: solid;">
-						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-						<td class="capital">: {{ $items->tindakan_servis }}</td>
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;">Uang Muka</td>
-						<td>: Rp. {{ number_format($items->uang_muka) }}</td>
-					</tr>
-					<tr style="border-right-style: solid;">
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;">Diskon</td>
-						<td>: Rp. {{ number_format($items->diskon) }}</td>
-					</tr>
-					<tr style="border-bottom-style: solid; border-right-style: solid;">
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
-						<td>: Rp. {{ number_format($items->biaya - $items->uang_muka - $items->diskon) }}</td>
-					</tr>
-				@elseif ($items->uang_muka != null && $items->diskon === null)
-					<tr style="border-right-style: solid;">
-						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-						<td class="capital">: {{ $items->tindakan_servis }}</td>
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;">Uang Muka</td>
-						<td>: Rp. {{ number_format($items->uang_muka) }}</td>
-					</tr>
-					<tr style="border-bottom-style: solid; border-right-style: solid;">
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
-						<td>: Rp. {{ number_format($items->biaya - $items->uang_muka) }}</td>
-					</tr>
-				@elseif ($items->diskon != null && $items->uang_muka === null)
-					<tr style="border-right-style: solid;">
-						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-						<td class="capital">: {{ $items->tindakan_servis }}</td>
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;">Diskon</td>
-						<td>: Rp. {{ number_format($items->diskon) }}</td>
-					</tr>
-					<tr style="border-bottom-style: solid; border-right-style: solid;">
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
-						<td>: Rp. {{ number_format($items->biaya - $items->diskon) }}</td>
-					</tr>
-				@elseif ($items->diskon === null && $items->uang_muka === null)
-					<tr style="border-right-style: solid; border-bottom-style: solid;">
-						<td scope="row" style="border-left-style: solid;">Tindakan Servis</td>
-						<td class="capital">: {{ $items->tindakan_servis }}</td>
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-						<td scope="row" style="border-left-style: solid;"></td>
-						<td></td>
-					</tr>
-				@endif
-			</tbody>
-		</table>
-		<table class="table table-sm table-borderless">
-			<thead>
-				<tr>
-					@if ($items->exp_garansi === null)
-						<td>
-							Tidak ada garansi untuk tindakan servis ini.
-						</td>
-					@else
-						<td>
-							Garansi servis Anda aktif sampai tanggal {{ $items->exp_garansi }}
-						</td>
-					@endif
+				<tr style="border-bottom-style: solid; border-right-style: solid;">
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;">Sisa Pembayaran</td>
+					<td id="data">: Rp. {{ number_format($items->biaya - $items->diskon) }}</td>
 				</tr>
-				<tr>
-					<th class="w-50">Syarat & Ketentuan</th>
-					<th colspan="2" class="text-center w-25">Pengambil</th>
-					<th colspan="2" class="text-center w-25">Tertanda</th>
+			@elseif ($items->diskon === null && $items->uang_muka === null)
+				<tr style="border-right-style: solid; border-bottom-style: solid;">
+					<td id="data" scope="row" style="border-left-style: solid;">Tindakan Servis</td>
+					<td id="data" class="capital">: {{ $items->tindakan_servis }}</td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
+					<td id="data" scope="row" style="border-left-style: solid;"></td>
+					<td id="data"></td>
 				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="text-justify" style="font-style: italic;">
-						{!! $terms->description !!} <br> <br>
-						<span style="font-weight: bold;">Terima kasih atas kepercayaan Anda telah melakukan Servis di {{ $users->nama_toko }}</span>
+			@endif
+		</tbody>
+	</table>
+	<table class="w-100">
+		<tbody>
+			<tr>
+				@if ($items->catatan != null)
+					<td colspan="3">
+						<strong>Catatan</strong> : {{ $items->catatan }}
 					</td>
-					<td colspan="2" class="pt-5 text-center">{{ $items->customer->nama }}</td>
-					<td colspan="2" class="pt-5 text-center">{{ Auth::user()->name }}</td>
-				</tr>
-			</tbody>
-		</table>
-	</section>
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+				@endif
+			</tr>
+			<tr>
+				<th class="text-left w-75">Syarat & Ketentuan</th>
+				@if ($items->exp_garansi === null)
+					<th colspan="2" class="w-25 text-right">
+						(Tidak ada garansi)
+					</th>
+				@else
+					<th colspan="2" class="w-25 text-right">
+						(Garansi <strong>{{ $items->exp_garansi }}</strong>)
+					</th>
+				@endif
+			</tr>
+			<tr>
+				<td rowspan="2" class="text-justify" style="font-style: italic; padding-right: 30px;">
+					{!! $terms->description !!}
+				</td>
+				<th class="text-center" style="vertical-align: top;">Pengambil</th>
+				<th class="text-center" style="vertical-align: top;">Tertanda</th>
+			</tr>
+			<tr>
+				<td class="pt-5 text-center capital">{{ $items->pengambil }}</td>
+				<td class="pt-5 text-center capital">{{ Auth::user()->name }}</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
