@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<style>
+	
+	<style type="text/css">
 		html {
 			margin: 0;
 			padding: 0;
@@ -14,7 +14,17 @@
 			font-size: 10px;
 			color: #000000;
 		}
+
+		footer {
+			margin-top: 5px;
+		}
+
+		.text-center {
+			text-align: center;
+		}
+
 		.resi {
+			margin-top: 5px;
 			width: 155px;
     		max-width: 155px;
 		}
@@ -43,11 +53,16 @@
 </head>
 <body>
 	<div class="resi">
-		<p class="text-center mb-1">
-			TANDA TERIMA SERVIS <br>
-			<strong>{{ $users->nama_toko }}</strong> <br>
-			Telp/WA {{ $users->nomor_hp_toko }}
-		</p>
+		<div class="text-center">
+			@if ($users->profile_photo_path != null)
+				<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="50">
+			@endif
+			<p>
+				TANDA TERIMA SERVIS <br>
+				<strong>{{ $users->nama_toko }}</strong> <br>
+				Telp/WA {{ $users->nomor_hp_toko }}
+			</p>
+		</div>
 
 		<hr style="border-top: 1px solid; margin: 0px;">
 
@@ -75,9 +90,12 @@
 					<td class="value">: Rp. {{ number_format($items->estimasi_biaya) }}</td>
 					</tr>
 				@endif
-				<td class="title">Est. Pengerjaan</td>
-				<td class="value">: {{ $items->estimasi_pengerjaan }}</td>
-				</tr>
+				@if ($items->estimasi_pengerjaan != null)
+					<tr>
+					<td class="title">Est. Pengerjaan</td>
+					<td class="value">: {{ $items->estimasi_pengerjaan }}</td>
+					</tr>
+				@endif
 				<tr>
 				<td class="title">Nama Barang</td>
 				<td class="value">: {{ $items->type->name }} {{ $items->brand->name }} {{ $items->modelserie->name }}</td>
@@ -107,12 +125,12 @@
 
 		<hr style="border-top: 1px solid; margin: 0px;">
 
-		<div class="text-center mt-1">
-			<small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
-			<p class="my-1">Rek {{ Auth::user()->bank }} {{ Auth::user()->rekening }} <br> a.n. {{ Auth::user()->pemilik_rekening }}</p>
-			<p class="mb-1">Cek status servis {{ $users->link_toko }}/tracking</p>
+		<footer class="text-center">
+			<small>Dicetak [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }}]</small>
+			<p>Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
+			<p>Cek status servis {{ $users->link_toko }}/tracking</p>
 			<p>Silahkan bawa Nota Tanda Terima Servis ini pada saat pengambilan barang. Terima kasih.</p>
-		</div>
+		</footer>
 	</div>
 </body>
 </html>

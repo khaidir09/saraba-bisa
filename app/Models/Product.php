@@ -11,28 +11,25 @@ class Product extends Model
     protected $fillable = [
         'product_name',
         'product_code',
-        'categories_id',
+        'sub_categories_id',
         'category_name',
         'stok',
+        'stok_minimal',
         'harga_modal',
         'harga_jual',
-        'supplier',
         'keterangan',
         'nomor_seri',
         'garansi',
         'garansi_imei'
     ];
 
-    public function category()
+    public function subCategory()
     {
-        return $this->belongsTo(Category::class, 'categories_id', 'id');
+        return $this->belongsTo(SubCategory::class, 'sub_categories_id', 'id');
     }
 
-    public function order()
+    public function relasiOrder()
     {
-        $currentMonth = now()->month;
-
-        return $this->hasMany(OrderDetail::class, 'products_id', 'id')
-            ->whereMonth('created_at', $currentMonth);
+        return $this->hasMany(OrderDetail::class, 'products_id', 'id');
     }
 }

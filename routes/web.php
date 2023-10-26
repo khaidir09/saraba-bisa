@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GaransiController;
 use App\Http\Controllers\HakAksesController;
 use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\DefaultController;
+use App\Http\Controllers\AutoBiayaServisController;
 // Kepala Toko
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KepalaToko\DataServisController;
@@ -27,6 +29,7 @@ use App\Http\Controllers\KepalaToko\TindakanServisController as KepalaTokoTindak
 use App\Http\Controllers\KepalaToko\MasterKapasitasController as KepalaTokoMasterKapasitasController;
 use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
 use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTransaksiServisController;
+use App\Http\Controllers\KepalaToko\TransaksiServisLangsungController as KepalaTokoTransaksiServisLangsungController;
 
 use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriController;
 use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
@@ -54,6 +57,12 @@ Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
 Route::get('/tracking-data', [TrackingController::class, 'data'])->name('tracking-data');
 Route::get('/garansi', [GaransiController::class, 'index'])->name('garansi');
 Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-data');
+Route::get('/get-action/{service_actions_id}', [AutoBiayaServisController::class, 'getAction']);
+
+// Default All Route 
+Route::controller(DefaultController::class)->group(function () {
+    Route::get('/get-modelserie', 'GetModelSerie')->name('get-modelserie');
+});
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('dashboard');
@@ -62,6 +71,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('servis/tindakan-servis', KepalaTokoTindakanServisController::class);
     Route::resource('pelanggan', KepalaTokoPelangganController::class);
     Route::resource('servis/transaksi-servis', KepalaTokoTransaksiServisController::class);
+    Route::post('/servis/transaksi-servis-langsung', [KepalaTokoTransaksiServisLangsungController::class, 'store'])->name('servis-langsung');
     Route::resource('servis/transaksi-servis-approve', KepalaTokoApproveController::class);
     Route::resource('servis/transaksi-servis-bisa-diambil', KepalaTokoBisaDiambilController::class);
     Route::resource('servis/transaksi-servis-sudah-diambil', KepalaTokoSudahDiambilController::class);

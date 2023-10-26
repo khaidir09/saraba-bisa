@@ -11,7 +11,7 @@
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="Masukkan nama pelanggan" />
+            <x-search-form placeholder="Pelanggan/Nomor Servis" />
 
             <!-- Create invoice button -->
             <div x-data="{ modalOpen: false }">
@@ -70,7 +70,12 @@
                                 <div class="space-y-3">
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
-                                        <livewire:customer-search></livewire:customer-search>
+                                        <select name="customers_id" class="form-select text-sm py-1 w-full" id="selectjs1" required style="width: 100%">
+                                            <option selected value="">Pilih Pelanggan</option>
+                                            @foreach ($customers as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang <span class="text-rose-500">*</span></label>
@@ -83,6 +88,7 @@
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
                                         <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full" required>
+                                            <option selected="">Pilih Merek</option>
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach
@@ -90,7 +96,9 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <livewire:pencarian-model-seri></livewire:pencarian-model-seri>
+                                        <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full selectjs2" required style="width: 100%">
+                                            <option selected="">Pilih Model Seri</option>
+                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>
@@ -242,6 +250,24 @@
                                 </label>
                             </li>
                         @endforeach
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.0" value="Sudah jadi"/>
+                                <span class="text-sm font-medium ml-2">Sudah jadi</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.1" value="Tidak bisa"/>
+                                <span class="text-sm font-medium ml-2">Tidak bisa</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.2" value="Dibatalkan"/>
+                                <span class="text-sm font-medium ml-2">Dibatalkan</span>
+                            </label>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -394,7 +420,7 @@
                                         @mouseenter="open = true"
                                         @mouseleave="open = false"
                                     >
-                                        <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20*{{ $transaction->type->name }}%20{{ $transaction->brand->name }}%20{{ $transaction->modelserie->name }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20kondisinya%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_selesai)->translatedFormat('d F Y h:i') }}%20WIB%20dan%20*{{ $transaction->status_servis }}*%20dengan%20biaya%20*Rp.%20{{ number_format($transaction->biaya) }}*.%20Terima%20Kasih." target="__blank">
+                                        <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20*{{ $transaction->type->name }}%20{{ $transaction->brand->name }}%20{{ $transaction->modelserie->name }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20kondisinya%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_selesai)->translatedFormat('d F Y') }}%20dan%20*{{ $transaction->status_servis }}*%20dengan%20biaya%20Rp.%20{{ number_format($transaction->biaya) }}.%20Terima%20Kasih." target="__blank">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                             <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -449,6 +475,7 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
+
                                     <!-- Start -->
                                     <div
                                         class="relative"
@@ -484,46 +511,18 @@
                                         </div>
                                     </div>
                                     <!-- End -->
-                                    
+
                                     <!-- Start -->
-                                    <div x-data="{ modalOpen: false }">
-                                        <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="modalOpen = true" aria-controls="danger-modal">
-                                            <span class="sr-only">Delete</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <line x1="4" y1="7" x2="20" y2="7" />
-                                                <line x1="10" y1="11" x2="10" y2="17" />
-                                                <line x1="14" y1="11" x2="14" y2="17" />
-                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                            </svg>
-                                        </button>
+                                    <div x-data="{ showDelete: false, deleteId: null }" x-show = "showDelete" x-on:open-delete.window="showDelete = true; deleteId = $event.detail.id" x-on:close-delete.window = "showDelete = false" x-on:keydown.escape.window = "showDelete = false" class="fixed z-50 inset-0">
                                         <!-- Modal backdrop -->
-                                        <div
-                                            class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                            x-show="modalOpen"
-                                            x-transition:enter="transition ease-out duration-200"
-                                            x-transition:enter-start="opacity-0"
-                                            x-transition:enter-end="opacity-100"
-                                            x-transition:leave="transition ease-out duration-100"
-                                            x-transition:leave-start="opacity-100"
-                                            x-transition:leave-end="opacity-0"
-                                            aria-hidden="true"
-                                            x-cloak
-                                        ></div>
+                                        <div x-on:click="showDelete = false" class="fixed inset-0 bg-slate-900 bg-opacity-40" x-cloak></div>
                                         <!-- Modal dialog -->
                                         <div
                                             id="danger-modal"
                                             class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                                             role="dialog"
                                             aria-modal="true"
-                                            x-show="modalOpen"
-                                            x-transition:enter="transition ease-in-out duration-200"
-                                            x-transition:enter-start="opacity-0 translate-y-4"
-                                            x-transition:enter-end="opacity-100 translate-y-0"
-                                            x-transition:leave="transition ease-in-out duration-200"
-                                            x-transition:leave-start="opacity-100 translate-y-0"
-                                            x-transition:leave-end="opacity-0 translate-y-4"
+                                            x-show="showDelete"
                                             x-cloak
                                         >
                                             <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
@@ -548,8 +547,8 @@
                                                         </div>
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
-                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <form action="{{ route('transaksi-servis-bisa-diambil.destroy', $transaction->id) }}" method="post">
+                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" x-on:click="$dispatch('close-delete')">Batal</button>
+                                                            <form x-bind:action="'{{ route('transaksi-servis-bisa-diambil.destroy', '') }}/' + deleteId" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -561,6 +560,18 @@
                                         </div>                                            
                                     </div>
                                     <!-- End -->
+                                    
+                                    <button x-data x-on:click="$dispatch('open-delete', { id: {{ $transaction->id }} })" class="text-rose-500 hover:text-rose-600 rounded-full">
+                                        <span class="sr-only">Delete</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <line x1="4" y1="7" x2="20" y2="7" />
+                                            <line x1="10" y1="11" x2="10" y2="17" />
+                                            <line x1="14" y1="11" x2="14" y2="17" />
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </td>
                         </tr>

@@ -6,7 +6,6 @@ use App\Models\Term;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
-use App\Models\Worker;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
@@ -25,22 +24,7 @@ class TransaksiServisController extends Controller
      */
     public function index()
     {
-        $processes = ServiceTransaction::with('customer')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orderByDesc('created_at')->paginate(10);
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
-        $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
-        $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/kepalatoko/transaksi-servis', compact(
-            'processes',
-            'processes_count',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil',
-            'jumlah_semua',
-            'bisadiambil',
-            'jumlahbisadiambil'
-        ));
+        return view('pages/kepalatoko/transaksi-servis');
     }
 
     /**
@@ -95,37 +79,54 @@ class TransaksiServisController extends Controller
      */
     public function show($id)
     {
-        $item = ServiceTransaction::findOrFail($id);
-
-        return view('pages.kepalatoko.transaksi-servis-status', [
-            'item' => $item
-        ]);
+        //
     }
 
     public function cetakinkjet($id)
     {
-        $items = ServiceTransaction::findOrFail($id);
+        $items = ServiceTransaction::with('customer')->findOrFail($id);
         $users = User::find(1);
         $terms = Term::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $items->nomor_servis;
+        $namaPelanggan = $items->customer->nama;
+
 
         $pdf = PDF::loadView('pages.kepalatoko.notaterima-cetak-inkjet', [
             'users' => $users,
             'items' => $items,
-            'terms' => $terms
+            'terms' => $terms,
+            'imagePath' => $imagePath
         ]);
-        return $pdf->setOption(['dpi' => 300])->stream();
+        $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     public function cetaktermal($id)
     {
         $items = ServiceTransaction::findOrFail($id);
         $users = User::find(1);
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $items->nomor_servis;
+        $namaPelanggan = $items->customer->nama;
 
         $pdf = PDF::loadView('pages.kepalatoko.kepalatoko-cetak-termal', [
             'users' => $users,
-            'items' => $items
+            'items' => $items,
+            'imagePath' => $imagePath
         ]);
-        return $pdf->stream();
+
+        $filename = 'Nota Terima ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     /**

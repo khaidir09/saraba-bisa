@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <!-- Modal content -->
-                    <form action="{{ route('transaksi-servis-sudah-diambil.update', $item->id) }}" method="post">
+                     <form action="{{ route('transaksi-servis-sudah-diambil.update', $item->id) }}" method="post">
                         @method('PUT')
                         @csrf
                         <div class="px-5 py-4">
@@ -83,9 +83,13 @@
                                     <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="tgl_ambil">Tgl. Ambil </label>
+                                    <input id="tgl_ambil" name="tgl_ambil" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('Y-m-d') }}"/>
+                                </div>
+                                <div>
                                     @if ($item->customer != null)
                                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
-                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                        <select id="selectjs1" name="customers_id" class="form-select text-sm py-1 w-full">
                                             <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
                                             @foreach ($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
@@ -93,7 +97,7 @@
                                         </select>
                                     @else
                                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan</label>
-                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full">
+                                        <select id="selectjs1" name="customers_id" class="form-select text-sm py-1 w-full">
                                             <option selected value="">Data pelanggan sudah dihapus</option>
                                             @foreach ($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
@@ -121,7 +125,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri </label>
-                                    <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full" >
+                                    <select id="selectjs2" name="model_series_id" class="form-select text-sm py-1 w-full" >
                                         <option selected value="{{ $item->modelserie->id }}">{{ $item->modelserie->name }}</option>
                                         @foreach ($model_series as $model_serie)
                                             <option value="{{ $model_serie->id }}">{{ $model_serie->name }}</option>
@@ -143,22 +147,40 @@
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="kondisi_servis">Kondisi Servis  </label>
                                     <select id="kondisi_servis" name="kondisi_servis" class="form-select text-sm py-1 w-full" >
-                                            <option selected value="{{ $item->kondisi_servis }}">{{ $item->kondisi_servis }}</option>
-                                            <option value="Sudah Jadi">Sudah Jadi</option>
-                                            <option value="Tidak Bisa">Tidak Bisa</option>
-                                            <option value="Dibatalkan">Dibatalkan</option>
+                                        <option selected value="{{ $item->kondisi_servis }}">{{ $item->kondisi_servis }}</option>
+                                        <option value="Sudah jadi">Sudah Jadi</option>
+                                        <option value="Menunggu konfirmasi">Menunggu Konfirmasi</option>
+                                        <option value="Tidak bisa">Tidak Bisa</option>
+                                        <option value="Dibatalkan">Dibatalkan</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="service_actions_id">Tindakan Servis  </label>
-                                    <select id="service_actions_id" name="service_actions_id" class="form-select text-sm py-1 w-full">
-                                        @if ($item->serviceaction != null)
-                                            <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
+                                    @if ($item->service_actions_id != null)
+                                        <select id="selectjs3" name="service_actions_id" class="form-select text-sm py-1 w-full">
+                                            @if ($item->serviceaction != null)
+                                                <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
+                                            @else
+                                                <option selected value=""></option>
+                                            @endif
+                                            @foreach ($service_actions as $action)
+                                                <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <input id="tindakan_servis" name="tindakan_servis" class="form-input w-full px-2 py-1" type="text" value="{{ $item->tindakan_servis }}"/>
+                                    @endif
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="products_id">Sparepart yang digunakan  </label>
+                                    <select id="selectjs4" name="products_id" class="form-select text-sm py-1 w-full">
+                                        @if ($item->product != null)
+                                            <option selected value="{{ $item->product->id }}">{{ $item->product->product_name }}</option>
                                         @else
                                             <option selected value=""></option>
                                         @endif
-                                        @foreach ($service_actions as $action)
-                                            <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}">{{ $product->product_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -166,13 +188,13 @@
                                     <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart </label>
                                     <input id="modal_sparepart" name="modal_sparepart" class="form-input w-full px-2 py-1" type="number" value="{{ $item->modal_sparepart }}"/>
                                 </div>
-                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="uang_muka">Uang Muka </label>
-                                    <input id="uang_muka" name="uang_muka" class="form-input w-full px-2 py-1" type="number" value="{{ $item->uang_muka }}"/>
-                                </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="biaya">Biaya Servis </label>
                                     <input id="biaya" name="biaya" class="form-input w-full px-2 py-1" type="number" value="{{ $item->biaya }}"/>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="uang_muka">Uang Muka </label>
+                                    <input id="uang_muka" name="uang_muka" class="form-input w-full px-2 py-1" type="number" value="{{ $item->uang_muka }}"/>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="diskon">Diskon </label>
@@ -189,6 +211,7 @@
                                     <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full" >
                                             <option selected value="{{ $item->cara_pembayaran }}">{{ $item->cara_pembayaran }}</option>
                                             <option value="Tunai">Tunai</option>
+                                            <option value="Transfer">Transfer</option>
                                             <option value="Tempo 1 Hari">Tempo 1 Hari</option>
                                             <option value="Tempo 2 Hari">Tempo 2 Hari</option>
                                             <option value="Tempo 3 Hari">Tempo 3 Hari</option>
@@ -212,10 +235,6 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="tgl_ambil">Tgl. Ambil </label>
-                                    <input id="tgl_ambil" name="tgl_ambil" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('Y-m-d') }}"/>
-                                </div>
-                                <div>
                                     <label class="block text-sm font-medium mb-1" for="pengambil">Pengambil</label>
                                     <input id="pengambil" name="pengambil" class="form-input w-full px-2 py-1" type="text" value="{{ $item->pengambil }}"/>
                                 </div>
@@ -236,4 +255,21 @@
         </div>
         
     </div>
-</x-admin-layout>
+
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    @endpush
+
+    @push('scripts')
+        <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#selectjs1').select2();
+                $('#selectjs2').select2();
+                $('#selectjs3').select2();
+                $('#selectjs4').select2();
+            });
+        </script>
+    @endpush
+</x-toko-layout>

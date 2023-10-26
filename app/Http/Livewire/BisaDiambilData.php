@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
-use App\Models\Worker;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
@@ -19,7 +18,19 @@ class BisaDiambilData extends Component
 
     public $paginate = 10;
     public $search;
-    public $type;
+    public $type = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6'
+    ];
+    public $kondisi = [
+        'Sudah jadi',
+        'Tidak bisa',
+        'Dibatalkan'
+    ];
 
     protected $updatesQueryString = ['search'];
 
@@ -31,6 +42,13 @@ class BisaDiambilData extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function updatedKondisi($value, $index)
+    {
+        if (!$value) {
+            unset($this->kondisi[$index]);
+        }
     }
 
     public function render()
@@ -57,8 +75,8 @@ class BisaDiambilData extends Component
             'jumlah_bisa_diambil' => $jumlah_bisa_diambil,
             'jumlah_sudah_diambil' => $jumlah_sudah_diambil,
             'bisadiambil' => $this->search === null ?
-                ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('types_id', 'like', '%' . $this->type . '%')->paginate($this->paginate) :
-                ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->whereIn('types_id', $this->type)->whereIn('kondisi_servis', $this->kondisi)->paginate($this->paginate) :
+                ServiceTransaction::latest()->with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->where('nama_pelanggan', 'like', '%' . $this->search . '%')->orWhere('nomor_servis', $this->search)->paginate($this->paginate)
         ]);
     }
 }

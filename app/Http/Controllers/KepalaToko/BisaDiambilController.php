@@ -6,6 +6,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Worker;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
@@ -90,13 +91,18 @@ class BisaDiambilController extends Controller
      */
     public function edit($id)
     {
-        $item = ServiceTransaction::with('serviceaction')->findOrFail($id);
+        $item = ServiceTransaction::with('serviceaction', 'product')->findOrFail($id);
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
         $capacities = Capacity::all();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('category_name', 'Sparepart');
+            });
+        })->where('stok', '>=', 1)->get();
 
         return view('pages.kepalatoko.bisa-diambil-edit', [
             'item' => $item,
@@ -105,6 +111,7 @@ class BisaDiambilController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'service_actions' => $service_actions,
+            'products' => $products,
             'capacities' => $capacities
         ]);
     }
@@ -124,6 +131,8 @@ class BisaDiambilController extends Controller
 
         if ($request->service_actions_id != null) {
             $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
+        } elseif ($request->tindakan_servis != null) {
+            $tindakan_servis = $request->tindakan_servis;
         } else {
             $tindakan_servis = null;
         }
@@ -141,6 +150,7 @@ class BisaDiambilController extends Controller
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
             'tindakan_servis' => $tindakan_servis,
+            'products_id' => $request->products_id,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
             'omzet' => $request->biaya,

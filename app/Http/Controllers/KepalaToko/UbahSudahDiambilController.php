@@ -23,30 +23,7 @@ class UbahSudahDiambilController extends Controller
      */
     public function index()
     {
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
-        $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
-        $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/kepalatoko/bisa-diambil', compact(
-            'processes_count',
-            'customers',
-            'types',
-            'brands',
-            'model_series',
-            'capacities',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil',
-            'jumlah_semua',
-            'bisadiambil',
-            'jumlahbisadiambil'
-        ));
+        //
     }
 
     /**
@@ -134,7 +111,7 @@ class UbahSudahDiambilController extends Controller
             'profit' => $profittransaksi,
         ]);
 
-        return redirect()->route('transaksi-servis-bisa-diambil.index');
+        return redirect()->route('transaksi-servis-sudah-diambil.index');
     }
 
     /**

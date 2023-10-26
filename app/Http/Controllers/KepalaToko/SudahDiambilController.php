@@ -7,6 +7,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Worker;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
@@ -47,11 +48,13 @@ class SudahDiambilController extends Controller
     public function store(Request $request)
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
+        $nama_pelanggan = Customer::find($request->customers_id);
 
         // Transaction create
         ServiceTransaction::create([
             'nomor_servis' => $nomor_servis,
             'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
@@ -122,6 +125,11 @@ class SudahDiambilController extends Controller
         $model_series = ModelSerie::all();
         $service_actions = ServiceAction::all();
         $capacities = Capacity::all();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('category_name', 'Sparepart');
+            });
+        })->where('stok', '>=', 1)->get();
 
         return view('pages.kepalatoko.sudah-diambil-edit', [
             'item' => $item,
@@ -130,7 +138,8 @@ class SudahDiambilController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'service_actions' => $service_actions,
-            'capacities' => $capacities
+            'capacities' => $capacities,
+            'products' => $products
         ]);
     }
 
@@ -149,6 +158,8 @@ class SudahDiambilController extends Controller
 
         if ($request->service_actions_id != null) {
             $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
+        } elseif ($request->tindakan_servis != null) {
+            $tindakan_servis = $request->tindakan_servis;
         } else {
             $tindakan_servis = null;
         }
@@ -166,6 +177,7 @@ class SudahDiambilController extends Controller
             'qc_keluar' => $request->qc_keluar,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
+            'products_id' => $request->products_id,
             'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,

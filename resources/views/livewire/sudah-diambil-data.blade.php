@@ -11,7 +11,7 @@
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="Masukkan nama pelanggan" />
+            <x-search-form placeholder="Pelanggan/Nomor Servis" />
 
             <!-- Create invoice button -->
             <div x-data="{ modalOpen: false }">
@@ -63,14 +63,19 @@
                             </div>
                         </div>
                         <!-- Modal content -->
-                        <form action="{{ route('transaksi-servis-sudah-diambil.store') }}" method="post">
+                        <form action="{{ route('transaksi-servis-bisa-diambil.store') }}" method="post">
                             @csrf
                             <input type="hidden" name="status_servis" value="Belum cek">
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
-                                        <livewire:customer-search></livewire:customer-search>
+                                        <select name="customers_id" class="form-select text-sm py-1 w-full" id="selectjs1" required style="width: 100%">
+                                            <option selected value="">Pilih Pelanggan</option>
+                                            @foreach ($customers as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang <span class="text-rose-500">*</span></label>
@@ -83,6 +88,7 @@
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
                                         <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full" required>
+                                            <option selected="">Pilih Merek</option>
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach
@@ -90,7 +96,9 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <livewire:pencarian-model-seri></livewire:pencarian-model-seri>
+                                        <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full selectjs2" required style="width: 100%">
+                                            <option selected="">Pilih Model Seri</option>
+                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>
@@ -165,7 +173,7 @@
                                         Tambah Pelanggan Baru
                                     </a>
                                     <div>
-                                        <a href="{{ route('transaksi-servis-sudah-diambil.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                        <a href="{{ route('transaksi-servis-bisa-diambil.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                             Batal
                                         </a>
                                         <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
@@ -230,7 +238,7 @@
                     x-transition:leave="transition ease-out duration-200"
                     x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
-                    x-cloak                
+                    x-cloak
                 >
                     <div class="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Filter</div>
                     <ul class="mb-4">
@@ -242,6 +250,24 @@
                                 </label>
                             </li>
                         @endforeach
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.0" value="Sudah jadi"/>
+                                <span class="text-sm font-medium ml-2">Sudah jadi</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.1" value="Tidak bisa"/>
+                                <span class="text-sm font-medium ml-2">Tidak bisa</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.2" value="Dibatalkan"/>
+                                <span class="text-sm font-medium ml-2">Dibatalkan</span>
+                            </label>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -262,7 +288,7 @@
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Sudah Diambil <span class="text-slate-400 font-medium">{{ $jumlahsudahdiambil }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Sudah Diambil <span class="text-slate-400 font-medium">{{ $jumlah_sudah_diambil }}</span></h2>
         </header>
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -420,7 +446,7 @@
                                             @mouseleave="open = false"
                                         >
                                             @if ($transaction->exp_garansi != null)
-                                                <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang Servis%20*{{ $transaction->type->name }}%20{{ $transaction->brand->name }}%20{{ $transaction->modelserie->name }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20{{ $transaction->status_servis }}%20dalam%20kondisi%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y h:i') }}%20WIB%20oleh%20*{{ $transaction->pengambil }}*%20dengan%20pembayaran%20*{{ $transaction->cara_pembayaran }}*.%20Garansi%20akan%20berakhir%20pada%20tanggal%20*{{ \Carbon\Carbon::parse($transaction->exp_garansi)->translatedFormat('d F Y') }}*.%20Untuk%20Cek%20Status%20Garansi%20Servis%20Anda,%20silahkan%20buka%20Link%20berikut%20ini%20{{ $toko->link_toko }}/tracking.%20Terima%20Kasih%20atas%20kepercayaan%20Anda%20telah%20melakukan%20Servis%20di%20*{{ $toko->nama_toko }}*." target="__blank">
+                                                <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang Servis%20*{{ $transaction->type->name }}%20{{ $transaction->brand->name }}%20{{ $transaction->modelserie->name }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20{{ $transaction->status_servis }}%20dalam%20kondisi%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y') }}%20oleh%20*{{ $transaction->pengambil }}*%20dengan%20pembayaran%20*{{ $transaction->cara_pembayaran }}*.%20Garansi%20akan%20berakhir%20pada%20tanggal%20*{{ \Carbon\Carbon::parse($transaction->exp_garansi)->translatedFormat('d F Y') }}*.%20Untuk%20Cek%20Status%20Garansi%20Servis%20Anda,%20silahkan%20buka%20Link%20berikut%20ini%20{{ $toko->link_toko }}/tracking.%20Terima%20Kasih%20atas%20kepercayaan%20Anda%20telah%20melakukan%20Servis%20di%20*{{ $toko->nama_toko }}*." target="__blank">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                     <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -431,7 +457,7 @@
                                                     </svg>
                                                 </a>
                                             @else
-                                                <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang Servis%20*{{ $transaction->type->name }}%20{{ $transaction->brand->name }}%20{{ $transaction->modelserie->name }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20{{ $transaction->status_servis }}%20dalam%20kondisi%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y h:i') }}%20WIB%20oleh%20*{{ $transaction->pengambil }}*%20dengan%20pembayaran%20*{{ $transaction->cara_pembayaran }}*.%20Item%20ini%20Tidak%20Ada%20Garansi.%20Terima%20Kasih%20atas%20kepercayaan%20Anda%20telah%20melakukan%20Servis%20di%20*{{ $toko->nama_toko }}*." target="__blank">
+                                                <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang Servis%20*{{ $transaction->type->name }}%20{{ $transaction->brand->name }}%20{{ $transaction->modelserie->name }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20{{ $transaction->status_servis }}%20dalam%20kondisi%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y') }}%20oleh%20*{{ $transaction->pengambil }}*%20dengan%20pembayaran%20*{{ $transaction->cara_pembayaran }}*.%20Item%20ini%20Tidak%20Ada%20Garansi.%20Terima%20Kasih%20atas%20kepercayaan%20Anda%20telah%20melakukan%20Servis%20di%20*{{ $toko->nama_toko }}*." target="__blank">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                     <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -577,52 +603,21 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
                                     <!-- Start Printer -->
-                                    <div x-data="{ modalOpen: false }">
-                                        <button
-                                            @click.prevent="modalOpen = true"
-                                            aria-controls="basic-modal"
-                                        >
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
-                                            <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
-                                            <rect x="7" y="13" width="10" height="8" rx="2" />
-                                        </svg>
-                                        </button>
+                                    <div x-data="{ showPrint : false, printId: null }" x-show = "showPrint" x-on:open-print.window="showPrint = true; printId = $event.detail.id" x-on:close-print.window = "showPrint = false" x-on:keydown.escape.window = "showPrint = false" class="fixed z-50 inset-0">
                                             <!-- Modal backdrop -->
-                                            <div
-                                                class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                                x-show="modalOpen"
-                                                x-transition:enter="transition ease-out duration-200"
-                                                x-transition:enter-start="opacity-0"
-                                                x-transition:enter-end="opacity-100"
-                                                x-transition:leave="transition ease-out duration-100"
-                                                x-transition:leave-start="opacity-100"
-                                                x-transition:leave-end="opacity-0"
-                                                aria-hidden="true"
-                                                x-cloak
-                                            ></div>
+                                            <div x-on:click="showPrint = false" class="fixed inset-0 bg-slate-900 bg-opacity-40" x-cloak></div>
                                             <!-- Modal dialog -->
                                             <div
-                                                id="basic-modal"
                                                 class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                                                role="dialog"
-                                                aria-modal="true"
-                                                x-show="modalOpen"
-                                                x-transition:enter="transition ease-in-out duration-200"
-                                                x-transition:enter-start="opacity-0 translate-y-4"
-                                                x-transition:enter-end="opacity-100 translate-y-0"
-                                                x-transition:leave="transition ease-in-out duration-200"
-                                                x-transition:leave-start="opacity-100 translate-y-0"
-                                                x-transition:leave-end="opacity-0 translate-y-4"
+                                                x-show="showPrint"
                                                 x-cloak
                                             >
-                                                <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                                                <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" x-on:keydown.escape.window="showPrint = false">
                                                     <!-- Modal header -->
                                                     <div class="px-5 py-3 border-b border-slate-200">
                                                         <div class="flex justify-between items-center">
                                                             <div class="font-semibold text-slate-800">Pilih Jenis Printer</div>
-                                                            <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
+                                                            <button class="text-slate-400 hover:text-slate-500" x-on:click="$dispatch('close-print')">
                                                                 <div class="sr-only">Close</div>
                                                                 <svg class="w-4 h-4 fill-current">
                                                                     <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
@@ -641,8 +636,7 @@
                                                     <!-- Modal footer -->
                                                     <div class="px-5 py-4">
                                                         <div class="flex flex-wrap justify-end space-x-2">
-                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <a href="{{ route('kepalatoko-nota-pengambilan-termal', $transaction->id) }}" target="__blank">
+                                                            <a x-bind:href="'{{ route('kepalatoko-nota-pengambilan-termal', '') }}/' + printId" target="__blank">
                                                                 <button class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
                                                                     <span class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -655,7 +649,7 @@
                                                                     Printer Termal
                                                                 </button>
                                                             </a>
-                                                            <a href="{{ route('nota-pengambilan-inkjet', $transaction->id) }}" target="__blank">
+                                                            <a x-bind:href="'{{ route('nota-pengambilan-inkjet', '') }}/' + printId" target="__blank">
                                                                 <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
                                                                     <span class="mr-1">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -665,7 +659,7 @@
                                                                         <rect x="7" y="13" width="10" height="8" rx="2" />
                                                                         </svg>
                                                                     </span>
-                                                                    Printer Inkjet/Laser
+                                                                    Printer Inkjet
                                                                 </button>
                                                             </a>
                                                         </div>
@@ -674,45 +668,26 @@
                                             </div>                                            
                                     </div>
                                     <!-- End Printer-->
+                                    <button x-data x-on:click="$dispatch('open-print', { id: {{ $transaction->id }} })">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                                        <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                                        <rect x="7" y="13" width="10" height="8" rx="2" />
+                                    </svg>
+                                    </button>
+
                                     <!-- Start -->
-                                    <div x-data="{ modalOpen: false }">
-                                        <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="modalOpen = true" aria-controls="danger-modal">
-                                            <span class="sr-only">Delete</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <line x1="4" y1="7" x2="20" y2="7" />
-                                                <line x1="10" y1="11" x2="10" y2="17" />
-                                                <line x1="14" y1="11" x2="14" y2="17" />
-                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                            </svg>
-                                        </button>
+                                    <div x-data="{ showDelete: false, deleteId: null }" x-show = "showDelete" x-on:open-delete.window="showDelete = true; deleteId = $event.detail.id" x-on:close-delete.window = "showDelete = false" x-on:keydown.escape.window = "showDelete = false" class="fixed z-50 inset-0">
                                         <!-- Modal backdrop -->
-                                        <div
-                                            class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                            x-show="modalOpen"
-                                            x-transition:enter="transition ease-out duration-200"
-                                            x-transition:enter-start="opacity-0"
-                                            x-transition:enter-end="opacity-100"
-                                            x-transition:leave="transition ease-out duration-100"
-                                            x-transition:leave-start="opacity-100"
-                                            x-transition:leave-end="opacity-0"
-                                            aria-hidden="true"
-                                            x-cloak
-                                        ></div>
+                                        <div x-on:click="showDelete = false" class="fixed inset-0 bg-slate-900 bg-opacity-40" x-cloak></div>
                                         <!-- Modal dialog -->
                                         <div
                                             id="danger-modal"
                                             class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                                             role="dialog"
                                             aria-modal="true"
-                                            x-show="modalOpen"
-                                            x-transition:enter="transition ease-in-out duration-200"
-                                            x-transition:enter-start="opacity-0 translate-y-4"
-                                            x-transition:enter-end="opacity-100 translate-y-0"
-                                            x-transition:leave="transition ease-in-out duration-200"
-                                            x-transition:leave-start="opacity-100 translate-y-0"
-                                            x-transition:leave-end="opacity-0 translate-y-4"
+                                            x-show="showDelete"
                                             x-cloak
                                         >
                                             <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
@@ -737,8 +712,8 @@
                                                         </div>
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
-                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <form action="{{ route('transaksi-servis-sudah-diambil.destroy', $transaction->id) }}" method="post">
+                                                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" x-on:click="$dispatch('close-delete')">Batal</button>
+                                                            <form x-bind:action="'{{ route('transaksi-servis-sudah-diambil.destroy', '') }}/' + deleteId" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -750,6 +725,18 @@
                                         </div>                                            
                                     </div>
                                     <!-- End -->
+                                    
+                                    <button x-data x-on:click="$dispatch('open-delete', { id: {{ $transaction->id }} })" class="text-rose-500 hover:text-rose-600 rounded-full">
+                                        <span class="sr-only">Delete</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <line x1="4" y1="7" x2="20" y2="7" />
+                                            <line x1="10" y1="11" x2="10" y2="17" />
+                                            <line x1="14" y1="11" x2="14" y2="17" />
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </td>
                         </tr>

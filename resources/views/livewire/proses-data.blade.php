@@ -11,7 +11,7 @@
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="Masukkan nama pelanggan" />
+            <x-search-form placeholder="Pelanggan/Nomor Servis" />
 
             <!-- Create invoice button -->
             <div x-data="{ modalOpen: false }">
@@ -63,116 +63,358 @@
                             </div>
                         </div>
                         <!-- Modal content -->
-                        <form action="{{ route('transaksi-servis.store') }}" method="post">
-                            @csrf
-                            <input type="hidden" name="status_servis" value="Belum cek">
-                            <div class="px-5 py-4">
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
-                                        <livewire:customer-search></livewire:customer-search>
+                        <div x-data="{ tab: '1' }" class="px-5 py-4">
+
+                            <!-- Tabs buttons -->
+                            <div class="flex flex-wrap items-center -m-3 mb-0">
+                                <div class="m-3">
+                                    <!-- Start -->
+                                    <label class="flex items-center">
+                                        <input type="radio" name="radio-buttons" class="form-radio" checked @click="tab = '1'"/>
+                                        <span class="text-sm ml-2">Ditinggal</span>
+                                    </label>
+                                    <!-- End -->
+                                </div>
+                                <div class="m-3">
+                                    <!-- Start -->
+                                    <label class="flex items-center">
+                                        <input type="radio" name="radio-buttons" class="form-radio" @click="tab = '2'"/>
+                                        <span class="text-sm ml-2">Langsung</span>
+                                    </label>
+                                    <!-- End -->
+                                </div>
+                            </div>
+                            <!-- Item 1 -->
+                            <div x-show="tab === '1'">
+                                <form action="{{ route('transaksi-servis.store') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="status_servis" value="Belum cek">
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
+                                            <select name="customers_id" class="form-select text-sm py-1 w-full" id="selectjs1" required style="width: 100%">
+                                                <option selected value="">Pilih Pelanggan</option>
+                                                @foreach ($customers as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang <span class="text-rose-500">*</span></label>
+                                            <select id="types_id" name="types_id" class="form-select text-sm py-1 w-full" required>
+                                                @foreach ($types as $type)
+                                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
+                                            <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full" required>
+                                                <option selected="">Pilih Merek</option>
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
+                                            <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full selectjs2" required style="width: 100%">
+                                                <option selected="">Pilih Model Seri</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>
+                                            <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="warna">Warna <span class="text-rose-500">*</span></label>
+                                            <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="capacities_id">Kapasitas <span class="text-rose-500">*</span></label>
+                                            <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full" required>
+                                                @foreach ($capacities as $capacity)
+                                                    <option value="{{ $capacity->id }}">{{ $capacity->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="kelengkapan">Kelengkapan</label>
+                                            <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika kelengkapannya hanya unit"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan <span class="text-rose-500">*</span></label>
+                                            <input id="kerusakan" name="kerusakan" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi <span class="text-rose-500">*</span></label>
+                                            <input id="qc_masuk" name="qc_masuk" 
+                                            class="form-input w-full px-2 py-1" 
+                                            type="text" required
+                                            placeholder="Contoh: Tombol, Kamera, Speaker, dll"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
+                                            <select id="estimasi_pengerjaan" name="estimasi_pengerjaan" class="form-select text-sm py-2 w-full">
+                                                <option selected value="">Pilih Estimasi Pengerjaan</option>
+                                                <option value="1 Hari">1 Hari</option>
+                                                <option value="2 Hari">2 Hari</option>
+                                                <option value="3 Hari">3 Hari</option>
+                                                <option value="4 Hari">4 Hari</option>
+                                                <option value="5 Hari">5 Hari</option>
+                                                <option value="6 Hari">6 Hari</option>
+                                                <option value="1 Minggu">1 Minggu</option>
+                                                <option value="2 Minggu">2 Minggu</option>
+                                                <option value="3 Minggu">3 Minggu</option>
+                                                <option value="1 Bulan">1 Bulan</option>
+                                                <option value="2 Bulan">2 Bulan</option>
+                                                <option value="3 Bulan">3 Bulan</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="estimasi_biaya">Estimasi Biaya Servis</label>
+                                            <div class="relative">
+                                                <input id="estimasi_biaya" name="estimasi_biaya" class="form-input w-full pl-10 px-2 py-1" type="number" placeholder="Kosongkan jika tidak ada"/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="uang_muka">DP/Uang Muka</label>
+                                            <div class="relative">
+                                                <input id="uang_muka" name="uang_muka" class="form-input w-full pl-10 px-2 py-1" type="number" placeholder="Kosongkan jika tidak ada"/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang <span class="text-rose-500">*</span></label>
-                                        <select id="types_id" name="types_id" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($types as $type)
-                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                            @endforeach
-                                        </select>
+                                    <!-- Modal footer -->
+                                    <div class="pt-4 border-t border-slate-200 mt-4">
+                                        <div class="flex flex-wrap justify-between space-x-2">
+                                            <a href="{{ route('pelanggan.index') }}" class="btn-sm bg-green-500 hover:bg-green-600 text-white">
+                                                Tambah Pelanggan Baru
+                                            </a>
+                                            <div>
+                                                <a href="{{ route('transaksi-servis.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                                    Batal
+                                                </a>
+                                                <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
-                                        <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full" required>
+                                </form>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div x-show="tab === '2'">
+                                <form action="{{ route('servis-langsung') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="tgl_selesai" value="<?php echo date('Y/m/d') ?>"/>
+                                    <input type="hidden" name="tgl_ambil" value="<?php echo date('Y/m/d') ?>"/>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
+                                            <select name="customers_id" class="form-select text-sm py-1 w-full" id="selectjs3" required style="width: 100%">
+                                                <option selected value="">Pilih Pelanggan</option>
+                                                @foreach ($customers as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="types_id">Jenis Barang <span class="text-rose-500">*</span></label>
+                                            <select id="types_id" name="types_id" class="form-select text-sm py-1 w-full" required>
+                                                @foreach ($types as $type)
+                                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
+                                            <select id="merek" name="brands_id" class="form-select text-sm py-1 w-full" required>
+                                                <option selected="">Pilih Merek</option>
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach
                                         </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
+                                            <select id="model" name="model_series_id" class="form-select text-sm py-1 w-full selectjs4" required style="width: 100%">
+                                                <option selected="">Pilih Model Seri</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>
+                                            <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="warna">Warna <span class="text-rose-500">*</span></label>
+                                            <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="capacities_id">Kapasitas <span class="text-rose-500">*</span></label>
+                                            <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full" required>
+                                                @foreach ($capacities as $capacity)
+                                                    <option value="{{ $capacity->id }}">{{ $capacity->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="kelengkapan">Kelengkapan</label>
+                                            <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika kelengkapannya hanya unit"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan <span class="text-rose-500">*</span></label>
+                                            <input id="kerusakan" name="kerusakan" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi Masuk<span class="text-rose-500">*</span></label>
+                                            <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" required placeholder="Contoh: Tombol, Kamera, Speaker, dll"/>
+                                        </div>
+                                        <div x-data="{ showInputManual: false }">
+                                            <div class="flex justify-between items-center mb-1">
+                                                <label class="block text-sm font-medium">
+                                                    Tindakan Servis
+                                                    <span class="text-rose-500">*</span>
+                                                </label>
+                                                <label class="flex items-center">
+                                                    <input type="checkbox" class="form-checkbox" x-on:click="showInputManual = true"/>
+                                                    <span class="text-sm ml-2">Isi Manual</span>
+                                                </label>
+                                            </div>
+                                            <select id="selectjs5" name="service_actions_id" class="form-select text-sm py-1 w-full" style="width: 100%;">
+                                                <option selected value="">Pilih Tindakan</option>
+                                                @foreach ($service_actions as $action)
+                                                    <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div x-show="showInputManual" class="mt-2">
+                                                <input class="form-input w-full px-2 py-1" type="text" name="tindakan_servis"/>
+                                            </div>
+                                        </div>
+                                        <div x-data="{ showDetails: false }">
+                                            <label class="block text-sm font-medium mb-1" for="modal_sparepart">Apakah menggunakan stok sparepart toko?</label>
+                                            <div class="flex flex-wrap items-center -m-3">
+                                                <div class="m-3">
+                                                    <!-- Start -->
+                                                    <label class="flex items-center">
+                                                        <input type="radio" name="radio-buttons" class="form-radio" checked x-on:click="showDetails = false"/>
+                                                        <span class="text-sm ml-2">Tidak</span>
+                                                    </label>
+                                                    <!-- End -->
+                                                </div>
+                                                <div class="m-3">
+                                                    <!-- Start -->
+                                                    <label class="flex items-center">
+                                                        <input type="radio" name="radio-buttons" class="form-radio" x-on:click="showDetails = true"/>
+                                                        <span class="text-sm ml-2">Ya</span>
+                                                    </label>
+                                                    <!-- End -->
+                                                </div>
+                                            </div>
+                                            <div x-show="showDetails" class="mt-3">
+                                                <label class="block text-sm font-medium mb-1" for="products_id">Sparepart Toko yg Digunakan</label>
+                                                <select id="selectjs6" name="products_id" class="form-select text-sm py-1 w-full" style="width: 100%;">
+                                                    <option selected value="">Pilih Sparepart</option>
+                                                    @foreach ($products as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->product_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="qc_keluar">Pengecekan Fungsi Keluar <span class="text-rose-500">*</span></label>
+                                            <input id="qc_keluar" name="qc_keluar" class="form-input w-full px-2 py-1" type="text" placeholder="Contoh: Tombol, Kamera, Speaker, dll" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>
+                                            <input class="form-input w-full px-2 py-1" type="number" name="modal_sparepart" id="modal_sparepart"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="biaya">Biaya Servis <span class="text-rose-500">*</span></label>
+                                            <input class="form-input w-full px-2 py-1" type="number" name="biaya" id="biaya"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="diskon">Diskon</label>
+                                            <input id="diskon" name="diskon" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika tidak ada diskon"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
+                                            <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
+                                                <option selected value="Tunai">Tunai</option>
+                                                <option value="Transfer">Transfer</option>
+                                                <option value="Tempo 1 Hari">Tempo 1 Hari</option>
+                                                <option value="Tempo 2 Hari">Tempo 2 Hari</option>
+                                                <option value="Tempo 3 Hari">Tempo 3 Hari</option>
+                                                <option value="Tempo 4 Hari">Tempo 4 Hari</option>
+                                                <option value="Tempo 5 Hari">Tempo 5 Hari</option>
+                                                <option value="Tempo 6 Hari">Tempo 6 Hari</option>
+                                                <option value="Tempo 1 Minggu">Tempo 1 Minggu</option>
+                                                <option value="Tempo 2 Minggu">Tempo 2 Minggu</option>
+                                                <option value="Tempo 3 Minggu">Tempo 3 Minggu</option>
+                                                <option value="Tempo 1 Bulan">Tempo 1 Bulan</option>
+                                                <option value="Tempo 2 Bulan">Tempo 2 Bulan</option>
+                                                <option value="Tempo 3 Bulan">Tempo 3 Bulan</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="garansi">Garansi</label>
+                                            <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
+                                                <option value="">Tidak Ada</option>
+                                                <option value="1">1 Hari</option>
+                                                <option value="2">2 Hari</option>
+                                                <option value="3">3 Hari</option>
+                                                <option value="4">4 Hari</option>
+                                                <option value="5">5 Hari</option>
+                                                <option value="6">6 Hari</option>
+                                                <option value="7">1 Minggu</option>
+                                                <option value="14">2 Minggu</option>
+                                                <option value="21">3 Minggu</option>
+                                                <option value="30">1 Bulan</option>
+                                                <option value="60">2 Bulan</option>
+                                                <option value="90">3 Bulan</option>
+                                                <option value="120">4 Bulan</option>
+                                                <option value="150">5 Bulan</option>
+                                                <option value="180">6 Bulan</option>
+                                                <option value="210">7 Bulan</option>
+                                                <option value="240">8 Bulan</option>
+                                                <option value="270">9 Bulan</option>
+                                                <option value="300">10 Bulan</option>
+                                                <option value="330">11 Bulan</option>
+                                                <option value="365">1 Tahun</option>
+                                                <option value="730">2 Tahun</option>
+                                                <option value="1095">3 Tahun</option>
+                                                <option value="1460">4 Tahun</option>
+                                                <option value="1825">5 Tahun</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="catatan">Catatan</label>
+                                            <textarea id="catatan" name="catatan" class="form-textarea w-full px-2 py-1" rows="2"></textarea>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <livewire:pencarian-model-seri></livewire:pencarian-model-seri>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="imei">Nomor Imei <span class="text-rose-500">*</span></label>
-                                        <input id="imei" name="imei" class="form-input w-full px-2 py-1" type="text" required/>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="warna">Warna <span class="text-rose-500">*</span></label>
-                                        <input id="warna" name="warna" class="form-input w-full px-2 py-1" type="text" required/>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="capacities_id">Kapasitas <span class="text-rose-500">*</span></label>
-                                        <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($capacities as $capacity)
-                                                <option value="{{ $capacity->id }}">{{ $capacity->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="kelengkapan">Kelengkapan</label>
-                                        <input id="kelengkapan" name="kelengkapan" class="form-input w-full px-2 py-1" type="text" placeholder="Kosongkan jika kelengkapannya hanya unit"/>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan <span class="text-rose-500">*</span></label>
-                                        <input id="kerusakan" name="kerusakan" class="form-input w-full px-2 py-1" type="text" required/>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi <span class="text-rose-500">*</span></label>
-                                        <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" placeholder="Contoh: Tombol, Kamera, Speaker, dll" required/>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
-                                        <select id="estimasi_pengerjaan" name="estimasi_pengerjaan" class="form-select text-sm py-2 w-full">
-                                            <option selected value="">Pilih Estimasi Pengerjaan</option>
-                                            <option value="1 Hari">1 Hari</option>
-                                            <option value="2 Hari">2 Hari</option>
-                                            <option value="3 Hari">3 Hari</option>
-                                            <option value="4 Hari">4 Hari</option>
-                                            <option value="5 Hari">5 Hari</option>
-                                            <option value="6 Hari">6 Hari</option>
-                                            <option value="1 Minggu">1 Minggu</option>
-                                            <option value="2 Minggu">2 Minggu</option>
-                                            <option value="3 Minggu">3 Minggu</option>
-                                            <option value="1 Bulan">1 Bulan</option>
-                                            <option value="2 Bulan">2 Bulan</option>
-                                            <option value="3 Bulan">3 Bulan</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="estimasi_biaya">Estimasi Biaya Servis</label>
-                                        <div class="relative">
-                                            <input id="estimasi_biaya" name="estimasi_biaya" class="form-input w-full pl-10 px-2 py-1" type="number" placeholder="Kosongkan jika tidak ada"/>
-                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                    <!-- Modal footer -->
+                                    <div class="pt-4 border-t border-slate-200 mt-4">
+                                        <div class="flex flex-wrap justify-between space-x-2">
+                                            <a href="{{ route('pelanggan.index') }}" class="btn-sm bg-green-500 hover:bg-green-600 text-white">
+                                                Tambah Pelanggan Baru
+                                            </a>
+                                            <div>
+                                                <a href="{{ route('transaksi-servis.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                                    Batal
+                                                </a>
+                                                <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="uang_muka">DP/Uang Muka</label>
-                                        <div class="relative">
-                                            <input id="uang_muka" name="uang_muka" class="form-input w-full pl-10 px-2 py-1" type="number" placeholder="Kosongkan jika tidak ada"/>
-                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
-                            <!-- Modal footer -->
-                            <div class="px-5 py-4 border-t border-slate-200">
-                                <div class="flex flex-wrap justify-between space-x-2">
-                                    <a href="{{ route('pelanggan.index') }}" class="btn-sm bg-green-500 hover:bg-green-600 text-white">
-                                        Tambah Pelanggan Baru
-                                    </a>
-                                    <div>
-                                        <a href="{{ route('transaksi-servis.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
-                                            Batal
-                                        </a>
-                                        <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -242,6 +484,36 @@
                                 </label>
                             </li>
                         @endforeach
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.0" value="Belum cek"/>
+                                <span class="text-sm font-medium ml-2">Belum Cek</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.1" value="Sedang Tes"/>
+                                <span class="text-sm font-medium ml-2">Sedang Tes</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.2" value="Menunggu Konfirmasi"/>
+                                <span class="text-sm font-medium ml-2">Menunggu Konfirmasi</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.3" value="Sedang Dikerjakan"/>
+                                <span class="text-sm font-medium ml-2">Sedang Dikerjakan</span>
+                            </label>
+                        </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="status.4" value="Menunggu Sparepart"/>
+                                <span class="text-sm font-medium ml-2">Menunggu Sparepart</span>
+                            </label>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -413,7 +685,7 @@
                                         @mouseleave="open = false"
                                     >
                                         @if ($process->estimasi_biaya != null)
-                                            <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20{{ $process->type->name }}%20{{ $process->brand->name }}%20{{ $process->modelserie->name }}%20telah%20diterima%20dengan%20No.%20Servis%20*{{ $process->nomor_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($process->created_at)->translatedFormat('d F Y h:i') }}%20WIB%20dan%20Estimasi%20Biaya%20Servis%20*{{ number_format($process->estimasi_biaya) }}*%20.%20Untuk%20Cek%20Status%20(Tracking)%20Servis%20barang%20Anda,%20silahkan%20buka%20Link%20berikut%20ini%20{{ $toko->link_toko }}/tracking.%20Terima%20Kasih." target="__blank">
+                                            <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20{{ $process->type->name }}%20{{ $process->brand->name }}%20{{ $process->modelserie->name }}%20telah%20diterima%20dengan%20No.%20Servis%20*{{ $process->nomor_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($process->created_at)->translatedFormat('d F Y h:i') }}%20dan%20Estimasi%20Biaya%20Servis%20*{{ number_format($process->estimasi_biaya) }}*%20.%20Untuk%20Cek%20Status%20(Tracking)%20Servis%20barang%20Anda,%20silahkan%20buka%20Link%20berikut%20ini%20{{ $toko->link_toko }}/tracking.%20Terima%20Kasih." target="__blank">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                 <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -424,7 +696,7 @@
                                                 </svg>
                                             </a>
                                         @else
-                                            <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20{{ $process->type->name }}%20{{ $process->brand->name }}%20{{ $process->modelserie->name }}%20telah%20diterima%20dengan%20No.%20Servis%20*{{ $process->nomor_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($process->created_at)->translatedFormat('d F Y h:i') }}%20WIB.%20Untuk%20Cek%20Status%20(Tracking)%20Servis%20barang%20Anda,%20silahkan%20buka%20Link%20berikut%20ini%20{{ $toko->link_toko }}/tracking.%20Terima%20Kasih." target="__blank">
+                                            <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20{{ $process->type->name }}%20{{ $process->brand->name }}%20{{ $process->modelserie->name }}%20telah%20diterima%20dengan%20No.%20Servis%20*{{ $process->nomor_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($process->created_at)->translatedFormat('d F Y h:i') }}.%20Untuk%20Cek%20Status%20(Tracking)%20Servis%20barang%20Anda,%20silahkan%20buka%20Link%20berikut%20ini%20{{ $toko->link_toko }}/tracking.%20Terima%20Kasih." target="__blank">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                 <path d="M14 3v4a1 1 0 0 0 1 1h4" />

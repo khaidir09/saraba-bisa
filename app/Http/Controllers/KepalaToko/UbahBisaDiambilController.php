@@ -24,32 +24,7 @@ class UbahBisaDiambilController extends Controller
      */
     public function index()
     {
-        $processes = ServiceTransaction::with('customer')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orderByDesc('created_at')->paginate(10);
-        $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
-        $bisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->paginate(10);
-        $jumlahbisadiambil = ServiceTransaction::with('customer', 'serviceaction')->where('status_servis', 'Bisa Diambil')->count();
-        $customers = Customer::all();
-        $types = Type::all();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
-        $model_series = ModelSerie::all();
-        $jumlah_bisa_diambil = ServiceTransaction::where('status_servis', 'Bisa Diambil')->count();
-        $jumlah_sudah_diambil = ServiceTransaction::where('status_servis', 'Sudah Diambil')->count();
-        $jumlah_semua = ServiceTransaction::all()->count();
-        return view('pages/kepalatoko/transaksi-servis', compact(
-            'processes',
-            'processes_count',
-            'customers',
-            'types',
-            'brands',
-            'model_series',
-            'capacities',
-            'jumlah_bisa_diambil',
-            'jumlah_sudah_diambil',
-            'jumlah_semua',
-            'bisadiambil',
-            'jumlahbisadiambil'
-        ));
+        //
     }
 
     /**
@@ -95,10 +70,16 @@ class UbahBisaDiambilController extends Controller
     {
         $item = ServiceTransaction::findOrFail($id);
         $service_actions = ServiceAction::all();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('category_name', 'Sparepart');
+            });
+        })->where('stok', '>=', 1)->get();
 
         return view('pages.kepalatoko.transaksi-servis-bisadiambil', [
             'item' => $item,
-            'service_actions' => $service_actions
+            'service_actions' => $service_actions,
+            'products' => $products
         ]);
     }
 
@@ -112,20 +93,24 @@ class UbahBisaDiambilController extends Controller
     public function update(Request $request, $id)
     {
         $item = ServiceTransaction::findOrFail($id);
-        $profittransaksi = $request->biaya - $request->modal_sparepart;
 
         if ($request->service_actions_id != null) {
             $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
+        } elseif ($request->tindakan_servis != null) {
+            $tindakan_servis = $request->tindakan_servis;
         } else {
             $tindakan_servis = null;
         }
+
+        $profittransaksi = $request->biaya - $request->modal_sparepart;
+
         // Transaction create
         $item->update([
             'status_servis' => $request->status_servis,
             'tgl_selesai' => $request->tgl_selesai,
             'kondisi_servis' => $request->kondisi_servis,
             'service_actions_id' => $request->service_actions_id,
-            'spareparts_id' => $request->spareparts_id,
+            'products_id' => $request->products_id,
             'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
             'biaya' => $request->biaya,
