@@ -128,7 +128,12 @@
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('item.index', 'item.edit')){{ '!text-indigo-500' }}@endif" href="{{ route('item.index') }}">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('sub-kategori.index', 'sub-kategori.edit')){{ '!text-indigo-500' }}@endif" href="{{ route('sub-kategori.index') }}">
+                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Sub Kategori Produk</span>
+                                    </a>
+                                </li>
+                                <li class="mb-1 last:mb-0">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('item.index', 'item.edit', 'item-tersedia.index', 'item-hampir-habis.index', 'item-habis.index')){{ '!text-indigo-500' }}@endif" href="{{ route('item.index') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Item Produk</span>
                                     </a>
                                 </li>

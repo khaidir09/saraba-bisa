@@ -32,7 +32,11 @@ use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTrans
 use App\Http\Controllers\KepalaToko\TransaksiServisLangsungController as KepalaTokoTransaksiServisLangsungController;
 
 use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriController;
+use App\Http\Controllers\KepalaToko\SubKategoriController as KepalaTokoSubKategoriController;
 use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
+use App\Http\Controllers\KepalaToko\ProdukTersediaController as KepalaTokoProdukTersediaController;
+use App\Http\Controllers\KepalaToko\ProdukHampirHabisController as KepalaTokoProdukHampirHabisController;
+use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
 use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukController as KepalaTokoTransaksiProdukController;
 use App\Http\Controllers\KepalaToko\LaporanPenjualanController as KepalaTokoLaporanPenjualanController;
@@ -108,7 +112,11 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('pengeluaran', KepalaTokoExpenseController::class);
 
     Route::resource('produk/kategori', KepalaTokoKategoriController::class);
+    Route::resource('produk/sub-kategori', KepalaTokoSubKategoriController::class);
     Route::resource('produk/item', KepalaTokoProdukController::class);
+    Route::resource('produk/item-tersedia', KepalaTokoProdukTersediaController::class);
+    Route::resource('produk/item-hampir-habis', KepalaTokoProdukHampirHabisController::class);
+    Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
     Route::resource('produk/pos', KepalaTokoPosController::class);
     Route::resource('produk/transaksi-produk', KepalaTokoTransaksiProdukController::class);
     Route::resource('produk/transaksi-produk-paid', KepalaTokoTransaksiProdukPaidController::class);

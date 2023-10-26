@@ -187,7 +187,7 @@
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <a href="{{ route('item.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                    <a href="{{ route('item-tersedia.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                         Batal
                                     </a>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
@@ -209,12 +209,12 @@
             <ul class="flex flex-wrap -m-1">
                 <li class="m-1">
                     <a href="{{ route('item.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Semua <span class="ml-1 text-indigo-200"></span></button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Semua <span class="ml-1 text-slate-400"></span></button>
                     </a>
                 </li>
                 <li class="m-1">
                     <a href="{{ route('item-tersedia.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Tersedia <span class="ml-1 text-slate-400"></span></button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Tersedia <span class="ml-1 text-indigo-200"></span></button>
                     </a>
                 </li>
                 <li class="m-1">
@@ -352,32 +352,9 @@
         </div>
     </div>
 
-    @if ($errors->any())
-        <div x-show="open" x-data="{ open: true }">
-            <div class="px-4 py-2 rounded-sm text-sm bg-rose-500 text-white">
-                <div class="flex w-full justify-between items-start">
-                    <div class="flex">
-                        <svg class="w-4 h-4 shrink-0 fill-current opacity-80 mt-[3px] mr-3" viewBox="0 0 16 16">
-                            <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                        </svg>
-                        @foreach ($errors->all() as $error)
-                            <div class="font-medium">{{ $error }}</div>
-                        @endforeach
-                    </div>
-                    <button class="opacity-70 hover:opacity-80 ml-3 mt-[3px]" @click="open = false">
-                        <div class="sr-only">Close</div>
-                        <svg class="w-4 h-4 fill-current">
-                            <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    @endif
-
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Semua Produk <span class="text-slate-400 font-medium">{{ $products_count }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Produk Tersedia <span class="text-slate-400 font-medium">{{ $products_count }}</span></h2>
         </header>
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -404,9 +381,6 @@
                             <div class="font-semibold text-left">Stok</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Stok Minimal</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -426,7 +400,7 @@
                     @php
                         $i = 1
                     @endphp
-                    @foreach($products as $item)                  
+                    @foreach($products as $item)
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $i++ }}</div>
@@ -457,15 +431,6 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->stok }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">
-                                    @if ($item->stok_minimal != null)
-                                        {{ $item->stok_minimal }}
-                                    @else
-                                        -
-                                    @endif
-                                </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($item->harga_modal) }}</div>
@@ -554,7 +519,7 @@
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
                                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <form action="{{ route('item.destroy', $item->id) }}" method="post">
+                                                            <form action="{{ route('item-tersedia.destroy', $item->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>

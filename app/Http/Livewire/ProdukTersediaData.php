@@ -3,11 +3,11 @@
 namespace App\Http\Livewire;
 
 use App\Models\Product;
-use App\Models\SubCategory;
 use Livewire\Component;
+use App\Models\SubCategory;
 use Livewire\WithPagination;
 
-class ProdukData extends Component
+class ProdukTersediaData extends Component
 {
     use WithPagination;
 
@@ -29,13 +29,13 @@ class ProdukData extends Component
     public function render()
     {
         $categories = SubCategory::all();
-        $products_count = Product::all()->count();
-        return view('livewire.produk-data', [
+        $products_count = Product::where('stok', '>', '0')->count();
+        return view('livewire.produk-tersedia-data', [
             'categories' => $categories,
             'products_count' => $products_count,
             'products' => $this->search === null ?
-                Product::latest()->paginate($this->paginate) :
-                Product::latest()->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Product::latest()->where('stok', '>', '0')->paginate($this->paginate) :
+                Product::latest()->where('stok', '>', '0')->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

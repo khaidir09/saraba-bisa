@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Exports\ProdukExport;
 use App\Imports\ProdukImport;
 use App\Http\Controllers\Controller;
+use App\Models\SubCategory;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukController extends Controller
@@ -40,17 +41,24 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        $namakategori = Category::find($request->categories_id);
+        $namakategori = SubCategory::find($request->sub_categories_id);
+
+        if ($request->stok === null) {
+            $stok = 1;
+        } else {
+            $stok = $request->stok;
+        }
+
         // Create product
         Product::create([
             'product_name' => $request->product_name,
             'product_code' => $request->product_code,
-            'categories_id' => $request->categories_id,
-            'category_name' => $namakategori->category_name,
-            'stok' => $request->stok,
+            'sub_categories_id' => $request->sub_categories_id,
+            'category_name' => $namakategori->name,
+            'stok' => $stok,
+            'stok_minimal' => $request->stok_minimal,
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
-            'supplier' => $request->supplier,
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri,
             'garansi' => $request->garansi,
@@ -80,7 +88,7 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $item = Product::findOrFail($id);
-        $categories = Category::all();
+        $categories = SubCategory::all();
 
         return view('pages.kepalatoko.produk.edit', [
             'item' => $item,
@@ -112,18 +120,17 @@ class ProdukController extends Controller
     public function update(Request $request, $id)
     {
         $item = Product::findOrFail($id);
-        $namakategori = Category::find($request->categories_id);
+        $namakategori = SubCategory::find($request->sub_categories_id);
         // Create product
         $item->update([
             'product_name' => $request->product_name,
             'product_code' => $request->product_code,
-            'categories_id' => $request->categories_id,
-            'category_name' => $namakategori->category_name,
+            'sub_categories_id' => $request->sub_categories_id,
+            'category_name' => $namakategori->name,
             'stok' => $request->stok,
+            'stok_minimal' => $request->stok_minimal,
             'harga_modal' => $request->harga_modal,
-            'harga_toko' => $request->harga_toko,
-            'harga_pelanggan' => $request->harga_pelanggan,
-            'supplier' => $request->supplier,
+            'harga_jual' => $request->harga_jual,
             'keterangan' => $request->keterangan,
             'nomor_seri' => $request->nomor_seri,
             'garansi' => $request->garansi,
