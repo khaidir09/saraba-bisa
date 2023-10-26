@@ -449,7 +449,7 @@
         <!-- Right side -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
             <!-- Filter button -->
-            <div class="relative inline-flex hidden md:block" x-data="{ open: false }">
+            <div class="relative inline-flex" x-data="{ open: false }">
                 <button
                     class="btn bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600"
                     aria-haspopup="true"
@@ -462,7 +462,7 @@
                     </svg>
                 </button>
                 <div
-                    class="origin-top-right z-10 absolute top-full min-w-56 bg-white border border-slate-200 pt-1.5 rounded shadow-lg overflow-hidden mt-1 right-4"                
+                    class="origin-top-left z-10 absolute top-full min-w-56 bg-white border border-slate-200 pt-1.5 rounded shadow-lg overflow-hidden mt-1 left-4"                
                     @click.outside="open = false"
                     @keydown.escape.window="open = false"
                     x-show="open"
