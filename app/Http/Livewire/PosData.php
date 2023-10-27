@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\Customer;
 use Livewire\WithPagination;
 
 class PosData extends Component
@@ -28,8 +28,10 @@ class PosData extends Component
 
     public function render()
     {
+        $customers = Customer::all();
         $products_count = Product::all()->count();
         return view('livewire.pos-data', [
+            'customers' => $customers,
             'products_count' => $products_count,
             'products' => $this->search === null ?
                 Product::latest()->where('stok', '>=', '1')->simplePaginate($this->paginate) :

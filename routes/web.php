@@ -39,6 +39,8 @@ use App\Http\Controllers\KepalaToko\ProdukHampirHabisController as KepalaTokoPro
 use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
 use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukController as KepalaTokoTransaksiProdukController;
+use App\Http\Controllers\KepalaToko\TransaksiProdukPaidController as KepalaTokoTransaksiProdukPaidController;
+use App\Http\Controllers\KepalaToko\TransaksiProdukDueController as KepalaTokoTransaksiProdukDueController;
 use App\Http\Controllers\KepalaToko\LaporanPenjualanController as KepalaTokoLaporanPenjualanController;
 
 use App\Http\Controllers\KepalaToko\ExpenseController as KepalaTokoExpenseController;

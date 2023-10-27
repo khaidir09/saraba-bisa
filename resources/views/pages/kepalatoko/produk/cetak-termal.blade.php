@@ -131,7 +131,7 @@
       <hr style="border-top: 1px solid; margin: 6px 0 0;">
 
       <div class="text-center mt-1">
-        <small>Dicetak {{ Auth::user()->name }}, <br> [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }} WIB]</small>
+        <small>Dicetak [{{ \Carbon\Carbon::now()->translatedFormat('d/m/Y H:i') }}]</small>
         <p class="my-1">Rek {{ $users->bank }} {{ $users->rekening }} <br> a.n. {{ $users->pemilik_rekening }}</p>
         <p class="mb-0">Terima kasih atas kepercayaan Anda telah berbelanja di <br> {{ $users->nama_toko }}</p>
         <p>Barang yang sudah dibeli tidak bisa dikembalikan.</p>

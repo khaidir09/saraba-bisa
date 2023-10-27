@@ -9,6 +9,10 @@
 
     </div>
 
+    @php
+        $allcart = Cart::content();
+    @endphp
+
     <div class="grid grid-cols-12 gap-6">
         <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-7 bg-white shadow-lg rounded-sm border border-slate-200">
             <header class="px-5 py-4 border-b border-slate-100"><h2 class="font-semibold text-slate-800">Keranjang</h2></header>
@@ -34,10 +38,6 @@
                             </th>
                         </tr>
                     </thead>
-
-                    @php
-                        $allcart = Cart::content();
-                    @endphp
 
                     <!-- Table body -->
                     <tbody class="text-sm divide-y divide-slate-200">
@@ -159,14 +159,18 @@
 
                 <form action="{{ url('/produk/complete-order') }}" method="post">
                     @csrf
-                    <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="order_date" value="{{ \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y') }}">
                     <input type="hidden" name="total_products" value="{{ Cart::count() }}">
-                    <input type="hidden" name="sub_total" value="{{ Cart::subtotal() }}">
+                    <input type="hidden" name="sub_total" value="{{ Cart::total() }}">
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan <span class="text-rose-500">*</span></label>
-                        <livewire:customer-search></livewire:customer-search>
+                        <select name="customers_id" class="form-select text-sm py-1 w-full" id="selectjs1" required style="width: 100%">
+                            <option selected value="">Pilih Pelanggan</option>
+                            @foreach ($customers as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-4 space-y-3">
                         <!-- Create invoice button -->
@@ -218,14 +222,14 @@
                                     <div class="px-5 py-4">
                                         <div class="space-y-3">
                                             <div>
-                                                <label class="block text-sm font-medium mb-1" for="payment_method">Metode Pembayaran</label>
+                                                <label class="block text-sm font-medium mb-1" for="payment_method">Metode Pembayaran <span class="text-rose-500">*</span></label>
                                                 <select id="payment_method" name="payment_method" class="form-select text-sm py-2 w-full">
                                                     <option value="Tunai">Tunai</option>
                                                     <option value="Transfer">Transfer</option>
                                                 </select>
                                             </div>
                                             <div>
-                                                <label class="block text-sm font-medium mb-1" for="pay">Jumlah Pembayaran</label>
+                                                <label class="block text-sm font-medium mb-1" for="pay">Jumlah Pembayaran <span class="text-rose-500">*</span></label>
                                                 <div class="relative">
                                                     <input id="pay" name="pay" class="form-input w-full pl-10 px-2 py-1" type="number"/>
                                                     <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -305,9 +309,9 @@
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium">
                                             @if ($item->product_code != null)
-                                                ({{ $item->product_code }}) {{ $item->product_name }}
+                                                ({{ $item->product_code }}) {{ $item->product_name }} ({{ $item->stok }} item)
                                             @else
-                                                {{ $item->product_name }} {{ $item->nomor_seri }}
+                                                {{ $item->product_name }} {{ $item->nomor_seri }} ({{ $item->stok }} item)
                                             @endif
                                         </div>
                                     </td>

@@ -29,39 +29,81 @@
     }
     .authority h5 {
         margin-top: -10px;
-        /*text-align: center;*/
         margin-left: 35px;
     }
-    .thanks p {
-        font-size: 16px;
-        font-weight: normal;
-        font-family: serif;
-        margin-top: 20px;
+
+    .informasi-toko {
+      text-align: center;
     }
+
+    .w-50 {
+			width: 50%;
+		}
+		.w-25 {
+			width: 25%;
+		}
+    .text-center {
+			text-align: center;
+		}
+		.text-left {
+			text-align: left;
+		}
+		.text-justify {
+			text-align: justify;
+		}
 </style>
 
 </head>
 <body>
 
-  <table width="100%" style="background: #F7F7F7; padding: 10px 10px 0 10px;">
-    <tr>
-        <td align="top"><img src="{{ asset('images/logo-toko.jpg') }}" alt="" width="150"/>
-          
-          <h2 style="font-size: 18px;">
-            <strong>{{ $users->nama_toko }}</strong> <br>
-            {{ $users->deskripsi_toko }}
-          </h2>
-        </td>
-        <td align="right">
-            <pre class="font" >
-               {{ $users->alamat_toko }} <br>
-               Telp/WA {{ $users->nomor_hp_toko }} <br>
-            </pre>
-        </td>
-    </tr>
-  </table>
+  @php
+		function penyebut($nilai) {
+		$nilai = abs($nilai);
+		$huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+		$temp = "";
+		if ($nilai < 12) {
+			$temp = " ". $huruf[$nilai];
+		} else if ($nilai <20) {
+			$temp = penyebut($nilai - 10). " belas";
+		} else if ($nilai < 100) {
+			$temp = penyebut($nilai/10)." puluh". penyebut($nilai % 10);
+		} else if ($nilai < 200) {
+			$temp = " seratus" . penyebut($nilai - 100);
+		} else if ($nilai < 1000) {
+			$temp = penyebut($nilai/100) . " ratus" . penyebut($nilai % 100);
+		} else if ($nilai < 2000) {
+			$temp = " seribu" . penyebut($nilai - 1000);
+		} else if ($nilai < 1000000) {
+			$temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
+		} else if ($nilai < 1000000000) {
+			$temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
+		}
+		return $temp;
+	}
+ 
+	function terbilang($nilai) {
+		if($nilai<0) {
+			$hasil = "minus ". trim(penyebut($nilai));
+		} else {
+			$hasil = trim(penyebut($nilai));
+		}     		
+		return $hasil;
+	}
+	@endphp
 
-  <table width="100%" style="background:white; padding:2px;"></table>
+  <div class="informasi-toko">
+    @if ($users->profile_photo_path != null)
+      <img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70" class="mt-1 mb-2">
+    @endif
+    <h2 style="font-size: 18px;">
+      <strong>{{ $users->nama_toko }}</strong> <br>
+      {{ $users->deskripsi_toko }}
+    </h2>
+    <p>
+      {{ $users->alamat_toko }} <br>
+      Telp/WA {{ $users->nomor_hp_toko }} <br>
+    </p>
+  </div>
 
   <table width="100%" style="background: #F7F7F7; padding: 10px;" class="font">
     <tr>
@@ -98,7 +140,7 @@
     @endif
   </table>
 
-  <table width="100%" style="margin-top: 15px;">
+  <table width="100%" style="margin-top: 15px; border: 1px solid; border-collapse: collapse;">
     <thead style="background-color: lightgrey;">
       <tr class="font">
         <th>No.</th>
@@ -120,43 +162,58 @@
         <td align="center">
           {{ ++$i }}
         </td>
-        <td align="center">{{ $item->product->product_name }}</td>
-        @if ($item->garansi != null)
+        <td align="center" style="text-transform: uppercase;">{{ $item->product->product_name }}</td>
+        @if ($item->garansi != null && $item->garansi_imei != null)
+            <td align="center">Produk {{ $item->garansi }} & IMEI {{ $item->garansi_imei }}</td>
+        @elseif ($item->garansi != null)
             <td align="center">Aktif s/d {{ $item->garansi }}</td>
         @else
-            <td align="center">Tidak ada</td>
+          <td align="center">-</td>
         @endif
         <td align="center">Rp. {{ number_format($item->product->harga_jual) }}</td>
         <td align="center">{{ $item->quantity }}</td>
         <td align="center">Rp. {{ number_format($item->product->harga_jual * $item->quantity) }}</td>
         @if ($item->sub_total === $item->total)
-            <td align="center">Tidak ada</td>
+            <td align="center">-</td>
         @else
-            <td align="center">{{ $persen }}% (Rp. {{ number_format($item->sub_total - $item->total) }})</td>
+            <td align="center">Rp. {{ number_format($item->sub_total - $item->total) }}</td>
         @endif
         <td align="center">Rp. {{ number_format($item->total) }}</td>
-
       </tr>
       @endforeach
     </tbody>
   </table>
-  <br>
-  <table width="100%" style=" padding:0 10px 0 10px;">
+  <table width="100%">
     <tr>
         <td align="right" >
             <h2>
-              <span>Total:</span> Rp. {{ number_format($total) }}
+              <span>Total:</span> Rp. {{ number_format($total) }} <br> <span style="text-transform: capitalize; font-size: 12px; font-weight: normal;">( {{ terbilang($total) }} rupiah )</span>
             </h2>
         </td>
     </tr>
   </table>
-  <div class="thanks mt-3">
-    <h4>Syarat & Ketentuan</h4>
-    <p>{!! $terms->description !!}</p>
-  </div>
-  <div class="authority float-right mt-5">
-      <p>-----------------------------------</p>
-      <h5>{{ Auth::user()->name }}</h5>
+  <table style="width: 100%;">
+    <thead>
+      <tr>
+        <th class="w-50 text-left">Syarat & Ketentuan</th>
+        <th colspan="2" class="text-center w-25">Pembeli</th>
+        <th colspan="2" class="text-center w-25">Tertanda</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-justify" style="font-style: italic;">
+          {!! $terms->description !!} <br>
+        </td>
+        <td colspan="2" class="pt-5 text-center capital">{{ $order->customer->nama }}</td>
+        <td colspan="2" class="pt-5 text-center capital">{{ Auth::user()->name }}</td>
+      </tr>
+    </tbody>
+  </table>
+  @if ($orderItem->first()->garansi != null)
+    <div>
+      <p style="font-size: x-small; text-decoration: underline;">Cek status garansi di {{ $users->link_toko }}/garansi</p>
     </div>
+  @endif
 </body>
 </html>

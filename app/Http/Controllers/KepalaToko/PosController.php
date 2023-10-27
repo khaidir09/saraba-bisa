@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\KepalaToko;
 
 use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Category;
-use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\OrderDetail;
@@ -100,7 +97,6 @@ class PosController extends Controller
 
         $data = array();
         $data['customers_id'] = $request->customers_id;
-        $data['users_id'] = $request->users_id;
         $data['order_date'] = $request->order_date;
         $data['total_products'] = $request->total_products;
         $data['sub_total'] = $request->sub_total;

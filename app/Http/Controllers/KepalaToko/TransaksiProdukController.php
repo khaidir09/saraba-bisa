@@ -103,7 +103,7 @@ class TransaksiProdukController extends Controller
 
     public function cetaktermal($orders_id)
     {
-        $order = Order::with('customer', 'user')->where('id', $orders_id)->first();
+        $order = Order::with('customer')->where('id', $orders_id)->first();
         $orderItem = OrderDetail::with('product')->where('orders_id', $orders_id)->orderBy('id', 'DESC')->get();
         $total = $orderItem->sum('total');
         $subtotal = $orderItem->sum('sub_total');
@@ -131,7 +131,12 @@ class TransaksiProdukController extends Controller
         $users = User::find(1);
         $terms = Term::find(3);
 
-        $persen = 100 - $total / $subtotal * 100;
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $order->invoice_no;
+        $namaPelanggan = $order->customer->nama;
 
         $pdf = PDF::loadView('pages.kepalatoko.produk.lunas-cetak-inkjet', [
             'order' => $order,
@@ -140,9 +145,12 @@ class TransaksiProdukController extends Controller
             'orderItem' => $orderItem,
             'total' => $total,
             'subtotal' => $subtotal,
-            'persen' => $persen
+            'imagePath' => $imagePath
         ]);
-        return $pdf->setPaper('a4', 'landscape')->stream();
+
+        $filename = 'Nota Penjualan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->setPaper('a4', 'landscape')->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     public function edit($id)
