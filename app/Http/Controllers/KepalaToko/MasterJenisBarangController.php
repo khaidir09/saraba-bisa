@@ -77,7 +77,7 @@ class MasterJenisBarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TypeRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
@@ -98,7 +98,16 @@ class MasterJenisBarangController extends Controller
     {
         $item = Type::findOrFail($id);
 
+        if (
+            $item->relasiService()->exists()
+        ) {
+            toast('Data Jenis Barang yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Jenis Barang berhasil dihapus.', 'success');
 
         return redirect()->route('master-jenis-barang.index');
     }

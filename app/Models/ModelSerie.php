@@ -18,4 +18,9 @@ class ModelSerie extends Model
     {
         return $this->belongsTo(Brand::class, 'brands_id', 'id');
     }
+
+    public function relasiService()
+    {
+        return $this->hasMany(ServiceTransaction::class, 'model_series_id', 'id');
+    }
 }

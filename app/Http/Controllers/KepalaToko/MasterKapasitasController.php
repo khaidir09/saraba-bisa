@@ -79,7 +79,7 @@ class MasterKapasitasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CapacityRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
@@ -100,7 +100,16 @@ class MasterKapasitasController extends Controller
     {
         $item = Capacity::findOrFail($id);
 
+        if (
+            $item->relasiService()->exists()
+        ) {
+            toast('Data Kapasitas yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Kapasitas berhasil dihapus.', 'success');
 
         return redirect()->route('master-kapasitas.index');
     }

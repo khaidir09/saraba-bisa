@@ -94,7 +94,7 @@ class MasterMerekController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BrandRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
@@ -115,7 +115,16 @@ class MasterMerekController extends Controller
     {
         $item = Brand::findOrFail($id);
 
+        if (
+            $item->relasiService()->exists() || $item->relasiModelSerie()->exists()
+        ) {
+            toast('Data Merek yang memiliki riwayat transaksi/model seri tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Merek berhasil dihapus.', 'success');
 
         return redirect()->route('master-merek.index');
     }

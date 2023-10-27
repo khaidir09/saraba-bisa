@@ -19,4 +19,9 @@ class Type extends Model
             ->where('status_servis', 'Sudah Diambil')
             ->whereMonth('tgl_ambil', $currentMonth);
     }
+
+    public function relasiService()
+    {
+        return $this->hasMany(ServiceTransaction::class, 'types_id', 'id');
+    }
 }

@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.5",
         "maatwebsite/excel": "^3.1",
+        "realrashid/sweet-alert": "^7.1",
         "wireui/wireui": "^1.17"
     },
     "require-dev": {
