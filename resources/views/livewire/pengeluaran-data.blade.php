@@ -93,6 +93,14 @@
 
     </div>
 
+    <div class="bg-emerald-100 rounded border border-emerald-200 text-emerald-600 p-4 mb-3">
+        <div class="text-left md:flex md:items-center md:space-x-2">
+            <div class="text-sm">
+                Silahkan inputkan pengeluaran operasional toko seperti ATK, Alat Servis, dll. Jumlah pengeluaran akan memengaruhi informasi keuangan bulan ini pada halaman Dashboard.
+            </div>
+        </div>
+    </div>
+
     <!-- More actions -->
     <div class="sm:flex sm:justify-between sm:items-center mb-5">
         <!-- Left side -->
