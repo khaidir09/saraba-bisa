@@ -117,7 +117,16 @@ class PelangganController extends Controller
     {
         $item = Customer::findOrFail($id);
 
+        if (
+            $item->servicetransaction()->exists() || $item->sale()->exists()
+        ) {
+            toast('Data Pelanggan yang memiliki riwayat transaksi servis/penjualan tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Pelanggan berhasil dihapus.', 'success');
 
         return redirect()->route('pelanggan.index');
     }

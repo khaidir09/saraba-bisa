@@ -22,4 +22,9 @@ class Customer extends Model
     {
         return $this->hasMany(ServiceTransaction::class, 'customers_id');
     }
+
+    public function sale()
+    {
+        return $this->hasMany(Order::class, 'customers_id');
+    }
 }

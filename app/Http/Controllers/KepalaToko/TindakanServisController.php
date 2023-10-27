@@ -51,7 +51,7 @@ class TindakanServisController extends Controller
         ]);
     }
 
-    public function update(ServiceActionRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
@@ -66,7 +66,16 @@ class TindakanServisController extends Controller
     {
         $item = ServiceAction::findOrFail($id);
 
+        if (
+            $item->servicetransaction()->exists()
+        ) {
+            toast('Data Tindakan Servis yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
+            return redirect()->back();
+        }
+
         $item->delete();
+
+        toast('Data Tindakan Servis berhasil dihapus.', 'success');
 
         return redirect()->route('tindakan-servis.index');
     }
