@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
-use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\Budget;
 use App\Models\Expense;
 use App\Models\Category;
 use App\Models\OrderDetail;
-use App\Models\PhoneTransaction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\AccessoryTransaction;
-use App\Models\SparepartTransaction;
 
 class DashboardController extends Controller
 {
@@ -27,7 +23,16 @@ class DashboardController extends Controller
         $currentMonth = now()->month;
 
         $types = Type::with('service')->get();
-        $categories = Category::with('order')->get();
+        $categories = Category::all();
+
+        $categorySales = [];
+        foreach ($categories as $category) {
+            $totalSales = OrderDetail::totalSales($category->id);
+            $categorySales[] = [
+                'category' => $category->category_name,
+                'total_sales' => $totalSales,
+            ];
+        }
 
         $totalbudgets = Budget::all()->sum('total');
 
@@ -81,7 +86,8 @@ class DashboardController extends Controller
             'totalprofitutuh',
             'totalpengeluaran',
             'totalprofitkotor',
-            'pengeluaran'
+            'pengeluaran',
+            'categorySales'
         ));
     }
 }
