@@ -11,6 +11,7 @@ use App\Http\Controllers\AutoBiayaServisController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KepalaToko\DataServisController;
 use App\Http\Controllers\KepalaToko\DataPenjualanController;
+use App\Http\Controllers\KepalaToko\DataPengeluaranController;
 use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\KepalaToko\UbahSudahDiambilController as KepalaTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\UbahStatusProsesServisController as KepalaTokoUbahStatusProsesServisController;
@@ -74,6 +75,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('dashboard');
     Route::get('/json-data-servis', [DataServisController::class, 'getDataServis'])->name('json_data_servis');
     Route::get('/json-data-penjualan', [DataPenjualanController::class, 'getDataPenjualan'])->name('json_data_penjualan');
+    Route::get('/json-data-pengeluaran', [DataPengeluaranController::class, 'getDataPengeluaran'])->name('pengeluaran');
     Route::resource('servis/tindakan-servis', KepalaTokoTindakanServisController::class);
     Route::resource('pelanggan', KepalaTokoPelangganController::class);
     Route::resource('servis/transaksi-servis', KepalaTokoTransaksiServisController::class);

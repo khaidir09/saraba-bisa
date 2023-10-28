@@ -161,6 +161,8 @@
             <x-dashboard.grafik-servis />
             {{-- Grafik Penjualan --}}
             <x-dashboard.grafik-penjualan />
+            {{-- Grafik Pengeluaran --}}
+            <x-dashboard.grafik-pengeluaran />
         </div>
     </div>
 </x-toko-layout>
