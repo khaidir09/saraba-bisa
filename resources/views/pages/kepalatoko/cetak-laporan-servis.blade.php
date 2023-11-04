@@ -157,6 +157,42 @@
 		</tbody>
 	</table>
 
+	@if ($expenses->count() != null)
+		<h4 style="margin-top: 8px; margin-bottom: 6px; text-decoration: underline;">
+			Pengeluaran
+		</h4>
+
+		<table id="detail">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Tanggal</th>
+					<th>Nama</th>
+					<th>Item Pengeluaran</th>
+					<th>Biaya</th>
+				</tr>
+			</thead>
+			<tbody>
+				@php
+					$i = 1
+				@endphp
+				@foreach ($expenses as $item)
+					<tr>
+						<td style="width: 10px;">{{ $i++ }}</td>
+						<td class="text-center">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</td>
+						<td style="text-align: left;" class="capital">{{ $item->user->name }}</td>
+						<td style="text-align: left;" class="capital">{{ $item->name }}</td>
+						<td style="text-align: right;">Rp. {{ number_format($item->price) }}</td>
+					</tr>
+				@endforeach
+				<tr>
+					<th colspan="4">Total Biaya</th>
+					<td style="text-align: right;">Rp. {{ number_format($total_pengeluaran) }}</td>
+				</tr>
+			</tbody>
+		</table>
+	@endif
+
 	@if ($incidents->count() != null)
 		<h4 style="margin-top: 8px; margin-bottom: 6px; text-decoration: underline;">
 			Insiden
