@@ -157,6 +157,42 @@
 		</tbody>
 	</table>
 
+	@if ($incidents->count() != null)
+		<h4 style="margin-top: 8px; margin-bottom: 6px; text-decoration: underline;">
+			Insiden
+		</h4>
+
+		<table id="detail">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Tanggal</th>
+					<th>Teknisi</th>
+					<th>Nama Insiden</th>
+					<th>Biaya</th>
+				</tr>
+			</thead>
+			<tbody>
+				@php
+					$i = 1
+				@endphp
+				@foreach ($incidents as $item)
+					<tr>
+						<td style="width: 10px;">{{ $i++ }}</td>
+						<td class="text-center">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</td>
+						<td style="text-align: left;" class="capital">{{ $item->worker->name }}</td>
+						<td style="text-align: left;" class="capital">{{ $item->name }}</td>
+						<td style="text-align: right;">Rp. {{ number_format($item->biaya_toko) }}</td>
+					</tr>
+				@endforeach
+				<tr>
+					<th colspan="4">Total Biaya</th>
+					<td style="text-align: right;">Rp. {{ number_format($total_insiden) }}</td>
+				</tr>
+			</tbody>
+		</table>
+	@endif
+
 	{{-- <h4 style="margin-bottom: 6px;">
 		<span style="background:color: blue; padding: 6px 12px; border-radius: 50%; color: #fff;">Statistik</span>
 	</h4>

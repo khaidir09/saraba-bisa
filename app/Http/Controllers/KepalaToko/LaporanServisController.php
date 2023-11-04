@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Incident;
 
 class LaporanServisController extends Controller
 {
@@ -66,6 +67,12 @@ class LaporanServisController extends Controller
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->orderBy('tgl_ambil', 'asc')
+            ->get();
+
+        // Mengambil data insiden
+        $incidents = Incident::with('worker')->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->orderBy('created_at', 'asc')
             ->get();
 
         // Mengambil data brand terbanyak
@@ -129,16 +136,23 @@ class LaporanServisController extends Controller
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('profittoko');
 
+        // Menghitung total insiden
+        $total_insiden = Incident::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('biaya_toko');
+
         $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-servis', [
             'users' => $users,
             'imagePath' => $imagePath,
             'services' => $services,
+            'incidents' => $incidents,
             'start_date' => $start_date,
             'end_date' => $end_date,
             'total_modal' => $total_modal,
             'total_biaya' => $total_biaya,
             'total_diskon' => $total_diskon,
             'total_profit' => $total_profit,
+            'total_insiden' => $total_insiden,
             'topbrands' => $topbrands,
             'topmodelseries' => $topmodelseries,
             'topactions' => $topactions,
