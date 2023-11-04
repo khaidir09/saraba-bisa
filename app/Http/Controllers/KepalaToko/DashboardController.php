@@ -44,10 +44,12 @@ class DashboardController extends Controller
         $pengeluaran = Expense::where('is_approve', 'Setuju')
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->count();
-        $totalpengeluaran = Expense::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
+        $totalpengeluaran = Expense::whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)
+            ->whereNot('is_approve', 'Ditolak')
             ->sum('price');
-        $totalinsiden = Incident::whereMonth('created_at', $currentMonth)
+        $totalinsiden = Incident::whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)
             ->sum('biaya_toko');
 
         // Ambil data transaksi servis yang memiliki status "Belum cek"
@@ -70,15 +72,16 @@ class DashboardController extends Controller
 
         $totalbudgets = Budget::all()->sum('total');
 
-        $bulanprofitbersihservis = ServiceTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
+        $bulanprofitbersihservis = ServiceTransaction::whereYear('tgl_ambil', now()->year)
+            ->whereMonth('tgl_ambil', now()->month)
+            ->whereNot('is_approve', 'Ditolak')
             ->get()
             ->sum('profittoko');
 
         $profitpenjualan = Order::whereHas('detailOrders', function ($query) {
-            $query->where('is_approve', 'Setuju')
-                ->whereYear('tgl_disetujui', now()->year)
-                ->whereMonth('tgl_disetujui', now()->month);
+            $query->whereYear('created_at', now()->year)
+                ->whereMonth('created_at', now()->month)
+                ->whereNot('is_approve', 'Ditolak');
         })
             ->with(['detailOrders' => function ($query) {
                 $query->select('orders_id', DB::raw('SUM(profit_toko) as total_profit'))
@@ -93,15 +96,15 @@ class DashboardController extends Controller
 
         $bulantotalprofitbersih = ($bulanprofitbersihservis + $bulanprofitbersihpenjualan);
 
-        $bulanprofitkotorservis = ServiceTransaction::where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
+        $bulanprofitkotorservis = ServiceTransaction::whereYear('tgl_ambil', now()->year)
+            ->whereMonth('tgl_ambil', now()->month)
+            ->whereNot('is_approve', 'Ditolak')
             ->get()
             ->sum('profit');
 
         $rumusprofitkotorpenjualan = Order::whereHas('detailOrders', function ($query) {
-            $query->where('is_approve', 'Setuju')
-                ->whereYear('tgl_disetujui', now()->year)
-                ->whereMonth('tgl_disetujui', now()->month);
+            $query->whereYear('created_at', now()->year)
+                ->whereMonth('created_at', now()->month);
         })
             ->with(['detailOrders' => function ($query) {
                 $query->select('orders_id', DB::raw('SUM(profit) as total_profit'))
