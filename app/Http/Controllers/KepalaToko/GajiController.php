@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Salary;
 use App\Models\Worker;
 use Illuminate\Http\Request;
+use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 
 class GajiController extends Controller
@@ -102,11 +103,28 @@ class GajiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
         $item = Salary::findOrFail($id);
 
-        $item->update($data);
+        // Ambil input dari request
+        $user = User::find($request->users_id);
+        $date = Salary::find($request->created_at);
+
+        // Hitung total profit
+        $hasil = ServiceTransaction::where('users_id', $user)
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', $date)
+            ->sum('profit') / 100;
+        $hasil *= $user->persen;
+        $bonus = $hasil;
+
+        // Transaction create
+        $item->update([
+            'name' => $request->name,
+            'users_id' => $request->users_id,
+            'workers_id' => $request->workers_id,
+            'created_at' => $request->created_at,
+            'bonus' => $bonus
+        ]);
 
         return redirect()->route('bonus.index');
     }

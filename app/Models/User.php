@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use App\Models\Worker;
-use App\Models\WorkerUser;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -92,11 +90,11 @@ class User extends Authenticatable
 
     public function servicetransaction()
     {
-        $currentMonth = now()->month;
+        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
 
         return $this->hasMany(ServiceTransaction::class, 'users_id', 'id')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth);
+            ->whereMonth('tgl_disetujui', $lastMonth->month);
     }
 
     public function relasiService()
@@ -106,13 +104,12 @@ class User extends Authenticatable
 
     public function sale()
     {
-        $currentMonth = now()->month;
+        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
 
         return $this->hasMany(OrderDetail::class, 'users_id', 'id')
-            ->whereHas('order', function ($query) use ($currentMonth) {
+            ->whereHas('order', function ($query) use ($lastMonth) {
                 $query->where('is_approve', 'Setuju')
-                    ->whereYear('tgl_disetujui', now()->year)
-                    ->whereMonth('tgl_disetujui', $currentMonth);
+                    ->whereMonth('tgl_disetujui', $lastMonth);
             });
     }
 
@@ -138,22 +135,22 @@ class User extends Authenticatable
 
     public function adminservice()
     {
-        $currentMonth = now()->month;
+        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
 
         return $this->hasMany(ServiceTransaction::class, 'admin_id', 'id')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth);
+            ->whereMonth('tgl_disetujui', $lastMonth);
     }
 
     public function adminsale()
     {
-        $currentMonth = now()->month;
+        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
 
         return $this->hasMany(OrderDetail::class, 'admin_id', 'id')
-            ->whereHas('order', function ($query) use ($currentMonth) {
+            ->whereHas('order', function ($query) use ($lastMonth) {
                 $query->where('is_approve', 'Setuju')
                     ->whereYear('tgl_disetujui', now()->year)
-                    ->whereMonth('tgl_disetujui', $currentMonth);
+                    ->whereMonth('tgl_disetujui', $lastMonth);
             });
     }
 }
