@@ -55,9 +55,9 @@ class OrderDetail extends Model
         return $query->whereHas('product.subCategory.category', function ($q) use ($categories_id) {
             $q->where('categories_id', $categories_id);
         })->whereHas('order', function ($q) {
-            $q->where('is_approve', 'Setuju')
-                ->whereYear('tgl_disetujui', now()->year)
-                ->whereMonth('tgl_disetujui', now()->month);
+            $q->whereYear('created_at', now()->year)
+                ->whereMonth('created_at', now()->month)
+                ->whereNot('is_approve', 'Ditolak');
         })
             ->sum('profit_toko');
     }
