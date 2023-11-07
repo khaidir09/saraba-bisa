@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
     <title>Nota Pengambilan Servis #{{ $items->nomor_servis }}</title>
 	<style>
 		@page {
@@ -13,6 +13,7 @@
         }
 		body {
 			margin: 0;
+			font-family: 'Nanum Gothic Coding', monospace;
 		}
 
 		.pt-5 {
@@ -60,7 +61,6 @@
 			font-size: 12px;
 			line-height: 1em;
 			padding: 4px;
-			color: #000000;
 		}
 
 		#data {
