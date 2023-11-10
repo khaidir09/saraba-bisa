@@ -90,11 +90,11 @@ class User extends Authenticatable
 
     public function servicetransaction()
     {
-        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
+        $currentMonth = now()->month;
 
         return $this->hasMany(ServiceTransaction::class, 'users_id', 'id')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $lastMonth->month);
+            ->whereMonth('tgl_disetujui', $currentMonth);
     }
 
     public function relasiService()
@@ -104,12 +104,12 @@ class User extends Authenticatable
 
     public function sale()
     {
-        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
+        $currentMonth = now()->month;
 
         return $this->hasMany(OrderDetail::class, 'users_id', 'id')
-            ->whereHas('order', function ($query) use ($lastMonth) {
+            ->whereHas('order', function ($query) use ($currentMonth) {
                 $query->where('is_approve', 'Setuju')
-                    ->whereMonth('tgl_disetujui', $lastMonth);
+                    ->whereMonth('tgl_disetujui', $currentMonth);
             });
     }
 
@@ -135,22 +135,22 @@ class User extends Authenticatable
 
     public function adminservice()
     {
-        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
+        $currentMonth = now()->month;
 
         return $this->hasMany(ServiceTransaction::class, 'admin_id', 'id')
             ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $lastMonth);
+            ->whereMonth('tgl_disetujui', $currentMonth);
     }
 
     public function adminsale()
     {
-        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
+        $currentMonth = now()->month;
 
         return $this->hasMany(OrderDetail::class, 'admin_id', 'id')
-            ->whereHas('order', function ($query) use ($lastMonth) {
+            ->whereHas('order', function ($query) use ($currentMonth) {
                 $query->where('is_approve', 'Setuju')
                     ->whereYear('tgl_disetujui', now()->year)
-                    ->whereMonth('tgl_disetujui', $lastMonth);
+                    ->whereMonth('tgl_disetujui', $currentMonth);
             });
     }
 }

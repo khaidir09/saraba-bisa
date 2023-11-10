@@ -103,28 +103,11 @@ class GajiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->all();
+
         $item = Salary::findOrFail($id);
 
-        // Ambil input dari request
-        $user = User::find($request->users_id);
-        $date = Salary::find($request->created_at);
-
-        // Hitung total profit
-        $hasil = ServiceTransaction::where('users_id', $user)
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $date)
-            ->sum('profit') / 100;
-        $hasil *= $user->persen;
-        $bonus = $hasil;
-
-        // Transaction create
-        $item->update([
-            'name' => $request->name,
-            'users_id' => $request->users_id,
-            'workers_id' => $request->workers_id,
-            'created_at' => $request->created_at,
-            'bonus' => $bonus
-        ]);
+        $item->update($data);
 
         return redirect()->route('bonus.index');
     }
