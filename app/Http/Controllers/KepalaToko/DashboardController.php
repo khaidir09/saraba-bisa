@@ -42,6 +42,7 @@ class DashboardController extends Controller
         }
 
         $pengeluaran = Expense::where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', now()->year)
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->count();
         $totalpengeluaran = Expense::whereYear('created_at', now()->year)
@@ -120,22 +121,30 @@ class DashboardController extends Controller
         $bulantotalprofitkotor = ($bulanprofitkotorservis + $bulanprofitkotorpenjualan);
 
         $haripengeluaran = Expense::where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', now()->year)
+            ->whereMonth('tgl_disetujui', now()->month)
             ->whereDate('tgl_disetujui', today())
             ->sum('price');
         $hariomzetservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereYear('tgl_ambil', now()->year)
+            ->whereMonth('tgl_ambil', now()->month)
             ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('omzet');
-        $hariomzetpenjualan = OrderDetail::whereDate('created_at', today())
+        $hariomzetpenjualan = OrderDetail::whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)->whereDate('created_at', today())
             ->get()
             ->sum('total');
         $haritotalomzet = ($hariomzetservis + $hariomzetpenjualan);
 
         $hariprofitkotorservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereYear('tgl_ambil', now()->year)
+            ->whereMonth('tgl_ambil', now()->month)
             ->whereDate('tgl_ambil', today())
             ->get()
             ->sum('profit');
-        $hariprofitkotorpenjualan = OrderDetail::whereDate('created_at', today())
+        $hariprofitkotorpenjualan = OrderDetail::whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)->whereDate('created_at', today())
             ->get()
             ->sum('profit');
         $haritotalprofitkotor = $hariprofitkotorservis + $hariprofitkotorpenjualan;
