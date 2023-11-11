@@ -147,7 +147,7 @@ class DashboardController extends Controller
             ->whereMonth('created_at', now()->month)->whereDate('created_at', today())
             ->get()
             ->sum('profit_toko');
-        $haritotalprofitkotor = $hariprofitservis + $hariprofitpenjualan;
+        $haritotalprofit = $hariprofitservis + $hariprofitpenjualan;
 
         return view('pages/kepalatoko/dashboard', compact(
             'types',
@@ -163,7 +163,7 @@ class DashboardController extends Controller
             'totalbudgets',
             'haripengeluaran',
             'haritotalomzet',
-            'haritotalprofitkotor',
+            'haritotalprofit',
             'bulantotalprofitbersih',
             'bulantotalprofitkotor',
             'bulanprofitbersihservis',
