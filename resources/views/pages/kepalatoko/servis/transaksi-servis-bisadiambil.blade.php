@@ -201,14 +201,14 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>
-                                            <input class="form-input w-full px-2 py-1" type="number" name="modal_sparepart" id="modal_sparepart"/>
-                                        </div>
-                                        <div>
                                             <label class="block text-sm font-medium mb-1" for="biaya">Biaya Servis <span class="text-rose-500">*</span></label>
                                             <input class="form-input w-full px-2 py-1" type="number" name="biaya" id="biaya"/>
                                         </div>
                                     </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>
+                                    <input class="form-input w-full px-2 py-1" type="number" name="modal_sparepart" id="modal_sparepart"/>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="catatan">Catatan <small>(Kosongkan jika tidak perlu)</small></label>

@@ -13,7 +13,6 @@ class LaporanServisData extends Component
 
     public $paginate = 10;
     public $search;
-    public $user;
 
     protected $updatesQueryString = ['search'];
 
@@ -35,8 +34,8 @@ class LaporanServisData extends Component
             'jumlah' => $jumlah,
             'users' => $users,
             'services' => $this->search === null ?
-                ServiceTransaction::orderBy('tgl_disetujui', 'desc')->where('is_approve', 'Setuju')->where('kondisi_servis', "Sudah jadi")->where('users_id', 'like', '%' . $this->user . '%')->paginate($this->paginate) :
-                ServiceTransaction::orderBy('tgl_disetujui', 'desc')->where('is_approve', 'Setuju')->where('kondisi_servis', "Sudah jadi")->where('created_at', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                ServiceTransaction::orderBy('tgl_disetujui', 'desc')->where('is_approve', 'Setuju')->whereIn('kondisi_servis', ['Sudah jadi', 'Tidak bisa', 'Dibatalkan'])->paginate($this->paginate) :
+                ServiceTransaction::orderBy('tgl_disetujui', 'desc')->where('is_approve', 'Setuju')->whereIn('kondisi_servis', ['Sudah jadi', 'Tidak bisa', 'Dibatalkan'])->where('created_at', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }
