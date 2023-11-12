@@ -141,7 +141,7 @@ class LaporanServisController extends Controller
         $total_profit = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
-            ->sum('profittoko');
+            ->sum('profit');
 
         // Menghitung total insiden
         $total_insiden = Incident::whereDate('created_at', '>=', $start_date)
