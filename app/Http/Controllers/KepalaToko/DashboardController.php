@@ -137,17 +137,17 @@ class DashboardController extends Controller
             ->sum('total');
         $haritotalomzet = ($hariomzetservis + $hariomzetpenjualan);
 
-        $hariprofitservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $hariprofitkotorservis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereYear('tgl_ambil', now()->year)
             ->whereMonth('tgl_ambil', now()->month)
             ->whereDate('tgl_ambil', today())
             ->get()
-            ->sum('profittoko');
-        $hariprofitpenjualan = OrderDetail::whereYear('created_at', now()->year)
+            ->sum('profit');
+        $hariprofitkotorpenjualan = OrderDetail::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)->whereDate('created_at', today())
             ->get()
-            ->sum('profit_toko');
-        $haritotalprofitkotor = $hariprofitservis + $hariprofitpenjualan;
+            ->sum('profit');
+        $haritotalprofitkotor = $hariprofitkotorservis + $hariprofitkotorpenjualan;
 
         return view('pages/kepalatoko/dashboard', compact(
             'types',
