@@ -24,7 +24,7 @@
             <div class="flex items-center py-2">
                 <div class="mr-5">
                     <div class="flex items-center">
-                        <div class="text-3xl font-bold text-green-800 mr-2">Rp. {{ number_format($haritotalprofit) }}</div>
+                        <div class="text-3xl font-bold text-green-800 mr-2">Rp. {{ number_format($haritotalprofitkotor) }}</div>
                     </div>
                     <div class="text-sm font-semibold text-slate-800">Profit</div>
                 </div>
