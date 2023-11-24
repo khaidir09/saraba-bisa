@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
     <title>Tanda Terima Servis #{{ $items->nomor_servis }}</title>
 	<style>
 		@page {
@@ -13,7 +12,6 @@
         }
 		body {
 			margin: 0;
-			font-family: 'Nanum Gothic Coding', monospace;
 		}
 
 		.text-center {
