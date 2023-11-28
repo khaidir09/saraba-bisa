@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\User;
 use App\Models\Expense;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
@@ -66,6 +67,43 @@ class ExpenseController extends Controller
         return view('pages.kepalatoko.pengeluaran.approve', [
             'item' => $item
         ]);
+    }
+
+    public function cetak(Request $request)
+    {
+        // Mengambil logo dan nama toko
+        $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Filter tanggal
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        // Mengambil data pengeluaran
+        $expenses = Expense::with('user')->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // Menghitung total pengeluaran
+        $total_pengeluaran = Expense::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('price');
+
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-pengeluaran', [
+            'users' => $users,
+            'imagePath' => $imagePath,
+            'expenses' => $expenses,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'total_pengeluaran' => $total_pengeluaran
+        ]);
+
+        $filename = 'Laporan Pengeluaran' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
+
+        return $pdf->stream($filename);
     }
 
     /**

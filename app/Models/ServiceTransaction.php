@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class ServiceTransaction extends Model
 {
     use SoftDeletes;
+    use LogsActivity;
 
     protected $fillable = [
         'users_id',
@@ -55,6 +58,17 @@ class ServiceTransaction extends Model
         'persen_teknisi',
         'penyerah'
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName('Transaksi Servis')
+            ->logOnly(['modal_sparepart', 'biaya', 'uang_muka', 'imei', 'kerusakan', 'qc_masuk', 'tindakan_servis', 'kelengkapan', 'created_at', 'penerima', 'nama_pelanggan', 'kondisi_servis', 'users_id'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+        // Chain fluent methods for configuration options
+    }
+
 
     public function admin()
     {
