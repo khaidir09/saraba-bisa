@@ -30,7 +30,8 @@ class AdminSudahDiambilData extends Component
     public $kondisi = [
         'Sudah jadi',
         'Tidak bisa',
-        'Dibatalkan'
+        'Dibatalkan',
+        'Menunggu konfirmasi'
     ];
 
 

@@ -25,7 +25,8 @@ class ServisBelumDisetujuiData extends Component
     public $kondisi = [
         'Sudah jadi',
         'Tidak bisa',
-        'Dibatalkan'
+        'Dibatalkan',
+        'Menunggu konfirmasi'
     ];
 
     protected $updatesQueryString = ['search'];

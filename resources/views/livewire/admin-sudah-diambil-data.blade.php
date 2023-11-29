@@ -277,6 +277,12 @@
                                 <span class="text-sm font-medium ml-2">Dibatalkan</span>
                             </label>
                         </li>
+                        <li class="py-1 px-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" wire:model="kondisi.3" value="Menunggu konfirmasi"/>
+                                <span class="text-sm font-medium ml-2">Menunggu konfirmasi</span>
+                            </label>
+                        </li>
                     </ul>
                 </div>
             </div>
