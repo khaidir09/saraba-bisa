@@ -36,8 +36,8 @@ class TransaksiProdukPaidData extends Component
             'jumlah_lunas' => $jumlah_lunas,
             'jumlah_tidaklunas' => $jumlah_tidaklunas,
             'orders' => $this->search === null ?
-                Order::latest()->where('due', '0')->paginate($this->paginate) :
-                Order::latest()->where('due', '0')->where('invoice_no', 'like', '%' . $this->search . '%')->orWhere('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Order::orderByRaw('is_approve IS NULL DESC')->latest()->where('due', '0')->paginate($this->paginate) :
+                Order::orderByRaw('is_approve IS NULL DESC')->latest()->where('due', '0')->where('invoice_no', 'like', '%' . $this->search . '%')->orWhere('nama_pelanggan', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

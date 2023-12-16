@@ -34,8 +34,8 @@ class PengeluaranData extends Component
             'users' => $users,
             'expenses_count' => $expenses_count,
             'expenses' => $this->search === null ?
-                Expense::latest()->paginate($this->paginate) :
-                Expense::latest()->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Expense::orderByRaw('is_approve IS NULL DESC')->latest()->paginate($this->paginate) :
+                Expense::orderByRaw('is_approve IS NULL DESC')->latest()->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

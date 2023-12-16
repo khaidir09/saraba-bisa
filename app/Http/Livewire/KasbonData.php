@@ -34,8 +34,8 @@ class KasbonData extends Component
             'workers' => $workers,
             'debts_count' => $debts_count,
             'debts' => $this->search === null ?
-                Debt::latest()->paginate($this->paginate) :
-                Debt::latest()->where('item', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Debt::orderByRaw('is_approve IS NULL DESC')->latest()->paginate($this->paginate) :
+                Debt::orderByRaw('is_approve IS NULL DESC')->latest()->where('item', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }
