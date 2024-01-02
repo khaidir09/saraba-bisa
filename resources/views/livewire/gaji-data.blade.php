@@ -63,42 +63,104 @@
                             </div>
                         </div>
                         <!-- Modal content -->
-                        <form action="{{ route('bonus.store') }}" method="post">
-                            @csrf
-                            <div class="px-5 py-4">
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="name">Nama Bonus <span class="text-rose-500">*</span></label>
-                                        <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" required />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="workers_id">Nama Karyawan <span class="text-rose-500">*</span></label>
-                                        <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($workers as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="users_id">Akun Karyawan <span class="text-rose-500">*</span></label>
-                                        <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
-                                            @foreach ($users as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                        <div x-data="{ tab: '1' }" class="px-5 py-4">
+
+                            <!-- Tabs buttons -->
+                            <div class="flex flex-wrap items-center -m-3 mb-0">
+                                <div class="m-3">
+                                    <!-- Start -->
+                                    <label class="flex items-center">
+                                        <input type="radio" name="radio-buttons" class="form-radio" checked @click="tab = '1'"/>
+                                        <span class="text-sm ml-2">Bulan ini</span>
+                                    </label>
+                                    <!-- End -->
+                                </div>
+                                <div class="m-3">
+                                    <!-- Start -->
+                                    <label class="flex items-center">
+                                        <input type="radio" name="radio-buttons" class="form-radio" @click="tab = '2'"/>
+                                        <span class="text-sm ml-2">Bulan sebelumnya</span>
+                                    </label>
+                                    <!-- End -->
                                 </div>
                             </div>
-                            <!-- Modal footer -->
-                            <div class="px-5 py-4 border-t border-slate-200">
-                                <div class="flex flex-wrap justify-end space-x-2">
-                                    <a href="{{ route('bonus.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
-                                        Batal
-                                    </a>
-                                    <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
-                                </div>
+                            <!-- Item 1 -->
+                            <div x-show="tab === '1'">
+                                <form action="{{ route('bonus.store') }}" method="post">
+                                    @csrf
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="name">Nama Bonus <span class="text-rose-500">*</span></label>
+                                            <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" required />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="workers_id">Nama Karyawan <span class="text-rose-500">*</span></label>
+                                            <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full" required>
+                                                @foreach ($workers as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="users_id">Akun Karyawan <span class="text-rose-500">*</span></label>
+                                            <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
+                                                @foreach ($users as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="pt-4 border-t border-slate-200 mt-4">
+                                        <div class="flex flex-wrap justify-end space-x-2">
+                                            <a href="{{ route('bonus.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                                Batal
+                                            </a>
+                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+
+                            <!-- Item 2 -->
+                            <div x-show="tab === '2'">
+                                <form action="{{ route('bonus-bulan-sebelumnya') }}" method="post">
+                                    @csrf
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="name">Nama Bonus <span class="text-rose-500">*</span></label>
+                                            <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" required />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="workers_id">Nama Karyawan <span class="text-rose-500">*</span></label>
+                                            <select id="workers_id" name="workers_id" class="form-select text-sm py-1 w-full" required>
+                                                @foreach ($workers as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="users_id">Akun Karyawan <span class="text-rose-500">*</span></label>
+                                            <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" required>
+                                                @foreach ($users as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="pt-4 border-t border-slate-200 mt-4">
+                                        <div class="flex flex-wrap justify-end space-x-2">
+                                            <a href="{{ route('bonus.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                                Batal
+                                            </a>
+                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>                         
