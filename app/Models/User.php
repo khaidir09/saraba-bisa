@@ -94,7 +94,17 @@ class User extends Authenticatable
 
         return $this->hasMany(ServiceTransaction::class, 'users_id', 'id')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', now()->year)
             ->whereMonth('tgl_disetujui', $currentMonth);
+    }
+
+    public function prevservicetransaction()
+    {
+        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
+
+        return $this->hasMany(ServiceTransaction::class, 'users_id', 'id')
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', $lastMonth);
     }
 
     public function relasiService()
@@ -109,7 +119,19 @@ class User extends Authenticatable
         return $this->hasMany(OrderDetail::class, 'users_id', 'id')
             ->whereHas('order', function ($query) use ($currentMonth) {
                 $query->where('is_approve', 'Setuju')
+                    ->whereYear('tgl_disetujui', now()->year)
                     ->whereMonth('tgl_disetujui', $currentMonth);
+            });
+    }
+
+    public function prevsale()
+    {
+        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
+
+        return $this->hasMany(OrderDetail::class, 'users_id', 'id')
+            ->whereHas('order', function ($query) use ($lastMonth) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereMonth('tgl_disetujui', $lastMonth);
             });
     }
 
@@ -139,7 +161,17 @@ class User extends Authenticatable
 
         return $this->hasMany(ServiceTransaction::class, 'admin_id', 'id')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', now()->year)
             ->whereMonth('tgl_disetujui', $currentMonth);
+    }
+
+    public function prevadminservice()
+    {
+        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
+
+        return $this->hasMany(ServiceTransaction::class, 'admin_id', 'id')
+            ->where('is_approve', 'Setuju')
+            ->whereMonth('tgl_disetujui', $lastMonth);
     }
 
     public function adminsale()
@@ -151,6 +183,17 @@ class User extends Authenticatable
                 $query->where('is_approve', 'Setuju')
                     ->whereYear('tgl_disetujui', now()->year)
                     ->whereMonth('tgl_disetujui', $currentMonth);
+            });
+    }
+
+    public function prevadminsale()
+    {
+        $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
+
+        return $this->hasMany(OrderDetail::class, 'admin_id', 'id')
+            ->whereHas('order', function ($query) use ($lastMonth) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereMonth('tgl_disetujui', $lastMonth);
             });
     }
 }
