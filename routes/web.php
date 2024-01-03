@@ -20,6 +20,7 @@ use App\Http\Controllers\KepalaToko\AkunController as KepalaTokoAkunController;
 use App\Http\Controllers\KepalaToko\ExpenseController as KepalaTokoExpenseController;
 use App\Http\Controllers\KepalaToko\ApprovePengeluaranController as KepalaTokoApprovePengeluaranController;
 use App\Http\Controllers\KepalaToko\GajiController as KepalaTokoGajiController;
+use App\Http\Controllers\KepalaToko\BonusBulanSebelumnyaController as KepalaTokoBonusBulanSebelumnyaController;
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
 use App\Http\Controllers\KepalaToko\ApproveController as KepalaTokoApproveController;
@@ -174,6 +175,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('kasbon', KepalaTokoKasbonController::class);
     Route::resource('gaji/karyawan', KepalaTokoKaryawanController::class);
     Route::resource('gaji/bonus', KepalaTokoGajiController::class);
+    Route::post('/gaji/bonus/bulan-sebelumnya', [KepalaTokoBonusBulanSebelumnyaController::class, 'store'])->name('bonus-bulan-sebelumnya');
     Route::resource('kasbon', KepalaTokoKasbonController::class);
     Route::resource('pengeluaran', KepalaTokoExpenseController::class);
     Route::resource('approve-pengeluaran', KepalaTokoApprovePengeluaranController::class);
