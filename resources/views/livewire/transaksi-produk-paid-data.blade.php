@@ -77,7 +77,10 @@
                             <div class="font-semibold text-left">Tgl Pembelian</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nama Pelanggan</div>
+                            <div class="font-semibold text-left">Sales</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Pelanggan</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Pembayaran</div>
@@ -109,6 +112,9 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->order_date }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $item->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->customer->nama }}</div>
