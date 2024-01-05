@@ -138,6 +138,11 @@ class BisaDiambilController extends Controller
     {
         $item = ServiceTransaction::findOrFail($id);
 
+        $nama_tipe = Type::find($request->types_id);
+        $nama_merek = Brand::find($request->brands_id);
+        $nama_model = ModelSerie::find($request->model_series_id);
+        $nama_barang = '' . $nama_tipe->name . ' ' . $nama_merek->name . ' ' . $nama_model->name;
+
         if ($request->users_id != null) {
             $persen_teknisi = User::find($request->users_id)->persen;
         } else {
@@ -165,6 +170,7 @@ class BisaDiambilController extends Controller
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
+            'nama_barang' => $nama_barang,
             'kerusakan' => $request->kerusakan,
             'qc_masuk' => $request->qc_masuk,
             'kondisi_servis' => $request->kondisi_servis,
