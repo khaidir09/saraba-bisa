@@ -88,8 +88,7 @@ class AdminBisaDiambilData extends Component
                 ->paginate($this->paginate) :
                 ServiceTransaction::latest()->with('customer', 'serviceaction')
                 ->where('status_servis', 'Bisa Diambil')
-                ->where('nama_pelanggan', 'like', '%' . $this->search . '%')
-                ->orWhere('nomor_servis', $this->search)
+                ->where('nama_pelanggan', 'like', '%' . $this->search . '%')->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->orWhere('tindakan_servis', 'like', '%' . $this->search . '%')
                 ->paginate($this->paginate)
         ]);
     }
