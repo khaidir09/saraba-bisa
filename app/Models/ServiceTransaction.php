@@ -21,6 +21,7 @@ class ServiceTransaction extends Model
         'types_id',
         'brands_id',
         'model_series_id',
+        'nama_barang',
         'imei',
         'warna',
         'capacities_id',

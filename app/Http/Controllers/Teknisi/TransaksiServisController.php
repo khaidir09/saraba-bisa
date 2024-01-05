@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Teknisi;
 
 use App\Models\Term;
+use App\Models\Type;
 use App\Models\User;
+use App\Models\Brand;
 use App\Models\Customer;
+use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
@@ -43,6 +46,10 @@ class TransaksiServisController extends Controller
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         $nama_pelanggan = Customer::find($request->customers_id);
+        $nama_tipe = Type::find($request->types_id);
+        $nama_merek = Brand::find($request->brands_id);
+        $nama_model = ModelSerie::find($request->model_series_id);
+        $nama_barang = '' . $nama_tipe->name . ' ' . $nama_merek->name . ' ' . $nama_model->name;
 
         // Transaction create
         ServiceTransaction::create([
@@ -52,6 +59,7 @@ class TransaksiServisController extends Controller
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
+            'nama_barang' => $nama_barang,
             'imei' => $request->imei,
             'warna' => $request->warna,
             'capacities_id' => $request->capacities_id,

@@ -51,6 +51,10 @@ class SudahDiambilController extends Controller
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         Auth::user();
         $nama_pelanggan = Customer::find($request->customers_id);
+        $nama_tipe = Type::find($request->types_id);
+        $nama_merek = Brand::find($request->brands_id);
+        $nama_model = ModelSerie::find($request->model_series_id);
+        $nama_barang = '' . $nama_tipe->name . ' ' . $nama_merek->name . ' ' . $nama_model->name;
 
         // Transaction create
         ServiceTransaction::create([
@@ -60,6 +64,7 @@ class SudahDiambilController extends Controller
             'types_id' => $request->types_id,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
+            'nama_barang' => $nama_barang,
             'imei' => $request->imei,
             'warna' => $request->warna,
             'capacities_id' => $request->capacities_id,
