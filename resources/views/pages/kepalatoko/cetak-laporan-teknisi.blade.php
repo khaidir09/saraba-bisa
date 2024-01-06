@@ -92,7 +92,9 @@
 		<tbody>
 			<tr>
 				<th>Total Bonus</th>
-				<th style="color: brown">: Rp. {{ number_format($total_bonus) }}</th>
+				<th style="color: green">: Rp. {{ number_format($total_bonus) }}</th>
+				<th class="text-center">Total Biaya Servis</th>
+				<th class="text-center" style="color: brown;">: Rp. {{ number_format($total_biaya) }}</th>
 				<th class="text-right">Total Tindakan</th>
 				<th class="text-right" style="color: blue;">: {{ $total_tindakan }} Servis</th>
 			</tr>

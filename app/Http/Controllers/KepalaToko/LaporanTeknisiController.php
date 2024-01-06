@@ -41,24 +41,11 @@ class LaporanTeknisiController extends Controller
             ->orderBy('tgl_ambil', 'asc')
             ->get();
 
-        // Menghitung total modal
-        $total_modal = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-            ->whereDate('tgl_ambil', '>=', $start_date)
-            ->whereDate('tgl_ambil', '<=', $end_date)
-            ->sum('modal_sparepart');
-
         // Menghitung total biaya
-        $total_biaya = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $total_biaya = ServiceTransaction::where('status_servis', 'Sudah Diambil')->where('users_id', $request->users_id)
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('biaya');
-
-        // Menghitung total diskon
-        $total_diskon = ServiceTransaction::where('is_approve', 'Setuju')
-            ->where('kondisi_servis', "Sudah jadi")
-            ->whereDate('tgl_ambil', '>=', $start_date)
-            ->whereDate('tgl_ambil', '<=', $end_date)
-            ->sum('diskon');
 
         // Menghitung total profit
         $total_profit = ServiceTransaction::where('status_servis', 'Sudah Diambil')
@@ -87,9 +74,7 @@ class LaporanTeknisiController extends Controller
             'services' => $services,
             'start_date' => $start_date,
             'end_date' => $end_date,
-            'total_modal' => $total_modal,
             'total_biaya' => $total_biaya,
-            'total_diskon' => $total_diskon,
             'total_profit' => $total_profit,
             'total_tindakan' => $total_tindakan,
             'total_bonus' => $total_bonus,
