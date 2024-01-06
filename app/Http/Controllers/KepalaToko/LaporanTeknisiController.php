@@ -48,7 +48,7 @@ class LaporanTeknisiController extends Controller
             ->sum('biaya');
 
         // Menghitung total profit
-        $total_profit = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $total_profit = ServiceTransaction::where('users_id', $request->users_id)->where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('profit');
@@ -60,12 +60,7 @@ class LaporanTeknisiController extends Controller
             ->count();;
 
         // Menghitung total bonus
-        $profit = ServiceTransaction::where('users_id', $request->users_id)->where('status_servis', 'Sudah Diambil')
-            ->whereDate('tgl_ambil', '>=', $start_date)
-            ->whereDate('tgl_ambil', '<=', $end_date)
-            ->sum('profit');
-
-        $total_bonus = $profit / 100 * $teknisi->persen;
+        $total_bonus = $total_profit / 100 * $teknisi->persen;
 
         $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-teknisi', [
             'users' => $users,
@@ -75,7 +70,6 @@ class LaporanTeknisiController extends Controller
             'start_date' => $start_date,
             'end_date' => $end_date,
             'total_biaya' => $total_biaya,
-            'total_profit' => $total_profit,
             'total_tindakan' => $total_tindakan,
             'total_bonus' => $total_bonus,
         ]);
