@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Expense;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +23,22 @@ class ExpenseController extends Controller
         $expenses_count = Expense::all()->count();
         $users = User::all();
         return view('pages/kepalatoko/pengeluaran/index', compact('expenses', 'expenses_count', 'users'));
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+        Expense::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data pengeluaran berhasil dihapus.']);
+    }
+
+    public function approveSelected(Request $request)
+    {
+        $tanggal = Carbon::now()->translatedFormat('Y-m-d');
+        $selectedIds = $request->input('selectedIds');
+        Expense::whereIn('id', $selectedIds)->update(['is_approve' => 'Setuju', 'tgl_disetujui' => $tanggal]);
+
+        return response()->json(['message' => 'Data pengeluaran berhasil disetujui.']);
     }
 
     /**

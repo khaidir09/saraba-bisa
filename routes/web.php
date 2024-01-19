@@ -178,6 +178,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::post('/gaji/bonus/bulan-sebelumnya', [KepalaTokoBonusBulanSebelumnyaController::class, 'store'])->name('bonus-bulan-sebelumnya');
     Route::resource('kasbon', KepalaTokoKasbonController::class);
     Route::resource('pengeluaran', KepalaTokoExpenseController::class);
+    Route::delete('/expenses/delete', [KepalaTokoExpenseController::class, 'deleteSelected']);
+    Route::patch('/expenses/update', [KepalaTokoExpenseController::class, 'approveSelected']);
     Route::resource('approve-pengeluaran', KepalaTokoApprovePengeluaranController::class);
 
     Route::resource('produk/kategori', KepalaTokoKategoriController::class);

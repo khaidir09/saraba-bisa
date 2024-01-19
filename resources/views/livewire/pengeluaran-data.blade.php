@@ -207,15 +207,36 @@
     </div>
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
-        <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Semua Pengeluaran <span class="text-slate-400 font-medium">{{ $expenses_count }}</span></h2>
-        </header>
+        <div x-data="handleSelect">
+            <div class="sm:flex sm:justify-between sm:items-center px-5 py-4">
+                {{-- Left side --}}
+                <h2 class="font-semibold text-slate-800">Semua Pengeluaran <span class="text-slate-400 font-medium">{{ $expenses_count }}</span></h2>
+                <div class="relative inline-flex">
+                    <div class="table-items-action hidden">
+                        <div class="flex items-center">
+                            <div class="text-sm italic mr-2 whitespace-nowrap"><span class="table-items-count"></span> item yang dipilih</div>
+                            <div class="space-x-2">
+                                <button class="btn bg-white border-slate-200 hover:border-slate-300 text-blue-500 hover:text-blue-600" @click="approveSelected">Setujui</button>
+                                <button class="btn bg-white border-slate-200 hover:border-slate-300 text-rose-500 hover:text-rose-600" @click="deleteSelected">Hapus</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="table-auto w-full">
                     <!-- Table header -->
                     <thead class="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
                         <tr>
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                                <div class="flex items-center">
+                                    <label class="inline-flex">
+                                        <span class="sr-only">Select all</span>
+                                        <input id="parent-checkbox" class="form-checkbox" type="checkbox" @click="toggleAll" />
+                                    </label>
+                                </div>
+                            </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">No.</div>
                             </th>
@@ -247,6 +268,14 @@
                         @endphp
                         @foreach($expenses as $item)
                             <tr>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                                    <div class="flex items-center">
+                                        <label class="inline-flex">
+                                            <span class="sr-only">Select</span>
+                                            <input class="table-item form-checkbox" type="checkbox" value="{{ $item->id }}" @click="uncheckParent" />
+                                        </label>
+                                    </div>
+                                </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $i++ }}</div>
                                 </td>
@@ -352,7 +381,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>                                            
+                                            </div>                                         
                                         </div>
                                         <!-- End -->
                                     </div>
@@ -363,7 +392,87 @@
                 </table>
 
             </div>
+        </div>
     </div>
+
+    <script>
+        // A basic demo function to handle "select all" functionality
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('handleSelect', () => ({
+                selectall: false,
+                selectAction() {
+                    countEl = document.querySelector('.table-items-action');
+                    if (!countEl) return;
+                    checkboxes = document.querySelectorAll('input.table-item:checked');
+                    document.querySelector('.table-items-count').innerHTML = checkboxes.length;
+                    if (checkboxes.length > 0) {
+                        countEl.classList.remove('hidden');
+                    } else {
+                        countEl.classList.add('hidden');
+                    }
+                },
+                toggleAll() {
+                    this.selectall = !this.selectall;
+                    checkboxes = document.querySelectorAll('input.table-item');
+                    [...checkboxes].map((el) => {
+                        el.checked = this.selectall;
+                    });
+                    this.selectAction();
+                },
+                uncheckParent() {
+                    this.selectall = false;
+                    document.getElementById('parent-checkbox').checked = false;
+                    this.selectAction();
+                },
+                deleteSelected() {
+                    const checkboxes = document.querySelectorAll('input.table-item:checked');
+                    const selectedIds = [...checkboxes].map((checkbox) => checkbox.value);
+
+                    // Kirim permintaan penghapusan ke server
+                    fetch('/expenses/delete', {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // Tambahkan token CSRF jika menggunakan Laravel
+                        },
+                        body: JSON.stringify({ selectedIds }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        // Refresh halaman atau lakukan tindakan lain setelah penghapusan
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Gagal menghapus data:', error);
+                    });
+                },
+                approveSelected() {
+                    const checkboxes = document.querySelectorAll('input.table-item:checked');
+                    const selectedIds = [...checkboxes].map((checkbox) => checkbox.value);
+
+                    // Kirim permintaan update ke server
+                    fetch('/expenses/update', {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // Tambahkan token CSRF jika menggunakan Laravel
+                        },
+                        body: JSON.stringify({ selectedIds }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        // Refresh halaman atau lakukan tindakan lain setelah update
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Gagal memperbarui data:', error);
+                    });
+                },
+            }))
+        })    
+    </script>
     
     <!-- Pagination -->
     <div class="mt-8">
