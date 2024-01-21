@@ -19,6 +19,24 @@ class TindakanServisController extends Controller
         return view('pages/kepalatoko/servis/tindakan-servis', compact('actions', 'actions_count'));
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        $hasRelation = ServiceAction::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('servicetransaction');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data Tindakan Servis yang memiliki riwayat transaksi tidak bisa dihapus.']);
+        }
+
+        ServiceAction::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data Tindakan Servis berhasil dihapus.']);
+    }
+
     public function store(ServiceActionRequest $request)
     {
         $data = $request->all();

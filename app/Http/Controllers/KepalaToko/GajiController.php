@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Salary;
 use App\Models\Worker;
 use Illuminate\Http\Request;
-use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 
 class GajiController extends Controller
@@ -19,6 +18,13 @@ class GajiController extends Controller
     public function index()
     {
         return view('pages/kepalatoko/gaji/index');
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+        Salary::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data bonus berhasil dihapus.']);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use Carbon\Carbon;
 use App\Models\Term;
 use App\Models\User;
 use App\Models\Order;
@@ -29,6 +30,32 @@ class TransaksiProdukController extends Controller
             'jumlah_lunas',
             'jumlah_tidaklunas'
         ));
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+        Order::whereIn('id', $selectedIds)->delete();
+        OrderDetail::whereIn('orders_id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data transaksi produk berhasil dihapus.']);
+    }
+
+    public function approveSelected(Request $request)
+    {
+        $tanggal = Carbon::now()->translatedFormat('Y-m-d');
+        $selectedIds = $request->input('selectedIds');
+        Order::whereIn('id', $selectedIds)->update(['is_approve' => 'Setuju', 'tgl_disetujui' => $tanggal]);
+
+        return response()->json(['message' => 'Data transaksi produk berhasil disetujui.']);
+    }
+
+    public function rejectSelected(Request $request)
+    {
+        $tanggal = Carbon::now()->translatedFormat('Y-m-d');
+        $selectedIds = $request->input('selectedIds');
+        Order::whereIn('id', $selectedIds)->update(['is_approve' => 'Ditolak', 'tgl_disetujui' => $tanggal]);
+
+        return response()->json(['message' => 'Data transaksi produk berhasil ditolak.']);
     }
 
     /**

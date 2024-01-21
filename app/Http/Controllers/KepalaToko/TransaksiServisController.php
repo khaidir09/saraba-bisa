@@ -43,6 +43,13 @@ class TransaksiServisController extends Controller
         ));
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+        ServiceTransaction::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data transaksi servis berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

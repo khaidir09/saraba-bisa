@@ -53,6 +53,13 @@ class InsidenController extends Controller
         ));
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+        Incident::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data insiden berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

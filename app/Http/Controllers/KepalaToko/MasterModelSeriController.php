@@ -10,7 +10,6 @@ use App\Imports\ModelSeriImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\ModelSerieRequest;
-use App\Http\Requests\KepalaToko\Model_serieRequest;
 
 class MasterModelSeriController extends Controller
 {
@@ -22,6 +21,24 @@ class MasterModelSeriController extends Controller
     public function index()
     {
         return view('pages/kepalatoko/master/model-seri');
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        $hasRelation = ModelSerie::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('relasiService');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data Model Seri yang memiliki riwayat transaksi tidak bisa dihapus.']);
+        }
+
+        ModelSerie::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data model seri berhasil dihapus.']);
     }
 
     /**

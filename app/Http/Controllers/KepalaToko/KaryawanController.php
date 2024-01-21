@@ -28,6 +28,25 @@ class KaryawanController extends Controller
         return view('pages/kepalatoko/karyawan/index', compact('workers', 'debts'));
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        $hasRelation = Worker::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('relasiDebt')
+                ->orWhereHas('relasiSalary');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data Karyawan yang memiliki riwayat bonus/kasbon tidak bisa dihapus.']);
+        }
+
+        Worker::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data Karyawan berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

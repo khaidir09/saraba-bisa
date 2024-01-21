@@ -19,6 +19,24 @@ class MasterJenisBarangController extends Controller
         return view('pages/kepalatoko/master/jenis-barang');
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        $hasRelation = Type::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('relasiService');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data jenis barang yang memiliki riwayat transaksi tidak bisa dihapus.']);
+        }
+
+        Type::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data jenis barang berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

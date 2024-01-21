@@ -41,6 +41,15 @@ class ExpenseController extends Controller
         return response()->json(['message' => 'Data pengeluaran berhasil disetujui.']);
     }
 
+    public function rejectSelected(Request $request)
+    {
+        $tanggal = Carbon::now()->translatedFormat('Y-m-d');
+        $selectedIds = $request->input('selectedIds');
+        Expense::whereIn('id', $selectedIds)->update(['is_approve' => 'Ditolak', 'tgl_disetujui' => $tanggal]);
+
+        return response()->json(['message' => 'Data pengeluaran berhasil ditolak.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

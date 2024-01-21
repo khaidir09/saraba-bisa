@@ -6,7 +6,6 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Worker;
 use Illuminate\Http\Request;
-use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KepalaToko\UserRequest;
 
@@ -19,6 +18,25 @@ class AkunController extends Controller
         $users_count = User::all()->count();
         $workers = Worker::all();
         return view('pages/kepalatoko/akun', compact('users', 'users_count', 'types', 'workers'));
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        $hasRelation = User::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('relasiService')
+                ->orWhereHas('relasiSale')->orWhereHas('expense')->orWhereHas('salary');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data Akun yang memiliki riwayat transaksi tidak bisa dihapus.']);
+        }
+
+        User::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data Akun berhasil dihapus.']);
     }
 
     public function store(UserRequest $request)

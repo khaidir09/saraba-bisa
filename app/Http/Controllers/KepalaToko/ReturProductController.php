@@ -4,7 +4,6 @@ namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\Product;
 use App\Models\Purchase;
-use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Retur;
@@ -19,6 +18,24 @@ class ReturProductController extends Controller
     public function index()
     {
         return view('pages/kepalatoko/pembelian/retur');
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        // Dapatkan data retur yang akan dihapus
+        $returs = Retur::whereIn('id', $selectedIds)->get();
+
+        foreach ($returs as $item) {
+            // Kurangi stok produk terkait
+            $products = $item->purchase->product;
+            $products->stok += $item->retur_quantity;
+            $products->save();
+        }
+
+        Retur::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data retur pembelian produk berhasil dihapus.']);
     }
 
     /**

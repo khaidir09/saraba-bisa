@@ -24,6 +24,24 @@ class ProdukController extends Controller
         return view('pages/kepalatoko/produk/index');
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        $hasRelation = Product::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('relasiOrder');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data produk yang memiliki riwayat transaksi tidak bisa dihapus.']);
+        }
+
+        Product::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data produk berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

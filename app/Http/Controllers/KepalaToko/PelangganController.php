@@ -8,8 +8,6 @@ use App\Exports\PelangganExport;
 use App\Imports\PelangganImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use RealRashid\SweetAlert\Facades\Alert;
-use App\Listeners\PreventCustomerDeletion;
 use App\Http\Requests\KepalaToko\CustomerRequest;
 
 class PelangganController extends Controller
@@ -24,6 +22,25 @@ class PelangganController extends Controller
         $customers = Customer::paginate(10);
         $customers_count = Customer::all()->count();
         return view('pages/kepalatoko/pelanggan', compact('customers', 'customers_count'));
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        $hasRelation = Customer::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('servicetransaction')
+                    ->orWhereHas('sale');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data Pelanggan yang memiliki riwayat transaksi servis/penjualan tidak bisa dihapus.']);
+        }
+
+        Customer::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data Pelanggan berhasil dihapus.']);
     }
 
     /**

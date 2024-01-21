@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use Carbon\Carbon;
 use App\Models\Debt;
 use App\Models\User;
 use App\Models\Worker;
@@ -20,6 +21,31 @@ class KasbonController extends Controller
         $debts = Debt::orderByDesc('created_at')->get();
         $debts_count = Debt::all()->count();
         return view('pages/kepalatoko/kasbon/index', compact('debts', 'debts_count'));
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+        Debt::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data kasbon berhasil dihapus.']);
+    }
+
+    public function approveSelected(Request $request)
+    {
+        $tanggal = Carbon::now()->translatedFormat('Y-m-d');
+        $selectedIds = $request->input('selectedIds');
+        Debt::whereIn('id', $selectedIds)->update(['is_approve' => 'Setuju', 'tgl_disetujui' => $tanggal]);
+
+        return response()->json(['message' => 'Data kasbon berhasil disetujui.']);
+    }
+
+    public function rejectSelected(Request $request)
+    {
+        $tanggal = Carbon::now()->translatedFormat('Y-m-d');
+        $selectedIds = $request->input('selectedIds');
+        Debt::whereIn('id', $selectedIds)->update(['is_approve' => 'Ditolak', 'tgl_disetujui' => $tanggal]);
+
+        return response()->json(['message' => 'Data kasbon berhasil ditolak.']);
     }
 
     /**

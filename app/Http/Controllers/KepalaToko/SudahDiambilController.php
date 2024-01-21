@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use Carbon\Carbon;
 use App\Models\Term;
 use App\Models\Type;
 use App\Models\User;
@@ -27,6 +28,24 @@ class SudahDiambilController extends Controller
     public function index()
     {
         return view('pages/kepalatoko/servis/sudah-diambil');
+    }
+
+    public function approveSelected(Request $request)
+    {
+        $tanggal = Carbon::now()->translatedFormat('Y-m-d');
+        $selectedIds = $request->input('selectedIds');
+        ServiceTransaction::whereIn('id', $selectedIds)->update(['is_approve' => 'Setuju', 'tgl_disetujui' => $tanggal]);
+
+        return response()->json(['message' => 'Data transaksi servis berhasil disetujui.']);
+    }
+
+    public function rejectSelected(Request $request)
+    {
+        $tanggal = Carbon::now()->translatedFormat('Y-m-d');
+        $selectedIds = $request->input('selectedIds');
+        ServiceTransaction::whereIn('id', $selectedIds)->update(['is_approve' => 'Ditolak', 'tgl_disetujui' => $tanggal]);
+
+        return response()->json(['message' => 'Data transaksi servis berhasil ditolak.']);
     }
 
     /**

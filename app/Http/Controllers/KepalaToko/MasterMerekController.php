@@ -22,6 +22,26 @@ class MasterMerekController extends Controller
         return view('pages/kepalatoko/master/merek');
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        // Validasi apakah data memiliki relasi dengan Service atau ModelSerie
+        $hasRelation = Brand::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('relasiService')
+                    ->orWhereHas('relasiModelSerie');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data Merek yang memiliki riwayat transaksi/model seri tidak bisa dihapus.']);
+        }
+
+        Brand::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data merek berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

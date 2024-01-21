@@ -20,6 +20,24 @@ class PurchaseProductController extends Controller
         return view('pages/kepalatoko/pembelian/index');
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        // Dapatkan data pembelian yang akan dihapus
+        $purchases = Purchase::whereIn('id', $selectedIds)->get();
+
+        foreach ($purchases as $item) {
+            // Kurangi stok produk terkait
+            $products = $item->product;
+            $products->stok -= $item->quantity;
+            $products->save();
+        }
+
+        Purchase::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data pembelian produk berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

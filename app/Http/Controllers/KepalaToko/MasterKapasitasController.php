@@ -21,6 +21,24 @@ class MasterKapasitasController extends Controller
         return view('pages/kepalatoko/master/kapasitas', compact('capacities', 'capacities_count'));
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        $hasRelation = Capacity::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('relasiService');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data Kapasitas yang memiliki riwayat transaksi tidak bisa dihapus.']);
+        }
+
+        Capacity::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data kapasitas berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

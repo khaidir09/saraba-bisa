@@ -23,6 +23,13 @@ class AnggaranController extends Controller
         return view('pages/kepalatoko/anggaran', compact('budgets', 'budgets_count', 'total_budgets', 'targetharian'));
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+        Budget::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data anggaran berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -211,12 +211,14 @@
             <div class="sm:flex sm:justify-between sm:items-center px-5 py-4">
                 {{-- Left side --}}
                 <h2 class="font-semibold text-slate-800">Semua Pengeluaran <span class="text-slate-400 font-medium">{{ $expenses_count }}</span></h2>
+                {{-- Right side --}}
                 <div class="relative inline-flex">
                     <div class="table-items-action hidden">
                         <div class="flex items-center">
                             <div class="text-sm italic mr-2 whitespace-nowrap"><span class="table-items-count"></span> item yang dipilih</div>
-                            <div class="space-x-2">
+                            <div class="space-x-1">
                                 <button class="btn bg-white border-slate-200 hover:border-slate-300 text-blue-500 hover:text-blue-600" @click="approveSelected">Setujui</button>
+                                <button class="btn bg-white border-slate-200 hover:border-slate-300 text-gray-900 hover:text-gray-950" @click="rejectSelected">Tolak</button>
                                 <button class="btn bg-white border-slate-200 hover:border-slate-300 text-rose-500 hover:text-rose-600" @click="deleteSelected">Hapus</button>
                             </div>
                         </div>
@@ -453,6 +455,29 @@
 
                     // Kirim permintaan update ke server
                     fetch('/expenses/update', {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // Tambahkan token CSRF jika menggunakan Laravel
+                        },
+                        body: JSON.stringify({ selectedIds }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        // Refresh halaman atau lakukan tindakan lain setelah update
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Gagal memperbarui data:', error);
+                    });
+                },
+                rejectSelected() {
+                    const checkboxes = document.querySelectorAll('input.table-item:checked');
+                    const selectedIds = [...checkboxes].map((checkbox) => checkbox.value);
+
+                    // Kirim permintaan update ke server
+                    fetch('/expenses/reject', {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',

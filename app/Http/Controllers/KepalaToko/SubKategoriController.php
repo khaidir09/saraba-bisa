@@ -19,6 +19,24 @@ class SubKategoriController extends Controller
         return view('pages/kepalatoko/sub-kategori/index');
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+
+        $hasRelation = SubCategory::whereIn('id', $selectedIds)
+            ->where(function ($query) {
+                $query->whereHas('relasiProduct');
+            })
+            ->exists();
+
+        if ($hasRelation) {
+            return response()->json(['message' => 'Data Sub Kategori Produk yang sudah terhubung dengan data produk tidak bisa dihapus.']);
+        }
+
+        SubCategory::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data Sub Kategori Produk berhasil dihapus.']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -103,7 +121,7 @@ class SubKategoriController extends Controller
         if (
             $item->relasiProduct()->exists()
         ) {
-            toast('Data Sub Kategori Produk yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
+            toast('Data Sub Kategori Produk yang sudah terhubung dengan data produk tidak bisa dihapus.', 'error');
             return redirect()->back();
         }
 

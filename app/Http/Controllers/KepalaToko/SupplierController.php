@@ -18,6 +18,13 @@ class SupplierController extends Controller
         return view('pages/kepalatoko/produk/supplier');
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $selectedIds  = $request->input('selectedIds');
+        Supplier::whereIn('id', $selectedIds)->delete();
+        return response()->json(['message' => 'Data supplier berhasil dihapus.']);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
