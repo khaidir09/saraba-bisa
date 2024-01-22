@@ -242,6 +242,7 @@
             <div class="sm:flex sm:justify-between sm:items-center px-5 py-4">
                 {{-- Left side --}}
                 <h2 class="font-semibold text-slate-800">Semua Merek <span class="text-slate-400 font-medium">{{ $brands_count }}</span></h2>
+                {{-- Right side --}}
                 <div class="relative inline-flex">
                     <div class="table-items-action hidden">
                         <div class="flex items-center">

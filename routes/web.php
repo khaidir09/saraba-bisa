@@ -144,6 +144,20 @@ Route::controller(DefaultController::class)->group(function () {
     Route::get('/get-modelserie', 'GetModelSerie')->name('get-modelserie');
 });
 
+Route::delete('/customers/delete', [KepalaTokoPelangganController::class, 'deleteSelected']);
+Route::delete('/service-actions/delete', [KepalaTokoTindakanServisController::class, 'deleteSelected']);
+Route::delete('/categories/delete', [KepalaTokoKategoriController::class, 'deleteSelected']);
+Route::delete('/sub-categories/delete', [KepalaTokoSubKategoriController::class, 'deleteSelected']);
+Route::delete('/suppliers/delete', [KepalaTokoSupplierController::class, 'deleteSelected']);
+Route::delete('/products/delete', [KepalaTokoProdukController::class, 'deleteSelected']);
+Route::delete('/types/delete', [KepalaTokoMasterJenisBarangController::class, 'deleteSelected']);
+Route::delete('/brands/delete', [KepalaTokoMasterMerekController::class, 'deleteSelected']);
+Route::delete('/model-series/delete', [KepalaTokoMasterModelSeriController::class, 'deleteSelected']);
+Route::delete('/capacities/delete', [KepalaTokoMasterKapasitasController::class, 'deleteSelected']);
+Route::delete('/incidents/delete', [KepalaTokoInsidenController::class, 'deleteSelected']);
+Route::delete('/debts/delete', [KepalaTokoKasbonController::class, 'deleteSelected']);
+Route::delete('/expenses/delete', [KepalaTokoExpenseController::class, 'deleteSelected']);
+
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
     Route::get('/json-data-servis', [DataServisController::class, 'getDataServis'])->name('json_data_servis');
@@ -157,9 +171,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::delete('/accounts/delete', [KepalaTokoAkunController::class, 'deleteSelected']);
     Route::post('/servis/transaksi-servis-langsung', [KepalaTokoTransaksiServisLangsungController::class, 'store'])->name('servis-langsung');
     Route::resource('servis/tindakan-servis', KepalaTokoTindakanServisController::class);
-    Route::delete('/service-actions/delete', [KepalaTokoTindakanServisController::class, 'deleteSelected']);
     Route::resource('pelanggan', KepalaTokoPelangganController::class);
-    Route::delete('/customers/delete', [KepalaTokoPelangganController::class, 'deleteSelected']);
     Route::resource('servis/transaksi-servis', KepalaTokoTransaksiServisController::class);
     Route::delete('/services/delete', [KepalaTokoTransaksiServisController::class, 'deleteSelected']);
     Route::patch('/services/update', [KepalaTokoSudahDiambilController::class, 'approveSelected']);
@@ -173,19 +185,13 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::post('servis/log-servis-destroy/{model}', [KepalaTokoLogServisController::class, 'destroy'])->name('log-servis-destroy');
 
     Route::resource('master/master-jenis-barang', KepalaTokoMasterJenisBarangController::class);
-    Route::delete('/types/delete', [KepalaTokoMasterJenisBarangController::class, 'deleteSelected']);
     Route::resource('master/master-merek', KepalaTokoMasterMerekController::class);
-    Route::delete('/brands/delete', [KepalaTokoMasterMerekController::class, 'deleteSelected']);
     Route::resource('master/master-kapasitas', KepalaTokoMasterKapasitasController::class);
-    Route::delete('/capacities/delete', [KepalaTokoMasterKapasitasController::class, 'deleteSelected']);
     Route::resource('master/master-model-seri', KepalaTokoMasterModelSeriController::class);
-    Route::delete('/model-series/delete', [KepalaTokoMasterModelSeriController::class, 'deleteSelected']);
     Route::resource('anggaran', KepalaTokoAnggaranController::class);
     Route::delete('/budgets/delete', [KepalaTokoAnggaranController::class, 'deleteSelected']);
     Route::resource('insiden', KepalaTokoInsidenController::class);
-    Route::delete('/incidents/delete', [KepalaTokoInsidenController::class, 'deleteSelected']);
     Route::resource('kasbon', KepalaTokoKasbonController::class);
-    Route::delete('/debts/delete', [KepalaTokoKasbonController::class, 'deleteSelected']);
     Route::patch('/debts/update', [KepalaTokoKasbonController::class, 'approveSelected']);
     Route::patch('/debts/reject', [KepalaTokoKasbonController::class, 'rejectSelected']);
     Route::resource('gaji/karyawan', KepalaTokoKaryawanController::class);
@@ -194,19 +200,14 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::delete('/bonus/delete', [KepalaTokoGajiController::class, 'deleteSelected']);
     Route::post('/gaji/bonus/bulan-sebelumnya', [KepalaTokoBonusBulanSebelumnyaController::class, 'store'])->name('bonus-bulan-sebelumnya');
     Route::resource('pengeluaran', KepalaTokoExpenseController::class);
-    Route::delete('/expenses/delete', [KepalaTokoExpenseController::class, 'deleteSelected']);
     Route::patch('/expenses/update', [KepalaTokoExpenseController::class, 'approveSelected']);
     Route::patch('/expenses/reject', [KepalaTokoExpenseController::class, 'rejectSelected']);
     Route::resource('approve-pengeluaran', KepalaTokoApprovePengeluaranController::class);
 
     Route::resource('produk/kategori', KepalaTokoKategoriController::class);
-    Route::delete('/categories/delete', [KepalaTokoKategoriController::class, 'deleteSelected']);
     Route::resource('produk/sub-kategori', KepalaTokoSubKategoriController::class);
-    Route::delete('/sub-categories/delete', [KepalaTokoSubKategoriController::class, 'deleteSelected']);
     Route::resource('produk/supplier', KepalaTokoSupplierController::class);
-    Route::delete('/suppliers/delete', [KepalaTokoSupplierController::class, 'deleteSelected']);
     Route::resource('produk/item', KepalaTokoProdukController::class);
-    Route::delete('/products/delete', [KepalaTokoProdukController::class, 'deleteSelected']);
     Route::resource('produk/item-tersedia', KepalaTokoProdukTersediaController::class);
     Route::resource('produk/item-hampir-habis', KepalaTokoProdukHampirHabisController::class);
     Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
