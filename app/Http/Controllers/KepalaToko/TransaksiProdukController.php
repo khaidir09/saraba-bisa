@@ -6,11 +6,13 @@ use Carbon\Carbon;
 use App\Models\Term;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Customer;
 use App\Models\OrderDetail;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 class TransaksiProdukController extends Controller
 {
@@ -193,12 +195,22 @@ class TransaksiProdukController extends Controller
 
         $filename = 'Nota Penjualan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
-        return $pdf->setPaper('a4', 'landscape')->setOption('isRemoteEnabled', true)->stream($filename);
+        return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     public function edit($id)
     {
-        //
+        $item = Order::with('detailOrders')->findOrFail($id);
+        $customers = Customer::all();
+        $products = Product::all();
+        $users = User::where('role', 'Sales')->get();
+
+        return view('pages.kepalatoko.produk.transaksi-edit', [
+            'item' => $item,
+            'customers' => $customers,
+            'products' => $products,
+            'users' => $users,
+        ]);
     }
 
     /**
@@ -210,7 +222,35 @@ class TransaksiProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = Order::findOrFail($id);
+        $nama_pelanggan = Customer::find($request->customers_id);
+
+        // Loop untuk mengupdate order_details
+        // foreach ($request->input('order_details', []) as $orderDetailId => $orderDetailData) {
+        foreach ($request->input('order_details', []) as $orderDetailId) {
+            $orderDetail = OrderDetail::findOrFail($orderDetailId);
+            // $orderDetail->update($orderDetailData);
+
+            $orderDetail->update([
+                'modal' => $request->modal,
+                'total' => $request->total,
+                'quantity' => $request->quantity,
+                'profit' => $request->total - ($request->modal - $request->quantity),
+            ]);
+        }
+
+        // Transaction update
+        $item->update([
+            'customers_id' => $request->customers_id,
+            'nama_pelanggan' => $nama_pelanggan->nama,
+            'users_id' => $request->users_id,
+            'payment_method' => $request->payment_method,
+            'pay' => $request->pay,
+            'due' => $request->due,
+            'created_at' => $request->created_at,
+        ]);
+
+        return redirect()->route('transaksi-produk.index');
     }
 
     /**

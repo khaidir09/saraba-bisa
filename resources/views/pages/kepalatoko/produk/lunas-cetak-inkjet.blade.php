@@ -6,22 +6,26 @@
 <title>Invoice</title>
 
 <style type="text/css">
+    @page {
+      size: A4; /* Ukuran halaman A4, bisa disesuaikan */
+      margin: 3mm; /* Atur margin atas, kanan, bawah, dan kiri */
+    }
+    body {
+      margin: 0;
+    }
     * {
         font-family: Verdana, Arial, sans-serif;
         color: #000000;
     }
     table{
-        font-size: x-small;
+        font-size: 12px;
     }
     tfoot tr td{
         font-weight: bold;
-        font-size: x-small;
+        font-size: 12px;
     }
     .gray {
         background-color: lightgray
-    }
-    .font{
-      font-size: 15px;
     }
     .authority {
         /*text-align: center;*/
@@ -105,7 +109,7 @@
     </p>
   </div>
 
-  <table width="100%" style="background: #F7F7F7; padding: 10px;" class="font">
+  <table width="100%" style="background: #F7F7F7; padding: 10px;">
     <tr>
         <td>Nama Pelanggan</td>
         <td>: {{ $order->customer->nama }}</td>
@@ -116,7 +120,7 @@
         <td>Telp/WA</td>
         <td>: {{ $order->customer->nomor_hp }}</td>
         <td>Tanggal Transaksi</td>
-        <td>: {{ $order->order_date }}</td>
+        <td>: {{ \Carbon\Carbon::parse($order->created_at)->locale('id')->translatedFormat('d F Y') }}</td>
     </tr>
     <tr>
         <td>Kategori Pelanggan</td>
@@ -228,7 +232,7 @@
   </table>
   @if ($orderItem->first()->garansi != null)
     <div>
-      <p style="font-size: x-small; text-decoration: underline;">Cek status garansi di {{ $users->link_toko }}/garansi</p>
+      <p style="text-decoration: underline;">Cek status garansi di {{ $users->link_toko }}/garansi</p>
     </div>
   @endif
 </body>
