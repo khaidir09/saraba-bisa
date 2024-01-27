@@ -201,38 +201,33 @@
   </table>
   <table width="100%">
     <tr>
-        <td align="right" >
-            <h2>
-              <span>Total:</span> Rp. {{ number_format($total) }} <br> <span style="text-transform: capitalize; font-size: 12px; font-weight: normal;">( {{ terbilang($total) }} rupiah )</span>
-            </h2>
-        </td>
+      <th class="text-center" style="vertical-align: top;">Pembeli</th>
+      <th class="text-center" style="vertical-align: top;">Penjual</th>
+      <td align="right" >
+          <h3 style="margin-bottom: 0;">
+            Total: Rp. {{ number_format($total) }} <br> <span style="text-transform: capitalize; font-size: 12px; font-weight: normal;">( {{ terbilang($total) }} rupiah )</span>
+          </h3>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center capital">{{ $order->customer->nama }}</td>
+      @if ($order->user != null)
+        <td class="text-center capital">{{ Auth::user()->name }}</td>
+      @else
+        <td class="text-center capital">-</td>
+      @endif
     </tr>
   </table>
-  <table style="width: 100%;">
-    <thead>
-      <tr>
-        <th class="w-50 text-left">Syarat & Ketentuan</th>
-        <th colspan="2" class="text-center w-25">Pembeli</th>
-        <th colspan="2" class="text-center w-25">Penjual</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="text-justify" style="font-style: italic;">
-          {!! $terms->description !!} <br>
-        </td>
-        <td colspan="2" class="pt-5 text-center capital">{{ $order->customer->nama }}</td>
-        @if ($item->user != null)
-          <td colspan="2" class="pt-5 text-center capital">{{ Auth::user()->name }}</td>
-        @else
-          <td colspan="2" class="pt-5 text-center capital">-</td>
-        @endif
-      </tr>
-    </tbody>
+  <table width="100%">
+    <tr>
+      <td class="text-justify" style="font-style: italic; padding-right: 30px;">
+        {!! $terms->description !!}
+      </td>
+    </tr>
   </table>
   @if ($orderItem->first()->garansi != null)
     <div>
-      <p style="text-decoration: underline;">Cek status garansi di {{ $users->link_toko }}/garansi</p>
+      <p style="text-decoration: underline; font-size: 12px;">Cek status garansi di {{ $users->link_toko }}/garansi</p>
     </div>
   @endif
 </body>
