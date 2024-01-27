@@ -65,105 +65,112 @@
                         </div>
                     </div>
                     <!-- Modal content -->
-                    <form action="{{ route('transaksi-produk.update', $item->id) }}" method="post">
-                        @method('PUT')
-                        @csrf
-                        <div class="px-5 py-4">
-                            <div class="space-y-3">
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="order_date">Tgl. Transaksi </label>
-                                    <input id="order_date" name="order_date" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->order_date)->format('Y-m-d') }}"/>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan </label>
-                                    <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full" >
-                                        <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
-                                        @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="payment_method">Metode Pembayaran</label>
-                                    <select id="payment_method" name="payment_method" class="form-select text-sm py-1 w-full" >
-                                        <option selected value="{{ $item->payment_method }}">{{  $item->payment_method }}</option>
-                                        <option value="Tunai">Tunai</option>
-                                        <option value="Transfer">Transfer</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="brands_id">Merek </label>
-                                    <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full" >
-                                        <option selected value="{{ $item->brand->id }}">{{ $item->brand->name }}</option>
-                                        @foreach ($brands as $brand)
-                                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri </label>
-                                    <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full" >
-                                        <option selected value="{{ $item->modelserie->id }}">{{ $item->modelserie->name }}</option>
-                                        @foreach ($model_series as $model_serie)
-                                            <option value="{{ $model_serie->id }}">{{ $model_serie->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="kerusakan">Kerusakan</label>
-                                    <input id="kerusakan" name="kerusakan" class="form-input w-full px-2 py-1" type="text" value="{{ $item->kerusakan }}"/>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="qc_masuk">Pengecekan Fungsi</label>
-                                    <input id="qc_masuk" name="qc_masuk" class="form-input w-full px-2 py-1" type="text" value="{{ $item->qc_masuk }}"/>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="kondisi_servis">Kondisi Servis  </label>
-                                    <select id="kondisi_servis" name="kondisi_servis" class="form-select text-sm py-1 w-full" >
-                                            <option selected value="{{ $item->kondisi_servis }}">{{ $item->kondisi_servis }}</option>
-                                            <option value="Sudah Jadi">Sudah Jadi</option>
-                                            <option value="Tidak Bisa">Tidak Bisa</option>
-                                            <option value="Dibatalkan">Dibatalkan</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="service_actions_id">Tindakan Servis  </label>
-                                    <select id="service_actions_id" name="service_actions_id" class="form-select text-sm py-1 w-full">
-                                        <option selected value="{{ $item->serviceaction->id }}">{{ $item->serviceaction->nama_tindakan }}</option>
-                                        @foreach ($service_actions as $action)
-                                            <option value="{{ $action->id }}">{{ $action->nama_tindakan }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="users_id">Teknisi </label>
-                                    <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" >
-                                        <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="biaya">Biaya Servis </label>
-                                    <input id="biaya" name="biaya" class="form-input w-full px-2 py-1" type="number" value="{{ $item->biaya }}"/>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart </label>
-                                    <input id="modal_sparepart" name="modal_sparepart" class="form-input w-full px-2 py-1" type="number" value="{{ $item->modal_sparepart }}"/>
-                                </div>
+                    <div x-data="{ tab: '1' }" class="px-5 py-4">
+                        <!-- Tabs buttons -->
+                        <div class="flex flex-wrap items-center -m-3 mb-0">
+                            <div class="m-3">
+                                <!-- Start -->
+                                <label class="flex items-center">
+                                    <input type="radio" name="radio-buttons" class="form-radio" checked @click="tab = '1'"/>
+                                    <span class="text-sm ml-2">Data Utama</span>
+                                </label>
+                                <!-- End -->
+                            </div>
+                            <div class="m-3">
+                                <!-- Start -->
+                                <label class="flex items-center">
+                                    <input type="radio" name="radio-buttons" class="form-radio" @click="tab = '2'"/>
+                                    <span class="text-sm ml-2">Data Detail</span>
+                                </label>
+                                <!-- End -->
                             </div>
                         </div>
-                        <!-- Modal footer -->
-                        <div class="px-5 py-4 border-t border-slate-200">
-                            <div class="flex flex-wrap justify-end space-x-2">
-                                <a href="{{ route('transaksi-servis-bisa-diambil.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
-                                    Batal
-                                </a>
-                                <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                        <form action="{{ route('transaksi-produk.update', $item->id) }}" method="post">
+                            @method('PUT')
+                            @csrf
+                            {{-- Form Utama --}}
+                            <div x-show="tab === '1'">
+                                <div class="space-y-3 mb-4">
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="created_at">Tgl. Transaksi </label>
+                                        <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}"/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="customers_id">Nama Pelanggan </label>
+                                        <select id="customers_id" name="customers_id" class="form-select text-sm py-1 w-full" >
+                                            <option selected value="{{ $item->customer->id }}">{{ $item->customer->nama }}</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="payment_method">Metode Pembayaran</label>
+                                        <select id="payment_method" name="payment_method" class="form-select text-sm py-1 w-full" >
+                                            <option selected value="{{ $item->payment_method }}">{{  $item->payment_method }}</option>
+                                            <option value="Tunai">Tunai</option>
+                                            <option value="Transfer">Transfer</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="users_id">Sales </label>
+                                        <select id="users_id" name="users_id" class="form-select text-sm py-1 w-full" >
+                                            <option selected value="{{ $item->user->id }}">{{ $item->user->name }}</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="pay">Pembayaran</label>
+                                        <input id="pay" name="pay" class="form-input w-full px-2 py-1" type="number" value="{{ $item->pay }}"/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="due">Hutang</label>
+                                        <input id="due" name="due" class="form-input w-full px-2 py-1" type="number" value="{{ $item->due }}"/>
+                                    </div>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="py-4 border-t border-slate-200">
+                                    <div class="flex flex-wrap justify-end space-x-2">
+                                        <a href="{{ route('transaksi-produk.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                            Batal
+                                        </a>
+                                        <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                            {{-- Form Detail --}}
+                            <div x-show="tab === '2'">
+                                @foreach ($item->detailOrders as $orderDetail)
+                                    <input type="hidden" name="order_details[{{ $orderDetail->id }}][persen_sales]" value="{{ $orderDetail->persen_sales }}">
+                                    <input type="hidden" name="order_details[{{ $orderDetail->id }}][persen_admin]" value="{{ $orderDetail->persen_admin }}">
+                                    <div>
+                                        <label class="block text-sm font-semibold mb-1 text-indigo-600" for="modal">{{ $orderDetail->product_name }}</label>
+                                    </div>
+                                    <div class="space-y-3 mb-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="modal">Total Modal</label>
+                                            <input id="modal" name="order_details[{{ $orderDetail->id }}][modal]" class="form-input w-full px-2 py-1" type="number" value="{{ $orderDetail->modal }}"/>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="block text-sm font-medium mb-1" for="total">Total Harga Jual</label>
+                                            <input id="total" name="order_details[{{ $orderDetail->id }}][total]" class="form-input w-full px-2 py-1" type="number" value="{{ $orderDetail->total }}"/>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <!-- Modal footer -->
+                                <div class="py-4 border-t border-slate-200">
+                                    <div class="flex flex-wrap justify-end space-x-2">
+                                        <a href="{{ route('transaksi-produk.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                            Batal
+                                        </a>
+                                        <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -226,16 +226,18 @@ class TransaksiProdukController extends Controller
         $nama_pelanggan = Customer::find($request->customers_id);
 
         // Loop untuk mengupdate order_details
-        // foreach ($request->input('order_details', []) as $orderDetailId => $orderDetailData) {
-        foreach ($request->input('order_details', []) as $orderDetailId) {
+        foreach ($request->input('order_details', []) as $orderDetailId => $orderDetailData) {
             $orderDetail = OrderDetail::findOrFail($orderDetailId);
-            // $orderDetail->update($orderDetailData);
 
+            $profit = $orderDetailData['total'] - $orderDetailData['modal'];
+            $profit_toko = $profit - ($profit / 100 * ($orderDetailData['persen_sales'] + $orderDetailData['persen_admin']));
+
+            // Update order_details termasuk profit
             $orderDetail->update([
-                'modal' => $request->modal,
-                'total' => $request->total,
-                'quantity' => $request->quantity,
-                'profit' => $request->total - ($request->modal - $request->quantity),
+                'modal' => $orderDetailData['modal'],
+                'total' => $orderDetailData['total'],
+                'profit' => $profit,
+                'profit_toko' => $profit_toko,
             ]);
         }
 
