@@ -92,11 +92,11 @@
 		<tbody>
 			<tr>
 				<th>Total Bonus</th>
-				<th style="color: green">: Rp. {{ number_format($total_bonus) }}</th>
+				<th>: Rp. {{ number_format($total_bonus) }}</th>
 				<th class="text-center">Total Omzet</th>
-				<th class="text-center" style="color: brown;">: Rp. {{ number_format($total_biaya) }}</th>
+				<th class="text-center">: Rp. {{ number_format($total_biaya) }}</th>
 				<th class="text-right">Total Item Penjualan</th>
-				<th class="text-right" style="color: blue;">: {{ $total_penjualan }} Item</th>
+				<th class="text-right">: {{ $total_penjualan }} Item</th>
 			</tr>
 		</tbody>
 	</table>

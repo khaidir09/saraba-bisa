@@ -92,15 +92,15 @@
 		<tbody>
 			<tr>
 				<th>Total Modal Sparepart</th>
-				<th style="color: brown">: Rp. {{ number_format($total_modal) }}</th>
+				<th>: Rp. {{ number_format($total_modal) }}</th>
 				<th class="text-right">Total Biaya Servis</th>
-				<th class="text-right" style="color: blue;">: Rp. {{ number_format($total_biaya) }}</th>
+				<th class="text-right">: Rp. {{ number_format($total_biaya) }}</th>
 			</tr>
 			<tr>
 				<th>Total Diskon</th>
-				<th style="color: red">: Rp. {{ number_format($total_diskon) }}</th>
+				<th>: Rp. {{ number_format($total_diskon) }}</th>
 				<th class="text-right">Total Profit</th>
-				<th class="text-right" style="color: green">: Rp. {{ number_format($total_profit) }}</th>
+				<th class="text-right">: Rp. {{ number_format($total_profit) }}</th>
 			</tr>
 		</tbody>
 	</table>

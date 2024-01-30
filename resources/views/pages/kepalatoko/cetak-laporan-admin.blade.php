@@ -92,19 +92,19 @@
 		<tbody>
 			<tr>
 				<th>Total Bonus</th>
-				<th style="color: green">: Rp. {{ number_format($total_bonus_admin) }}</th>
+				<th>: Rp. {{ number_format($total_bonus_admin) }}</th>
 				<th>Bonus Servis</th>
-				<th style="color: green;">: Rp. {{ number_format($total_bonus_servis) }}</th>
+				<th>: Rp. {{ number_format($total_bonus_servis) }}</th>
 				<th>Bonus Penjualan</th>
-				<th class="text-right" style="color: green;">: Rp. {{ number_format($total_bonus_penjualan) }}</th>
+				<th class="text-right">: Rp. {{ number_format($total_bonus_penjualan) }}</th>
 			</tr>
 			<tr>
 				<th>Total Input</th>
-				<th style="color: blue">: {{ $total_tindakan + $total_penjualan }}</th>
+				<th>: {{ $total_tindakan + $total_penjualan }}</th>
 				<th>Input Servis</th>
-				<th style="color: blue;">: {{ $total_tindakan }}</th>
+				<th>: {{ $total_tindakan }}</th>
 				<th>Input Penjualan</th>
-				<th class="text-right" style="color: blue;">: {{ $total_penjualan }}</th>
+				<th class="text-right">: {{ $total_penjualan }}</th>
 			</tr>
 		</tbody>
 	</table>
