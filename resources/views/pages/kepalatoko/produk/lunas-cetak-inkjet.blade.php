@@ -40,6 +40,10 @@
       text-align: center;
     }
 
+    .w-100 {
+			width: 100%;
+		}
+
     .w-50 {
 			width: 50%;
 		}
@@ -95,19 +99,24 @@
 	}
 	@endphp
 
-  <div class="informasi-toko">
-    @if ($users->profile_photo_path != null)
-      <img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70" class="mt-1 mb-2">
-    @endif
-    <h2 style="font-size: 18px;">
-      <strong>{{ $users->nama_toko }}</strong> <br>
-      {{ $users->deskripsi_toko }}
-    </h2>
-    <p>
-      {{ $users->alamat_toko }} <br>
-      Telp/WA {{ $users->nomor_hp_toko }} <br>
-    </p>
-  </div>
+  <table class="w-100">
+		<tr>
+			@if ($users->profile_photo_path != null)
+				<td class="text-center" style="width: 30%">
+					<img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}" alt="" height="70">
+				</td>
+				<td style="height: 50px; vertical-align: middle; text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
+					{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
+				</td>
+			@else
+				<td style="text-align: left; line-height: 1.5em;"><strong>{{ $users->nama_toko }} ({{ $users->deskripsi_toko }})</strong> <br>
+					{{ $users->alamat_toko }} - {{ $users->nomor_hp_toko }}
+				</td>
+			@endif
+		</tr>
+	</table>
+
+	<hr style="border-top: 1px dashed;">
 
   <table width="100%" style="background: #F7F7F7; padding: 10px;">
     <tr>
@@ -127,12 +136,6 @@
         <td>: {{ $order->customer->kategori }}</td>
         <td>Metode Pembayaran</td>
         <td>: {{ $order->payment_method }}</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>Total Pembayaran</td>
-        <td>: Rp. {{ number_format($order->pay) }}</td>
     </tr>
     @if ($order->due > 0)
         <tr>
