@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\AdminToko;
 
 use Carbon\Carbon;
-use App\Models\Type;
 use App\Models\Order;
 use App\Models\Budget;
 use App\Models\Product;
-use App\Models\Category;
 use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
@@ -25,29 +23,6 @@ class DashboardController extends Controller
     public function index()
     {
         $currentMonth = now()->month;
-
-        $types = Type::with('service')->get();
-        $categories = Category::all();
-
-        $categorySales = [];
-        foreach ($categories as $category) {
-            $totalSales = OrderDetail::totalSales($category->id);
-            $categorySales[] = [
-                'category' => $category->category_name,
-                'total_sales' => $totalSales,
-            ];
-        }
-
-        $biayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
-            ->where('is_approve', 'Setuju')
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profit');
-
-        $profitpenjualan = OrderDetail::where('is_admin_toko', 'Admin')
-            ->whereMonth('created_at', $currentMonth)
-            ->get()
-            ->sum('profit');
 
         $adminbiayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
             ->where('admin_id', Auth::user()->id)
@@ -105,14 +80,11 @@ class DashboardController extends Controller
         $stokhabis = Product::where('stok', 0)->count();
 
         return view('pages/admintoko/dashboard', compact(
-            'types',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
             'totalpenjualan',
             'totalbonus',
-            'categories',
-            'categorySales',
             'reminders',
             'stokhabis'
         ));

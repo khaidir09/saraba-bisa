@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Teknisi;
 
 use Carbon\Carbon;
-use App\Models\Debt;
 use App\Models\Order;
 use App\Models\Budget;
-use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
