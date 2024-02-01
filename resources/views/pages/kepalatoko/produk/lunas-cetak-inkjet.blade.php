@@ -8,7 +8,7 @@
 <style type="text/css">
     @page {
       margin: 3mm; /* Atur margin atas, kanan, bawah, dan kiri */
-      size: 9.5in 5.5in;
+      size: 5.5in portrait;
     }
     body {
       margin: 0;
