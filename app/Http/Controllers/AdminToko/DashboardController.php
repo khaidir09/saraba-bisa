@@ -22,11 +22,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $currentYear = now()->year;
         $currentMonth = now()->month;
 
         $adminbiayaservis = ServiceTransaction::where('is_admin_toko', 'Admin')
             ->where('admin_id', Auth::user()->id)
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profit');
@@ -45,6 +47,7 @@ class DashboardController extends Controller
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');

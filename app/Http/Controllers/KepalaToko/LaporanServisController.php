@@ -20,21 +20,27 @@ class LaporanServisController extends Controller
 
         $omzethari = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->whereDate('tgl_disetujui', today())
             ->get()
             ->sum('omzet');
         $profithari = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->whereDate('tgl_disetujui', today())
             ->get()
             ->sum('profittoko');
         $omzetbulan = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('omzet');
         $profitbulan = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');

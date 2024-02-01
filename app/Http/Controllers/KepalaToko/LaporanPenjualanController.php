@@ -11,12 +11,15 @@ class LaporanPenjualanController extends Controller
 {
     public function index()
     {
-
         $product_transactions = OrderDetail::with('product', 'user')->get();
         $count = OrderDetail::all()->count();
 
         $rumusomzethari = Order::whereHas('detailOrders', function ($query) {
+            $currentMonth = now()->month;
+            $currentYear = now()->year;
             $query->where('is_approve', 'Setuju')
+                ->whereYear('tgl_disetujui', $currentYear)
+                ->whereMonth('tgl_disetujui', $currentMonth)
                 ->whereDate('tgl_disetujui', today());
         })
             ->with(['detailOrders' => function ($query) {
@@ -31,7 +34,12 @@ class LaporanPenjualanController extends Controller
         });
 
         $rumusprofithari = Order::whereHas('detailOrders', function ($query) {
+            $currentMonth = now()->month;
+            $currentYear = now()->year;
+
             $query->where('is_approve', 'Setuju')
+                ->whereYear('tgl_disetujui', $currentYear)
+                ->whereMonth('tgl_disetujui', $currentMonth)
                 ->whereDate('tgl_disetujui', today());
         })
             ->with(['detailOrders' => function ($query) {

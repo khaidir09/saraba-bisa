@@ -35,7 +35,7 @@ class KaryawanController extends Controller
         $hasRelation = Worker::whereIn('id', $selectedIds)
             ->where(function ($query) {
                 $query->whereHas('relasiDebt')
-                ->orWhereHas('relasiSalary');
+                    ->orWhereHas('relasiSalary');
             })
             ->exists();
 
@@ -100,14 +100,17 @@ class KaryawanController extends Controller
             ->sum('bonus');
         $users = User::find(1);
         $debts = Debt::where('workers_id', $id)
+            ->where('is_approve', 'Setuju')
             ->whereYear('tgl_disetujui', $date->year)
             ->whereMonth('tgl_disetujui', $date->month)
             ->get();
         $incidents = Incident::where('workers_id', $id)
+            ->where('is_approve', 'Setuju')
             ->whereYear('created_at', $date->year)
             ->whereMonth('created_at', $date->month)
             ->get();
         $totalkasbon = Debt::where('workers_id', $id)
+            ->where('is_approve', 'Setuju')
             ->whereYear('tgl_disetujui', $date->year)
             ->whereMonth('tgl_disetujui', $date->month)
             ->sum('total');
