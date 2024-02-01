@@ -7,8 +7,8 @@
     <title>Nota Pengambilan Servis #{{ $items->nomor_servis }}</title>
 	<style>
 		@page {
-			margin: 3mm; /* Atur margin atas, kanan, bawah, dan kiri */
-            size: 5.5in portrait;
+            size: 9.5in 5.5in;
+            margin: 3mm; /* Atur margin atas, kanan, bawah, dan kiri */
         }
 		body {
 			margin: 0;
