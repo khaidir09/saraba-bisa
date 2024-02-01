@@ -105,7 +105,6 @@ class KaryawanController extends Controller
             ->whereMonth('tgl_disetujui', $date->month)
             ->get();
         $incidents = Incident::where('workers_id', $id)
-            ->where('is_approve', 'Setuju')
             ->whereYear('created_at', $date->year)
             ->whereMonth('created_at', $date->month)
             ->get();
