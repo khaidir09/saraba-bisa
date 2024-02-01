@@ -7,7 +7,7 @@
     <title>Tanda Terima Servis #{{ $items->nomor_servis }}</title>
 	<style>
 		@page {
-            size: A4; /* Ukuran halaman A4, bisa disesuaikan */
+            size: 9.5in 5.5in;
             margin: 3mm; /* Atur margin atas, kanan, bawah, dan kiri */
         }
 		body {

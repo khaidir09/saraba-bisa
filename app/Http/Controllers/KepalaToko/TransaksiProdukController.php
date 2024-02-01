@@ -195,7 +195,7 @@ class TransaksiProdukController extends Controller
 
         $filename = 'Nota Penjualan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
-        return $pdf->setPaper([9.5, 5.5], 'in')->setOption('isRemoteEnabled', true)->stream($filename);
+        return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     public function edit($id)
