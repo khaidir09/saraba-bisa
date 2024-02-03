@@ -20,6 +20,11 @@
                     </a>
                 </li>
                 <li class="m-1">
+                    <a href="{{ route('keranjang-penjualan') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Penjualan <span class="ml-1 text-indigo-200"></span></button>
+                    </a>
+                </li>
+                <li class="m-1">
                     <a href="{{ route('keranjang-akun') }}">
                         <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Akun <span class="ml-1 text-indigo-200"></span></button>
                     </a>
@@ -27,6 +32,26 @@
                 <li class="m-1">
                     <a href="{{ route('keranjang-pelanggan') }}">
                         <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Pelanggan <span class="ml-1 text-slate-400"></span></button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('keranjang-produk') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Produk <span class="ml-1 text-indigo-200"></span></button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('keranjang-insiden') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Insiden <span class="ml-1 text-indigo-200"></span></button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('keranjang-kasbon') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Kasbon <span class="ml-1 text-indigo-200"></span></button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('keranjang-pengeluaran') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Pengeluaran <span class="ml-1 text-indigo-200"></span></button>
                     </a>
                 </li>
             </ul>

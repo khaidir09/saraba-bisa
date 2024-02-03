@@ -26,7 +26,7 @@
                 </li>
                 <li class="m-1">
                     <a href="{{ route('keranjang-akun') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Akun <span class="ml-1 text-slate-400"></span></button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Akun <span class="ml-1 text-indigo-200"></span></button>
                     </a>
                 </li>
                 <li class="m-1">
@@ -46,7 +46,7 @@
                 </li>
                 <li class="m-1">
                     <a href="{{ route('keranjang-kasbon') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Kasbon <span class="ml-1 text-indigo-200"></span></button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Kasbon <span class="ml-1 text-slate-400"></span></button>
                     </a>
                 </li>
                 <li class="m-1">
@@ -78,7 +78,7 @@
                     <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
                     <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
                     </svg>
-                    <span class="hidden xs:block ml-2">Bersihkan sampah akun</span>
+                    <span class="hidden xs:block ml-2">Bersihkan sampah kasbon</span>
                 </button>
                 <!-- Modal backdrop -->
                 <div
@@ -131,7 +131,7 @@
                                 <!-- Modal footer -->
                                 <div class="flex flex-wrap justify-end space-x-2">
                                     <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                    <form action="{{ route('bersihkan-keranjang-akun') }}" method="post">
+                                    <form action="{{ route('bersihkan-keranjang-kasbon') }}" method="post">
                                         @method('post')
                                         @csrf
                                         <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -149,7 +149,7 @@
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
         <div class="sm:flex sm:justify-between sm:items-center px-5 py-4">
             {{-- Left side --}}
-            <h2 class="font-semibold text-slate-800">Semua Data Akun <span class="text-slate-400 font-medium">{{ $users_count }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Semua Data Kasbon <span class="text-slate-400 font-medium">{{ $items_count }}</span></h2>
         </div>
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -167,10 +167,10 @@
                             <div class="font-semibold text-left">Nama</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Role</div>
+                            <div class="font-semibold text-left">Item Kasbon</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Nama Pengguna</div>
+                            <div class="font-semibold text-left">Nominal</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>
@@ -183,7 +183,7 @@
                     @php
                         $i = 1
                     @endphp
-                    @foreach($users as $item)                  
+                    @foreach($items as $item)                  
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $i++ }}</div>
@@ -192,17 +192,17 @@
                                 <div class="font-medium">{{ \Carbon\Carbon::parse($item->deleted_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->name }}</div>
+                                <div class="font-medium">{{ $item->worker->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->role }}</div>
+                                <div class="font-medium">{{ $item->item }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->username }}</div>
+                                <div class="font-medium">Rp. {{ number_format($item->total) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
-                                    <a href="{{ route('restore-keranjang-akun', $item->id) }}">
+                                    <a href="{{ route('restore-keranjang-kasbon', $item->id) }}">
                                         <button class="text-blue-400 hover:text-blue-500 rounded-full">
                                             <span class="sr-only">Pulihkan</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" /><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" /></svg>
@@ -268,7 +268,7 @@
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
                                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <form action="{{ route('hapus-keranjang-akun', $item->id) }}" method="post">
+                                                            <form action="{{ route('hapus-keranjang-kasbon', $item->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -291,6 +291,6 @@
 
     <!-- Pagination -->
     <div class="mt-8">
-        {{ $users->links() }}
+        {{ $items->links() }}
     </div>
 </div>

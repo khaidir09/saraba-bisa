@@ -158,6 +158,26 @@ Route::get('/keranjang-pelanggan', [RecycleBinController::class, 'customer'])->n
 Route::delete('/{id}/hapus-keranjang-pelanggan', [RecycleBinController::class, 'permanentlyDeleteCustomer'])->name('hapus-keranjang-pelanggan');
 Route::get('/{id}/restore-keranjang-pelanggan', [RecycleBinController::class, 'restoreCustomer'])->name('restore-keranjang-pelanggan');
 Route::post('bersihkan-keranjang-pelanggan', [RecycleBinController::class, 'cleanCustomer'])->name('bersihkan-keranjang-pelanggan');
+Route::get('/keranjang-produk', [RecycleBinController::class, 'product'])->name('keranjang-produk');
+Route::delete('/{id}/hapus-keranjang-produk', [RecycleBinController::class, 'permanentlyDeleteProduct'])->name('hapus-keranjang-produk');
+Route::get('/{id}/restore-keranjang-produk', [RecycleBinController::class, 'restoreProduct'])->name('restore-keranjang-produk');
+Route::post('bersihkan-keranjang-produk', [RecycleBinController::class, 'cleanProduct'])->name('bersihkan-keranjang-produk');
+Route::get('/keranjang-insiden', [RecycleBinController::class, 'incident'])->name('keranjang-insiden');
+Route::delete('/{id}/hapus-keranjang-insiden', [RecycleBinController::class, 'permanentlyDeleteIncident'])->name('hapus-keranjang-insiden');
+Route::get('/{id}/restore-keranjang-insiden', [RecycleBinController::class, 'restoreIncident'])->name('restore-keranjang-insiden');
+Route::post('bersihkan-keranjang-insiden', [RecycleBinController::class, 'cleanIncident'])->name('bersihkan-keranjang-insiden');
+Route::get('/keranjang-kasbon', [RecycleBinController::class, 'debt'])->name('keranjang-kasbon');
+Route::delete('/{id}/hapus-keranjang-kasbon', [RecycleBinController::class, 'permanentlyDeleteDebt'])->name('hapus-keranjang-kasbon');
+Route::get('/{id}/restore-keranjang-kasbon', [RecycleBinController::class, 'restoreDebt'])->name('restore-keranjang-kasbon');
+Route::post('bersihkan-keranjang-kasbon', [RecycleBinController::class, 'cleanDebt'])->name('bersihkan-keranjang-kasbon');
+Route::get('/keranjang-pengeluaran', [RecycleBinController::class, 'expense'])->name('keranjang-pengeluaran');
+Route::delete('/{id}/hapus-keranjang-pengeluaran', [RecycleBinController::class, 'permanentlyDeleteExpense'])->name('hapus-keranjang-pengeluaran');
+Route::get('/{id}/restore-keranjang-pengeluaran', [RecycleBinController::class, 'restoreExpense'])->name('restore-keranjang-pengeluaran');
+Route::post('bersihkan-keranjang-pengeluaran', [RecycleBinController::class, 'cleanExpense'])->name('bersihkan-keranjang-pengeluaran');
+Route::get('/keranjang-penjualan', [RecycleBinController::class, 'order'])->name('keranjang-penjualan');
+Route::delete('/{id}/hapus-keranjang-penjualan', [RecycleBinController::class, 'permanentlyDeleteOrder'])->name('hapus-keranjang-penjualan');
+Route::get('/{id}/restore-keranjang-penjualan', [RecycleBinController::class, 'restoreOrder'])->name('restore-keranjang-penjualan');
+Route::post('bersihkan-keranjang-penjualan', [RecycleBinController::class, 'cleanOrder'])->name('bersihkan-keranjang-penjualan');
 
 Route::delete('/customers/delete', [KepalaTokoPelangganController::class, 'deleteSelected']);
 Route::delete('/service-actions/delete', [KepalaTokoTindakanServisController::class, 'deleteSelected']);
