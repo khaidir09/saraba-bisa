@@ -21,12 +21,27 @@ class Product extends Model
         'nomor_seri',
         'garansi',
         'garansi_imei',
-        'ppn'
+        'ppn',
+        'categories_id',
+        'brands_id',
+        'model_series_id',
+        'ram',
+        'kapasitas',
     ];
 
     public function subCategory()
     {
         return $this->belongsTo(SubCategory::class, 'sub_categories_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categories_id', 'id');
+    }
+
+    public function model()
+    {
+        return $this->belongsTo(ModelSerie::class, 'model_series_id', 'id');
     }
 
     public function relasiOrder()
