@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\User;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\OrderDetail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -116,5 +119,70 @@ class LaporanPenjualanController extends Controller
         });
 
         return view('pages/kepalatoko/laporan-penjualan', compact('product_transactions', 'count', 'omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));
+    }
+
+    public function cetak(Request $request)
+    {
+        // Mengambil logo dan nama toko
+        $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Filter tanggal
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        // Mengambil data penjualan
+        $orders = OrderDetail::with('order')->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // Menghitung total biaya
+        $total_biaya = OrderDetail::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('total');
+
+        // Menghitung total profit
+        $total_profit = OrderDetail::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('profit');
+
+        // Menghitung total item penjualan
+        $total_penjualan = OrderDetail::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('quantity');;
+
+        // Menghitung total modal
+        $total_modal = OrderDetail::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('modal');
+
+        // Menghitung total diskon
+        $total = OrderDetail::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('total');
+        $sub_total = OrderDetail::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('sub_total');
+        $total_diskon = $sub_total - $total;
+
+        $pdf = Pdf::loadView('pages.kepalatoko.cetak-laporan-penjualan', [
+            'users' => $users,
+            'imagePath' => $imagePath,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'orders' => $orders,
+            'total_penjualan' => $total_penjualan,
+            'total_modal' => $total_modal,
+            'total_biaya' => $total_biaya,
+            'total_profit' => $total_profit,
+            'total_diskon' => $total_diskon,
+        ]);
+
+        $filename = 'Laporan Transaksi Penjualan' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
+
+        return $pdf->stream($filename);
     }
 }

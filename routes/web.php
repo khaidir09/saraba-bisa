@@ -287,6 +287,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('cetak-laporan-pengeluaran', [KepalaTokoExpenseController::class, 'cetak'])->name('cetak-laporan-pengeluaran');
     Route::get('laporan/laporan-teknisi', [KepalaTokoLaporanTeknisiController::class, 'index'])->name('laporan-teknisi');
     Route::get('laporan/laporan-penjualan', [KepalaTokoLaporanPenjualanController::class, 'index'])->name('laporan-penjualan');
+    Route::get('cetak-laporan-penjualan', [KepalaTokoLaporanPenjualanController::class, 'cetak'])->name('cetak-laporan-penjualan');
     Route::get('cetak-laporan-sales', [KepalaTokoLaporanSalesController::class, 'cetak'])->name('cetak-laporan-sales');
     Route::get('laporan/laporan-sales', [KepalaTokoLaporanSalesController::class, 'index'])->name('laporan-sales');
     Route::get('laporan/laporan-admin', [KepalaTokoLaporanAdminController::class, 'index'])->name('laporan-admin');
