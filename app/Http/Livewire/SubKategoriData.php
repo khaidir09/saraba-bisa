@@ -28,7 +28,7 @@ class SubKategoriData extends Component
 
     public function render()
     {
-        $categories = Category::all();
+        $categories = Category::whereNot('category_name', 'Handphone')->get();
         $sub_categories_count = SubCategory::all()->count();
         return view('livewire.sub-kategori-data', [
             'categories' => $categories,

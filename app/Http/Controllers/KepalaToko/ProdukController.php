@@ -10,6 +10,7 @@ use App\Exports\ProdukExport;
 use App\Imports\ProdukImport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KepalaToko\ProductRequest;
+use App\Models\Category;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukController extends Controller
@@ -58,9 +59,9 @@ class ProdukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
-        $namakategori = SubCategory::find($request->sub_categories_id);
+        $namakategori = Category::find($request->categories_id);
 
         if ($request->stok === null) {
             $stok = 1;
@@ -73,7 +74,7 @@ class ProdukController extends Controller
             'product_name' => $request->product_name,
             'product_code' => $request->product_code,
             'sub_categories_id' => $request->sub_categories_id,
-            'category_name' => $namakategori->name,
+            'category_name' => $namakategori->category_name,
             'stok' => $stok,
             'stok_minimal' => $request->stok_minimal,
             'harga_modal' => $request->harga_modal,
@@ -142,13 +143,13 @@ class ProdukController extends Controller
     public function update(Request $request, $id)
     {
         $item = Product::findOrFail($id);
-        $namakategori = SubCategory::find($request->sub_categories_id);
+        $namakategori = Category::find($request->categories_id);
         // Create product
         $item->update([
             'product_name' => $request->product_name,
             'product_code' => $request->product_code,
             'sub_categories_id' => $request->sub_categories_id,
-            'category_name' => $namakategori->name,
+            'category_name' => $namakategori->category_name,
             'stok' => $request->stok,
             'stok_minimal' => $request->stok_minimal,
             'harga_modal' => $request->harga_modal,

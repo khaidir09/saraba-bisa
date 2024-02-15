@@ -26,7 +26,7 @@ class Product extends Model
         'brands_id',
         'model_series_id',
         'ram',
-        'kapasitas',
+        'capacities_id',
     ];
 
     public function subCategory()
@@ -42,6 +42,11 @@ class Product extends Model
     public function model()
     {
         return $this->belongsTo(ModelSerie::class, 'model_series_id', 'id');
+    }
+
+    public function capacity()
+    {
+        return $this->belongsTo(Capacity::class, 'capacities_id', 'id');
     }
 
     public function relasiOrder()

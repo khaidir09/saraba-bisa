@@ -66,31 +66,96 @@
                         <form action="{{ route('item.store') }}" method="post">
                             @csrf
                             <div class="px-5 py-4">
-                                <div class="space-y-3">
+                                <div class="space-y-3" x-data="{ selectedCategory: '' }">
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="sub_categories_id">Kategori Produk <span class="text-rose-500">*</span></label>
-                                        <select id="sub_categories_id" name="sub_categories_id" class="form-select text-sm w-full" required>
+                                        <label class="block text-sm font-medium mb-1" for="categories_id">Kategori Produk <span class="text-rose-500">*</span></label>
+                                        <select x-model="selectedCategory" id="categories_id" name="categories_id" class="form-select text-sm w-full" required>
                                             <option value="">Pilih Kategori</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div x-show="selectedCategory === '2'" class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="sub_categories_id">Sub Kategori Produk <span class="text-rose-500">*</span></label>
+                                            <select id="sub_categories_id" name="sub_categories_id" class="form-select text-sm w-full">
+                                                <option value="">Pilih Sub Kategori</option>
+                                                @foreach ($spareparts as $sparepart)
+                                                    <option value="{{ $sparepart->id }}">{{ $sparepart->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div x-show="selectedCategory === '3'" class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="sub_categories_id">Sub Kategori Produk <span class="text-rose-500">*</span></label>
+                                            <select id="sub_categories_id" name="sub_categories_id" class="form-select text-sm w-full">
+                                                <option value="">Pilih Sub Kategori</option>
+                                                @foreach ($accecories as $accecory)
+                                                    <option value="{{ $accecory->id }}">{{ $accecory->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk <span class="text-rose-500">*</span></label>
                                         <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
-                                        <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
-                                    </div>
-                                    <div>
                                         <label class="block text-sm font-medium mb-1" for="product_code">Kode Produk</label>
                                         <input id="product_code" name="product_code" class="form-input w-full px-2 py-1" type="text" />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
-                                        <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" placeholder="Tidak perlu diisi jika bukan produk Handphone/Laptop" />
+                                        <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
+                                        <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
+                                    </div>
+                                    <div x-show="selectedCategory === '1'" class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
+                                            <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="ram">RAM <span class="text-rose-500">*</span></label>
+                                            <select id="ram" name="ram" class="form-select text-sm py-1 w-full">
+                                                <option selected="">Pilih RAM</option>
+                                                <option value="2 GB">2 GB</option>
+                                                <option value="3 GB">3 GB</option>
+                                                <option value="4 GB">4 GB</option>
+                                                <option value="6 GB">6 GB</option>
+                                                <option value="8 GB">8 GB</option>
+                                                <option value="12 GB">12 GB</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="capacities_id">Memori <span class="text-rose-500">*</span></label>
+                                            <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full">
+                                                <option selected="">Pilih Memori</option>
+                                                @foreach ($capacities as $capacity)
+                                                    <option value="{{ $capacity->id }}">{{ $capacity->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div x-show="selectedCategory === '1'" class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
+                                            <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full selectjs1" style="width: 100%">
+                                                <option selected="">Pilih Merek</option>
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
+                                        <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full selectjs1" style="width: 100%">
+                                            <option selected="">Pilih Model Seri</option>
+                                            @foreach ($model_series as $model)
+                                                <option value="{{ $model->id }}">{{ $model->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="mt-3">
                                         <label class="block text-sm font-medium mb-1" for="stok">Stok <span class="text-rose-500">*</span></label>
@@ -172,38 +237,40 @@
                                             <option value="1825">5 Tahun</option>
                                         </select>
                                     </div>
-                                    <div class="mt-3">
-                                        <label class="block text-sm font-medium mb-1" for="garansi_imei">
-                                            Garansi IMEI <small>(Abaikan jika bukan produk iPhone)</small>
-                                        </label>
-                                        <select id="garansi_imei" name="garansi_imei" class="form-select text-sm py-1 w-full">
-                                            <option value="">Tidak Ada</option>
-                                            <option value="1">1 Hari</option>
-                                            <option value="2">2 Hari</option>
-                                            <option value="3">3 Hari</option>
-                                            <option value="4">4 Hari</option>
-                                            <option value="5">5 Hari</option>
-                                            <option value="6">6 Hari</option>
-                                            <option value="7">1 Minggu</option>
-                                            <option value="14">2 Minggu</option>
-                                            <option value="21">3 Minggu</option>
-                                            <option value="30">1 Bulan</option>
-                                            <option value="60">2 Bulan</option>
-                                            <option value="90">3 Bulan</option>
-                                            <option value="120">4 Bulan</option>
-                                            <option value="150">5 Bulan</option>
-                                            <option value="180">6 Bulan</option>
-                                            <option value="210">7 Bulan</option>
-                                            <option value="240">8 Bulan</option>
-                                            <option value="270">9 Bulan</option>
-                                            <option value="300">10 Bulan</option>
-                                            <option value="330">11 Bulan</option>
-                                            <option value="365">1 Tahun</option>
-                                            <option value="730">2 Tahun</option>
-                                            <option value="1095">3 Tahun</option>
-                                            <option value="1460">4 Tahun</option>
-                                            <option value="1825">5 Tahun</option>
-                                        </select>
+                                    <div x-show="selectedCategory === '1'">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="garansi_imei">
+                                                Garansi IMEI <small>(Abaikan jika bukan produk iPhone)</small>
+                                            </label>
+                                            <select id="garansi_imei" name="garansi_imei" class="form-select text-sm py-1 w-full">
+                                                <option value="">Tidak Ada</option>
+                                                <option value="1">1 Hari</option>
+                                                <option value="2">2 Hari</option>
+                                                <option value="3">3 Hari</option>
+                                                <option value="4">4 Hari</option>
+                                                <option value="5">5 Hari</option>
+                                                <option value="6">6 Hari</option>
+                                                <option value="7">1 Minggu</option>
+                                                <option value="14">2 Minggu</option>
+                                                <option value="21">3 Minggu</option>
+                                                <option value="30">1 Bulan</option>
+                                                <option value="60">2 Bulan</option>
+                                                <option value="90">3 Bulan</option>
+                                                <option value="120">4 Bulan</option>
+                                                <option value="150">5 Bulan</option>
+                                                <option value="180">6 Bulan</option>
+                                                <option value="210">7 Bulan</option>
+                                                <option value="240">8 Bulan</option>
+                                                <option value="270">9 Bulan</option>
+                                                <option value="300">10 Bulan</option>
+                                                <option value="330">11 Bulan</option>
+                                                <option value="365">1 Tahun</option>
+                                                <option value="730">2 Tahun</option>
+                                                <option value="1095">3 Tahun</option>
+                                                <option value="1460">4 Tahun</option>
+                                                <option value="1825">5 Tahun</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -485,7 +552,7 @@
                                     <div class="font-medium">{{ $item->product_name }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->subCategory->name }}</div>
+                                    <div class="font-medium">{{ $item->category_name }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">
