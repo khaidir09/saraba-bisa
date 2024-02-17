@@ -12,7 +12,7 @@ use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Livewire\WithPagination;
 
-class ProdukData extends Component
+class ProdukHandphoneData extends Component
 {
     use WithPagination;
 
@@ -34,25 +34,22 @@ class ProdukData extends Component
     public function render()
     {
         $categories = Category::all();
-        $spareparts = SubCategory::where('categories_id', '=', '2')->get();
-        $accessories = SubCategory::where('categories_id', '=', '3')->get();
+        $toko = StoreSetting::find(1);
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
-        $products_count = Product::all()->count();
-        $toko = StoreSetting::find(1);
-        return view('livewire.produk-data', [
+
+        $handphones_count = Product::where('categories_id', '=', '1')->count();
+        return view('livewire.produk-handphone-data', [
+            'toko' => $toko,
+            'categories' => $categories,
             'brands' => $brands,
             'capacities' => $capacities,
             'model_series' => $model_series,
-            'toko' => $toko,
-            'categories' => $categories,
-            'spareparts' => $spareparts,
-            'accessories' => $accessories,
-            'products_count' => $products_count,
+            'handphones_count' => $handphones_count,
             'products' => $this->search === null ?
-                Product::latest()->paginate($this->paginate) :
-                Product::latest()->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Product::latest()->where('categories_id', '=', '1')->paginate($this->paginate) :
+                Product::latest()->where('categories_id', '=', '1')->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

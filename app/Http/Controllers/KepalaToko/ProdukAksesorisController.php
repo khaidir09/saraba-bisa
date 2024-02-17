@@ -3,16 +3,14 @@
 namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\ModelSerie;
 use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
-use App\Exports\ProdukExport;
-use App\Imports\ProdukImport;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use Maatwebsite\Excel\Facades\Excel;
 
-class ProdukController extends Controller
+class ProdukAksesorisController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +19,7 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        return view('pages/kepalatoko/produk/index');
+        return view('pages/kepalatoko/produk/aksesoris');
     }
 
     public function deleteSelected(Request $request)
@@ -60,7 +58,26 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $namakategori = Category::find($request->categories_id);
+
+        // Create product
+        Product::create([
+            'product_name' => $request->product_name,
+            'product_code' => $request->product_code,
+            'categories_id' => $request->categories_id,
+            'sub_categories_id' => $request->sub_categories_id,
+            'category_name' => $namakategori->category_name,
+            'model_series_id' => $request->model_series_id,
+            'stok' => $request->stok,
+            'stok_minimal' => $request->stok_minimal,
+            'harga_modal' => $request->harga_modal,
+            'harga_jual' => $request->harga_jual,
+            'keterangan' => $request->keterangan,
+            'garansi' => $request->garansi,
+            'ppn' => $request->ppn
+        ]);
+
+        return redirect()->route('aksesoris.index');
     }
 
     /**
@@ -83,28 +100,16 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $item = Product::findOrFail($id);
-        $categories = SubCategory::all();
+        $accessories = SubCategory::where('categories_id', '=', '3')->get();
+        $model_series = ModelSerie::all();
         $toko = StoreSetting::find(1);
 
-        return view('pages.kepalatoko.produk.edit', [
+        return view('pages.kepalatoko.produk.aksesoris-edit', [
             'item' => $item,
-            'categories' => $categories,
+            'accessories' => $accessories,
+            'model_series' => $model_series,
             'toko' => $toko
         ]);
-    }
-
-    public function import(Request $request)
-    {
-        $data = $request->file('file');
-        $namafile = $data->getClientOriginalName();
-        $data->move('ProdukData', $namafile);
-        Excel::import(new ProdukImport, \public_path('/ProdukData/' . $namafile));
-        return redirect()->route('item.index')->with('success', 'All good!');
-    }
-
-    public function export()
-    {
-        return Excel::download(new ProdukExport, 'produk.xlsx');
     }
 
     /**
@@ -120,8 +125,10 @@ class ProdukController extends Controller
         $namakategori = Category::find($request->categories_id);
         // Create product
         $item->update([
+            'model_series_id' => $request->model_series_id,
             'product_name' => $request->product_name,
             'product_code' => $request->product_code,
+            'categories_id' => $request->categories_id,
             'sub_categories_id' => $request->sub_categories_id,
             'category_name' => $namakategori->category_name,
             'stok' => $request->stok,
@@ -129,13 +136,11 @@ class ProdukController extends Controller
             'harga_modal' => $request->harga_modal,
             'harga_jual' => $request->harga_jual,
             'keterangan' => $request->keterangan,
-            'nomor_seri' => $request->nomor_seri,
             'garansi' => $request->garansi,
-            'garansi_imei' => $request->garansi_imei,
             'ppn' => $request->ppn
         ]);
 
-        return redirect()->route('item.index');
+        return redirect()->route('aksesoris.index');
     }
 
     /**
@@ -159,6 +164,6 @@ class ProdukController extends Controller
 
         toast('Data Produk berhasil dihapus.', 'success');
 
-        return redirect()->route('item.index');
+        return redirect()->route('aksesoris.index');
     }
 }

@@ -36,9 +36,9 @@ use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriCont
 use App\Http\Controllers\KepalaToko\SubKategoriController as KepalaTokoSubKategoriController;
 use App\Http\Controllers\KepalaToko\SupplierController as KepalaTokoSupplierController;
 use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukController;
-use App\Http\Controllers\KepalaToko\ProdukTersediaController as KepalaTokoProdukTersediaController;
-use App\Http\Controllers\KepalaToko\ProdukHampirHabisController as KepalaTokoProdukHampirHabisController;
-use App\Http\Controllers\KepalaToko\ProdukHabisController as KepalaTokoProdukHabisController;
+use App\Http\Controllers\KepalaToko\ProdukHandphoneController as KepalaTokoProdukHandphoneController;
+use App\Http\Controllers\KepalaToko\ProdukSparepartController as KepalaTokoProdukSparepartController;
+use App\Http\Controllers\KepalaToko\ProdukAksesorisController as KepalaTokoProdukAksesorisController;
 use App\Http\Controllers\KepalaToko\PurchaseProductController as KepalaTokoPurchaseProductController;
 use App\Http\Controllers\KepalaToko\ReturProductController as KepalaTokoReturProductController;
 use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
@@ -243,9 +243,9 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('produk/sub-kategori', KepalaTokoSubKategoriController::class);
     Route::resource('produk/supplier', KepalaTokoSupplierController::class);
     Route::resource('produk/item', KepalaTokoProdukController::class);
-    Route::resource('produk/item-tersedia', KepalaTokoProdukTersediaController::class);
-    Route::resource('produk/item-hampir-habis', KepalaTokoProdukHampirHabisController::class);
-    Route::resource('produk/item-habis', KepalaTokoProdukHabisController::class);
+    Route::resource('produk/handphone', KepalaTokoProdukHandphoneController::class);
+    Route::resource('produk/sparepart', KepalaTokoProdukSparepartController::class);
+    Route::resource('produk/aksesoris', KepalaTokoProdukAksesorisController::class);
     Route::resource('produk/purchase', KepalaTokoPurchaseProductController::class);
     Route::delete('/purchases/delete', [KepalaTokoPurchaseProductController::class, 'deleteSelected']);
     Route::resource('produk/retur', KepalaTokoReturProductController::class);

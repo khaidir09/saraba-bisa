@@ -2,17 +2,16 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Brand;
 use App\Models\Product;
 use Livewire\Component;
-use App\Models\Capacity;
 use App\Models\Category;
 use App\Models\ModelSerie;
 use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
-class ProdukData extends Component
+class ProdukSparepartData extends Component
 {
     use WithPagination;
 
@@ -33,26 +32,18 @@ class ProdukData extends Component
 
     public function render()
     {
-        $categories = Category::all();
         $spareparts = SubCategory::where('categories_id', '=', '2')->get();
-        $accessories = SubCategory::where('categories_id', '=', '3')->get();
-        $brands = Brand::all();
-        $capacities = Capacity::all();
         $model_series = ModelSerie::all();
-        $products_count = Product::all()->count();
         $toko = StoreSetting::find(1);
-        return view('livewire.produk-data', [
-            'brands' => $brands,
-            'capacities' => $capacities,
-            'model_series' => $model_series,
+        $spareparts_count = Product::where('categories_id', '=', '2')->count();
+        return view('livewire.produk-sparepart-data', [
             'toko' => $toko,
-            'categories' => $categories,
             'spareparts' => $spareparts,
-            'accessories' => $accessories,
-            'products_count' => $products_count,
+            'model_series' => $model_series,
+            'spareparts_count' => $spareparts_count,
             'products' => $this->search === null ?
-                Product::latest()->paginate($this->paginate) :
-                Product::latest()->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Product::latest()->where('categories_id', '=', '2')->paginate($this->paginate) :
+                Product::latest()->where('categories_id', '=', '2')->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }
