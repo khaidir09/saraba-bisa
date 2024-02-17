@@ -8,23 +8,27 @@ use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
-class AksesorisImport implements ToModel, WithHeadingRow, WithBatchInserts, WithUpserts
+class HandphoneImport implements ToModel, WithHeadingRow, WithBatchInserts, WithUpserts
 {
     public function model(array $row)
     {
         return new Product([
-            'categories_id' => 3, // Nilai default untuk categories_id
-            'category_name'     => "Aksesoris",
-            'sub_categories_id'    => $row['ID Sub Kategori'],
+            'categories_id' => 1, // Nilai default untuk categories_id
+            'category_name'     => "Handphone",
             'product_name'     => $row['Nama Produk'],
+            'brands_id'    => $row['ID Merek'],
             'model_series_id'    => $row['ID Model Seri'],
+            'ram'    => $row['RAM'],
+            'capacities_id'    => $row['ID Kapasitas'],
             'product_code'    => $row['Kode Produk'],
+            'nomor_seri'    => $row['Nomor Seri'],
             'stok'    => $row['Stok'],
             'stok_minimal'    => $row['Stok Minimal'],
             'harga_modal'    => $row['Harga Modal'],
             'harga_jual'    => $row['Harga Jual'],
             'keterangan'    => $row['Keterangan'],
             'garansi'    => $row['Garansi Produk (Hari)'],
+            'garansi_imei'    => $row['Garansi IMEI (Hari)'],
             'ppn'    => $row['PPN 11%'],
         ]);
     }
@@ -36,6 +40,6 @@ class AksesorisImport implements ToModel, WithHeadingRow, WithBatchInserts, With
 
     public function uniqueBy()
     {
-        return ['product_name'];
+        return ['nomor_seri', 'product_name'];
     }
 }

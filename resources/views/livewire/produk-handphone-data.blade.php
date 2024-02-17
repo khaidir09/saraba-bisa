@@ -291,7 +291,7 @@
                 </select>
             </div>
             <!-- Start Export Excel -->
-            <a href="{{ route('produk-export') }}" class="hidden lg:block">
+            <a href="{{ route('ekspor-handphone') }}" class="hidden lg:block">
                 <button class="btn bg-white border-blue-200 hover:border-blue-300 text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-export" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2563eb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -342,7 +342,7 @@
                         x-cloak
                     >
                         <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
-                            <form action="{{ route('import-produk') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('impor-handphone') }}" method="post" enctype="multipart/form-data">
                             @csrf
                                 <!-- Modal header -->
                                 <div class="px-5 py-3 border-b border-slate-200">
@@ -361,14 +361,14 @@
                                     <div class="text-sm">
                                         <div class="space-y-2">
                                             <p>Silahkan download terlebih dahulu formatnya, kemudian isi datanya dan upload.</p>
-                                                <input type="file" name="file" id="file" class="btn-sm bg-slate-100 w-full" required>
+                                            <input type="file" name="file" id="file" class="btn-sm bg-slate-100 w-full" required>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="px-5 py-4">
                                     <div class="flex flex-wrap justify-end space-x-2">
-                                        <a href="{{ asset('storage/assets/format_produk.xlsx') }}" class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
+                                        <a href="{{ asset('storage/assets/format_handphone.xlsx') }}" class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
                                             <span class="mr-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-download" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -459,6 +459,9 @@
                                 <div class="font-semibold text-left">Harga Jual</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-semibold text-left">Keterangan</div>
+                            </th>
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Garansi Produk</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -523,6 +526,9 @@
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">Rp. {{ number_format($item->harga_jual) }}</div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-medium">{{ $item->keterangan }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">

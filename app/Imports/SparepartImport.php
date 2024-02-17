@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Sparepart;
+use App\Models\Product;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -12,13 +12,20 @@ class SparepartImport implements ToModel, WithHeadingRow, WithBatchInserts, With
 {
     public function model(array $row)
     {
-        return new Sparepart([
-            'name'     => $row['Nama Sparepart'],
+        return new Product([
+            'categories_id' => 2, // Nilai default untuk categories_id
+            'category_name'     => "Sparepart",
+            'sub_categories_id'    => $row['ID Sub Kategori'],
+            'product_name'     => $row['Nama Produk'],
+            'model_series_id'    => $row['ID Model Seri'],
+            'product_code'    => $row['Kode Produk'],
             'stok'    => $row['Stok'],
-            'modal'    => $row['Modal'],
-            'harga_toko'    => $row['Harga Pelanggan Toko'],
-            'harga_pelanggan'    => $row['Harga Pelanggan Biasa'],
-            'supplier'    => $row['Supplier'],
+            'stok_minimal'    => $row['Stok Minimal'],
+            'harga_modal'    => $row['Harga Modal'],
+            'harga_jual'    => $row['Harga Jual'],
+            'keterangan'    => $row['Keterangan'],
+            'garansi'    => $row['Garansi Produk (Hari)'],
+            'ppn'    => $row['PPN 11%'],
         ]);
     }
 
@@ -29,6 +36,6 @@ class SparepartImport implements ToModel, WithHeadingRow, WithBatchInserts, With
 
     public function uniqueBy()
     {
-        return 'name';
+        return ['product_name'];
     }
 }

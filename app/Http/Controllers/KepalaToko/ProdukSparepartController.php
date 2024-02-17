@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Exports\SparepartExport;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ModelSerie;
+use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\SubCategory;
+use App\Imports\SparepartImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukSparepartController extends Controller
 {
@@ -89,6 +92,20 @@ class ProdukSparepartController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('ProdukData', $namafile);
+        Excel::import(new SparepartImport, \public_path('/ProdukData/' . $namafile));
+        return redirect()->route('sparepart.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new SparepartExport, 'sparepart.xlsx');
     }
 
     /**

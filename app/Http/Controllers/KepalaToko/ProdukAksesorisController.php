@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Exports\AksesorisExport;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ModelSerie;
@@ -9,6 +10,8 @@ use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Imports\AksesorisImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukAksesorisController extends Controller
 {
@@ -89,6 +92,20 @@ class ProdukAksesorisController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('ProdukData', $namafile);
+        Excel::import(new AksesorisImport, \public_path('/ProdukData/' . $namafile));
+        return redirect()->route('aksesoris.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new AksesorisExport, 'aksesoris.xlsx');
     }
 
     /**

@@ -4,12 +4,15 @@ namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Capacity;
 use App\Models\Category;
 use App\Models\ModelSerie;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
+use App\Exports\HandphoneExport;
 use App\Http\Controllers\Controller;
-use App\Models\Capacity;
+use App\Imports\HandphoneImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukHandphoneController extends Controller
 {
@@ -99,6 +102,20 @@ class ProdukHandphoneController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function import(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('ProdukData', $namafile);
+        Excel::import(new HandphoneImport, \public_path('/ProdukData/' . $namafile));
+        return redirect()->route('handphone.index')->with('success', 'All good!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new HandphoneExport, 'handphone.xlsx');
     }
 
     /**
