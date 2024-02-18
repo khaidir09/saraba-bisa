@@ -20,7 +20,7 @@
                                 </svg>
                                 <div class="font-medium">Ada {{ $stokhabis }} produk yang hampir kehabisan stok nih, cek sekarang!</div>
                             </div>
-                            <a class="font-medium ml-4 mt-[3px]" href="{{ route('item-hampir-habis.index') }}">-&gt;</a>
+                            <a class="font-medium ml-4 mt-[3px]" href="">-&gt;</a>
                         </div>
                     </div>
                 @endif
