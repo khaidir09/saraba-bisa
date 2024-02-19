@@ -39,6 +39,7 @@ use App\Http\Controllers\KepalaToko\ProdukController as KepalaTokoProdukControll
 use App\Http\Controllers\KepalaToko\ProdukHandphoneController as KepalaTokoProdukHandphoneController;
 use App\Http\Controllers\KepalaToko\ProdukSparepartController as KepalaTokoProdukSparepartController;
 use App\Http\Controllers\KepalaToko\ProdukAksesorisController as KepalaTokoProdukAksesorisController;
+use App\Http\Controllers\KepalaToko\ProdukToolController as KepalaTokoProdukToolController;
 use App\Http\Controllers\KepalaToko\PurchaseProductController as KepalaTokoPurchaseProductController;
 use App\Http\Controllers\KepalaToko\ReturProductController as KepalaTokoReturProductController;
 use App\Http\Controllers\KepalaToko\PosController as KepalaTokoPosController;
@@ -94,6 +95,7 @@ use App\Http\Controllers\AdminToko\ProdukTersediaController as AdminTokoProdukTe
 use App\Http\Controllers\AdminToko\ProdukHandphoneController as AdminTokoProdukHandphoneController;
 use App\Http\Controllers\AdminToko\ProdukSparepartController as AdminTokoProdukSparepartController;
 use App\Http\Controllers\AdminToko\ProdukAksesorisController as AdminTokoProdukAksesorisController;
+use App\Http\Controllers\AdminToko\ProdukToolController as AdminTokoProdukToolController;
 use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabisController;
 use App\Http\Controllers\AdminToko\PosController as AdminTokoPosController;
 use App\Http\Controllers\AdminToko\TransaksiProdukController as AdminTokoTransaksiProdukController;
@@ -119,6 +121,7 @@ use App\Http\Controllers\Sales\ProdukController as SalesProdukController;
 use App\Http\Controllers\Sales\ProdukHandphoneController as SalesProdukHandphoneController;
 use App\Http\Controllers\Sales\ProdukSparepartController as SalesProdukSparepartController;
 use App\Http\Controllers\Sales\ProdukAksesorisController as SalesProdukAksesorisController;
+use App\Http\Controllers\Sales\ProdukToolController as SalesProdukToolController;
 use App\Http\Controllers\Sales\PosController as SalesPosController;
 use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProdukController;
 use App\Http\Controllers\Sales\TransaksiProdukPaidController as SalesTransaksiProdukPaidController;
@@ -252,6 +255,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('produk/handphone', KepalaTokoProdukHandphoneController::class);
     Route::resource('produk/sparepart', KepalaTokoProdukSparepartController::class);
     Route::resource('produk/aksesoris', KepalaTokoProdukAksesorisController::class);
+    Route::resource('produk/tool', KepalaTokoProdukToolController::class);
     Route::resource('produk/purchase', KepalaTokoPurchaseProductController::class);
     Route::delete('/purchases/delete', [KepalaTokoPurchaseProductController::class, 'deleteSelected']);
     Route::resource('produk/retur', KepalaTokoReturProductController::class);
@@ -334,6 +338,8 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::post('/impor-sparepart', [KepalaTokoProdukSparepartController::class, 'import'])->name('impor-sparepart');
     Route::get('ekspor-aksesoris', [KepalaTokoProdukAksesorisController::class, 'export'])->name('ekspor-aksesoris');
     Route::post('/impor-aksesoris', [KepalaTokoProdukAksesorisController::class, 'import'])->name('impor-aksesoris');
+    Route::get('ekspor-tool', [KepalaTokoProdukToolController::class, 'export'])->name('ekspor-tool');
+    Route::post('/impor-tool', [KepalaTokoProdukToolController::class, 'import'])->name('impor-tool');
 });
 
 Route::middleware('ensureAdminRole:AdminToko')->group(function () {
@@ -380,6 +386,8 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::post('/admin-impor-sparepart', [AdminTokoProdukSparepartController::class, 'import'])->name('admin-impor-sparepart');
     Route::get('admin-ekspor-aksesoris', [AdminTokoProdukAksesorisController::class, 'export'])->name('admin-ekspor-aksesoris');
     Route::post('/admin-impor-aksesoris', [AdminTokoProdukAksesorisController::class, 'import'])->name('admin-impor-aksesoris');
+    Route::get('admin-ekspor-tool', [AdminTokoProdukToolController::class, 'export'])->name('admin-ekspor-tool');
+    Route::post('/admin-impor-tool', [AdminTokoProdukToolController::class, 'import'])->name('admin-impor-tool');
 
     Route::resource('produk/admin-kategori', AdminTokoKategoriController::class);
     Route::resource('produk/admin-sub-kategori', AdminTokoSubKategoriController::class);
@@ -387,6 +395,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('produk/admin-handphone', AdminTokoProdukHandphoneController::class);
     Route::resource('produk/admin-sparepart', AdminTokoProdukSparepartController::class);
     Route::resource('produk/admin-aksesoris', AdminTokoProdukAksesorisController::class);
+    Route::resource('produk/admin-tool', AdminTokoProdukToolController::class);
     Route::resource('produk/admin-item-tersedia', AdminTokoProdukTersediaController::class);
     Route::resource('produk/admin-item-habis', AdminTokoProdukHabisController::class);
     Route::resource('produk/admin-supplier', AdminTokoSupplierController::class);
@@ -446,6 +455,7 @@ Route::middleware('ensureSalesRole:Sales')->group(
         Route::resource('produk/sales-handphone', SalesProdukHandphoneController::class);
         Route::resource('produk/sales-sparepart', SalesProdukSparepartController::class);
         Route::resource('produk/sales-aksesoris', SalesProdukAksesorisController::class);
+        Route::resource('produk/sales-tool', SalesProdukToolController::class);
         Route::resource('produk/sales-pos', SalesPosController::class);
         Route::resource('produk/sales-transaksi-produk', SalesTransaksiProdukController::class);
         Route::resource('produk/sales-transaksi-produk-paid', SalesTransaksiProdukPaidController::class);

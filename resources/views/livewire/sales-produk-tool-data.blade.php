@@ -39,12 +39,12 @@
                 </li>
                 <li class="m-1">
                     <a href="{{ route('sales-aksesoris.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Aksesoris</button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Aksesoris</button>
                     </a>
                 </li>
                 <li class="m-1">
                     <a href="{{ route('sales-tool.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Tool</button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Tool</button>
                     </a>
                 </li>
             </ul>
@@ -66,7 +66,7 @@
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
         <div class="sm:flex sm:justify-between sm:items-center px-5 py-4">
             {{-- Left side --}}
-            <h2 class="font-semibold text-slate-800">Produk Aksesoris <span class="text-slate-400 font-medium">{{ $accessories_count }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Produk Tool <span class="text-slate-400 font-medium">{{ $tools_count }}</span></h2>
         </div>
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -85,9 +85,6 @@
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Kode Produk</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Model Seri</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Stok</div>
@@ -128,9 +125,6 @@
                                         -
                                     @endif
                                 </div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->model->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->stok }}</div>

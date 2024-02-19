@@ -36,6 +36,7 @@ class AdminProdukData extends Component
         $categories = Category::all();
         $spareparts = SubCategory::where('categories_id', '=', '2')->get();
         $accessories = SubCategory::where('categories_id', '=', '3')->get();
+        $tools = SubCategory::where('categories_id', '=', '4')->get();
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
@@ -50,6 +51,7 @@ class AdminProdukData extends Component
             'categories' => $categories,
             'spareparts' => $spareparts,
             'accessories' => $accessories,
+            'tools' => $tools,
             'products_count' => $products_count,
             'products' => $this->search === null ?
                 Product::latest()->paginate($this->paginate) :

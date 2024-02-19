@@ -19,7 +19,7 @@
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
-                    <span class="hidden xs:block ml-2">Tambah Aksesoris</span>
+                    <span class="hidden xs:block ml-2">Tambah Tool</span>
                 </button>
                 <!-- Modal backdrop -->
                 <div
@@ -53,7 +53,7 @@
                         <!-- Modal header -->
                         <div class="px-5 py-3 border-b border-slate-200">
                             <div class="flex justify-between items-center">
-                                <div class="font-semibold text-slate-800">Tambah Aksesoris</div>
+                                <div class="font-semibold text-slate-800">Tambah Produk</div>
                                 <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
                                     <div class="sr-only">Close</div>
                                     <svg class="w-4 h-4 fill-current">
@@ -63,32 +63,23 @@
                             </div>
                         </div>
                         <!-- Modal content -->
-                        <form action="{{ route('admin-aksesoris.store') }}" method="post">
+                        <form action="{{ route('admin-tool.store') }}" method="post">
                             @csrf
-                            <input type="hidden" name="categories_id" value="3">
+                            <input type="hidden" name="categories_id" value="4">
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="sub_categories_id">Sub Kategori Produk <span class="text-rose-500">*</span></label>
                                         <select id="sub_categories_id" name="sub_categories_id" class="form-select text-sm w-full" required>
                                             <option selected value="">Pilih Sub Kategori</option>
-                                            @foreach ($accessories as $accessory)
-                                                <option value="{{ $accessory->id }}">{{ $accessory->name }}</option>
+                                            @foreach ($tools as $tool)
+                                                <option value="{{ $tool->id }}">{{ $tool->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk <span class="text-rose-500">*</span></label>
                                         <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" required />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
-                                        <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full selectjs1" style="width: 100%" required>
-                                            <option selected value="">Pilih Model Seri</option>
-                                            @foreach ($model_series as $model)
-                                                <option value="{{ $model->id }}">{{ $model->name }}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
@@ -183,7 +174,7 @@
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <a href="{{ route('admin-aksesoris.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                    <a href="{{ route('admin-tool.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                         Batal
                                     </a>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
@@ -220,12 +211,12 @@
                 </li>
                 <li class="m-1">
                     <a href="{{ route('admin-aksesoris.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Aksesoris</button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Aksesoris</button>
                     </a>
                 </li>
                 <li class="m-1">
                     <a href="{{ route('admin-tool.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Tool</button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Tool</button>
                     </a>
                 </li>
             </ul>
@@ -242,7 +233,7 @@
                 </select>
             </div>
             <!-- Start Export Excel -->
-            <a href="{{ route('admin-ekspor-aksesoris') }}" class="hidden lg:block">
+            <a href="{{ route('admin-ekspor-tool') }}" class="hidden lg:block">
                 <button class="btn bg-white border-blue-200 hover:border-blue-300 text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-export" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2563eb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -293,7 +284,7 @@
                         x-cloak
                     >
                         <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
-                            <form action="{{ route('admin-impor-aksesoris') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin-impor-tool') }}" method="post" enctype="multipart/form-data">
                             @csrf
                                 <!-- Modal header -->
                                 <div class="px-5 py-3 border-b border-slate-200">
@@ -319,7 +310,7 @@
                                 <!-- Modal footer -->
                                 <div class="px-5 py-4">
                                     <div class="flex flex-wrap justify-end space-x-2">
-                                        <a href="{{ asset('storage/assets/format_aksesoris.xlsx') }}" class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
+                                        <a href="{{ asset('storage/assets/format_tool.xlsx') }}" class="btn-sm bg-orange-500 hover:bg-orange-600 text-white">
                                             <span class="mr-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-download" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -357,7 +348,7 @@
         <div x-data="handleSelect">
             <div class="sm:flex sm:justify-between sm:items-center px-5 py-4">
                 {{-- Left side --}}
-                <h2 class="font-semibold text-slate-800">Produk Aksesoris <span class="text-slate-400 font-medium">{{ $accessories_count }}</span></h2>
+                <h2 class="font-semibold text-slate-800">Produk Tool <span class="text-slate-400 font-medium">{{ $tools_count }}</span></h2>
                 {{-- Right side --}}
                 <div class="relative inline-flex">
                     <div class="table-items-action hidden">
@@ -395,10 +386,10 @@
                                 <div class="font-semibold text-left">Kode Produk</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Model Seri</div>
+                                <div class="font-semibold text-left">Stok</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Stok</div>
+                                <div class="font-semibold text-left">Modal</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Harga Jual</div>
@@ -449,10 +440,10 @@
                                     </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->model->name }}</div>
+                                    <div class="font-medium">{{ $item->stok }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->stok }}</div>
+                                    <div class="font-medium">Rp. {{ number_format($item->harga_modal) }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">Rp. {{ number_format($item->harga_jual) }}</div>
@@ -471,7 +462,7 @@
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                     <div class="space-x-1 flex">
-                                        <a href="{{ route('admin-aksesoris.edit', $item->id) }}">
+                                        <a href="{{ route('admin-tool.edit', $item->id) }}">
                                             <button class="text-slate-400 hover:text-slate-500 rounded-full">
                                                 <span class="sr-only">Edit</span>
                                                 <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
@@ -539,7 +530,7 @@
                                                             <!-- Modal footer -->
                                                             <div class="flex flex-wrap justify-end space-x-2">
                                                                 <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                                <form action="{{ route('admin-aksesoris.destroy', $item->id) }}" method="post">
+                                                                <form action="{{ route('admin-tool.destroy', $item->id) }}" method="post">
                                                                     @method('delete')
                                                                     @csrf
                                                                     <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>

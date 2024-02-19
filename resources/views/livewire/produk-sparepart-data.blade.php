@@ -223,6 +223,11 @@
                         <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Aksesoris</button>
                     </a>
                 </li>
+                <li class="m-1">
+                    <a href="{{ route('tool.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Tool</button>
+                    </a>
+                </li>
             </ul>
         </div>
 

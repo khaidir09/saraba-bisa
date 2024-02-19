@@ -90,6 +90,14 @@
                                     </label>
                                     <!-- End -->
                                 </div>
+                                <div class="m-3">
+                                    <!-- Start -->
+                                    <label class="flex items-center">
+                                        <input type="radio" name="radio-buttons" class="form-radio" @click="tab = '4'"/>
+                                        <span class="text-sm ml-2">Tool</span>
+                                    </label>
+                                    <!-- End -->
+                                </div>
                             </div>
                             <div x-show="tab === '1'">
                                 <form action="{{ route('handphone.store') }}" method="post">
@@ -526,6 +534,124 @@
                                     </div>
                                 </form>
                             </div>
+                            <div x-show="tab === '4'">
+                                <form action="{{ route('tool.store') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="categories_id" value="4">
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="sub_categories_id">Sub Kategori Produk <span class="text-rose-500">*</span></label>
+                                            <select id="sub_categories_id" name="sub_categories_id" class="form-select text-sm w-full" required>
+                                                <option value="">Pilih Sub Kategori</option>
+                                                @foreach ($tools as $tool)
+                                                    <option value="{{ $tool->id }}">{{ $tool->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk <span class="text-rose-500">*</span></label>
+                                            <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="product_code">Kode Produk</label>
+                                            <input id="product_code" name="product_code" class="form-input w-full px-2 py-1" type="text" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
+                                            <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="stok">Stok <span class="text-rose-500">*</span></label>
+                                            <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" value="1"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="stok_minimal">Stok Minimal <small>(Sebagai pengingat untuk menambah stok produk)</small></label>
+                                            <input id="stok_minimal" name="stok_minimal" class="form-input w-full px-2 py-1" type="number" placeholder="Abaikan jika produk tidak memerlukan pengingat"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="harga_modal">Harga Modal <span class="text-rose-500">*</span></label>
+                                            <div class="relative">
+                                                <input id="harga_modal" name="harga_modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="harga_jual">Harga Jual <span class="text-rose-500">*</span></label>
+                                            <div class="relative">
+                                                <input id="harga_jual" name="harga_jual" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($toko->is_tax === 1)
+                                            <div>
+                                                <label class="block text-sm font-medium mb-1" for="ppn">Apakah produk dikenakan pajak?</label>
+                                                <div class="flex flex-wrap items-center -m-3">
+                                                    <div class="m-3">
+                                                        <!-- Start -->
+                                                        <label class="flex items-center">
+                                                            <input type="radio" name="ppn" value="" class="form-radio" checked x-on:click="showDetails = true"/>
+                                                            <span class="text-sm ml-2">Tidak</span>
+                                                        </label>
+                                                        <!-- End -->
+                                                    </div>
+                                                    <div class="m-3">
+                                                        <!-- Start -->
+                                                        <label class="flex items-center">
+                                                            <input type="radio" name="ppn" value="{{ $toko->ppn }}" class="form-radio" x-on:click="showDetails = false"/>
+                                                            <span class="text-sm ml-2">Ya</span>
+                                                        </label>
+                                                        <!-- End -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="garansi">Garansi Produk</label>
+                                            <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
+                                                <option value="">Tidak Ada</option>
+                                                <option value="1">1 Hari</option>
+                                                <option value="2">2 Hari</option>
+                                                <option value="3">3 Hari</option>
+                                                <option value="4">4 Hari</option>
+                                                <option value="5">5 Hari</option>
+                                                <option value="6">6 Hari</option>
+                                                <option value="7">1 Minggu</option>
+                                                <option value="14">2 Minggu</option>
+                                                <option value="21">3 Minggu</option>
+                                                <option value="30">1 Bulan</option>
+                                                <option value="60">2 Bulan</option>
+                                                <option value="90">3 Bulan</option>
+                                                <option value="120">4 Bulan</option>
+                                                <option value="150">5 Bulan</option>
+                                                <option value="180">6 Bulan</option>
+                                                <option value="210">7 Bulan</option>
+                                                <option value="240">8 Bulan</option>
+                                                <option value="270">9 Bulan</option>
+                                                <option value="300">10 Bulan</option>
+                                                <option value="330">11 Bulan</option>
+                                                <option value="365">1 Tahun</option>
+                                                <option value="730">2 Tahun</option>
+                                                <option value="1095">3 Tahun</option>
+                                                <option value="1460">4 Tahun</option>
+                                                <option value="1825">5 Tahun</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="py-4 border-t border-slate-200">
+                                        <div class="flex flex-wrap justify-end space-x-2">
+                                            <a href="{{ route('item.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                                Batal
+                                            </a>
+                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -558,6 +684,11 @@
                 <li class="m-1">
                     <a href="{{ route('aksesoris.index') }}">
                         <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Aksesoris</button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('tool.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Tool</button>
                     </a>
                 </li>
             </ul>
@@ -743,8 +874,17 @@
                                                     </svg>
                                                 </button>
                                             </a>
-                                        @else
+                                        @elseif ($item->categories_id === 3)
                                             <a href="{{ route('aksesoris.edit', $item->id) }}">
+                                                <button class="text-slate-400 hover:text-slate-500 rounded-full">
+                                                    <span class="sr-only">Edit</span>
+                                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                        <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
+                                                    </svg>
+                                                </button>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('tool.edit', $item->id) }}">
                                                 <button class="text-slate-400 hover:text-slate-500 rounded-full">
                                                     <span class="sr-only">Edit</span>
                                                     <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
