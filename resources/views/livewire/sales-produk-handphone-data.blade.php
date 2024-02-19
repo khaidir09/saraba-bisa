@@ -6,8 +6,14 @@
         <div class="mb-4 sm:mb-0">
             <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Item Produk ✨</h1>
         </div>
-        <!-- Search form -->
-        <x-search-form placeholder="Masukkan nama produk" />
+
+        <!-- Right: Actions -->
+        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+
+            <!-- Search form -->
+            <x-search-form placeholder="Masukkan nama produk" />
+            
+        </div>
 
     </div>
 
@@ -18,12 +24,12 @@
             <ul class="flex flex-wrap -m-1">
                 <li class="m-1">
                     <a href="{{ route('sales-item.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Semua</button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Semua</button>
                     </a>
                 </li>
                 <li class="m-1">
                     <a href="{{ route('sales-handphone.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Handphone</button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Handphone</button>
                     </a>
                 </li>
                 <li class="m-1">
@@ -37,22 +43,26 @@
                     </a>
                 </li>
             </ul>
-        </div>        
-        {{-- Right side --}}
-        <div class="mb-0">
-            <select wire:model="paginate" id="" class="form-select">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
+        </div>
+
+        <!-- Right side -->
+        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+            <div>
+                <select wire:model="paginate" id="" class="form-select">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
         </div>
     </div>
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
-        <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Semua Produk <span class="text-slate-400 font-medium">{{ $products_count }}</span></h2>
-        </header>
+        <div class="sm:flex sm:justify-between sm:items-center px-5 py-4">
+            {{-- Left side --}}
+            <h2 class="font-semibold text-slate-800">Produk Handphone <span class="text-slate-400 font-medium">{{ $handphones_count }}</span></h2>
+        </div>
         <!-- Table -->
         <div class="overflow-x-auto">
             <table class="table-auto w-full">
@@ -66,19 +76,31 @@
                             <div class="font-semibold text-left">Nama Produk</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Kategori Produk</div>
+                            <div class="font-semibold text-left">Kode Produk</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Kode Produk</div>
+                            <div class="font-semibold text-left">IMEI / SN</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">RAM</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Memori</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Stok</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Harga jual</div>
+                            <div class="font-semibold text-left">Harga Jual</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Garansi Produk/IMEI</div>
+                            <div class="font-semibold text-left">Keterangan</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Garansi Produk</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Garansi IMEI</div>
                         </th>
                     </tr>
                 </thead>
@@ -97,9 +119,6 @@
                                 <div class="font-medium">{{ $item->product_name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->category_name }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">
                                     @if ($item->product_code != null)
                                         {{ $item->product_code }}
@@ -109,21 +128,46 @@
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">
+                                    @if ($item->nomor_seri != null)
+                                        {{ $item->nomor_seri }}
+                                    @else
+                                        -
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $item->ram }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $item->capacity->name }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->stok }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($item->harga_jual) }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if ($item->garansi != null && $item->garansi_imei != null)
-                                    <div class="font-medium">{{ $item->garansi }} hari / {{ $item->garansi_imei }} hari</div>
-                                @elseif ($item->garansi != null)
-                                    <div class="font-medium">{{ $item->garansi }} hari / -</div>
-                                @elseif ($item->garansi_imei != null)
-                                    <div class="font-medium">- / {{ $item->garansi_imei }} hari</div>
-                                @else
-                                    <div class="font-medium">Tidak ada</div>
-                                @endif
+                                <div class="font-medium">{{ $item->keterangan }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">
+                                    @if ($item->garansi != null)
+                                        {{ $item->garansi }} hari
+                                    @else
+                                        -
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">
+                                    @if ($item->garansi_imei != null)
+                                        {{ $item->garansi_imei }} hari
+                                    @else
+                                        -
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -131,7 +175,7 @@
             </table>
         </div>
     </div>
-    
+
     <!-- Pagination -->
     <div class="mt-8">
         {{ $products->links() }}

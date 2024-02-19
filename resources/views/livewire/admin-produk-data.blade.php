@@ -63,160 +63,470 @@
                             </div>
                         </div>
                         <!-- Modal content -->
-                        <form action="{{ route('admin-item.store') }}" method="post">
-                            @csrf
-                            <div class="px-5 py-4">
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="sub_categories_id">Kategori Produk <span class="text-rose-500">*</span></label>
-                                        <select id="sub_categories_id" name="sub_categories_id" class="form-select text-sm w-full" x-model="selectedCategory" required>
-                                            <option value="">Pilih Kategori</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk <span class="text-rose-500">*</span></label>
-                                        <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" required />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
-                                        <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="product_code">Kode Produk</label>
-                                        <input id="product_code" name="product_code" class="form-input w-full px-2 py-1" type="text" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
-                                        <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" placeholder="Tidak perlu diisi jika bukan produk Handphone/Laptop" />
-                                    </div>
-                                    <div class="mt-3">
-                                        <label class="block text-sm font-medium mb-1" for="stok">Stok <span class="text-rose-500">*</span></label>
-                                        <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" value="1"/>
-                                    </div>
-                                    <div class="mt-3">
-                                        <label class="block text-sm font-medium mb-1" for="stok_minimal">Stok Minimal <small>(Sebagai pengingat untuk menambah stok produk)</small></label>
-                                        <input id="stok_minimal" name="stok_minimal" class="form-input w-full px-2 py-1" type="number" placeholder="Abaikan jika produk tidak memerlukan pengingat"/>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_modal">Harga Modal <span class="text-rose-500">*</span></label>
-                                        <div class="relative">
-                                            <input id="harga_modal" name="harga_modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
-                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="harga_jual">Harga Jual <span class="text-rose-500">*</span></label>
-                                        <div class="relative">
-                                            <input id="harga_jual" name="harga_jual" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
-                                            <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
-                                                <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if ($toko->is_tax === 1)
+                        <div x-data="{ tab: '1' }" class="px-5 py-4">
+                            <!-- Tabs buttons -->
+                            <div class="flex flex-wrap items-center -m-3 mb-0">
+                                <div class="m-3">
+                                    <!-- Start -->
+                                    <label class="flex items-center">
+                                        <input type="radio" name="radio-buttons" class="form-radio" checked @click="tab = '1'"/>
+                                        <span class="text-sm ml-2">Handphone</span>
+                                    </label>
+                                    <!-- End -->
+                                </div>
+                                <div class="m-3">
+                                    <!-- Start -->
+                                    <label class="flex items-center">
+                                        <input type="radio" name="radio-buttons" class="form-radio" @click="tab = '2'"/>
+                                        <span class="text-sm ml-2">Sparepart</span>
+                                    </label>
+                                    <!-- End -->
+                                </div>
+                                <div class="m-3">
+                                    <!-- Start -->
+                                    <label class="flex items-center">
+                                        <input type="radio" name="radio-buttons" class="form-radio" @click="tab = '3'"/>
+                                        <span class="text-sm ml-2">Aksesoris</span>
+                                    </label>
+                                    <!-- End -->
+                                </div>
+                            </div>
+                            <div x-show="tab === '1'">
+                                <form action="{{ route('admin-handphone.store') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="categories_id" value="1">
+                                    <div class="space-y-3">
                                         <div>
-                                            <label class="block text-sm font-medium mb-1" for="ppn">Apakah produk dikenakan pajak?</label>
-                                            <div class="flex flex-wrap items-center -m-3">
-                                                <div class="m-3">
-                                                    <!-- Start -->
-                                                    <label class="flex items-center">
-                                                        <input type="radio" name="ppn" value="" class="form-radio" checked x-on:click="showDetails = true"/>
-                                                        <span class="text-sm ml-2">Tidak</span>
-                                                    </label>
-                                                    <!-- End -->
-                                                </div>
-                                                <div class="m-3">
-                                                    <!-- Start -->
-                                                    <label class="flex items-center">
-                                                        <input type="radio" name="ppn" value="{{ $toko->ppn }}" class="form-radio" x-on:click="showDetails = false"/>
-                                                        <span class="text-sm ml-2">Ya</span>
-                                                    </label>
-                                                    <!-- End -->
+                                            <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
+                                            <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full selectjs1" style="width: 100%" required>
+                                                <option selected value="">Pilih Merek</option>
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
+                                            <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full selectjs2" style="width: 100%" required>
+                                                <option selected value="">Pilih Model Seri</option>
+                                                @foreach ($model_series as $model)
+                                                    <option value="{{ $model->id }}">{{ $model->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="ram">RAM <span class="text-rose-500">*</span></label>
+                                            <select id="ram" name="ram" class="form-select text-sm py-1 w-full" required>
+                                                <option selected value="">Pilih RAM</option>
+                                                <option value="2 GB">2 GB</option>
+                                                <option value="3 GB">3 GB</option>
+                                                <option value="4 GB">4 GB</option>
+                                                <option value="6 GB">6 GB</option>
+                                                <option value="8 GB">8 GB</option>
+                                                <option value="12 GB">12 GB</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="capacities_id">Memori <span class="text-rose-500">*</span></label>
+                                            <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full" required>
+                                                <option selected value="">Pilih Memori</option>
+                                                @foreach ($capacities as $capacity)
+                                                    <option value="{{ $capacity->id }}">{{ $capacity->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
+                                            <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="product_code">Kode Produk</label>
+                                            <input id="product_code" name="product_code" class="form-input w-full px-2 py-1" type="text" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
+                                            <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="stok">Stok <span class="text-rose-500">*</span></label>
+                                            <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" value="1"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="stok_minimal">Stok Minimal <small>(Sebagai pengingat untuk menambah stok produk)</small></label>
+                                            <input id="stok_minimal" name="stok_minimal" class="form-input w-full px-2 py-1" type="number" placeholder="Abaikan jika produk tidak memerlukan pengingat"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="harga_modal">Harga Modal <span class="text-rose-500">*</span></label>
+                                            <div class="relative">
+                                                <input id="harga_modal" name="harga_modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endif
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="garansi">Garansi Produk</label>
-                                        <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
-                                            <option value="">Tidak Ada</option>
-                                            <option value="1">1 Hari</option>
-                                            <option value="2">2 Hari</option>
-                                            <option value="3">3 Hari</option>
-                                            <option value="4">4 Hari</option>
-                                            <option value="5">5 Hari</option>
-                                            <option value="6">6 Hari</option>
-                                            <option value="7">1 Minggu</option>
-                                            <option value="14">2 Minggu</option>
-                                            <option value="21">3 Minggu</option>
-                                            <option value="30">1 Bulan</option>
-                                            <option value="60">2 Bulan</option>
-                                            <option value="90">3 Bulan</option>
-                                            <option value="120">4 Bulan</option>
-                                            <option value="150">5 Bulan</option>
-                                            <option value="180">6 Bulan</option>
-                                            <option value="210">7 Bulan</option>
-                                            <option value="240">8 Bulan</option>
-                                            <option value="270">9 Bulan</option>
-                                            <option value="300">10 Bulan</option>
-                                            <option value="330">11 Bulan</option>
-                                            <option value="365">1 Tahun</option>
-                                            <option value="730">2 Tahun</option>
-                                            <option value="1095">3 Tahun</option>
-                                            <option value="1460">4 Tahun</option>
-                                            <option value="1825">5 Tahun</option>
-                                        </select>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="harga_jual">Harga Jual <span class="text-rose-500">*</span></label>
+                                            <div class="relative">
+                                                <input id="harga_jual" name="harga_jual" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($toko->is_tax === 1)
+                                            <div>
+                                                <label class="block text-sm font-medium mb-1" for="ppn">Apakah produk dikenakan pajak?</label>
+                                                <div class="flex flex-wrap items-center -m-3">
+                                                    <div class="m-3">
+                                                        <!-- Start -->
+                                                        <label class="flex items-center">
+                                                            <input type="radio" name="ppn" value="" class="form-radio" checked x-on:click="showDetails = true"/>
+                                                            <span class="text-sm ml-2">Tidak</span>
+                                                        </label>
+                                                        <!-- End -->
+                                                    </div>
+                                                    <div class="m-3">
+                                                        <!-- Start -->
+                                                        <label class="flex items-center">
+                                                            <input type="radio" name="ppn" value="{{ $toko->ppn }}" class="form-radio" x-on:click="showDetails = false"/>
+                                                            <span class="text-sm ml-2">Ya</span>
+                                                        </label>
+                                                        <!-- End -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="garansi">Garansi Produk</label>
+                                            <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
+                                                <option value="">Tidak Ada</option>
+                                                <option value="1">1 Hari</option>
+                                                <option value="2">2 Hari</option>
+                                                <option value="3">3 Hari</option>
+                                                <option value="4">4 Hari</option>
+                                                <option value="5">5 Hari</option>
+                                                <option value="6">6 Hari</option>
+                                                <option value="7">1 Minggu</option>
+                                                <option value="14">2 Minggu</option>
+                                                <option value="21">3 Minggu</option>
+                                                <option value="30">1 Bulan</option>
+                                                <option value="60">2 Bulan</option>
+                                                <option value="90">3 Bulan</option>
+                                                <option value="120">4 Bulan</option>
+                                                <option value="150">5 Bulan</option>
+                                                <option value="180">6 Bulan</option>
+                                                <option value="210">7 Bulan</option>
+                                                <option value="240">8 Bulan</option>
+                                                <option value="270">9 Bulan</option>
+                                                <option value="300">10 Bulan</option>
+                                                <option value="330">11 Bulan</option>
+                                                <option value="365">1 Tahun</option>
+                                                <option value="730">2 Tahun</option>
+                                                <option value="1095">3 Tahun</option>
+                                                <option value="1460">4 Tahun</option>
+                                                <option value="1825">5 Tahun</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="garansi_imei">
+                                                Garansi IMEI <small>(Abaikan jika bukan produk iPhone)</small>
+                                            </label>
+                                            <select id="garansi_imei" name="garansi_imei" class="form-select text-sm py-1 w-full">
+                                                <option value="">Tidak Ada</option>
+                                                <option value="1">1 Hari</option>
+                                                <option value="2">2 Hari</option>
+                                                <option value="3">3 Hari</option>
+                                                <option value="4">4 Hari</option>
+                                                <option value="5">5 Hari</option>
+                                                <option value="6">6 Hari</option>
+                                                <option value="7">1 Minggu</option>
+                                                <option value="14">2 Minggu</option>
+                                                <option value="21">3 Minggu</option>
+                                                <option value="30">1 Bulan</option>
+                                                <option value="60">2 Bulan</option>
+                                                <option value="90">3 Bulan</option>
+                                                <option value="120">4 Bulan</option>
+                                                <option value="150">5 Bulan</option>
+                                                <option value="180">6 Bulan</option>
+                                                <option value="210">7 Bulan</option>
+                                                <option value="240">8 Bulan</option>
+                                                <option value="270">9 Bulan</option>
+                                                <option value="300">10 Bulan</option>
+                                                <option value="330">11 Bulan</option>
+                                                <option value="365">1 Tahun</option>
+                                                <option value="730">2 Tahun</option>
+                                                <option value="1095">3 Tahun</option>
+                                                <option value="1460">4 Tahun</option>
+                                                <option value="1825">5 Tahun</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="mt-3">
-                                        <label class="block text-sm font-medium mb-1" for="garansi_imei">
-                                            Garansi IMEI <small>(Abaikan jika bukan produk iPhone)</small>
-                                        </label>
-                                        <select id="garansi_imei" name="garansi_imei" class="form-select text-sm py-1 w-full">
-                                            <option value="">Tidak Ada</option>
-                                            <option value="1">1 Hari</option>
-                                            <option value="2">2 Hari</option>
-                                            <option value="3">3 Hari</option>
-                                            <option value="4">4 Hari</option>
-                                            <option value="5">5 Hari</option>
-                                            <option value="6">6 Hari</option>
-                                            <option value="7">1 Minggu</option>
-                                            <option value="14">2 Minggu</option>
-                                            <option value="21">3 Minggu</option>
-                                            <option value="30">1 Bulan</option>
-                                            <option value="60">2 Bulan</option>
-                                            <option value="90">3 Bulan</option>
-                                            <option value="120">4 Bulan</option>
-                                            <option value="150">5 Bulan</option>
-                                            <option value="180">6 Bulan</option>
-                                            <option value="210">7 Bulan</option>
-                                            <option value="240">8 Bulan</option>
-                                            <option value="270">9 Bulan</option>
-                                            <option value="300">10 Bulan</option>
-                                            <option value="330">11 Bulan</option>
-                                            <option value="365">1 Tahun</option>
-                                            <option value="730">2 Tahun</option>
-                                            <option value="1095">3 Tahun</option>
-                                            <option value="1460">4 Tahun</option>
-                                            <option value="1825">5 Tahun</option>
-                                        </select>
+                                    <!-- Modal footer -->
+                                    <div class="py-4 border-t border-slate-200">
+                                        <div class="flex flex-wrap justify-end space-x-2">
+                                            <a href="{{ route('item.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                                Batal
+                                            </a>
+                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
-                            <!-- Modal footer -->
-                            <div class="px-5 py-4 border-t border-slate-200">
-                                <div class="flex flex-wrap justify-end space-x-2">
-                                    <a href="{{ route('admin-item.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
-                                        Batal
-                                    </a>
-                                    <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
-                                </div>
+                            <div x-show="tab === '2'">
+                                <form action="{{ route('admin-sparepart.store') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="categories_id" value="2">
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="sub_categories_id">Sub Kategori Produk <span class="text-rose-500">*</span></label>
+                                            <select id="sub_categories_id" name="sub_categories_id" class="form-select text-sm w-full" required>
+                                                <option selected value="">Pilih Sub Kategori</option>
+                                                @foreach ($spareparts as $sparepart)
+                                                    <option value="{{ $sparepart->id }}">{{ $sparepart->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk <span class="text-rose-500">*</span></label>
+                                            <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="selectjs3">Model Seri <span class="text-rose-500">*</span></label>
+                                            <select id="selectjs3" name="model_series_id" class="form-select text-sm py-1 w-full" style="width: 100%" required>
+                                                <option selected value="">Pilih Model Seri</option>
+                                                @foreach ($model_series as $model)
+                                                    <option value="{{ $model->id }}">{{ $model->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="product_code">Kode Produk</label>
+                                            <input id="product_code" name="product_code" class="form-input w-full px-2 py-1" type="text" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
+                                            <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="stok">Stok <span class="text-rose-500">*</span></label>
+                                            <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" value="1"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="stok_minimal">Stok Minimal <small>(Sebagai pengingat untuk menambah stok produk)</small></label>
+                                            <input id="stok_minimal" name="stok_minimal" class="form-input w-full px-2 py-1" type="number" placeholder="Abaikan jika produk tidak memerlukan pengingat"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="harga_modal">Harga Modal <span class="text-rose-500">*</span></label>
+                                            <div class="relative">
+                                                <input id="harga_modal" name="harga_modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="harga_jual">Harga Jual <span class="text-rose-500">*</span></label>
+                                            <div class="relative">
+                                                <input id="harga_jual" name="harga_jual" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($toko->is_tax === 1)
+                                            <div>
+                                                <label class="block text-sm font-medium mb-1" for="ppn">Apakah produk dikenakan pajak?</label>
+                                                <div class="flex flex-wrap items-center -m-3">
+                                                    <div class="m-3">
+                                                        <!-- Start -->
+                                                        <label class="flex items-center">
+                                                            <input type="radio" name="ppn" value="" class="form-radio" checked x-on:click="showDetails = true"/>
+                                                            <span class="text-sm ml-2">Tidak</span>
+                                                        </label>
+                                                        <!-- End -->
+                                                    </div>
+                                                    <div class="m-3">
+                                                        <!-- Start -->
+                                                        <label class="flex items-center">
+                                                            <input type="radio" name="ppn" value="{{ $toko->ppn }}" class="form-radio" x-on:click="showDetails = false"/>
+                                                            <span class="text-sm ml-2">Ya</span>
+                                                        </label>
+                                                        <!-- End -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="garansi">Garansi Produk</label>
+                                            <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
+                                                <option value="">Tidak Ada</option>
+                                                <option value="1">1 Hari</option>
+                                                <option value="2">2 Hari</option>
+                                                <option value="3">3 Hari</option>
+                                                <option value="4">4 Hari</option>
+                                                <option value="5">5 Hari</option>
+                                                <option value="6">6 Hari</option>
+                                                <option value="7">1 Minggu</option>
+                                                <option value="14">2 Minggu</option>
+                                                <option value="21">3 Minggu</option>
+                                                <option value="30">1 Bulan</option>
+                                                <option value="60">2 Bulan</option>
+                                                <option value="90">3 Bulan</option>
+                                                <option value="120">4 Bulan</option>
+                                                <option value="150">5 Bulan</option>
+                                                <option value="180">6 Bulan</option>
+                                                <option value="210">7 Bulan</option>
+                                                <option value="240">8 Bulan</option>
+                                                <option value="270">9 Bulan</option>
+                                                <option value="300">10 Bulan</option>
+                                                <option value="330">11 Bulan</option>
+                                                <option value="365">1 Tahun</option>
+                                                <option value="730">2 Tahun</option>
+                                                <option value="1095">3 Tahun</option>
+                                                <option value="1460">4 Tahun</option>
+                                                <option value="1825">5 Tahun</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="py-4 border-t border-slate-200">
+                                        <div class="flex flex-wrap justify-end space-x-2">
+                                            <a href="{{ route('item.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                                Batal
+                                            </a>
+                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                            <div x-show="tab === '3'">
+                                <form action="{{ route('admin-aksesoris.store') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="categories_id" value="3">
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="sub_categories_id">Sub Kategori Produk <span class="text-rose-500">*</span></label>
+                                            <select id="sub_categories_id" name="sub_categories_id" class="form-select text-sm w-full" required>
+                                                <option value="">Pilih Sub Kategori</option>
+                                                @foreach ($accessories as $accessory)
+                                                    <option value="{{ $accessory->id }}">{{ $accessory->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="product_name">Nama Produk <span class="text-rose-500">*</span></label>
+                                            <input id="product_name" name="product_name" class="form-input w-full px-2 py-1" type="text" required/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="selectjs4">Model Seri <span class="text-rose-500">*</span></label>
+                                            <select id="selectjs4" name="model_series_id" class="form-select text-sm py-1 w-full" style="width: 100%" required>
+                                                <option selected value="">Pilih Model Seri</option>
+                                                @foreach ($model_series as $model)
+                                                    <option value="{{ $model->id }}">{{ $model->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="product_code">Kode Produk</label>
+                                            <input id="product_code" name="product_code" class="form-input w-full px-2 py-1" type="text" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Produk</label>
+                                            <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="stok">Stok <span class="text-rose-500">*</span></label>
+                                            <input id="stok" name="stok" class="form-input w-full px-2 py-1" type="number" value="1"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="stok_minimal">Stok Minimal <small>(Sebagai pengingat untuk menambah stok produk)</small></label>
+                                            <input id="stok_minimal" name="stok_minimal" class="form-input w-full px-2 py-1" type="number" placeholder="Abaikan jika produk tidak memerlukan pengingat"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="harga_modal">Harga Modal <span class="text-rose-500">*</span></label>
+                                            <div class="relative">
+                                                <input id="harga_modal" name="harga_modal" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="harga_jual">Harga Jual <span class="text-rose-500">*</span></label>
+                                            <div class="relative">
+                                                <input id="harga_jual" name="harga_jual" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
+                                                <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
+                                                    <span class="text-sm text-slate-400 font-medium px-3">Rp.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($toko->is_tax === 1)
+                                            <div>
+                                                <label class="block text-sm font-medium mb-1" for="ppn">Apakah produk dikenakan pajak?</label>
+                                                <div class="flex flex-wrap items-center -m-3">
+                                                    <div class="m-3">
+                                                        <!-- Start -->
+                                                        <label class="flex items-center">
+                                                            <input type="radio" name="ppn" value="" class="form-radio" checked x-on:click="showDetails = true"/>
+                                                            <span class="text-sm ml-2">Tidak</span>
+                                                        </label>
+                                                        <!-- End -->
+                                                    </div>
+                                                    <div class="m-3">
+                                                        <!-- Start -->
+                                                        <label class="flex items-center">
+                                                            <input type="radio" name="ppn" value="{{ $toko->ppn }}" class="form-radio" x-on:click="showDetails = false"/>
+                                                            <span class="text-sm ml-2">Ya</span>
+                                                        </label>
+                                                        <!-- End -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="garansi">Garansi Produk</label>
+                                            <select id="garansi" name="garansi" class="form-select text-sm py-1 w-full">
+                                                <option value="">Tidak Ada</option>
+                                                <option value="1">1 Hari</option>
+                                                <option value="2">2 Hari</option>
+                                                <option value="3">3 Hari</option>
+                                                <option value="4">4 Hari</option>
+                                                <option value="5">5 Hari</option>
+                                                <option value="6">6 Hari</option>
+                                                <option value="7">1 Minggu</option>
+                                                <option value="14">2 Minggu</option>
+                                                <option value="21">3 Minggu</option>
+                                                <option value="30">1 Bulan</option>
+                                                <option value="60">2 Bulan</option>
+                                                <option value="90">3 Bulan</option>
+                                                <option value="120">4 Bulan</option>
+                                                <option value="150">5 Bulan</option>
+                                                <option value="180">6 Bulan</option>
+                                                <option value="210">7 Bulan</option>
+                                                <option value="240">8 Bulan</option>
+                                                <option value="270">9 Bulan</option>
+                                                <option value="300">10 Bulan</option>
+                                                <option value="330">11 Bulan</option>
+                                                <option value="365">1 Tahun</option>
+                                                <option value="730">2 Tahun</option>
+                                                <option value="1095">3 Tahun</option>
+                                                <option value="1460">4 Tahun</option>
+                                                <option value="1825">5 Tahun</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="py-4 border-t border-slate-200">
+                                        <div class="flex flex-wrap justify-end space-x-2">
+                                            <a href="{{ route('item.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                                Batal
+                                            </a>
+                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -236,13 +546,18 @@
                     </a>
                 </li>
                 <li class="m-1">
-                    <a href="{{ route('admin-item-tersedia.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Tersedia <span class="ml-1 text-slate-400"></span></button>
+                    <a href="{{ route('admin-handphone.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Handphone</button>
                     </a>
                 </li>
                 <li class="m-1">
-                    <a href="{{ route('admin-item-habis.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Habis <span class="ml-1 text-slate-400"></span></button>
+                    <a href="{{ route('admin-sparepart.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Sparepart</button>
+                    </a>
+                </li>
+                <li class="m-1">
+                    <a href="{{ route('admin-aksesoris.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Aksesoris</button>
                     </a>
                 </li>
             </ul>
@@ -432,9 +747,6 @@
                                 <div class="font-semibold text-left">Kategori Produk</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">IMEI / SN</div>
-                            </th>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Kode Produk</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -442,9 +754,6 @@
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Stok Minimal</div>
-                            </th>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Modal</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Harga Jual</div>
@@ -480,16 +789,7 @@
                                     <div class="font-medium">{{ $item->product_name }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->subCategory->name }}</div>
-                                </td>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">
-                                        @if ($item->nomor_seri != null)
-                                            {{ $item->nomor_seri }}
-                                        @else
-                                            -
-                                        @endif
-                                    </div>
+                                    <div class="font-medium">{{ $item->category_name }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">
@@ -513,9 +813,6 @@
                                     </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">Rp. {{ number_format($item->harga_modal) }}</div>
-                                </td>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">Rp. {{ number_format($item->harga_jual) }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -531,14 +828,34 @@
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                     <div class="space-x-1 flex">
-                                        <a href="{{ route('admin-item.edit', $item->id) }}">
-                                            <button class="text-slate-400 hover:text-slate-500 rounded-full">
-                                                <span class="sr-only">Edit</span>
-                                                <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
-                                                    <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
-                                                </svg>
-                                            </button>
-                                        </a>
+                                        @if ($item->categories_id === 1)
+                                            <a href="{{ route('admin-handphone.edit', $item->id) }}">
+                                                <button class="text-slate-400 hover:text-slate-500 rounded-full">
+                                                    <span class="sr-only">Edit</span>
+                                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                        <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
+                                                    </svg>
+                                                </button>
+                                            </a>
+                                        @elseif ($item->categories_id === 2)
+                                            <a href="{{ route('admin-sparepart.edit', $item->id) }}">
+                                                <button class="text-slate-400 hover:text-slate-500 rounded-full">
+                                                    <span class="sr-only">Edit</span>
+                                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                        <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
+                                                    </svg>
+                                                </button>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('admin-aksesoris.edit', $item->id) }}">
+                                                <button class="text-slate-400 hover:text-slate-500 rounded-full">
+                                                    <span class="sr-only">Edit</span>
+                                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                        <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
+                                                    </svg>
+                                                </button>
+                                            </a>
+                                        @endif
                                         <!-- Start -->
                                         <div x-data="{ modalOpen: false }">
                                             <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="modalOpen = true" aria-controls="danger-modal">

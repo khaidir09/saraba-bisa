@@ -91,6 +91,9 @@ use App\Http\Controllers\AdminToko\SubKategoriController as AdminTokoSubKategori
 use App\Http\Controllers\AdminToko\ProdukController as AdminTokoProdukController;
 use App\Http\Controllers\AdminToko\SupplierController as AdminTokoSupplierController;
 use App\Http\Controllers\AdminToko\ProdukTersediaController as AdminTokoProdukTersediaController;
+use App\Http\Controllers\AdminToko\ProdukHandphoneController as AdminTokoProdukHandphoneController;
+use App\Http\Controllers\AdminToko\ProdukSparepartController as AdminTokoProdukSparepartController;
+use App\Http\Controllers\AdminToko\ProdukAksesorisController as AdminTokoProdukAksesorisController;
 use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabisController;
 use App\Http\Controllers\AdminToko\PosController as AdminTokoPosController;
 use App\Http\Controllers\AdminToko\TransaksiProdukController as AdminTokoTransaksiProdukController;
@@ -113,6 +116,9 @@ use App\Http\Controllers\Sales\ExpenseController as SalesExpenseController;
 use App\Http\Controllers\Sales\KategoriController as SalesKategoriController;
 use App\Http\Controllers\Sales\SubKategoriController as SalesSubKategoriController;
 use App\Http\Controllers\Sales\ProdukController as SalesProdukController;
+use App\Http\Controllers\Sales\ProdukHandphoneController as SalesProdukHandphoneController;
+use App\Http\Controllers\Sales\ProdukSparepartController as SalesProdukSparepartController;
+use App\Http\Controllers\Sales\ProdukAksesorisController as SalesProdukAksesorisController;
 use App\Http\Controllers\Sales\PosController as SalesPosController;
 use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProdukController;
 use App\Http\Controllers\Sales\TransaksiProdukPaidController as SalesTransaksiProdukPaidController;
@@ -368,9 +374,19 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::get('merek/export', [AdminTokoMasterMerekController::class, 'export'])->name('admin-merek-export');
     Route::get('customer/export', [AdminTokoPelangganController::class, 'export'])->name('admin-pelanggan-export');
 
+    Route::get('admin-ekspor-handphone', [AdminTokoProdukHandphoneController::class, 'export'])->name('admin-ekspor-handphone');
+    Route::post('/admin-impor-handphone', [AdminTokoProdukHandphoneController::class, 'import'])->name('admin-impor-handphone');
+    Route::get('admin-ekspor-sparepart', [AdminTokoProdukSparepartController::class, 'export'])->name('admin-ekspor-sparepart');
+    Route::post('/admin-impor-sparepart', [AdminTokoProdukSparepartController::class, 'import'])->name('admin-impor-sparepart');
+    Route::get('admin-ekspor-aksesoris', [AdminTokoProdukAksesorisController::class, 'export'])->name('admin-ekspor-aksesoris');
+    Route::post('/admin-impor-aksesoris', [AdminTokoProdukAksesorisController::class, 'import'])->name('admin-impor-aksesoris');
+
     Route::resource('produk/admin-kategori', AdminTokoKategoriController::class);
     Route::resource('produk/admin-sub-kategori', AdminTokoSubKategoriController::class);
     Route::resource('produk/admin-item', AdminTokoProdukController::class);
+    Route::resource('produk/admin-handphone', AdminTokoProdukHandphoneController::class);
+    Route::resource('produk/admin-sparepart', AdminTokoProdukSparepartController::class);
+    Route::resource('produk/admin-aksesoris', AdminTokoProdukAksesorisController::class);
     Route::resource('produk/admin-item-tersedia', AdminTokoProdukTersediaController::class);
     Route::resource('produk/admin-item-habis', AdminTokoProdukHabisController::class);
     Route::resource('produk/admin-supplier', AdminTokoSupplierController::class);
@@ -427,6 +443,9 @@ Route::middleware('ensureSalesRole:Sales')->group(
         Route::resource('produk/sales-kategori', SalesKategoriController::class);
         Route::resource('produk/sales-sub-kategori', SalesSubKategoriController::class);
         Route::resource('produk/sales-item', SalesProdukController::class);
+        Route::resource('produk/sales-handphone', SalesProdukHandphoneController::class);
+        Route::resource('produk/sales-sparepart', SalesProdukSparepartController::class);
+        Route::resource('produk/sales-aksesoris', SalesProdukAksesorisController::class);
         Route::resource('produk/sales-pos', SalesPosController::class);
         Route::resource('produk/sales-transaksi-produk', SalesTransaksiProdukController::class);
         Route::resource('produk/sales-transaksi-produk-paid', SalesTransaksiProdukPaidController::class);
