@@ -35,17 +35,9 @@ class AdminSudahDiambilData extends Component
     ];
 
 
-    protected $updatesQueryString = ['search'];
-
-    public function mount()
-    {
-        $this->search = request()->query('search', $this->search);
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
+    public $queryString = [
+        'search' => ['except' => ''],
+    ];
 
     public function updatedKondisi($value, $index)
     {
@@ -83,13 +75,14 @@ class AdminSudahDiambilData extends Component
             'capacities' => $capacities,
             'model_series' => $model_series,
             'actions' => $actions,
-            'service_transactions' => $this->search === null ?
-                ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')
-                ->whereIn('types_id', $this->type)->whereIn('kondisi_servis', $this->kondisi)
-                ->paginate($this->paginate) :
-                ServiceTransaction::orderBy('tgl_ambil', 'desc')->where('status_servis', 'Sudah Diambil')
-                ->where('nama_pelanggan', 'like', '%' . $this->search . '%')->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->orWhere('tindakan_servis', 'like', '%' . $this->search . '%')->orWhere('nama_barang', 'like', '%' . $this->search . '%')
-                ->paginate($this->paginate)
+            'service_transactions' =>
+            ServiceTransaction::orderBy('tgl_ambil', 'desc')->when($this->search, function ($q) {
+                $q->where('nama_pelanggan', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('tindakan_servis', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('nama_barang', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil');
+            })->when($this->type, function ($q) {
+                $q->whereIn('types_id', $this->type);
+            })->when($this->kondisi, function ($q) {
+                $q->whereIn('kondisi_servis', $this->kondisi)->where('status_servis', 'Sudah Diambil');
+            })->paginate($this->paginate),
         ]);
     }
 }

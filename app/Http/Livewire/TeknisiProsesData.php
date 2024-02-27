@@ -20,17 +20,23 @@ class TeknisiProsesData extends Component
 
     public $paginate = 10;
     public $search;
+    public $status = [
+        'Belum cek',
+        'Sedang Tes',
+        'Menunggu Konfirmasi',
+        'Sedang Dikerjakan',
+        'Menunggu Sparepart'
+    ];
 
-    protected $updatesQueryString = ['search'];
+    public $queryString = [
+        'search' => ['except' => ''],
+    ];
 
-    public function mount()
+    public function updatedStatus($value, $index)
     {
-        $this->search = request()->query('search', $this->search);
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
+        if (!$value) {
+            unset($this->status[$index]);
+        }
     }
 
     public function render()
@@ -52,9 +58,12 @@ class TeknisiProsesData extends Component
             'model_series' => $model_series,
             'capacities' => $capacities,
             'actions' => $actions,
-            'processes' => $this->search === null ?
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->paginate($this->paginate) :
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->orWhere('nama_barang', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+            'processes' =>
+            ServiceTransaction::when($this->search, function ($q) {
+                $q->where('nama_pelanggan', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orWhere('nama_barang', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil']);
+            })->when($this->status, function ($q) {
+                $q->whereIn('status_servis', $this->status);
+            })->paginate($this->paginate),
         ]);
     }
 }

@@ -36,17 +36,9 @@ class AdminProsesData extends Component
         'Menunggu Sparepart'
     ];
 
-    protected $updatesQueryString = ['search'];
-
-    public function mount()
-    {
-        $this->search = request()->query('search', $this->search);
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
+    public $queryString = [
+        'search' => ['except' => ''],
+    ];
 
     public function updatedStatus($value, $index)
     {
@@ -88,9 +80,16 @@ class AdminProsesData extends Component
             'capacities' => $capacities,
             'service_actions' => $service_actions,
             'products' => $products,
-            'processes' => $this->search === null ?
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->whereIn('types_id', $this->type)->whereIn('status_servis', $this->status)->paginate($this->paginate) :
-                ServiceTransaction::latest()->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->where('nama_pelanggan', 'like', '%' . $this->search . '%')->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->orWhere('nama_barang', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+            'processes' => ServiceTransaction::when(
+                $this->search,
+                function ($q) {
+                    $q->where('nama_pelanggan', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orWhere('nama_barang', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil']);
+                }
+            )->when($this->type, function ($q) {
+                $q->whereIn('types_id', $this->type);
+            })->when($this->status, function ($q) {
+                $q->whereIn('status_servis', $this->status);
+            })->paginate($this->paginate),
         ]);
     }
 }
