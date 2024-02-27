@@ -18,24 +18,6 @@ class KategoriController extends Controller
         return view('pages/kepalatoko/kategori/index');
     }
 
-    public function deleteSelected(Request $request)
-    {
-        $selectedIds  = $request->input('selectedIds');
-
-        $hasRelation = Category::whereIn('id', $selectedIds)
-            ->where(function ($query) {
-                $query->whereHas('subCategory');
-            })
-            ->exists();
-
-        if ($hasRelation) {
-            return response()->json(['message' => 'Data Kategori Produk yang sudah terhubung dengan data sub kategori produk tidak bisa dihapus.']);
-        }
-
-        Category::whereIn('id', $selectedIds)->delete();
-        return response()->json(['message' => 'Data Kategori Produk berhasil dihapus.']);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -54,11 +36,7 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        Category::create($data);
-
-        return redirect()->route('kategori.index');
+        //
     }
 
     /**
@@ -80,11 +58,7 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        $item = Category::findOrFail($id);
-
-        return view('pages.kepalatoko.kategori.edit', [
-            'item' => $item
-        ]);
+        //
     }
 
     /**
@@ -96,13 +70,7 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
-        $item = Category::findOrFail($id);
-
-        $item->update($data);
-
-        return redirect()->route('kategori.index');
+        //
     }
 
     /**
@@ -113,19 +81,6 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $item = Category::findOrFail($id);
-
-        if (
-            $item->relasiProduct()->exists()
-        ) {
-            toast('Data Kategori Produk yang sudah terhubung dengan data produk tidak bisa dihapus.', 'error');
-            return redirect()->back();
-        }
-
-        $item->delete();
-
-        toast('Data Kategori Produk berhasil dihapus.', 'success');
-
-        return redirect()->route('kategori.index');
+        //
     }
 }

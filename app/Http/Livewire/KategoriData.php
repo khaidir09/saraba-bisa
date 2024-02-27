@@ -31,8 +31,8 @@ class KategoriData extends Component
         return view('livewire.kategori-data', [
             'categories_count' => $categories_count,
             'categories' => $this->search === null ?
-                Category::latest()->paginate($this->paginate) :
-                Category::latest()->where('category_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                Category::paginate($this->paginate) :
+                Category::where('category_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

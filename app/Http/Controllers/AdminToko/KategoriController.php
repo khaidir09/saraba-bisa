@@ -36,11 +36,7 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        Category::create($data);
-
-        return redirect()->route('admin-kategori.index');
+        //
     }
 
     /**
@@ -62,11 +58,7 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        $item = Category::findOrFail($id);
-
-        return view('pages.admintoko.kategori.edit', [
-            'item' => $item
-        ]);
+        //
     }
 
     /**
@@ -78,13 +70,7 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
-        $item = Category::findOrFail($id);
-
-        $item->update($data);
-
-        return redirect()->route('admin-kategori.index');
+        //
     }
 
     /**
@@ -95,19 +81,6 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $item = Category::findOrFail($id);
-
-        if (
-            $item->relasiProduct()->exists()
-        ) {
-            toast('Data Kategori Produk yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
-            return redirect()->back();
-        }
-
-        $item->delete();
-
-        toast('Data Kategori Produk berhasil dihapus.', 'success');
-
-        return redirect()->route('admin-kategori.index');
+        //
     }
 }
