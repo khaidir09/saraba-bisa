@@ -86,7 +86,11 @@ class BisaDiambilController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = ServiceTransaction::with('user', 'serviceaction', 'product')->findOrFail($id);
+
+        return view('pages.kepalatoko.servis.kembali-proses', [
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -184,6 +188,32 @@ class BisaDiambilController extends Controller
             'omzet' => $request->biaya,
             'profit' => $profittransaksi,
             'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi)
+        ]);
+
+        return redirect()->route('transaksi-servis-bisa-diambil.index');
+    }
+
+    public function back(Request $request, $id)
+    {
+        $item = ServiceTransaction::findOrFail($id);
+
+        // Transaction update
+        $item->update([
+            'users_id' => null,
+            'kondisi_servis' => null,
+            'status_servis' => $request->status_servis,
+            'tgl_selesai' => null,
+            'service_actions_id' => null,
+            'products_id' => null,
+            'tindakan_servis' => null,
+            'catatan' => null,
+            'modal_sparepart' => null,
+            'biaya' => null,
+            'persen_admin' => null,
+            'persen_teknisi' => null,
+            'omzet' => null,
+            'profit' => null,
+            'profittoko' => null
         ]);
 
         return redirect()->route('transaksi-servis-bisa-diambil.index');

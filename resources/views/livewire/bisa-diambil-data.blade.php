@@ -550,7 +550,7 @@
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                     <div class="space-x-1 flex">
-                                        <!-- Start -->
+                                        <!-- Start Confirm -->
                                         <div
                                             class="relative"
                                             x-data="{ open: false }"
@@ -584,8 +584,37 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- End -->
-
+                                        <!-- End Confirm -->
+                                        <!-- Start Cancel -->
+                                        <div
+                                            class="relative"
+                                            x-data="{ open: false }"
+                                            @mouseenter="open = true"
+                                            @mouseleave="open = false"
+                                        >
+                                            <a href="{{ route('transaksi-servis-bisa-diambil.show', $transaction->id) }}">
+                                                <button class="text-slate-400 hover:text-slate-500 rounded-full">
+                                                    <span class="sr-only">Cancel</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 14l-4 -4l4 -4" /><path d="M5 10h11a4 4 0 1 1 0 8h-1" /></svg>
+                                                </button>
+                                            </a>
+                                            <div class="z-10 absolute right-full top-1/2 -translate-y-1/2">
+                                                <div
+                                                    class="bg-slate-800 p-2 rounded overflow-hidden mb-2"
+                                                    x-show="open"
+                                                    x-transition:enter="transition ease-out duration-200 transform"
+                                                    x-transition:enter-start="opacity-0 translate-y-2"
+                                                    x-transition:enter-end="opacity-100 translate-y-0"
+                                                    x-transition:leave="transition ease-out duration-200"
+                                                    x-transition:leave-start="opacity-100"
+                                                    x-transition:leave-end="opacity-0"
+                                                    x-cloak
+                                                >
+                                                    <div class="text-xs text-slate-200 whitespace-nowrap">Kembalikan status ke proses</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Cancel -->
                                         <!-- Start -->
                                         <div x-data="{ deleteOpen: false }">
                                             <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="deleteOpen = true" aria-controls="danger-modal">

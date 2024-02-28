@@ -773,15 +773,47 @@
                                                 </div>                                            
                                         </div>
                                         <!-- End Printer-->
+
                                         <button x-data x-on:click="$dispatch('open-print', { id: {{ $transaction->id }} })">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
-                                            <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
-                                            <rect x="7" y="13" width="10" height="8" rx="2" />
-                                        </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                                                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                                                <rect x="7" y="13" width="10" height="8" rx="2" />
+                                            </svg>
                                         </button>
 
+                                        <!-- Start Cancel -->
+                                        <div
+                                            class="relative"
+                                            x-data="{ open: false }"
+                                            @mouseenter="open = true"
+                                            @mouseleave="open = false"
+                                        >
+                                            <a href="{{ route('transaksi-servis-sudah-diambil.show', $transaction->id) }}">
+                                                <button class="text-slate-400 hover:text-slate-500 rounded-full">
+                                                    <span class="sr-only">Cancel</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 14l-4 -4l4 -4" /><path d="M5 10h11a4 4 0 1 1 0 8h-1" /></svg>
+                                                </button>
+                                            </a>
+                                            <div class="z-10 absolute right-full top-1/2 -translate-y-1/2">
+                                                <div
+                                                    class="bg-slate-800 p-2 rounded overflow-hidden mb-2"
+                                                    x-show="open"
+                                                    x-transition:enter="transition ease-out duration-200 transform"
+                                                    x-transition:enter-start="opacity-0 translate-y-2"
+                                                    x-transition:enter-end="opacity-100 translate-y-0"
+                                                    x-transition:leave="transition ease-out duration-200"
+                                                    x-transition:leave-start="opacity-100"
+                                                    x-transition:leave-end="opacity-0"
+                                                    x-cloak
+                                                >
+                                                    <div class="text-xs text-slate-200 whitespace-nowrap">Kembalikan status ke bisa diambil</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Cancel -->
+                                        
                                         <!-- Start -->
                                         <div x-data="{ showDelete: false, deleteId: null }" x-show = "showDelete" x-on:open-delete.window="showDelete = true; deleteId = $event.detail.id" x-on:close-delete.window = "showDelete = false" x-on:keydown.escape.window = "showDelete = false" class="fixed z-50 inset-0">
                                             <!-- Modal backdrop -->

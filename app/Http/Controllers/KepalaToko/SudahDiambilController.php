@@ -106,7 +106,11 @@ class SudahDiambilController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = ServiceTransaction::with('user', 'serviceaction', 'product')->findOrFail($id);
+
+        return view('pages.kepalatoko.servis.kembali-bisa-diambil', [
+            'item' => $item,
+        ]);
     }
 
     public function pengambilantermal($id)
@@ -262,6 +266,35 @@ class SudahDiambilController extends Controller
         $filename = 'Nota Pengambilan ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
 
         return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
+    }
+
+    public function back(Request $request, $id)
+    {
+        $item = ServiceTransaction::findOrFail($id);
+
+        $profittransaksi = $request->biaya - $request->modal_sparepart;
+        $bagihasil = ($request->biaya - $request->modal_sparepart) / 100;
+
+        // Transaction update
+        $item->update([
+            'qc_keluar' => null,
+            'cara_pembayaran' => null,
+            'status_servis' => 'Bisa Diambil',
+            'kondisi_servis' => $request->kondisi_servis,
+            'diskon' => null,
+            'garansi' => null,
+            'exp_garansi' => null,
+            'is_approve' => null,
+            'pengambil' => null,
+            'penyerah' => null,
+            'tgl_ambil' => null,
+            'tgl_disetujui' => null,
+            'omzet' => $request->biaya,
+            'profit' => $profittransaksi,
+            'profittoko' => $profittransaksi - $bagihasil * ($request->persen_teknisi + $request->persen_admin),
+        ]);
+
+        return redirect()->route('transaksi-servis-sudah-diambil.index');
     }
 
     /**
