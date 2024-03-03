@@ -172,7 +172,13 @@
         <td align="center">
           {{ ++$i }}
         </td>
-        <td align="center" style="text-transform: uppercase;">{{ $item->product->product_name }}</td>
+        <td align="center" style="text-transform: uppercase;">
+        @if ($item->product->nomor_seri != null)
+          {{ $item->product->product_name }} ({{ $item->product->nomor_seri }})
+        @else
+          {{ $item->product->product_name }}
+        @endif
+        </td>
         @if ($item->garansi != null && $item->garansi_imei != null)
             <td align="center">Produk {{ $item->garansi }} & IMEI {{ $item->garansi_imei }}</td>
         @elseif ($item->garansi != null)
