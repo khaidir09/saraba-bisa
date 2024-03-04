@@ -96,7 +96,7 @@ class KaryawanController extends Controller
             ->whereYear('created_at', $date->year)
             ->whereMonth('created_at', $date->month)
             ->get();
-        $bonus = Salary::where('workers_id', $id)->whereMonth('created_at', $date->month)
+        $bonus = Salary::where('workers_id', $id)->whereYear('created_at', $date->year)->whereMonth('created_at', $date->month)
             ->sum('bonus');
         $users = User::find(1);
         $debts = Debt::where('workers_id', $id)
