@@ -47,7 +47,7 @@ class DashboardController extends Controller
             ->count();
         $totalpengeluaran = Expense::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
-            ->whereNot('is_approve', 'Ditolak')
+            ->where('is_approve', 'Setuju')
             ->sum('price');
         $totalinsiden = Incident::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
@@ -75,14 +75,14 @@ class DashboardController extends Controller
 
         $bulanprofitbersihservis = ServiceTransaction::whereYear('tgl_ambil', now()->year)
             ->whereMonth('tgl_ambil', now()->month)
-            ->whereNot('is_approve', 'Ditolak')
+            ->where('is_approve', 'Setuju')
             ->get()
             ->sum('profittoko');
 
         $profitpenjualan = Order::whereHas('detailOrders', function ($query) {
             $query->whereYear('created_at', now()->year)
                 ->whereMonth('created_at', now()->month)
-                ->whereNot('is_approve', 'Ditolak');
+                ->where('is_approve', 'Setuju');
         })
             ->with(['detailOrders' => function ($query) {
                 $query->select('orders_id', DB::raw('SUM(profit_toko) as total_profit'))
@@ -99,7 +99,7 @@ class DashboardController extends Controller
 
         $bulanprofitkotorservis = ServiceTransaction::whereYear('tgl_ambil', now()->year)
             ->whereMonth('tgl_ambil', now()->month)
-            ->whereNot('is_approve', 'Ditolak')
+            ->where('is_approve', 'Setuju')
             ->get()
             ->sum('profit');
 
