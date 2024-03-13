@@ -111,6 +111,38 @@ class TransaksiServisController extends Controller
         //
     }
 
+    public function cetak(Request $request)
+    {
+        // Mengambil logo dan nama toko
+        $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Filter tanggal
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        // Mengambil data servis
+        $services = ServiceTransaction::with('brand', 'modelserie', 'user')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])
+            ->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-proses', [
+            'users' => $users,
+            'imagePath' => $imagePath,
+            'services' => $services,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+        ]);
+
+        $filename = 'Laporan Transaksi Servis' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
+
+        return $pdf->stream($filename);
+    }
+
     public function cetaktermal($id)
     {
         $items = ServiceTransaction::with('customer')->findOrFail($id);
