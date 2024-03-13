@@ -6,14 +6,15 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Worker;
+use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ModelSerie;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 
 class BisaDiambilController extends Controller
 {
@@ -91,6 +92,52 @@ class BisaDiambilController extends Controller
         return view('pages.kepalatoko.servis.kembali-proses', [
             'item' => $item,
         ]);
+    }
+
+    public function cetak(Request $request)
+    {
+        // Mengambil logo dan nama toko
+        $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Filter tanggal
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        // Mengambil data servis
+        $services = ServiceTransaction::with('brand', 'modelserie', 'user')->where('status_servis', 'Bisa Diambil')
+            ->whereDate('tgl_selesai', '>=', $start_date)
+            ->whereDate('tgl_selesai', '<=', $end_date)
+            ->orderBy('tgl_selesai', 'asc')
+            ->get();
+
+        // Menghitung total modal
+        $total_modal = ServiceTransaction::where('status_servis', 'Bisa Diambil')
+            ->whereDate('tgl_selesai', '>=', $start_date)
+            ->whereDate('tgl_selesai', '<=', $end_date)
+            ->sum('modal_sparepart');
+
+        // Menghitung total biaya
+        $total_biaya = ServiceTransaction::where('status_servis', 'Bisa Diambil')
+            ->whereDate('tgl_selesai', '>=', $start_date)
+            ->whereDate('tgl_selesai', '<=', $end_date)
+            ->sum('biaya');
+
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-bisa-diambil', [
+            'users' => $users,
+            'imagePath' => $imagePath,
+            'services' => $services,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'total_modal' => $total_modal,
+            'total_biaya' => $total_biaya,
+        ]);
+
+        $filename = 'Laporan Transaksi Servis' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
+
+        return $pdf->stream($filename);
     }
 
     /**
