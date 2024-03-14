@@ -27,7 +27,7 @@ class SampahPelangganData extends Component
         return view('livewire.sampah-pelanggan-data', [
             'items_count' => $items_count,
             'items' => Customer::onlyTrashed()->latest()->when($this->search, function ($q) {
-                $q->where('nama', 'like', '%' . $this->search . '%')->orWhere('nomor_hp', 'like', '%' . $this->search . '%');
+                $q->where('nama', 'like', '%' . $this->search . '%')->onlyTrashed()->orWhere('nomor_hp', 'like', '%' . $this->search . '%')->onlyTrashed();
             })->paginate($this->paginate),
         ]);
     }

@@ -25,7 +25,7 @@ class SampahServisData extends Component
         return view('livewire.sampah-servis-data', [
             'services_count' => $services_count,
             'services' => ServiceTransaction::onlyTrashed()->latest()->when($this->search, function ($q) {
-                $q->where('nama_pelanggan', 'like', '%' . $this->search . '%')->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->orWhere('nama_barang', 'like', '%' . $this->search . '%');
+                $q->where('nama_pelanggan', 'like', '%' . $this->search . '%')->onlyTrashed()->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->onlyTrashed()->orWhere('nama_barang', 'like', '%' . $this->search . '%')->onlyTrashed();
             })->paginate($this->paginate),
         ]);
     }

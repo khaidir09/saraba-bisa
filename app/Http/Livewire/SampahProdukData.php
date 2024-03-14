@@ -27,7 +27,7 @@ class SampahProdukData extends Component
         return view('livewire.sampah-produk-data', [
             'items_count' => $items_count,
             'items' => Product::onlyTrashed()->latest()->when($this->search, function ($q) {
-                $q->where('product_name', 'like', '%' . $this->search . '%');
+                $q->where('product_name', 'like', '%' . $this->search . '%')->onlyTrashed();
             })->paginate($this->paginate),
         ]);
     }
