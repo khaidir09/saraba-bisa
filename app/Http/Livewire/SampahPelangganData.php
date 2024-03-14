@@ -11,6 +11,12 @@ class SampahPelangganData extends Component
 {
     use WithPagination;
 
+    public $search;
+
+    public $queryString = [
+        'search' => ['except' => ''],
+    ];
+
     public $paginate = 10;
 
     public function render()
@@ -20,7 +26,9 @@ class SampahPelangganData extends Component
 
         return view('livewire.sampah-pelanggan-data', [
             'items_count' => $items_count,
-            'items' => Customer::onlyTrashed()->latest()->paginate($this->paginate)
+            'items' => Customer::onlyTrashed()->latest()->when($this->search, function ($q) {
+                $q->where('nama', 'like', '%' . $this->search . '%')->orWhere('nomor_hp', 'like', '%' . $this->search . '%');
+            })->paginate($this->paginate),
         ]);
     }
 }

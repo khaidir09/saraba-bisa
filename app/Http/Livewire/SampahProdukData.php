@@ -11,6 +11,12 @@ class SampahProdukData extends Component
 {
     use WithPagination;
 
+    public $search;
+
+    public $queryString = [
+        'search' => ['except' => ''],
+    ];
+
     public $paginate = 10;
 
     public function render()
@@ -20,7 +26,9 @@ class SampahProdukData extends Component
 
         return view('livewire.sampah-produk-data', [
             'items_count' => $items_count,
-            'items' => Product::onlyTrashed()->latest()->paginate($this->paginate)
+            'items' => Product::onlyTrashed()->latest()->when($this->search, function ($q) {
+                $q->where('product_name', 'like', '%' . $this->search . '%');
+            })->paginate($this->paginate),
         ]);
     }
 }

@@ -59,6 +59,8 @@
 
         <!-- Right side -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+            <!-- Search form -->
+            <x-search-form placeholder="Nama Pelanggan/Nomor HP" />
             <div>
                 <select wire:model="paginate" id="" class="form-select">
                     <option value="10">10</option>
