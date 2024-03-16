@@ -46,14 +46,25 @@ const grafikPenjualan = () => {
                             barPercentage: 0.66,
                             categoryPercentage: 0.66,
                         },
-                        // Data profit
+                        // Data profit kotor
                         {
-                            label: "Profit",
-                            data: data.profit,
+                            label: "Profit Kotor",
+                            data: data.profitkotor,
                             backgroundColor:
                                 tailwindConfig().theme.colors.blue[400],
                             hoverBackgroundColor:
                                 tailwindConfig().theme.colors.blue[500],
+                            barPercentage: 0.66,
+                            categoryPercentage: 0.66,
+                        },
+                        // Data profit bersih
+                        {
+                            label: "Profit Bersih",
+                            data: data.profitbersih,
+                            backgroundColor:
+                                tailwindConfig().theme.colors.emerald[400],
+                            hoverBackgroundColor:
+                                tailwindConfig().theme.colors.emerald[500],
                             barPercentage: 0.66,
                             categoryPercentage: 0.66,
                         },
