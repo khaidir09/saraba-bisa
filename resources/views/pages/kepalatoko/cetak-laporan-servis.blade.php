@@ -102,6 +102,10 @@
 				<th class="text-right">Total Profit</th>
 				<th class="text-right">: Rp. {{ number_format($total_profit) }}</th>
 			</tr>
+			<tr>
+				<th>Total Item Servis</th>
+				<th>: {{ $total_servis }} Item</th>
+			</tr>
 		</tbody>
 	</table>
 
