@@ -29,6 +29,10 @@ export const formatValue = (value) =>
         notation: "compact",
     }).format(value);
 
+export const formatPercentage = (value) => {
+    return `${value}%`;
+};
+
 export const formatThousands = (value) =>
     Intl.NumberFormat("id-ID", {
         maximumSignificantDigits: 3,

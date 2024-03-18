@@ -15,6 +15,7 @@ use App\Http\Controllers\KepalaToko\DataTargetController;
 use App\Http\Controllers\KepalaToko\RecycleBinController;
 use App\Http\Controllers\KepalaToko\DataPenjualanController;
 use App\Http\Controllers\KepalaToko\DataPengeluaranController;
+use App\Http\Controllers\KepalaToko\DataTargetPersenController;
 use App\Http\Controllers\Sales\PosController as SalesPosController;
 use App\Http\Controllers\Sales\KasbonController as SalesKasbonController;
 use App\Http\Controllers\Sales\ProdukController as SalesProdukController;
@@ -61,8 +62,8 @@ use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabis
 use App\Http\Controllers\AdminToko\SubKategoriController as AdminTokoSubKategoriController;
 use App\Http\Controllers\KepalaToko\ProdukToolController as KepalaTokoProdukToolController;
 use App\Http\Controllers\Sales\ProdukAksesorisController as SalesProdukAksesorisController;
-use App\Http\Controllers\Sales\ProdukHandphoneController as SalesProdukHandphoneController;
 // Admin Toko
+use App\Http\Controllers\Sales\ProdukHandphoneController as SalesProdukHandphoneController;
 use App\Http\Controllers\Sales\ProdukSparepartController as SalesProdukSparepartController;
 use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProdukController;
 use App\Http\Controllers\AdminToko\SudahDiambilController as AdminTokoSudahDiambilController;
@@ -71,11 +72,11 @@ use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMer
 use App\Http\Controllers\KepalaToko\SubKategoriController as KepalaTokoSubKategoriController;
 use App\Http\Controllers\Sales\LaporanPenjualanController as SalesLaporanPenjualanController;
 use App\Http\Controllers\Teknisi\LaporanTeknisiController as TeknisiLaporanTeknisiController;
+
 use App\Http\Controllers\Teknisi\TindakanServisController as TeknisiTindakanServisController;
-
 use App\Http\Controllers\AdminToko\LaporanServisController as AdminTokoLaporanServisController;
-use App\Http\Controllers\KepalaToko\LaporanAdminController as KepalaTokoLaporanAdminController;
 
+use App\Http\Controllers\KepalaToko\LaporanAdminController as KepalaTokoLaporanAdminController;
 use App\Http\Controllers\KepalaToko\LaporanSalesController as KepalaTokoLaporanSalesController;
 use App\Http\Controllers\KepalaToko\ReturProductController as KepalaTokoReturProductController;
 use App\Http\Controllers\KepalaToko\SudahDiambilController as KepalaTokoSudahDiambilController;
@@ -101,16 +102,16 @@ use App\Http\Controllers\KepalaToko\TindakanServisController as KepalaTokoTindak
 use App\Http\Controllers\Sales\TransaksiProdukPaidController as SalesTransaksiProdukPaidController;
 use App\Http\Controllers\AdminToko\UbahSudahDiambilController as AdminTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\MasterKapasitasController as KepalaTokoMasterKapasitasController;
-use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
 // Teknisi
+use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
 use App\Http\Controllers\KepalaToko\ProdukAksesorisController as KepalaTokoProdukAksesorisController;
 use App\Http\Controllers\KepalaToko\ProdukHandphoneController as KepalaTokoProdukHandphoneController;
 use App\Http\Controllers\KepalaToko\ProdukSparepartController as KepalaTokoProdukSparepartController;
 use App\Http\Controllers\KepalaToko\PurchaseProductController as KepalaTokoPurchaseProductController;
 use App\Http\Controllers\KepalaToko\TransaksiProdukController as KepalaTokoTransaksiProdukController;
 use App\Http\Controllers\KepalaToko\TransaksiServisController as KepalaTokoTransaksiServisController;
-use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 // Sales
+use App\Http\Controllers\KepalaToko\UbahBisaDiambilController as KepalaTokoUbahBisaDiambilController;
 use App\Http\Controllers\AdminToko\MasterJenisBarangController as AdminTokoMasterJenisBarangController;
 use App\Http\Controllers\KepalaToko\ApprovePenjualanController as KepalaTokoApprovePenjualanController;
 use App\Http\Controllers\KepalaToko\LaporanPenjualanController as KepalaTokoLaporanPenjualanController;
@@ -208,6 +209,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/json-data-servis', [DataServisController::class, 'getDataServis'])->name('json_data_servis');
     Route::get('/json-data-penjualan', [DataPenjualanController::class, 'getDataPenjualan'])->name('json_data_penjualan');
     Route::get('/json-data-target', [DataTargetController::class, 'getDataTarget'])->name('json_data_target');
+    Route::get('/json-data-target-persen', [DataTargetPersenController::class, 'getDataTargetPersen'])->name('json_data_target-persen');
     Route::get('/json-data-pengeluaran', [DataPengeluaranController::class, 'getDataPengeluaran'])->name('pengeluaran');
     Route::get('/akun', [KepalaTokoAkunController::class, 'index'])->name('akun');
     Route::post('/akun', [KepalaTokoAkunController::class, 'store'])->name('akun-store');

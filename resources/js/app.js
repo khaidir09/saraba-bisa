@@ -19,6 +19,7 @@ import grafikServis from "./components/grafik-servis";
 import grafikPenjualan from "./components/grafik-penjualan";
 import grafikPengeluaran from "./components/grafik-pengeluaran";
 import grafikTarget from "./components/grafik-target";
+import grafikTargetPersen from "./components/grafik-target-persen";
 
 // Call Alpine
 window.Alpine = Alpine;
@@ -102,4 +103,5 @@ document.addEventListener("DOMContentLoaded", () => {
     grafikPenjualan();
     grafikPengeluaran();
     grafikTarget();
+    grafikTargetPersen();
 });

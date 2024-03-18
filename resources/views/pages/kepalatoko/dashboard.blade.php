@@ -261,6 +261,7 @@
             @if ($hasData)
                 {{-- Grafik Target --}}
                 <x-dashboard.grafik-target />
+                <x-dashboard.grafik-target-persen />
             @endif
         </div>
     </div>

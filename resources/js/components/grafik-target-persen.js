@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 
 // Import utilities
-import { tailwindConfig, formatValue } from "../utils";
+import { tailwindConfig, formatPercentage } from "../utils";
 
 Chart.register(
     BarController,
@@ -23,11 +23,11 @@ Chart.register(
 
 // A chart built with Chart.js 3
 // https://www.chartjs.org/
-const grafikTarget = () => {
-    const ctx = document.getElementById("grafik-target");
+const grafikTargetPersen = () => {
+    const ctx = document.getElementById("grafik-target-persen");
     if (!ctx) return;
 
-    fetch("/json-data-target")
+    fetch("/json-data-target-persen")
         .then((response) => response.json())
         .then((data) => {
             const chart = new Chart(ctx, {
@@ -36,19 +36,8 @@ const grafikTarget = () => {
                     labels: data.labels,
                     datasets: [
                         {
-                            label: "Target",
-                            data: data.target,
-                            backgroundColor:
-                                tailwindConfig().theme.colors.indigo[500],
-                            hoverBackgroundColor:
-                                tailwindConfig().theme.colors.indigo[600],
-                            barPercentage: 0.66,
-                            categoryPercentage: 0.66,
-                        },
-                        
-                        {
                             label: "Hasil",
-                            data: data.nilai,
+                            data: data.persen,
                             backgroundColor:
                                 tailwindConfig().theme.colors.emerald[400],
                             hoverBackgroundColor:
@@ -74,7 +63,8 @@ const grafikTarget = () => {
                             },
                             ticks: {
                                 maxTicksLimit: 5,
-                                callback: (value) => formatValue(value),
+                                callback: (value) =>
+                                    formatPercentage(value),
                             },
                         },
                         x: {
@@ -98,12 +88,12 @@ const grafikTarget = () => {
                         },
                         htmlLegend: {
                             // ID of the container to put the legend in
-                            containerID: "grafik-target-legend",
+                            containerID: "grafik-target-persen-legend",
                         },
                         tooltip: {
                             callbacks: {
                                 title: () => false, // Disable tooltip title
-                                label: (context) => formatValue(context.parsed.y),
+                                label: (context) => formatPercentage(context.parsed.y),
                             },
                         },
                     },
@@ -188,4 +178,4 @@ const grafikTarget = () => {
         });
 };
 
-export default grafikTarget;
+export default grafikTargetPersen;
