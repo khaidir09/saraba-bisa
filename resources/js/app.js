@@ -18,6 +18,7 @@ import dashboardCard03 from "./components/dashboard-card-03";
 import grafikServis from "./components/grafik-servis";
 import grafikPenjualan from "./components/grafik-penjualan";
 import grafikPengeluaran from "./components/grafik-pengeluaran";
+import grafikTarget from "./components/grafik-target";
 
 // Call Alpine
 window.Alpine = Alpine;
@@ -100,4 +101,5 @@ document.addEventListener("DOMContentLoaded", () => {
     grafikServis();
     grafikPenjualan();
     grafikPengeluaran();
+    grafikTarget();
 });

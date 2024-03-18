@@ -258,6 +258,10 @@
             <x-dashboard.grafik-penjualan />
             {{-- Grafik Pengeluaran --}}
             <x-dashboard.grafik-pengeluaran />
+            @if ($hasData)
+                {{-- Grafik Target --}}
+                <x-dashboard.grafik-target />
+            @endif
         </div>
     </div>
 </x-toko-layout>

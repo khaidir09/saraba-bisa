@@ -7,6 +7,7 @@ use App\Models\Debt;
 use App\Models\Type;
 use App\Models\Order;
 use App\Models\Budget;
+use App\Models\Target;
 use App\Models\Expense;
 use App\Models\Product;
 use App\Models\Category;
@@ -149,6 +150,9 @@ class DashboardController extends Controller
             ->sum('profit');
         $haritotalprofitkotor = $hariprofitkotorservis + $hariprofitkotorpenjualan;
 
+        $targets = Target::all();
+        $hasData = $targets->isNotEmpty();
+
         return view('pages/kepalatoko/dashboard', compact(
             'types',
             'categories',
@@ -169,7 +173,9 @@ class DashboardController extends Controller
             'bulanprofitbersihservis',
             'bulanprofitbersihpenjualan',
             'reminders',
-            'stokhabis'
+            'stokhabis',
+            'targets',
+            'hasData'
         ));
     }
 }
