@@ -125,7 +125,7 @@
 				<th>Modal Sparepart</th>
 				<th>Biaya Servis</th>
 				<th>Diskon</th>
-				<th>Profit</th>
+				<th>Profit Toko</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -155,7 +155,7 @@
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
-					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->profit) }}</td>
+					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->profittoko) }}</td>
 				</tr>
 			@endforeach
 		</tbody>

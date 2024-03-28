@@ -68,6 +68,13 @@ class LaporanServisController extends Controller
             ->orderBy('tgl_ambil', 'asc')
             ->get();
 
+        // Menghitung total item servis
+        $total_servis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        ->whereDate('tgl_ambil', '>=', $start_date)
+        ->whereDate('tgl_ambil', '<=', $end_date)
+        ->orderBy('tgl_ambil', 'asc')
+            ->get()->count();
+
         // Mengambil data brand terbanyak
         $topbrands =
             ServiceTransaction::where('status_servis', 'Sudah Diambil')
@@ -142,6 +149,7 @@ class LaporanServisController extends Controller
             'topbrands' => $topbrands,
             'topmodelseries' => $topmodelseries,
             'topactions' => $topactions,
+            'total_servis' => $total_servis
         ]);
 
         $filename = 'Laporan Transaksi Servis' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
