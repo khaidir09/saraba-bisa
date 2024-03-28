@@ -184,7 +184,11 @@
 					<tr>
 						<td style="width: 10px;">{{ $i++ }}</td>
 						<td class="text-center">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</td>
-						<td style="text-align: left;" class="capital">{{ $item->user->name }}</td>
+						@if ($item->user)
+							<td style="text-align: left;" class="capital">{{ $item->user->name }}</td>
+						@else
+							<td style="text-align: left;" class="capital">Akun sudah dihapus</td>
+						@endif
 						<td style="text-align: left;" class="capital">{{ $item->name }}</td>
 						<td style="text-align: right;">Rp. {{ number_format($item->price) }}</td>
 					</tr>

@@ -658,10 +658,10 @@
                                     <div class="font-medium">{{ $transaction->tindakan_servis }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    @if ($transaction->user != null)
+                                    @if ($transaction->user)
                                         <div class="font-medium">{{ $transaction->user->name }}</div>
                                     @else
-                                        <div></div>
+                                        <div class="font-medium text-red-600">Akun sudah dihapus</div>
                                     @endif
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

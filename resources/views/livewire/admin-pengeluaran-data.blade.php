@@ -189,9 +189,15 @@
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</div>
                                 </td>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->user->name }}</div>
-                                </td>
+                                @if ($item->user)
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                        <div class="font-medium">{{ $item->user->name }}</div>
+                                    </td>
+                                @else
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                        <div class="font-medium text-red-600">Akun sudah dihapus</div>
+                                    </td>
+                                @endif
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $item->name }}</div>
                                 </td>

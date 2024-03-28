@@ -136,7 +136,11 @@
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
 					<td class="text-center" style="width: 60px;">{{ $item->order->invoice_no }}</td>
-					<td style="text-align: left; width: 90px;" class="capital">{{ $item->user->name }}</td>
+					@if ($item->user)
+						<td style="text-align: left; width: 90px;" class="capital">{{ $item->user->name }}</td>
+					@else
+						<td style="text-align: left; width: 90px;" class="capital">Akun sudah dihapus</td>
+					@endif
 					<td style="text-align: left; width: 90px;" class="capital">{{ $item->order->nama_pelanggan }}</td>
 					<td style="text-align: left; width: 90px;">{{ $item->product_name }}</td>
 					<td style="text-align: center; width: 40px;">{{ $item->quantity }}</td>

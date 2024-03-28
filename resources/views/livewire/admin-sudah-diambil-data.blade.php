@@ -615,13 +615,15 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $transaction->tindakan_servis }}</div>
                             </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if ($transaction->user != null)
+                            @if ($transaction->user)
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $transaction->user->name }}</div>
-                                @else
-                                    <div></div>
-                                @endif
-                            </td>
+                                </td>
+                            @else
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-red-600">Akun sudah dihapus</div>
+                                </td>
+                            @endif
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">Rp. {{ number_format($transaction->modal_sparepart) }}</div>
                             </td>
