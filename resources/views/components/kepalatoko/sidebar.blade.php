@@ -391,7 +391,7 @@
             </div>
             <footer>
                 <div class="pl-3 text-xs text-slate-500 font-semibold">
-                    © 2023 Saraba Bisa
+                    © 2023-2024 Saraba Bisa
                 </div>
             </footer>
         </div>
