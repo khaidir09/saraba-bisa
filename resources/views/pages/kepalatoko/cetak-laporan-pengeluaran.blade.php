@@ -99,9 +99,17 @@
 					<td style="width: 10px;">{{ $i++ }}</td>
 					<td class="text-center">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</td>
 					@if ($item->user)
-						<td style="text-align: left;" class="capital">{{ $item->user->name }}</td>
+						<td style="text-align: left;" class="capital">
+							{{ $item->user->name }}
+						</td>
+					@elseif ($item->user()->withTrashed()->first())
+						<td style="text-align: left;" class="capital">
+							{{ $item->user()->withTrashed()->first()->name }}
+						</td>
 					@else
-						<td style="text-align: left;" class="capital">Akun sudah dihapus</td>
+						<td style="text-align: center;" class="capital">
+							-
+						</td>
 					@endif
 					<td style="text-align: left;" class="capital">{{ $item->name }}</td>
 					<td style="text-align: right;">Rp. {{ number_format($item->price) }}</td>

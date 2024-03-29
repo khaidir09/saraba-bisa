@@ -134,13 +134,19 @@
 							-
 						@endif
 					</td>
-					<td style="text-align: left; width: 90px;" class="capital">
-						@if ($item->users_id != null)
+					@if ($item->user)
+						<td style="text-align: left; width: 90px;" class="capital">
 							{{ $item->user->name }}
-						@else
+						</td>
+					@elseif ($item->user()->withTrashed()->first())
+						<td style="text-align: left; width: 90px;" class="capital">
+							{{ $item->user()->withTrashed()->first()->name }}
+						</td>
+					@else
+						<td style="text-align: center; width: 90px;" class="capital">
 							-
-						@endif
-					</td>
+						</td>
+					@endif
 					<td style="text-align: left; width: 80px;">{{ $item->kondisi_servis }}</td>
 					<td style="text-align: left; width: 80px;">Rp. {{ number_format($item->modal_sparepart) }}</td>
 					<td style="text-align: left; width: 80px;">Rp. {{ number_format($item->biaya) }}</td>

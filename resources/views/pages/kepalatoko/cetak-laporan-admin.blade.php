@@ -140,6 +140,10 @@
 						<td style="text-align: left; width: 70px;">
 							{{ $item->user->name }}
 						</td>
+					@elseif ($item->user()->withTrashed()->first())
+						<td style="text-align: left; width: 70px;">
+							{{ $item->user()->withTrashed()->first()->name }}
+						</td>
 					@else
 						<td style="text-align: center; width: 70px;">
 							-
