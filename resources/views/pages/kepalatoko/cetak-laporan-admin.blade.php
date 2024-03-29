@@ -136,13 +136,15 @@
 			@foreach ($services as $item)
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
-					<td style="text-align: left; width: 70px;">
-						@if ($item->users_id != null)
+					@if ($item->user)
+						<td style="text-align: left; width: 70px;">
 							{{ $item->user->name }}
-						@else
+						</td>
+					@else
+						<td style="text-align: center; width: 70px;">
 							-
-						@endif
-					</td>
+						</td>
+					@endif
 					<td style="text-align: left; width: 90px;" class="capital">{{ $item->nama_pelanggan }}</td>
 					<td style="text-align: left; width: 80px;">{{ $item->modelserie->name }}</td>
 					<td class="capital" style="text-align: left;">
@@ -188,7 +190,11 @@
 			@foreach ($orders as $item)
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
-					<td style="text-align: left; width: 90px;" class="capital">{{ $item->user->name }}</td>
+					@if ($item->user)
+						<td style="text-align: left; width: 90px;" class="capital">{{ $item->user->name }}</td>
+					@else
+						<td style="text-align: center; width: 90px;" class="capital">-</td>
+					@endif
 					<td style="text-align: left; width: 90px;" class="capital">{{ $item->order->nama_pelanggan }}</td>
 					<td style="text-align: left; width: 80px;">{{ $item->product_name }}</td>
 					<td style="text-align: center; width: 80px;">{{ $item->quantity }}</td>

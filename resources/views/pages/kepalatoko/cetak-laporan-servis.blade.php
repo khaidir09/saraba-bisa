@@ -145,13 +145,15 @@
 							{{ $item->tindakan_servis }}
 						@endif
 					</td>
-					<td style="text-align: left; width: 70px;">
-						@if ($item->users_id != null)
+					@if ($item->user)
+						<td style="text-align: left; width: 70px;">
 							{{ $item->user->name }}
-						@else
+						</td>
+					@else
+						<td style="text-align: center; width: 70px;">
 							-
-						@endif
-					</td>
+						</td>
+					@endif
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
