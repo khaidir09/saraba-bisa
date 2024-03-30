@@ -19,14 +19,13 @@ class BisaDiambilData extends Component
 
     public $paginate = 10;
     public $search;
-    public $type = [
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6'
-    ];
+    public $type;
+
+    public function mount()
+    {
+        $this->type = Type::pluck('id')->toArray();
+    }
+
     public $kondisi = [
         'Sudah jadi',
         'Tidak bisa',
