@@ -10,6 +10,7 @@ use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\DashboardController;
 // Kepala Toko
 use App\Http\Controllers\AutoBiayaServisController;
+use App\Http\Controllers\AutoModalSparepartController;
 use App\Http\Controllers\KepalaToko\DataServisController;
 use App\Http\Controllers\KepalaToko\DataTargetController;
 use App\Http\Controllers\KepalaToko\RecycleBinController;
@@ -151,6 +152,7 @@ Route::get('/tracking-data', [TrackingController::class, 'data'])->name('trackin
 Route::get('/garansi', [GaransiController::class, 'index'])->name('garansi');
 Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-data');
 Route::get('/get-action/{service_actions_id}', [AutoBiayaServisController::class, 'getAction']);
+Route::get('/get-sparepart/{products_id}', [AutoModalSparepartController::class, 'getSparepart']);
 
 // Default All Route 
 Route::controller(DefaultController::class)->group(function () {
