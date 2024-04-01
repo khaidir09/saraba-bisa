@@ -10,6 +10,8 @@ class Target extends Model
     protected $fillable = [
         'target',
         'persen',
-        'nilai'
+        'nilai',
+        'created_at',
+        'updated_at',
     ];
 }

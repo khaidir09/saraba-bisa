@@ -49,6 +49,8 @@ use App\Http\Controllers\KepalaToko\InsidenController as KepalaTokoInsidenContro
 use App\Http\Controllers\AdminToko\DashboardController as AdminTokoDashboardController;
 use App\Http\Controllers\AdminToko\PelangganController as AdminTokoPelangganController;
 use App\Http\Controllers\KepalaToko\AnggaranController as KepalaTokoAnggaranController;
+use App\Http\Controllers\KepalaToko\TargetController as KepalaTokoTargetController;
+use App\Http\Controllers\KepalaToko\TargetBulanSebelumnyaController as KepalaTokoTargetBulanSebelumnyaController;
 use App\Http\Controllers\KepalaToko\KaryawanController as KepalaTokoKaryawanController;
 use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriController;
 use App\Http\Controllers\KepalaToko\SupplierController as KepalaTokoSupplierController;
@@ -131,7 +133,6 @@ use App\Http\Controllers\KepalaToko\UbahStatusProsesServisController as KepalaTo
 use App\Http\Controllers\KepalaToko\TransaksiServisLangsungController as KepalaTokoTransaksiServisLangsungController;
 use App\Http\Controllers\KepalaToko\ServisBelumDisetujuiApproveController as KepalaTokoServisBelumDisetujuiApproveController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -203,6 +204,7 @@ Route::delete('/capacities/delete', [KepalaTokoMasterKapasitasController::class,
 Route::delete('/incidents/delete', [KepalaTokoInsidenController::class, 'deleteSelected']);
 Route::delete('/debts/delete', [KepalaTokoKasbonController::class, 'deleteSelected']);
 Route::delete('/expenses/delete', [KepalaTokoExpenseController::class, 'deleteSelected']);
+Route::delete('/target/delete', [KepalaTokoTargetController::class, 'deleteSelected']);
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
@@ -237,7 +239,9 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('master/master-kapasitas', KepalaTokoMasterKapasitasController::class);
     Route::resource('master/master-model-seri', KepalaTokoMasterModelSeriController::class);
     Route::resource('anggaran', KepalaTokoAnggaranController::class);
+    Route::resource('target', KepalaTokoTargetController::class);
     Route::delete('/budgets/delete', [KepalaTokoAnggaranController::class, 'deleteSelected']);
+    Route::post('/target/bulan-sebelumnya', [KepalaTokoTargetBulanSebelumnyaController::class, 'store'])->name('target-bulan-sebelumnya');
     Route::resource('insiden', KepalaTokoInsidenController::class);
     Route::resource('kasbon', KepalaTokoKasbonController::class);
     Route::patch('/debts/update', [KepalaTokoKasbonController::class, 'approveSelected']);

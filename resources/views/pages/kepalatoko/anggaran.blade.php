@@ -16,6 +16,10 @@
             <!-- Right: Actions -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
+                <a href="{{ route('target.index') }}" class="btn bg-white border-blue-200 hover:border-blue-300 text-blue-600">
+                    Hasil Target Bulanan
+                </a>
+
                 <!-- Create invoice button -->
                 <div x-data="{ modalOpen: false }">
                     <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="modalOpen = true" aria-controls="tambah-modal">
@@ -56,7 +60,7 @@
                             <!-- Modal header -->
                             <div class="px-5 py-3 border-b border-slate-200">
                                 <div class="flex justify-between items-center">
-                                    <div class="font-semibold text-slate-800">Tambah Jenis Barang</div>
+                                    <div class="font-semibold text-slate-800">Tambah Anggaran</div>
                                     <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
                                         <div class="sr-only">Close</div>
                                         <svg class="w-4 h-4 fill-current">
@@ -90,7 +94,7 @@
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="px-5 py-4 border-t border-slate-200">
-                                    <div class="flex flex-wrap justify-between space-x-2">
+                                    <div class="flex flex-wrap justify-end space-x-2">
                                         <div>
                                             <a href="{{ route('anggaran.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                                 Batal
