@@ -11,6 +11,7 @@ use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Exports\HandphoneExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\KepalaToko\ProductRequest;
 use App\Imports\HandphoneImport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -60,7 +61,7 @@ class ProdukHandphoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $namakategori = Category::find($request->categories_id);
 
