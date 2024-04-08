@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\KepalaToko;
+namespace App\Http\Requests\AdminToko;
 
 use Illuminate\Foundation\Http\FormRequest;
 

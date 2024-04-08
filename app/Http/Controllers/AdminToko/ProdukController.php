@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Exports\ProdukExport;
 use App\Imports\ProdukImport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminToko\ProductRequest as AdminTokoProductRequest;
 use App\Http\Requests\KepalaToko\ProductRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -40,7 +41,7 @@ class ProdukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(AdminTokoProductRequest $request)
     {
         $namakategori = SubCategory::find($request->sub_categories_id);
 
