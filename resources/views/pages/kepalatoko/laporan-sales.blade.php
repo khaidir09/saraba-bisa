@@ -16,6 +16,10 @@
             <!-- Right: Actions -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
+                <a href="{{ route('target-sales.index') }}" class="btn bg-white border-blue-200 hover:border-blue-300 text-blue-600">
+                    Target Sales
+                </a>
+
                 <!-- Print button -->
                 <div class="relative inline-flex" x-data="{ modalOpen: false }">
                     <button

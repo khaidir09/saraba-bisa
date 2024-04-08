@@ -25,7 +25,7 @@
                             <div class="font-medium">{{ $item->name }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-medium">{{ $item->sale->count() }}</div>
+                            <div class="font-medium">{{ $item->sale->sum('quantity') }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium">

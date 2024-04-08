@@ -8,6 +8,7 @@ use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\SalesTarget;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -22,6 +23,18 @@ class DashboardController extends Controller
     {
         $currentYear = now()->year;
         $currentMonth = now()->month;
+
+        $target = SalesTarget::where('users_id', Auth::user()->id)->whereYear('created_at', $currentYear)
+            ->whereMonth('created_at', $currentMonth)->sum('item');
+
+        $result = OrderDetail::where('users_id', Auth::user()->id)
+            ->whereHas('order', function ($query) use ($currentMonth) {
+                $query->where('is_approve', 'Setuju')
+                    ->whereYear('tgl_disetujui', now()->year)
+                    ->whereMonth('tgl_disetujui', $currentMonth);
+            })
+            ->get()
+            ->sum('quantity');
 
         $totalbudgets = Budget::all()->sum('total');
         $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
@@ -65,7 +78,9 @@ class DashboardController extends Controller
             'totalbonus',
             'totalbiayaservis',
             'totalbudgets',
-            'totalprofit'
+            'totalprofit',
+            'target',
+            'result'
         ));
     }
 }

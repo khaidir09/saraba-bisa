@@ -51,6 +51,7 @@ use App\Http\Controllers\AdminToko\DashboardController as AdminTokoDashboardCont
 use App\Http\Controllers\AdminToko\PelangganController as AdminTokoPelangganController;
 use App\Http\Controllers\KepalaToko\AnggaranController as KepalaTokoAnggaranController;
 use App\Http\Controllers\KepalaToko\TargetController as KepalaTokoTargetController;
+use App\Http\Controllers\KepalaToko\TargetSalesController as KepalaTokoTargetSalesController;
 use App\Http\Controllers\KepalaToko\TargetBulanSebelumnyaController as KepalaTokoTargetBulanSebelumnyaController;
 use App\Http\Controllers\KepalaToko\KaryawanController as KepalaTokoKaryawanController;
 use App\Http\Controllers\KepalaToko\KategoriController as KepalaTokoKategoriController;
@@ -207,6 +208,7 @@ Route::delete('/incidents/delete', [KepalaTokoInsidenController::class, 'deleteS
 Route::delete('/debts/delete', [KepalaTokoKasbonController::class, 'deleteSelected']);
 Route::delete('/expenses/delete', [KepalaTokoExpenseController::class, 'deleteSelected']);
 Route::delete('/target/delete', [KepalaTokoTargetController::class, 'deleteSelected']);
+Route::delete('/target-sales/delete', [KepalaTokoTargetSalesController::class, 'deleteSelected']);
 
 Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::get('/dashboard', [KepalaTokoDashboardController::class, 'index'])->name('kepalatoko-dashboard');
@@ -242,6 +244,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::resource('master/master-model-seri', KepalaTokoMasterModelSeriController::class);
     Route::resource('anggaran', KepalaTokoAnggaranController::class);
     Route::resource('target', KepalaTokoTargetController::class);
+    Route::resource('target-sales', KepalaTokoTargetSalesController::class);
     Route::delete('/budgets/delete', [KepalaTokoAnggaranController::class, 'deleteSelected']);
     Route::post('/target/bulan-sebelumnya', [KepalaTokoTargetBulanSebelumnyaController::class, 'store'])->name('target-bulan-sebelumnya');
     Route::resource('insiden', KepalaTokoInsidenController::class);

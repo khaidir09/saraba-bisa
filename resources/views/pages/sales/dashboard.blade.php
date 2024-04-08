@@ -19,7 +19,7 @@
                     <!-- Circle -->
                     @php
                         $circumference = 30 * 2 * pi();
-                        $percent = round(($totalprofit / $totalbudgets) * 100);
+                        $percent = round(($result / $target) * 100);
                     @endphp
                     <div class="inline-flex items-center justify-center overflow-hidden rounded-full">
                         <svg class="w-20 h-20">
@@ -47,6 +47,12 @@
                         </svg>
                         <span class="absolute text-xl text-blue-700">{{ $percent }}%</span>
                     </div>
+                    <div class="text-xl font-bold text-slate-800 text-center">{{ $result }} item / {{ $target }} item</div>
+                    @if ($result < $target)
+                        <p class="text-center mt-2 text-sm font-semibold text-blue-700">Tingkatkan penjualan hingga <span class="text-red-600">{{ $target - $result }}</span> item lagi!</p>
+                    @else
+                        <p class="text-center mt-2 text-sm font-semibold text-blue-700">Selamat kamu sudah <span class="text-green-600">BERHASIL</span> mencapai target! Item penjualanmu sekarang lebih {{ $result - $target }} dari target 👏🏻</p>
+                    @endif
                 </div>
             </div>
 
