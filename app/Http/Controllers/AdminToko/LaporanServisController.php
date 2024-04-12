@@ -70,9 +70,9 @@ class LaporanServisController extends Controller
 
         // Menghitung total item servis
         $total_servis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
-        ->whereDate('tgl_ambil', '>=', $start_date)
-        ->whereDate('tgl_ambil', '<=', $end_date)
-        ->orderBy('tgl_ambil', 'asc')
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
+            ->orderBy('tgl_ambil', 'asc')
             ->get()->count();
 
         // Mengambil data brand terbanyak
@@ -134,7 +134,7 @@ class LaporanServisController extends Controller
         $total_profit = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
-            ->sum('profittoko');
+            ->sum('profit');
 
         $pdf = PDF::loadView('pages.admintoko.cetak-laporan-servis', [
             'users' => $users,
