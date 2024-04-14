@@ -250,7 +250,7 @@
                                                             <!-- Modal footer -->
                                                             <div class="flex flex-wrap justify-end space-x-2">
                                                                 <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                                <form action="{{ route('target.destroy', $item->id) }}" method="post">
+                                                                <form action="{{ route('target-sales.destroy', $item->id) }}" method="post">
                                                                     @method('delete')
                                                                     @csrf
                                                                     <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
