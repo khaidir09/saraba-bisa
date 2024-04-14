@@ -36,31 +36,6 @@ class DashboardController extends Controller
             ->get()
             ->sum('quantity');
 
-        $totalbudgets = Budget::all()->sum('total');
-        $totalbiayaservis = ServiceTransaction::where('is_approve', 'Setuju')
-            ->whereYear('tgl_disetujui', $currentYear)
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->get()
-            ->sum('profittoko');
-
-        $rumustotalpenjualan = Order::whereHas('detailOrders', function ($query) {
-            $query->where('is_approve', 'Setuju')
-                ->whereYear('tgl_disetujui', now()->year)
-                ->whereMonth('tgl_disetujui', now()->month);
-        })
-            ->with(['detailOrders' => function ($query) {
-                $query->select('orders_id', DB::raw('SUM(profit_toko) as total_profit'))
-                    ->groupBy('orders_id');
-            }])
-            ->select('id')
-            ->get();
-
-        $totalpenjualan = $rumustotalpenjualan->sum(function ($order) {
-            return $order->detailOrders->sum('total_profit');
-        });
-
-        $totalprofit = $totalbiayaservis + $totalpenjualan;
-
         $profitpenjualan = OrderDetail::where('users_id', Auth::user()->id)
             ->whereHas('order', function ($query) use ($currentMonth) {
                 $query->where('is_approve', 'Setuju')
@@ -82,9 +57,6 @@ class DashboardController extends Controller
 
         return view('pages/sales/dashboard', compact(
             'totalbonus',
-            'totalbiayaservis',
-            'totalbudgets',
-            'totalprofit',
             'target',
             'result',
             'reward'
