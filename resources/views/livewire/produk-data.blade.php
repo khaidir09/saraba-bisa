@@ -145,7 +145,7 @@
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
-                                            <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text"/>
+                                            <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" required/>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium mb-1" for="product_code">Kode Produk</label>
