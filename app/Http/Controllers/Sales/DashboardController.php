@@ -74,13 +74,20 @@ class DashboardController extends Controller
 
         $totalbonus = $bonuspenjualan;
 
+        if ($target != 0) {
+            $reward = $totalbonus * (($result / $target) * 100) / 100;
+        } else {
+            $reward = 0; // Atau nilai default lainnya
+        }
+
         return view('pages/sales/dashboard', compact(
             'totalbonus',
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
             'target',
-            'result'
+            'result',
+            'reward'
         ));
     }
 }
