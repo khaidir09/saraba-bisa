@@ -8,6 +8,7 @@ use App\Models\Budget;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\TeknisiTarget;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -22,6 +23,16 @@ class DashboardController extends Controller
     {
         $currentYear = now()->year;
         $currentMonth = now()->month;
+
+        $target = TeknisiTarget::where('users_id', Auth::user()->id)->whereYear('created_at', $currentYear)
+            ->whereMonth('created_at', $currentMonth)->sum('item');
+
+        $result = ServiceTransaction::where('users_id', Auth::user()->id)
+            ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
+            ->whereMonth('tgl_disetujui', $currentMonth)
+            ->get()
+            ->count();
 
         $profitservis = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
@@ -68,13 +79,22 @@ class DashboardController extends Controller
             return $transaction->created_at->addDays($reminderThreshold)->isPast();
         })->count();
 
+        if ($target != 0) {
+            $reward = $totalbonus * (($result / $target) * 100) / 100;
+        } else {
+            $reward = 0; // Atau nilai default lainnya
+        }
+
         return view('pages/teknisi/dashboard', compact(
             'totalbiayaservis',
             'totalbudgets',
             'totalprofit',
             'totalpenjualan',
             'totalbonus',
-            'reminders'
+            'reminders',
+            'target',
+            'result',
+            'reward'
         ));
     }
 }
