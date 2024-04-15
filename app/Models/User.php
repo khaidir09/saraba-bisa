@@ -200,4 +200,22 @@ class User extends Authenticatable
                     ->whereMonth('tgl_disetujui', $lastMonth);
             });
     }
+
+    public function targetServis()
+    {
+        $currentMonth = now()->month;
+
+        return $this->hasMany(TeknisiTarget::class, 'users_id', 'id')
+            ->whereYear('created_at', now()->year)
+            ->whereMonth('created_at', $currentMonth);
+    }
+
+    public function targetSale()
+    {
+        $currentMonth = now()->month;
+
+        return $this->hasMany(SalesTarget::class, 'users_id', 'id')
+            ->whereYear('created_at', now()->year)
+            ->whereMonth('created_at', $currentMonth);
+    }
 }
