@@ -7,6 +7,8 @@ use App\Models\Salary;
 use App\Models\Worker;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SalesTarget;
+use App\Models\TeknisiTarget;
 
 class GajiController extends Controller
 {
@@ -46,18 +48,73 @@ class GajiController extends Controller
     public function store(Request $request)
     {
         $user = User::find($request->users_id);
-        if ($user->role === 'Teknisi') {
-            $hasil = $user->servicetransaction->sum('profit') / 100;
-            $hasil *= $user->persen;
-            $bonus = $hasil;
-        } elseif ($user->role === 'Sales') {
-            $bonus = $user->sale->sum('profit') / 100;
-            $bonus *= $user->persen;
+
+        // Servis
+
+        $targetItemServis = TeknisiTarget::where('users_id', $user->id)
+            ->whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)->sum('item');
+
+        $resultItemServis = $user->servicetransaction->count();
+
+        $profitServis = $user->servicetransaction->sum('profit') / 100;
+        $bagiHasilServis = $profitServis * $user->persen;
+
+        if ($targetItemServis != 0) {
+            $rewardSebagianServis = $bagiHasilServis * (($resultItemServis / $targetItemServis) * 100) / 100;
+        }
+
+        $rewardPenuhServis = $bagiHasilServis;
+
+        // Penjualan
+
+        $targetItemSale = SalesTarget::where('users_id', $user->id)
+            ->whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)->sum('item');
+
+        $resultItemSale = $user->sale->sum('quantity');
+
+        $profitSale = $user->sale->sum('profit') / 100;
+
+        $bagiHasilSale = $profitSale * $user->persen;
+
+        if ($targetItemSale != 0) {
+            $rewardSebagianSale = $bagiHasilSale * (($resultItemSale / $targetItemSale) * 100) / 100;
+        }
+
+        $rewardPenuhSale = $bagiHasilSale;
+
+
+        if ($targetItemServis != 0 || $targetItemSale != 0) {
+            if ($user->role === 'Teknisi') {
+                if ($resultItemServis < $targetItemServis) {
+                    $bonus = $rewardSebagianServis;
+                } else {
+                    $bonus = $rewardPenuhServis;
+                }
+            } elseif ($user->role === 'Sales') {
+                if ($resultItemSale < $targetItemSale) {
+                    $bonus = $rewardSebagianSale;
+                } else {
+                    $bonus = $rewardPenuhSale;
+                }
+            } else {
+                $bonusadminservis = $user->adminservice->sum('profit') / 100;
+                $bonusadminsale = $user->adminsale->sum('profit') / 100;
+                $bonus = $bonusadminservis + $bonusadminsale;
+                $bonus *= $user->persen;
+            }
         } else {
-            $bonusadminservis = $user->adminservice->sum('profit') / 100;
-            $bonusadminsale = $user->adminsale->sum('profit') / 100;
-            $bonus = $bonusadminservis + $bonusadminsale;
-            $bonus *= $user->persen;
+            if ($user->role === 'Teknisi') {
+                $bonus = $rewardPenuhServis;
+            } elseif ($user->role === 'Sales') {
+                $bonus = $rewardPenuhSale;
+            } else {
+                $bonusadminservis = $user->adminservice->sum('profit') / 100;
+                $bonusadminsale = $user->adminsale->sum('profit') / 100;
+                $bonus = $bonusadminservis + $bonusadminsale;
+                $bonus *= $user->persen;
+            }
         }
 
         Salary::create([

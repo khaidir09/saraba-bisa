@@ -31,6 +31,7 @@ class Worker extends Model
     {
         $currentMonth = now()->month;
         return $this->hasMany(Salary::class, 'workers_id')
+            ->whereYear('created_at', now()->year)
             ->whereMonth('created_at', $currentMonth);
     }
 
@@ -39,6 +40,7 @@ class Worker extends Model
         $currentMonth = now()->month;
         return $this->hasMany(Debt::class, 'workers_id')
             ->where('is_approve', 'Setuju')
+            ->whereYear('created_at', now()->year)
             ->whereMonth('tgl_disetujui', $currentMonth);
     }
 
@@ -46,6 +48,7 @@ class Worker extends Model
     {
         $currentMonth = now()->month;
         return $this->hasMany(Incident::class, 'workers_id')
+            ->whereYear('created_at', now()->year)
             ->whereMonth('created_at', $currentMonth);
     }
 
