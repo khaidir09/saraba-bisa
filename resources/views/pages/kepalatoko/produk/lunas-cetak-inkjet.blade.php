@@ -173,10 +173,10 @@
           {{ ++$i }}
         </td>
         <td align="center" style="text-transform: uppercase;">
-        @if ($item->product->nomor_seri != null)
-          {{ $item->product->product_name }} ({{ $item->product->nomor_seri }})
+        @if ($item->product->categories_id == 1)
+          {{ $item->product->product_name }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} {{ $item->product->keterangan }} (IMEI {{ $item->product->nomor_seri }})
         @else
-          {{ $item->product->product_name }}
+          {{ $item->product->product_name }} {{ $item->product->keterangan }}
         @endif
         </td>
         @if ($item->garansi != null && $item->garansi_imei != null)

@@ -71,7 +71,7 @@
           </tr>
           <tr>
           <td class="title">Tgl Transaksi</td>
-          <td class="value">: {{ $order->order_date }}</td>
+          <td class="value">: {{ \Carbon\Carbon::parse($order->created_at)->locale('id')->translatedFormat('d F Y') }}</td>
           </tr>
           <tr>
           <td class="title">Pelanggan</td>
