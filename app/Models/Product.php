@@ -13,6 +13,7 @@ class Product extends Model
         'product_code',
         'sub_categories_id',
         'category_name',
+        'warna',
         'stok',
         'stok_minimal',
         'harga_modal',

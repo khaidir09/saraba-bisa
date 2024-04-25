@@ -144,6 +144,15 @@
                                             </select>
                                         </div>
                                         <div>
+                                            <label class="block text-sm font-medium mb-1" for="warna">Warna <span class="text-rose-500">*</span></label>
+                                            <select id="warna" name="warna" class="form-select text-sm py-1 w-full" required>
+                                                <option selected value="">Pilih Warna</option>
+                                                @foreach ($colors as $item)
+                                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
                                             <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
                                             <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" required/>
                                         </div>
@@ -772,6 +781,9 @@
                                 <div class="font-semibold text-left">Kode Produk</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-semibold text-left">Keterangan</div>
+                            </th>
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Stok</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -811,7 +823,13 @@
                                     <div class="font-medium">{{ $i++ }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->product_name }} {{ $item->nomor_seri }}</div>
+                                    <div class="font-medium">
+                                        @if ($item->categories_id == 1)
+                                            {{ $item->product_name }} {{ $item->warna }} {{ $item->ram }}/{{ $item->capacity->name }} (IMEI {{ $item->nomor_seri }})
+                                        @else
+                                            {{ $item->product_name }} {{ $item->nomor_seri }}
+                                        @endif
+                                    </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $item->category_name }}</div>
@@ -824,6 +842,9 @@
                                             -
                                         @endif
                                     </div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-medium">{{ $item->keterangan }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $item->stok }}</div>

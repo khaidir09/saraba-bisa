@@ -118,13 +118,6 @@ class MasterWarnaController extends Controller
     {
         $item = Color::findOrFail($id);
 
-        if (
-            $item->product()->exists()
-        ) {
-            toast('Data Warna yang memiliki riwayat transaksi tidak bisa dihapus.', 'error');
-            return redirect()->back();
-        }
-
         $item->delete();
 
         toast('Data Warna berhasil dihapus.', 'success');

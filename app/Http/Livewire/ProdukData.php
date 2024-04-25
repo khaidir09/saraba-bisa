@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Capacity;
@@ -40,12 +41,14 @@ class ProdukData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $colors = Color::all();
         $products_count = Product::all()->count();
         $toko = StoreSetting::find(1);
         return view('livewire.produk-data', [
             'brands' => $brands,
             'capacities' => $capacities,
             'model_series' => $model_series,
+            'colors' => $colors,
             'toko' => $toko,
             'categories' => $categories,
             'spareparts' => $spareparts,

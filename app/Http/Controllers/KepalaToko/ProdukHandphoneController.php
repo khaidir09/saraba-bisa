@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\KepalaToko\HandphoneRequest;
 use App\Http\Requests\KepalaToko\ProductRequest;
 use App\Imports\HandphoneImport;
+use App\Models\Color;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukHandphoneController extends Controller
@@ -77,6 +78,7 @@ class ProdukHandphoneController extends Controller
             'product_code' => $request->product_code,
             'categories_id' => $request->categories_id,
             'category_name' => $namakategori->category_name,
+            'warna' => $request->warna,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
             'capacities_id' => $request->capacities_id,
@@ -132,6 +134,7 @@ class ProdukHandphoneController extends Controller
         $brands = Brand::all();
         $model_series = ModelSerie::all();
         $capacities = Capacity::all();
+        $colors = Color::all();
         $toko = StoreSetting::find(1);
 
         return view('pages.kepalatoko.produk.handphone-edit', [
@@ -139,6 +142,7 @@ class ProdukHandphoneController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
+            'colors' => $colors,
             'toko' => $toko
         ]);
     }
@@ -165,6 +169,7 @@ class ProdukHandphoneController extends Controller
             'product_name' => $productName,
             'ram' => $request->ram,
             'capacities_id' => $request->capacities_id,
+            'warna' => $request->warna,
             'product_code' => $request->product_code,
             'categories_id' => $request->categories_id,
             'category_name' => $namakategori->category_name,

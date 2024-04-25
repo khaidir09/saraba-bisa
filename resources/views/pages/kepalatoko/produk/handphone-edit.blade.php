@@ -80,7 +80,7 @@
                         <div class="px-5 py-4">
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="brands_id">Merek <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="brands_id">Merek</label>
                                     <select id="brands_id" name="brands_id" class="form-select text-sm py-1 w-full selectjs1" style="width: 100%">
                                         <option selected value="{{ $item->brand->id }}">{{ $item->brand->name }}</option>
                                         @foreach ($brands as $brand)
@@ -89,7 +89,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium mb-1" for="model_series_id">Model Seri</label>
                                     <select id="model_series_id" name="model_series_id" class="form-select text-sm py-1 w-full selectjs2" style="width: 100%">
                                         <option selected value="{{ $item->model->id }}">{{ $item->model->name }}</option>
                                         @foreach ($model_series as $model)
@@ -98,8 +98,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="ram">RAM <span class="text-rose-500">*</span></label>
-                                    <select id="ram" name="ram" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="ram">RAM</label>
+                                    <select id="ram" name="ram" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->ram }}">{{ $item->ram }}</option>
                                         <option value="2 GB">2 GB</option>
                                         <option value="3 GB">3 GB</option>
@@ -110,11 +110,20 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="capacities_id">Memori <span class="text-rose-500">*</span></label>
-                                    <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full" required>
+                                    <label class="block text-sm font-medium mb-1" for="capacities_id">Memori</label>
+                                    <select id="capacities_id" name="capacities_id" class="form-select text-sm py-1 w-full">
                                         <option selected value="{{ $item->capacity->id }}">{{ $item->capacity->name }}</option>
                                         @foreach ($capacities as $capacity)
                                             <option value="{{ $capacity->id }}">{{ $capacity->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="warna">Warna</label>
+                                    <select id="warna" name="warna" class="form-select text-sm py-1 w-full">
+                                        <option selected value="{{ $item->warna }}">{{ $item->warna }}</option>
+                                        @foreach ($colors as $color)
+                                            <option value="{{ $color->name }}">{{ $color->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

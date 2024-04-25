@@ -38,6 +38,7 @@ class HandphoneRequest extends FormRequest
                 'exists:model_series,id',
             ],
             'category_name' => 'max:100',
+            'warna' => 'max:100',
             'ram' => 'max:100',
             'capacities_id' => [
                 'exists:capacities,id',
