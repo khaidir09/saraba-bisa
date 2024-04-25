@@ -67,6 +67,7 @@ use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabis
 use App\Http\Controllers\AdminToko\SubKategoriController as AdminTokoSubKategoriController;
 use App\Http\Controllers\KepalaToko\ProdukToolController as KepalaTokoProdukToolController;
 use App\Http\Controllers\Sales\ProdukAksesorisController as SalesProdukAksesorisController;
+use App\Http\Controllers\KepalaToko\MasterWarnaController as KepalaTokoMasterWarnaController;
 // Admin Toko
 use App\Http\Controllers\Sales\ProdukHandphoneController as SalesProdukHandphoneController;
 use App\Http\Controllers\Sales\ProdukSparepartController as SalesProdukSparepartController;
@@ -241,6 +242,7 @@ Route::middleware('ensureUserRole:KepalaToko')->group(function () {
     Route::post('servis/log-servis-destroy/{model}', [KepalaTokoLogServisController::class, 'destroy'])->name('log-servis-destroy');
 
     Route::resource('master/master-jenis-barang', KepalaTokoMasterJenisBarangController::class);
+    Route::resource('master/master-warna', KepalaTokoMasterWarnaController::class);
     Route::resource('master/master-merek', KepalaTokoMasterMerekController::class);
     Route::resource('master/master-kapasitas', KepalaTokoMasterKapasitasController::class);
     Route::resource('master/master-model-seri', KepalaTokoMasterModelSeriController::class);
