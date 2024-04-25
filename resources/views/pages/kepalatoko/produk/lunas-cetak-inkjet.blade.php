@@ -152,6 +152,7 @@
       <tr class="font">
         <th>No.</th>
         <th>Nama Produk</th>
+        <th>Keterangan</th>
         <th>Garansi</th>
         <th>Harga</th>
         <th>Quantity</th>
@@ -174,10 +175,17 @@
         </td>
         <td align="center" style="text-transform: uppercase;">
         @if ($item->product->categories_id == 1)
-          {{ $item->product->product_name }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} {{ $item->product->keterangan }} (IMEI {{ $item->product->nomor_seri }})
+          {{ $item->product->product_name }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} (IMEI {{ $item->product->nomor_seri }})
         @else
-          {{ $item->product->product_name }} {{ $item->product->keterangan }}
+          {{ $item->product->product_name }}
         @endif
+        </td>
+        <td align="center" style="text-transform: uppercase;">
+          @if ($item->product->keterangan != null)
+              {{ $item->product->keterangan }}
+          @else
+              -
+          @endif
         </td>
         @if ($item->garansi != null && $item->garansi_imei != null)
             <td align="center">Produk {{ $item->garansi }} & IMEI {{ $item->garansi_imei }}</td>
@@ -221,7 +229,7 @@
     <tr>
       <td class="text-center capital">{{ $order->customer->nama }}</td>
       @if ($order->user != null)
-        <td class="text-center capital">{{ Auth::user()->name }}</td>
+        <td class="text-center capital">{{ $order->user->name }}</td>
       @else
         <td class="text-center capital">-</td>
       @endif
