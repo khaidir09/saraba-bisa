@@ -76,7 +76,7 @@ class AdminSudahDiambilData extends Component
             'actions' => $actions,
             'service_transactions' =>
             ServiceTransaction::orderBy('tgl_ambil', 'desc')->when($this->search, function ($q) {
-                $q->where('nama_pelanggan', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('tindakan_servis', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('nama_barang', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil');
+                $q->where('nama_pelanggan', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('tindakan_servis', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('nama_barang', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil')->orWhere('imei', 'like', '%' . $this->search . '%')->where('status_servis', 'Sudah Diambil');
             })->when($this->type, function ($q) {
                 $q->whereIn('types_id', $this->type);
             })->when($this->kondisi, function ($q) {

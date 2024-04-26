@@ -92,7 +92,7 @@
             </div>
 
             <!-- Search form -->
-            <x-search-form placeholder="Pelanggan/Nomor Servis/Barang/Tindakan" />
+            <x-search-form placeholder="Pelanggan/Nomor Servis/Barang/Tindakan/IMEI" />
 
             <!-- Create invoice button -->
             <div x-data="{ modalOpen: false }">
