@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Capacity;
@@ -39,6 +40,7 @@ class AdminProdukData extends Component
         $tools = SubCategory::where('categories_id', '=', '4')->get();
         $brands = Brand::all();
         $capacities = Capacity::all();
+        $colors = Color::all();
         $model_series = ModelSerie::all();
         $products_count = Product::all()->count();
         $toko = StoreSetting::find(1);
@@ -47,6 +49,7 @@ class AdminProdukData extends Component
             'brands' => $brands,
             'capacities' => $capacities,
             'model_series' => $model_series,
+            'colors' => $colors,
             'toko' => $toko,
             'categories' => $categories,
             'spareparts' => $spareparts,

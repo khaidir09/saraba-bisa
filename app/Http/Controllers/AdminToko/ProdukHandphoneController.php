@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminToko;
 
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Category;
@@ -10,11 +11,11 @@ use App\Models\ModelSerie;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Exports\HandphoneExport;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminToko\HandphoneRequest;
-use App\Http\Requests\AdminToko\ProductRequest;
 use App\Imports\HandphoneImport;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\AdminToko\ProductRequest;
+use App\Http\Requests\AdminToko\HandphoneRequest;
 
 class ProdukHandphoneController extends Controller
 {
@@ -59,6 +60,7 @@ class ProdukHandphoneController extends Controller
             'product_code' => $request->product_code,
             'categories_id' => $request->categories_id,
             'category_name' => $namakategori->category_name,
+            'warna' => $request->warna,
             'brands_id' => $request->brands_id,
             'model_series_id' => $request->model_series_id,
             'capacities_id' => $request->capacities_id,
@@ -114,6 +116,7 @@ class ProdukHandphoneController extends Controller
         $brands = Brand::all();
         $model_series = ModelSerie::all();
         $capacities = Capacity::all();
+        $colors = Color::all();
         $toko = StoreSetting::find(1);
 
         return view('pages.admintoko.produk.handphone-edit', [
@@ -121,6 +124,7 @@ class ProdukHandphoneController extends Controller
             'brands' => $brands,
             'model_series' => $model_series,
             'capacities' => $capacities,
+            'colors' => $colors,
             'toko' => $toko
         ]);
     }
@@ -146,6 +150,7 @@ class ProdukHandphoneController extends Controller
             'model_series_id' => $request->model_series_id,
             'product_name' => $productName,
             'ram' => $request->ram,
+            'warna' => $request->warna,
             'capacities_id' => $request->capacities_id,
             'product_code' => $request->product_code,
             'categories_id' => $request->categories_id,

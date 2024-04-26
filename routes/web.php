@@ -75,6 +75,7 @@ use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProduk
 use App\Http\Controllers\AdminToko\SudahDiambilController as AdminTokoSudahDiambilController;
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
+use App\Http\Controllers\AdminToko\MasterWarnaController as AdminTokoMasterWarnaController;
 use App\Http\Controllers\KepalaToko\SubKategoriController as KepalaTokoSubKategoriController;
 use App\Http\Controllers\Sales\LaporanPenjualanController as SalesLaporanPenjualanController;
 use App\Http\Controllers\Teknisi\LaporanTeknisiController as TeknisiLaporanTeknisiController;
@@ -376,6 +377,7 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
     Route::resource('master/admin-master-merek', AdminTokoMasterMerekController::class);
     Route::resource('master/admin-master-kapasitas', AdminTokoMasterKapasitasController::class);
     Route::resource('master/admin-master-model-seri', AdminTokoMasterModelSeriController::class);
+    Route::resource('master/admin-master-warna', AdminTokoMasterWarnaController::class);
     Route::resource('admin-insiden', AdminTokoInsidenController::class);
     Route::resource('admin-kasbon', AdminTokoKasbonController::class);
     Route::resource('admin-pengeluaran', AdminTokoExpenseController::class);

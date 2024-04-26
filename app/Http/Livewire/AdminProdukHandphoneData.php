@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Capacity;
@@ -37,6 +38,7 @@ class AdminProdukHandphoneData extends Component
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
+        $colors = Color::all();
 
         $handphones_count = Product::where('categories_id', '=', '1')->count();
         return view('livewire.admin-produk-handphone-data', [
@@ -45,6 +47,7 @@ class AdminProdukHandphoneData extends Component
             'brands' => $brands,
             'capacities' => $capacities,
             'model_series' => $model_series,
+            'colors' => $colors,
             'handphones_count' => $handphones_count,
             'products' => $this->search === null ?
                 Product::latest()->where('categories_id', '=', '1')->paginate($this->paginate) :
