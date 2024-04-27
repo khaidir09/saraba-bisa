@@ -154,7 +154,13 @@
                             @endif
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($item->product != null)
-                                    <div class="font-medium">{{ $item->product->product_name }}</div>
+                                    <div class="font-medium">
+                                        @if ($item->product->categories_id == 1)
+                                            {{ $item->product->product_name }} {{ $item->product->kondisi }} {{ $item->product->warna }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} {{ $item->product->keterangan }} (IMEI {{ $item->product->nomor_seri }})
+                                        @else
+                                            {{ $item->product->product_name }} {{ $item->product->keterangan }}
+                                        @endif
+                                    </div>
                                 @else
                                     <div class="font-medium text-red-600">Data produk sudah dihapus</div>
                                 @endif

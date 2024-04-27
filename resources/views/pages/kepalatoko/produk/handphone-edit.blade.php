@@ -128,6 +128,14 @@
                                     </select>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="kondisi">Kondisi</label>
+                                    <select id="kondisi" name="kondisi" class="form-select text-sm py-1 w-full">
+                                        <option selected value="{{ $item->kondisi }}">{{ $item->kondisi }}</option>
+                                        <option value="NEW">NEW</option>
+                                        <option value="SECOND">SECOND</option>
+                                    </select>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
                                     <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" value="{{ $item->nomor_seri }}"/>
                                 </div>

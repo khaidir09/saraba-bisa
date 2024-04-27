@@ -175,7 +175,7 @@
         </td>
         <td align="center" style="text-transform: uppercase;">
         @if ($item->product->categories_id == 1)
-          {{ $item->product->product_name }} {{ $item->product->warna }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} (IMEI {{ $item->product->nomor_seri }})
+          {{ $item->product->product_name }} {{ $item->product->kondisi }} {{ $item->product->warna }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} (IMEI {{ $item->product->nomor_seri }})
         @else
           {{ $item->product->product_name }}
         @endif

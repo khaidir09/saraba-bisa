@@ -129,7 +129,13 @@
 					<td style="width: 10px;">{{ $i++ }}</td>
 					<td class="text-center" style="width: 60px;">{{ $item->order->invoice_no }}</td>
 					<td style="text-align: left; width: 90px;" class="capital">{{ $item->order->nama_pelanggan }}</td>
-					<td style="text-align: left; width: 80px;">{{ $item->product_name }}</td>
+					<td style="text-align: left; width: 80px;">
+						@if ($item->product->categories_id == 1)
+							{{ $item->product->product_name }} {{ $item->product->kondisi }} {{ $item->product->warna }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} {{ $item->product->keterangan }} (IMEI {{ $item->product->nomor_seri }})
+						@else
+							{{ $item->product->product_name }} {{ $item->product->keterangan }}
+						@endif
+					</td>
 					<td style="text-align: center; width: 80px;">{{ $item->quantity }}</td>
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->modal) }}</td>
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->total) }}</td>
