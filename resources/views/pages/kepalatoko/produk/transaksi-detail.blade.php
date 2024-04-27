@@ -41,7 +41,7 @@
                                         @if ($item->product->categories_id == 1)
                                             {{ $item->product->product_name }} {{ $item->product->kondisi }} {{ $item->product->warna }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} {{ $item->product->keterangan }} (IMEI {{ $item->product->nomor_seri }})
                                         @else
-                                            {{ $item->product->product_name }}
+                                            {{ $item->product->product_name }} {{ $item->product->keterangan }}
                                         @endif
                                          (Rp. {{ number_format($item->price) }} x {{ $item->quantity }}
                                         @if ($item->quantity == 1)

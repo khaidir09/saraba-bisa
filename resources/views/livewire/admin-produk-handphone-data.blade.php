@@ -117,6 +117,14 @@
                                         </select>
                                     </div>
                                     <div>
+                                        <label class="block text-sm font-medium mb-1" for="kondisi">Kondisi <span class="text-rose-500">*</span></label>
+                                        <select id="kondisi" name="kondisi" class="form-select text-sm py-1 w-full" required>
+                                            <option selected value="">Pilih Kondisi</option>
+                                            <option value="NEW">NEW</option>
+                                            <option value="SECOND">SECOND</option>
+                                        </select>
+                                    </div>
+                                    <div>
                                         <label class="block text-sm font-medium mb-1" for="nomor_seri">IMEI/SN</label>
                                         <input id="nomor_seri" name="nomor_seri" class="form-input w-full px-2 py-1" type="text" required/>
                                     </div>
@@ -529,7 +537,7 @@
                                     <div class="font-medium">{{ $i++ }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->product_name }}</div>
+                                    <div class="font-medium">{{ $item->product_name }} {{ $item->kondisi }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">
