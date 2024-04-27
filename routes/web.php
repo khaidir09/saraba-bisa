@@ -78,6 +78,7 @@ use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMer
 use App\Http\Controllers\AdminToko\MasterWarnaController as AdminTokoMasterWarnaController;
 use App\Http\Controllers\KepalaToko\SubKategoriController as KepalaTokoSubKategoriController;
 use App\Http\Controllers\Sales\LaporanPenjualanController as SalesLaporanPenjualanController;
+use App\Http\Controllers\AdminToko\LaporanPenjualanController as AdminTokoLaporanPenjualanController;
 use App\Http\Controllers\Teknisi\LaporanTeknisiController as TeknisiLaporanTeknisiController;
 
 use App\Http\Controllers\Teknisi\TindakanServisController as TeknisiTindakanServisController;
@@ -445,6 +446,9 @@ Route::middleware('ensureAdminRole:AdminToko')->group(function () {
 
     Route::get('laporan/admin-laporan-servis', [AdminTokoLaporanServisController::class, 'index'])->name('admin-laporan-servis');
     Route::get('admin-cetak-laporan-servis', [AdminTokoLaporanServisController::class, 'cetak'])->name('admin-cetak-laporan-servis');
+
+    Route::get('laporan/admin-laporan-penjualan', [AdminTokoLaporanPenjualanController::class, 'index'])->name('admin-laporan-penjualan');
+    Route::get('admin-cetak-laporan-penjualan', [AdminTokoLaporanPenjualanController::class, 'cetak'])->name('admin-cetak-laporan-penjualan');
 });
 
 Route::middleware('ensureTeknisiRole:Teknisi')->group(function () {
