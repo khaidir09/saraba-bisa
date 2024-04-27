@@ -77,6 +77,9 @@
                             <div class="font-semibold text-left">Kode Produk</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Keterangan</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Stok</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -99,7 +102,13 @@
                                 <div class="font-medium">{{ $i++ }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->product_name }}</div>
+                                <div class="font-medium">
+                                    @if ($item->categories_id == 1)
+                                        {{ $item->product_name }} {{ $item->kondisi }} {{ $item->warna }} {{ $item->ram }}/{{ $item->capacity->name }} (IMEI {{ $item->nomor_seri }})
+                                    @else
+                                        {{ $item->product_name }} {{ $item->nomor_seri }}
+                                    @endif
+                                </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->category_name }}</div>
@@ -112,6 +121,9 @@
                                         -
                                     @endif
                                 </div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $item->keterangan }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->stok }}</div>

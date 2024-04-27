@@ -335,8 +335,10 @@
                                         <div class="font-medium">
                                             @if ($item->product_code != null)
                                                 ({{ $item->product_code }}) {{ $item->product_name }} ({{ $item->stok }} item)
+                                            @elseif ($item->capacities_id != null)
+                                                {{ $item->product_name }} {{ $item->kondisi }} {{ $item->warna }} {{ $item->ram }} {{ $item->capacity->name }} {{ $item->keterangan }} (IMEI {{ $item->nomor_seri }}) ({{ $item->stok }} item)
                                             @else
-                                                {{ $item->product_name }} {{ $item->nomor_seri }} ({{ $item->stok }} item)
+                                                {{ $item->product_name }} {{ $item->keterangan }} ({{ $item->stok }} item)
                                             @endif
                                         </div>
                                     </td>
