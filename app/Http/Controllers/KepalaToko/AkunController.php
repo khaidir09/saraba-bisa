@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Worker;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\KepalaToko\UserRequest;
 
 class AkunController extends Controller
@@ -27,7 +28,7 @@ class AkunController extends Controller
         $hasRelation = User::whereIn('id', $selectedIds)
             ->where(function ($query) {
                 $query->whereHas('relasiService')
-                ->orWhereHas('relasiSale')->orWhereHas('expense')->orWhereHas('salary');
+                    ->orWhereHas('relasiSale')->orWhereHas('expense')->orWhereHas('salary');
             })
             ->exists();
 
@@ -41,11 +42,20 @@ class AkunController extends Controller
 
     public function store(UserRequest $request)
     {
-        $data = $request->all();
+        $langganan = Auth::user()->exp_date;
 
-        $data['password'] = bcrypt($request->password);
-
-        User::create($data);
+        User::create([
+            'name' => $request->name,
+            'password' => bcrypt($request->password),
+            'username' => $request->username,
+            'role' => $request->role,
+            'types_id' => $request->types_id,
+            'nik' => $request->nik,
+            'nomor_hp' => $request->nomor_hp,
+            'alamat' => $request->alamat,
+            'persen' => $request->persen,
+            'exp_date' => $langganan,
+        ]);
 
         return redirect()->route('akun');
     }
@@ -69,17 +79,28 @@ class AkunController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
         $item = User::findOrFail($id);
 
-        if ($request->password) {
-            $data['password'] = bcrypt($request->password);
-        } else {
-            unset($data['password']);
+        $langganan = Auth::user()->exp_date;
+
+        $password = $item->password; // Menggunakan password yang terdahulu jika tidak ada perubahan
+
+        if ($request->has('password') && !empty($request->password)) {
+            $password = bcrypt($request->password);
         }
 
-        $item->update($data);
+        $item->update([
+            'name' => $request->name,
+            'password' => $password,
+            'username' => $request->username,
+            'role' => $request->role,
+            'types_id' => $request->types_id,
+            'nik' => $request->nik,
+            'nomor_hp' => $request->nomor_hp,
+            'alamat' => $request->alamat,
+            'persen' => $request->persen,
+            'exp_date' => $langganan,
+        ]);
 
         return redirect()->route('akun');
     }

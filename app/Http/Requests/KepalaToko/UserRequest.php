@@ -31,7 +31,8 @@ class UserRequest extends FormRequest
             'nik' => 'max:100',
             'nomor_hp' => 'max:50',
             'alamat' => 'max:255',
-            'persen' => 'max:50'
+            'persen' => 'max:50',
+            'exp_date' => 'max:100',
         ];
     }
 
