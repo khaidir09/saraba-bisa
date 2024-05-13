@@ -42,7 +42,7 @@
 		#detail tr,
 		#detail table {
 			border-collapse: collapse;
-			font-size: 12px;
+			font-size: 10px;
 			line-height: 1em;
 			padding: 4px;
 			text-align: center;
@@ -158,10 +158,10 @@
 							-
 						</td>
 					@endif
-					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
-					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
+					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
+					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
-					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->profit) }}</td>
+					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->profit) }}</td>
 				</tr>
 			@endforeach
 		</tbody>
