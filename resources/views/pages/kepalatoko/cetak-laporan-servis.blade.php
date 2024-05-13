@@ -136,9 +136,9 @@
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
 					<td class="text-center" style="width: 60px;">{{ $item->nomor_servis }}</td>
-					<td style="text-align: left; width: 90px;" class="capital">{{ $item->nama_pelanggan }}</td>
-					<td style="text-align: left; width: 80px;">{{ $item->modelserie->name }}</td>
-					<td class="capital" style="text-align: left;">
+					<td style="text-align: left; width: 70px;" class="capital">{{ $item->nama_pelanggan }}</td>
+					<td style="text-align: left; width: 70px;">{{ $item->modelserie->name }}</td>
+					<td class="capital" style="text-align: left; width: 80px;">
 						@if ($item->kondisi_servis != 'Sudah jadi')
 							{{ $item->kondisi_servis }}
 						@else
@@ -160,7 +160,7 @@
 					@endif
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
-					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
+					<td style="width: 50px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->profit) }}</td>
 				</tr>
 			@endforeach
