@@ -46,9 +46,11 @@
 			font-size: 12px;
 			line-height: 1em;
 			width: 100%;
+			table-layout: fixed;
 			padding: 4px;
 			text-align: center;
 			border: solid;
+			word-wrap: break-word;
 		}
 
 		#data {

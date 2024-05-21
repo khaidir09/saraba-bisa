@@ -47,6 +47,8 @@
 			padding: 4px;
 			text-align: center;
 			border: solid;
+			table-layout: fixed;
+			word-wrap: break-word;
 		}
 
 		#analisis td,
