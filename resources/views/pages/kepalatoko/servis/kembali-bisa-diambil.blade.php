@@ -110,7 +110,7 @@
                                     @if ($item->user)
                                         value="{{ $item->user->name }}"
                                     @else
-                                        value="{{ $item->user->id }}"
+                                        value=""
                                     @endif 
                                     disabled />
                                 </div>
