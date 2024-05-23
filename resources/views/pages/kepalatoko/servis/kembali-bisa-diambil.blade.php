@@ -106,7 +106,13 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1">Teknisi</label>
-                                    <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text" value="{{ $item->user->name }}" disabled />
+                                    <input class="form-input w-full px-2 py-1 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed" type="text"
+                                    @if ($item->user)
+                                        value="{{ $item->user->name }}"
+                                    @else
+                                        value="{{ $item->user->id }}"
+                                    @endif 
+                                    disabled />
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1">Tindakan Servis</label>
