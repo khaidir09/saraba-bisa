@@ -156,7 +156,11 @@
                                 @if ($item->product != null)
                                     <div class="font-medium">
                                         @if ($item->product->categories_id == 1)
-                                            {{ $item->product->product_name }} {{ $item->product->kondisi }} {{ $item->product->warna }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} {{ $item->product->keterangan }} (IMEI {{ $item->product->nomor_seri }})
+                                            {{ $item->product->product_name }} {{ $item->product->kondisi }} {{ $item->product->warna }} {{ $item->product->ram }}/@if ($item->product->capacity != null)
+                                                {{ $item->product->capacity->name }}
+                                            @else
+                                                -
+                                            @endif {{ $item->product->keterangan }} (IMEI {{ $item->product->nomor_seri }})
                                         @else
                                             {{ $item->product->product_name }} {{ $item->product->keterangan }}
                                         @endif
