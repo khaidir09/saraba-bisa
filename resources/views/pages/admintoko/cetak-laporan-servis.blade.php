@@ -33,7 +33,6 @@
 			border-collapse: collapse;
 			font-size: 12px;
 			line-height: 1em;
-			width: 100%;
 			padding: 4px 0 4px 0;
 			text-align: left;
 		}
@@ -43,9 +42,8 @@
 		#detail tr,
 		#detail table {
 			border-collapse: collapse;
-			font-size: 12px;
+			font-size: 10px;
 			line-height: 1em;
-			width: 100%;
 			table-layout: fixed;
 			padding: 4px;
 			text-align: center;
@@ -138,22 +136,22 @@
 						@endif
 					</td>
 					@if ($item->user)
-						<td style="text-align: left; width: 70px;" class="capital">
+						<td style="text-align: left; width: 70px;">
 							{{ $item->user->name }}
 						</td>
 					@elseif ($item->user()->withTrashed()->first())
-						<td style="text-align: left; width: 70px;" class="capital">
+						<td style="text-align: left; width: 70px;">
 							{{ $item->user()->withTrashed()->first()->name }}
 						</td>
 					@else
-						<td style="text-align: center; width: 70px;" class="capital">
+						<td style="text-align: center; width: 70px;">
 							-
 						</td>
 					@endif
-					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
-					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
+					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
+					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
 					<td style="width: 50px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
-					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->profit) }}</td>
+					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->profit) }}</td>
 				</tr>
 			@endforeach
 		</tbody>
