@@ -939,7 +939,11 @@
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">
                                         @if ($item->categories_id == 1)
-                                            {{ $item->product_name }} {{ $item->kondisi }} {{ $item->warna }} {{ $item->ram }}/{{ $item->capacity->name }} (IMEI {{ $item->nomor_seri }})
+                                            {{ $item->product_name }} {{ $item->kondisi }} {{ $item->warna }} {{ $item->ram }} / @if ($item->capacity != null)
+                                            {{ $item->capacity->name }}
+                                        @else
+                                            -
+                                        @endif (IMEI {{ $item->nomor_seri }})
                                         @else
                                             {{ $item->product_name }} {{ $item->nomor_seri }}
                                         @endif

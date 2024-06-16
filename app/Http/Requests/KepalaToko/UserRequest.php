@@ -33,6 +33,7 @@ class UserRequest extends FormRequest
             'alamat' => 'max:255',
             'persen' => 'max:50',
             'exp_date' => 'max:100',
+            'workers_id' => 'exists:workers,id|nullable'
         ];
     }
 
