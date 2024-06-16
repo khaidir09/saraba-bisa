@@ -12,11 +12,13 @@
 
     @push('styles')
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/patternlock@2.0.2/dist/patternlock.min.css" rel="stylesheet">
     @endpush
 
     @push('scripts')
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/patternlock@2.0.2/dist/patternlock.min.js"></script>
         <script>
             window.addEventListener('DOMContentLoaded', () => {
                 Alpine.data('form', () => ({
@@ -24,6 +26,7 @@
                 }));
             });
         </script>
+        {{-- Selectjs --}}
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#selectjs1').select2();
@@ -34,6 +37,7 @@
                 $('#selectjs6').select2();
             });
         </script>
+        {{-- Model Seri --}}
         <script type="text/javascript">
             $(function(){
                 $(document).on('change','#brands_id',function(){
@@ -72,6 +76,7 @@
                 });
             });
         </script>
+        {{-- Auto Modal --}}
         <script>
             $(document).ready(function () {
                 $('#selectjs5').on('change', function () {
@@ -88,6 +93,21 @@
                         });
                     } else {
                         $('#biaya').val('');
+                        $('#modal_sparepart').val('');
+                    }
+                });
+                $('#selectjs6').on('change', function () {
+                    var productId = $(this).val();
+                    if (productId) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/get-sparepart/' + productId,
+                            dataType: 'json',
+                            success: function (data) {
+                                $('#modal_sparepart').val(data.modal_sparepart);
+                            }
+                        });
+                    } else {
                         $('#modal_sparepart').val('');
                     }
                 });

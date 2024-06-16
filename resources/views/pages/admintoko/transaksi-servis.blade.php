@@ -84,6 +84,21 @@
                         $('#modal_sparepart').val('');
                     }
                 });
+                $('#selectjs6').on('change', function () {
+                    var productId = $(this).val();
+                    if (productId) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/get-sparepart/' + productId,
+                            dataType: 'json',
+                            success: function (data) {
+                                $('#modal_sparepart').val(data.modal_sparepart);
+                            }
+                        });
+                    } else {
+                        $('#modal_sparepart').val('');
+                    }
+                });
             });
         </script>
     @endpush
