@@ -16,6 +16,7 @@ use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Inventory;
 
 class DashboardController extends Controller
 {
@@ -153,6 +154,8 @@ class DashboardController extends Controller
         $targets = Target::all();
         $hasData = $targets->isNotEmpty();
 
+        $inventories = Inventory::where('masa_penggantian', '<', $currentDate)->count();
+
         return view('pages/kepalatoko/dashboard', compact(
             'types',
             'categories',
@@ -175,7 +178,8 @@ class DashboardController extends Controller
             'reminders',
             'stokhabis',
             'targets',
-            'hasData'
+            'hasData',
+            'inventories'
         ));
     }
 }

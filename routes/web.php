@@ -65,12 +65,14 @@ use App\Http\Controllers\AdminToko\MasterWarnaController as AdminTokoMasterWarna
 use App\Http\Controllers\AdminToko\ProdukHabisController as AdminTokoProdukHabisController;
 use App\Http\Controllers\AdminToko\SubKategoriController as AdminTokoSubKategoriController;
 use App\Http\Controllers\KepalaToko\ProdukToolController as KepalaTokoProdukToolController;
+use App\Http\Controllers\KepalaToko\InventarisController as KepalaTokoInventarisController;
 use App\Http\Controllers\Sales\ProdukAksesorisController as SalesProdukAksesorisController;
 use App\Http\Controllers\Sales\ProdukHandphoneController as SalesProdukHandphoneController;
 use App\Http\Controllers\Sales\ProdukSparepartController as SalesProdukSparepartController;
 // Admin Toko
 use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProdukController;
 use App\Http\Controllers\AdminToko\SudahDiambilController as AdminTokoSudahDiambilController;
+use App\Http\Controllers\AdminToko\InventarisController as AdminTokoInventarisController;
 use App\Http\Controllers\KepalaToko\BisaDiambilController as KepalaTokoBisaDiambilController;
 use App\Http\Controllers\KepalaToko\MasterMerekController as KepalaTokoMasterMerekController;
 use App\Http\Controllers\KepalaToko\MasterWarnaController as KepalaTokoMasterWarnaController;
@@ -250,14 +252,14 @@ Route::middleware(['ensureUserRole:KepalaToko', 'checkSubscription'])->group(fun
     Route::resource('master/master-merek', KepalaTokoMasterMerekController::class);
     Route::resource('master/master-kapasitas', KepalaTokoMasterKapasitasController::class);
     Route::resource('master/master-model-seri', KepalaTokoMasterModelSeriController::class);
-    Route::resource('anggaran', KepalaTokoAnggaranController::class);
+    Route::resource('manajemen/anggaran', KepalaTokoAnggaranController::class);
     Route::resource('target', KepalaTokoTargetController::class);
     Route::resource('target-sales', KepalaTokoTargetSalesController::class);
     Route::resource('target-teknisi', KepalaTokoTargetTeknisiController::class);
     Route::delete('/budgets/delete', [KepalaTokoAnggaranController::class, 'deleteSelected']);
     Route::post('/target/bulan-sebelumnya', [KepalaTokoTargetBulanSebelumnyaController::class, 'store'])->name('target-bulan-sebelumnya');
-    Route::resource('insiden', KepalaTokoInsidenController::class);
-    Route::resource('kasbon', KepalaTokoKasbonController::class);
+    Route::resource('manajemen/insiden', KepalaTokoInsidenController::class);
+    Route::resource('manajemen/kasbon', KepalaTokoKasbonController::class);
     Route::patch('/debts/update', [KepalaTokoKasbonController::class, 'approveSelected']);
     Route::patch('/debts/reject', [KepalaTokoKasbonController::class, 'rejectSelected']);
     Route::resource('gaji/karyawan', KepalaTokoKaryawanController::class);
@@ -265,10 +267,12 @@ Route::middleware(['ensureUserRole:KepalaToko', 'checkSubscription'])->group(fun
     Route::resource('gaji/bonus', KepalaTokoGajiController::class);
     Route::delete('/bonus/delete', [KepalaTokoGajiController::class, 'deleteSelected']);
     Route::post('/gaji/bonus/bulan-sebelumnya', [KepalaTokoBonusBulanSebelumnyaController::class, 'store'])->name('bonus-bulan-sebelumnya');
-    Route::resource('pengeluaran', KepalaTokoExpenseController::class);
+    Route::resource('manajemen/pengeluaran', KepalaTokoExpenseController::class);
     Route::patch('/expenses/update', [KepalaTokoExpenseController::class, 'approveSelected']);
     Route::patch('/expenses/reject', [KepalaTokoExpenseController::class, 'rejectSelected']);
     Route::resource('approve-pengeluaran', KepalaTokoApprovePengeluaranController::class);
+    Route::resource('manajemen/inventaris', KepalaTokoInventarisController::class);
+    Route::delete('/inventories/delete', [KepalaTokoInventarisController::class, 'deleteSelected']);
 
     Route::resource('produk/kategori', KepalaTokoKategoriController::class);
     Route::resource('produk/sub-kategori', KepalaTokoSubKategoriController::class);
@@ -384,6 +388,7 @@ Route::middleware(['ensureAdminRole:AdminToko', 'checkSubscription'])->group(fun
     Route::resource('admin-insiden', AdminTokoInsidenController::class);
     Route::resource('admin-kasbon', AdminTokoKasbonController::class);
     Route::resource('admin-pengeluaran', AdminTokoExpenseController::class);
+    Route::resource('admin-inventaris', AdminTokoInventarisController::class);
 
     Route::get('tandaterima-inkjet/{id}', [AdminTokoTransaksiServisController::class, 'cetakinkjet'])->name('admin-cetak-tanda-terima');
     Route::get('tandaterima-termal/{id}', [AdminTokoTransaksiServisController::class, 'cetaktermal'])->name('admin-cetak-termal');

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Budget;
 use App\Models\Product;
+use App\Models\Inventory;
 use App\Models\OrderDetail;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
@@ -82,6 +83,8 @@ class DashboardController extends Controller
 
         $stokhabis = Product::where('stok', 0)->count();
 
+        $inventories = Inventory::where('masa_penggantian', '<', $currentDate)->count();
+
         return view('pages/admintoko/dashboard', compact(
             'totalbiayaservis',
             'totalbudgets',
@@ -89,7 +92,8 @@ class DashboardController extends Controller
             'totalpenjualan',
             'totalbonus',
             'reminders',
-            'stokhabis'
+            'stokhabis',
+            'inventories'
         ));
     }
 }
