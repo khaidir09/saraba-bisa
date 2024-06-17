@@ -151,7 +151,13 @@
                                 <div class="font-medium">{{ $item->ram }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->capacity->name }}</div>
+                                <div class="font-medium">
+                                    @if ($item->capacity != null)
+                                        {{ $item->capacity->name }}
+                                    @else
+                                        -
+                                    @endif
+                                </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->stok }}</div>
