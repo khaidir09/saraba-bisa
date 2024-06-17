@@ -503,40 +503,16 @@
                                             </button>
                                         </a>
                                         <!-- Start -->
-                                        <div x-data="{ modalOpen: false }">
-                                            <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="modalOpen = true" aria-controls="danger-modal">
-                                                <span class="sr-only">Delete</span>
-                                                <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
-                                                    <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
-                                                    <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z" />
-                                                </svg>
-                                            </button>
+                                        <div x-data="{ showDelete: false, deleteId: null }" x-show = "showDelete" x-on:open-delete.window="showDelete = true; deleteId = $event.detail.id" x-on:close-delete.window = "showDelete = false" x-on:keydown.escape.window = "showDelete = false" class="fixed z-50 inset-0">
                                             <!-- Modal backdrop -->
-                                            <div
-                                                class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                                x-show="modalOpen"
-                                                x-transition:enter="transition ease-out duration-200"
-                                                x-transition:enter-start="opacity-0"
-                                                x-transition:enter-end="opacity-100"
-                                                x-transition:leave="transition ease-out duration-100"
-                                                x-transition:leave-start="opacity-100"
-                                                x-transition:leave-end="opacity-0"
-                                                aria-hidden="true"
-                                                x-cloak
-                                            ></div>
+                                            <div x-on:click="showDelete = false" class="fixed inset-0 bg-slate-900 bg-opacity-40" x-cloak></div>
                                             <!-- Modal dialog -->
                                             <div
                                                 id="danger-modal"
                                                 class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                                                 role="dialog"
                                                 aria-modal="true"
-                                                x-show="modalOpen"
-                                                x-transition:enter="transition ease-in-out duration-200"
-                                                x-transition:enter-start="opacity-0 translate-y-4"
-                                                x-transition:enter-end="opacity-100 translate-y-0"
-                                                x-transition:leave="transition ease-in-out duration-200"
-                                                x-transition:leave-start="opacity-100 translate-y-0"
-                                                x-transition:leave-end="opacity-0 translate-y-4"
+                                                x-show="showDelete"
                                                 x-cloak
                                             >
                                                 <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
@@ -561,8 +537,8 @@
                                                             </div>
                                                             <!-- Modal footer -->
                                                             <div class="flex flex-wrap justify-end space-x-2">
-                                                                <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                                <form action="{{ route('admin-aksesoris.destroy', $item->id) }}" method="post">
+                                                                <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" x-on:click="$dispatch('close-delete')">Batal</button>
+                                                                <form x-bind:action="'{{ route('admin-aksesoris.destroy', '') }}/' + deleteId" method="post">
                                                                     @method('delete')
                                                                     @csrf
                                                                     <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -574,6 +550,18 @@
                                             </div>                                            
                                         </div>
                                         <!-- End -->
+                                        
+                                        <button x-data x-on:click="$dispatch('open-delete', { id: {{ $item->id }} })" class="text-rose-500 hover:text-rose-600 rounded-full">
+                                            <span class="sr-only">Delete</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <line x1="4" y1="7" x2="20" y2="7" />
+                                                <line x1="10" y1="11" x2="10" y2="17" />
+                                                <line x1="14" y1="11" x2="14" y2="17" />
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                            </svg>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
