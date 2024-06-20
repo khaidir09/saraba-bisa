@@ -68,7 +68,7 @@
                             <div class="px-5 py-4">
                                 <div class="space-y-3">
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="created_at">Tgl. Pembelian</label>
+                                        <label class="block text-sm font-medium mb-1" for="created_at">Tgl. Pembelian <span class="text-rose-500">*</span></label>
                                         <input id="created_at" name="created_at" class="form-input w-full px-2 py-1" type="date"/>
                                     </div>
                                     <div>
@@ -76,7 +76,11 @@
                                         <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" required />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="price">Harga<span class="text-rose-500">*</span></label>
+                                        <label class="block text-sm font-medium mb-1" for="code">Kode Inventaris <span class="text-rose-500">*</span></label>
+                                        <input id="code" name="code" class="form-input w-full px-2 py-1" type="text" required />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="price">Harga <span class="text-rose-500">*</span></label>
                                         <div class="relative">
                                             <input id="price" name="price" class="form-input w-full pl-10 px-2 py-1" type="number" required/>
                                             <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -89,7 +93,7 @@
                                         <input id="supplier" name="supplier" class="form-input w-full px-2 py-1" type="text" />
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-1" for="masa_penggantian">Masa Penggantian</label>
+                                        <label class="block text-sm font-medium mb-1" for="masa_penggantian">Masa Penggantian <span class="text-rose-500">*</span></label>
                                         <select id="masa_penggantian" name="masa_penggantian" class="form-select text-sm py-1 w-full">
                                             <option value="7">1 Minggu</option>
                                             <option value="14">2 Minggu</option>
@@ -133,9 +137,9 @@
     </div>
 
     <!-- More actions -->
-    <div class="sm:flex sm:justify-between sm:items-center mb-5">
+    <div class="sm:flex sm:justify-between sm:items-center">
         <!-- Left side -->
-        <div class="mb-0">
+        <div class="mb-2">
             <select wire:model="paginate" id="" class="form-select">
                 <option value="10">10</option>
                 <option value="25">25</option>
@@ -178,6 +182,7 @@
                         <div class="flex items-center">
                             <div class="text-sm italic mr-2 whitespace-nowrap"><span class="table-items-count"></span> item yang dipilih</div>
                             <div class="space-x-1">
+                                <button class="btn bg-white border-slate-200 hover:border-slate-300 text-blue-500 hover:text-blue-600" @click="printSelected">Cetak</button>
                                 <button class="btn bg-white border-slate-200 hover:border-slate-300 text-rose-500 hover:text-rose-600" @click="deleteSelected">Hapus</button>
                             </div>
                         </div>
@@ -206,6 +211,9 @@
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Nama Barang</div>
+                            </th>
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-semibold text-left">Kode Inventaris</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Harga</div>
@@ -245,6 +253,9 @@
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $item->name }}</div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-medium">{{ $item->code }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">Rp. {{ number_format($item->price) }}</div>
@@ -403,6 +414,35 @@
                         console.error('Gagal menghapus data:', error);
                     });
                 },
+                printSelected() {
+                    const checkboxes = document.querySelectorAll('input.table-item:checked');
+                    const selectedIds = [...checkboxes].map((checkbox) => checkbox.value);
+
+                    // Buat form secara dinamis
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '{{ route("cetak-label-inventaris") }}';
+
+                    // Tambahkan token CSRF
+                    const csrfInput = document.createElement('input');
+                    csrfInput.type = 'hidden';
+                    csrfInput.name = '_token';
+                    csrfInput.value = '{{ csrf_token() }}';
+                    form.appendChild(csrfInput);
+
+                    // Tambahkan selectedIds ke form
+                    selectedIds.forEach(id => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'selectedIds[]';
+                        input.value = id;
+                        form.appendChild(input);
+                    });
+
+                    // Tambahkan form ke body dan submit
+                    document.body.appendChild(form);
+                    form.submit();
+                }
             }))    
         })
     </script>

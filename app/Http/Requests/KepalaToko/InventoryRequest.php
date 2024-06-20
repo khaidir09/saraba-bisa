@@ -24,14 +24,14 @@ class InventoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:100|required|unique:inventories,name',
+            'code' => 'max:100|required|unique:inventories,code',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.unique' => 'Mohon maaf, inputan tidak dapat diproses karena inventaris dengan nama ini sudah tersedia.',
+            'code.unique' => 'Mohon maaf, inputan tidak dapat diproses karena inventaris dengan kode ini sudah tersedia.',
         ];
     }
 }

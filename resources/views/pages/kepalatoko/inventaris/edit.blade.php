@@ -87,6 +87,10 @@
                                     <input id="name" name="name" class="form-input w-full px-2 py-1" type="text" value="{{ $item->name }}"/>
                                 </div>
                                 <div>
+                                    <label class="block text-sm font-medium mb-1" for="code">Kode Inventaris</label>
+                                    <input id="code" name="code" class="form-input w-full px-2 py-1" type="text" value="{{ $item->code }}"/>
+                                </div>
+                                <div>
                                     <label class="block text-sm font-medium mb-1" for="price">Harga</label>
                                     <div class="relative">
                                         <input id="price" name="price" class="form-input w-full pl-10 px-2 py-1" type="number" value="{{ $item->price }}"/>

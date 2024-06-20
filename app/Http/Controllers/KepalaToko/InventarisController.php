@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\KepalaToko;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KepalaToko\InventoryRequest;
 
@@ -55,6 +57,7 @@ class InventarisController extends Controller
         // Transaction create
         Inventory::create([
             'name' => $request->name,
+            'code' => $request->code,
             'price' => $request->price,
             'supplier' => $request->supplier,
             'masa_penggantian' => $expired,
@@ -107,6 +110,7 @@ class InventarisController extends Controller
         // Transaction update
         $item->update([
             'name' => $request->name,
+            'code' => $request->code,
             'price' => $request->price,
             'supplier' => $request->supplier,
             'created_at' => $request->created_at,
@@ -122,6 +126,29 @@ class InventarisController extends Controller
      * @param  \App\Models\Inventory  $inventory
      * @return \Illuminate\Http\Response
      */
+
+    public function printSelected(Request $request)
+    {
+        // Mengambil logo dan nama toko
+        $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        $selectedIds  = $request->input('selectedIds');
+        $inventories = Inventory::whereIn('id', $selectedIds)->get();
+
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-label-inventaris', [
+            'inventories' => $inventories,
+            'imagePath' => $imagePath,
+            'users' => $users
+        ]);
+
+        $filename = 'Cetak Label Inventaris' . '.pdf';
+
+        return $pdf->stream($filename);
+    }
+
     public function destroy($id)
     {
         $item = Inventory::findOrFail($id);
