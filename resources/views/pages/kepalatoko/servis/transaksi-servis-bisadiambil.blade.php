@@ -200,9 +200,9 @@
                                                 </select>
                                             </div>
                                             <div x-show="showDetails" class="mt-3">
-                                                <label class="block text-sm font-medium mb-1" for="sales_id">Sales Sparepart <span class="text-rose-500">*</span></label>
+                                                <label class="block text-sm font-medium mb-1" for="sales_id">Sales Sparepart</label>
                                                 <select id="sales_id" name="sales_id" class="form-select text-sm py-1 w-full">
-                                                    <option selected value="">Pilih Sales</option>
+                                                    <option selected value="1">Tidak ada Sales</option>
                                                     @foreach ($sales as $user)
                                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                     @endforeach

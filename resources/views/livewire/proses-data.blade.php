@@ -279,6 +279,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <x-servis.pola-kunci />
                                     </div>
                                     <!-- Modal footer -->
                                     <div class="pt-4 border-t border-slate-200 mt-4">
@@ -429,6 +430,15 @@
                                                     <option selected value="">Pilih Sparepart</option>
                                                     @foreach ($products as $item)
                                                         <option value="{{ $item->id }}">{{ $item->product_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div x-show="showDetails" class="mt-3">
+                                                <label class="block text-sm font-medium mb-1" for="sales_id">Sales Sparepart</label>
+                                                <select id="sales_id" name="sales_id" class="form-select text-sm py-1 w-full">
+                                                    <option selected value="1">Tidak ada Sales</option>
+                                                    @foreach ($sales as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

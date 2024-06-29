@@ -55,6 +55,7 @@ class ProsesData extends Component
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         $users = User::where('role', 'Teknisi')->get();
+        $sales = User::where('role', 'Sales')->get();
         $penerima = User::all();
         $service_actions = ServiceAction::all();
         $products = Product::whereHas('subCategory', function ($query) {
@@ -70,6 +71,7 @@ class ProsesData extends Component
         return view('livewire.proses-data', [
             'toko' => $toko,
             'users' => $users,
+            'sales' => $sales,
             'penerima' => $penerima,
             'customers' => $customers,
             'types' => $types,

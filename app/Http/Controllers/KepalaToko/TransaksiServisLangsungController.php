@@ -6,9 +6,11 @@ use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Customer;
 use App\Models\ModelSerie;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
@@ -104,6 +106,56 @@ class TransaksiServisLangsungController extends Controller
             $spareparts = Product::find($request->products_id);
             $spareparts->stok -= 1;
             $spareparts->save();
+
+            // Menambahkan data transaksi produk sparepart
+            $nama_pelanggan = Customer::find($request->customers_id)->nama;
+            $order = new Order();
+            $order->customers_id = $request->customers_id;
+            $order->users_id = $request->sales_id;
+            $order->order_date = Carbon::today()->locale('id')->translatedFormat('d F Y');
+            $order->total_products = 1;
+            $order->sub_total = $spareparts->harga_jual;
+            $order->invoice_no = '' . mt_rand(date('Ymd00'), date('Ymd99'));
+            $order->nama_pelanggan = $nama_pelanggan;
+            $order->payment_method = "Tunai";
+            $order->pay = $spareparts->harga_jual;
+            $order->due = 0;
+            $order->is_approve = 'Setuju';
+            $order->tgl_disetujui = Carbon::today();
+            $order->save();
+
+            // Menambahkan data detail transaksi produk sparepart
+            $garansi = Carbon::now();
+            if (
+                $spareparts->garansi != null
+            ) {
+                $expired = $garansi->addDays(
+                    $spareparts->garansi
+                );
+            } else {
+                $expired = null;
+            }
+            if ($request->sales_id != 1) {
+                $persen_sales = User::find($request->sales_id)->persen;
+            } else {
+                $persen_sales = null;
+            }
+
+            $orderDetail = new OrderDetail();
+            $orderDetail->orders_id = $order->id;
+            $orderDetail->users_id = $request->sales_id;
+            $orderDetail->products_id = $request->products_id;
+            $orderDetail->product_name = $spareparts->product_name;
+            $orderDetail->quantity = 1;
+            $orderDetail->price = $spareparts->harga_jual;
+            $orderDetail->total = $spareparts->harga_jual;
+            $orderDetail->sub_total = $spareparts->harga_jual;
+            $orderDetail->modal = $spareparts->harga_modal;
+            $orderDetail->profit = $spareparts->harga_jual - $spareparts->harga_modal;
+            $orderDetail->persen_sales = $persen_sales;
+            $orderDetail->profit_toko = ($spareparts->harga_jual - $spareparts->harga_modal) - ($spareparts->harga_jual - $spareparts->harga_modal) / 100 * $persen_sales;
+            $orderDetail->garansi = $expired;
+            $orderDetail->save();
         }
 
         return redirect()->route('transaksi-servis-sudah-diambil.index');

@@ -111,7 +111,11 @@ class UbahBisaDiambilController extends Controller
             } else {
                 $expired = null;
             }
-            $persen_sales = User::find($request->sales_id)->persen;
+            if ($request->sales_id != 1) {
+                $persen_sales = User::find($request->sales_id)->persen;
+            } else {
+                $persen_sales = null;
+            }
             $orderDetail = new OrderDetail();
             $orderDetail->orders_id = $order->id;
             $orderDetail->users_id = $request->sales_id;
