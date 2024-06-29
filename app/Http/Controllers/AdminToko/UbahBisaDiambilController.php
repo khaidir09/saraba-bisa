@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\AdminToko;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Customer;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use App\Models\ServiceAction;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
 class UbahBisaDiambilController extends Controller
@@ -16,6 +20,7 @@ class UbahBisaDiambilController extends Controller
     {
         $item = ServiceTransaction::findOrFail($id);
         $users = User::where('role', 'Teknisi')->get();
+        $sales = User::where('role', 'Sales')->get();
         $service_actions = ServiceAction::all();
         $products = Product::whereHas('subCategory', function ($query) {
             $query->whereHas('category', function ($subQuery) {
@@ -26,6 +31,7 @@ class UbahBisaDiambilController extends Controller
         return view('pages.admintoko.transaksi-servis-bisadiambil', [
             'item' => $item,
             'users' => $users,
+            'sales' => $sales,
             'service_actions' => $service_actions,
             'products' => $products
         ]);
@@ -89,6 +95,52 @@ class UbahBisaDiambilController extends Controller
             $spareparts = Product::find($request->products_id);
             $spareparts->stok -= 1;
             $spareparts->save();
+
+            // Menambahkan data transaksi produk sparepart
+            $nama_pelanggan = Customer::find($item->customers_id)->nama;
+            $order = new Order();
+            $order->customers_id = $item->customers_id;
+            $order->users_id = $request->sales_id;
+            $order->order_date = Carbon::today()->locale('id')->translatedFormat('d F Y');
+            $order->total_products = 1;
+            $order->sub_total = $spareparts->harga_jual;
+            $order->invoice_no = '' . mt_rand(date('Ymd00'), date('Ymd99'));
+            $order->nama_pelanggan = $nama_pelanggan;
+            $order->payment_method = "Tunai";
+            $order->pay = $spareparts->harga_jual;
+            $order->due = 0;
+            $order->save();
+
+            // Menambahkan data detail transaksi produk sparepart
+            $garansi = Carbon::now();
+            if (
+                $spareparts->garansi != null
+            ) {
+                $expired = $garansi->addDays(
+                    $spareparts->garansi
+                );
+            } else {
+                $expired = null;
+            }
+            $persen_sales = User::find($request->sales_id)->persen;
+            $orderDetail = new OrderDetail();
+            $orderDetail->orders_id = $order->id;
+            $orderDetail->users_id = $request->sales_id;
+            $orderDetail->products_id = $request->products_id;
+            $orderDetail->product_name = $spareparts->product_name;
+            $orderDetail->quantity = 1;
+            $orderDetail->price = $spareparts->harga_jual;
+            $orderDetail->total = $spareparts->harga_jual;
+            $orderDetail->sub_total = $spareparts->harga_jual;
+            $orderDetail->modal = $spareparts->harga_modal;
+            $orderDetail->profit = $spareparts->harga_jual - $spareparts->harga_modal;
+            $orderDetail->persen_sales = $persen_sales;
+            $orderDetail->profit_toko = ($spareparts->harga_jual - $spareparts->harga_modal) - ($spareparts->harga_jual - $spareparts->harga_modal) / 100 * ($persen_sales + Auth::user()->persen);
+            $orderDetail->garansi = $expired;
+            $orderDetail->is_admin_toko = "Admin";
+            $orderDetail->admin_id = Auth::user()->id;
+            $orderDetail->persen_admin = Auth::user()->persen;
+            $orderDetail->save();
         }
 
         return redirect()->route('admin-transaksi-servis.index');
