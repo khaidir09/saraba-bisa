@@ -279,7 +279,6 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <x-servis.pola-kunci />
                                     </div>
                                     <!-- Modal footer -->
                                     <div class="pt-4 border-t border-slate-200 mt-4">
