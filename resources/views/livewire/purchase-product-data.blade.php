@@ -137,7 +137,11 @@
                                     <div class="font-medium">{{ $item->supplier->name }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->product->product_name }}</div>
+                                    @if ($item->product != null)
+                                        <div class="font-medium">{{ $item->product->product_name }}</div>
+                                    @else
+                                        <div class="font-medium text-red-600">Data produk sudah dihapus</div>
+                                    @endif
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $item->keterangan }}</div>
