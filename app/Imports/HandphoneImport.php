@@ -20,6 +20,8 @@ class HandphoneImport implements ToModel, WithHeadingRow, WithBatchInserts, With
             'model_series_id'    => $row['ID Model Seri'],
             'ram'    => $row['RAM'],
             'capacities_id'    => $row['ID Kapasitas'],
+            'warna'    => $row['Warna'],
+            'kondisi'    => $row['Kondisi'],
             'product_code'    => $row['Kode Produk'],
             'nomor_seri'    => $row['Nomor Seri'],
             'stok'    => $row['Stok'],
@@ -40,6 +42,6 @@ class HandphoneImport implements ToModel, WithHeadingRow, WithBatchInserts, With
 
     public function uniqueBy()
     {
-        return ['nomor_seri', 'product_name'];
+        return ['nomor_seri'];
     }
 }
