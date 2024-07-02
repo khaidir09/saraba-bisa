@@ -172,10 +172,10 @@
                                 <div class="font-semibold text-left">Target</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Capaian Persen</div>
+                                <div class="font-semibold text-left">Hasil Persen</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Capaian Nilai</div>
+                                <div class="font-semibold text-left">Hasil Nominal</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Aksi</div>
