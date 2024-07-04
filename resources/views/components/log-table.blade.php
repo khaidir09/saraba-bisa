@@ -56,23 +56,47 @@
                                 @if ($item->causer->exists())
                                     <div class="font-medium">{{ $item->causer->name }}</div>
                                 @else
-                                    <div class="font-medium text-rose-600">Data pengguna telah dihapus</div>
+                                    <div class="font-medium text-rose-600">Data servis telah dihapus</div>
                                 @endif
                             @else
-                                <div class="font-medium text-rose-600">Data pengguna telah dihapus</div>
+                                <div class="font-medium text-rose-600">Data servis telah dihapus</div>
                             @endif
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium">{{ $item->description }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-medium">#{{ $item->subject->nomor_servis }}</div>
+                            @if ($item->subject)
+                                @if ($item->subject->exists())
+                                    <div class="font-medium">#{{ $item->subject->nomor_servis }}</div>
+                                @else
+                                    <div class="font-medium text-rose-600">Data servis telah dihapus</div>
+                                @endif
+                            @else
+                                <div class="font-medium text-rose-600">Data servis telah dihapus</div>
+                            @endif
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-medium">{{ $item->subject->nama_pelanggan }}</div>
+                            @if ($item->subject)
+                                @if ($item->subject->exists())
+                                    <div class="font-medium">{{ $item->subject->nama_pelanggan }}</div>
+                                @else
+                                    <div class="font-medium text-rose-600">Data servis telah dihapus</div>
+                                @endif
+                            @else
+                                <div class="font-medium text-rose-600">Data servis telah dihapus</div>
+                            @endif
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-medium">{{ $item->subject->type->name }} {{ $item->subject->brand->name }} {{ $item->subject->modelserie->name }}</div>
+                            @if ($item->subject)
+                                @if ($item->subject->exists())
+                                    <div class="font-medium">{{ $item->subject->type->name }} {{ $item->subject->brand->name }} {{ $item->subject->modelserie->name }}</div>
+                                @else
+                                    <div class="font-medium text-rose-600">Data servis telah dihapus</div>
+                                @endif
+                            @else
+                                <div class="font-medium text-rose-600">Data servis telah dihapus</div>
+                            @endif
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-medium text-orange-600">
