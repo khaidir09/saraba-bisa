@@ -175,7 +175,15 @@
                                     <div class="font-medium">{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->user->name }}</div>
+                                    @if ($item->user)
+                                        @if ($item->user->exists())
+                                            <div class="font-medium">{{ $item->user->name }}</div>
+                                        @else
+                                            <div class="font-medium text-rose-600">Data akun telah dihapus</div>
+                                        @endif
+                                    @else
+                                        <div class="font-medium text-rose-600">Data akun telah dihapus</div>
+                                    @endif
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $item->item }} item</div>
