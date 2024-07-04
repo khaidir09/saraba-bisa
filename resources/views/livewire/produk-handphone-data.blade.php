@@ -480,6 +480,9 @@
                                 <div class="font-semibold text-left">No.</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-semibold text-left">Tgl Masuk</div>
+                            </th>
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Nama Produk</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -538,6 +541,9 @@
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $i++ }}</div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-medium">{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $item->product_name }} {{ $item->kondisi }}</div>
