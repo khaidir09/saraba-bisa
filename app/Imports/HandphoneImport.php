@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use Carbon\Carbon;
 use App\Models\Product;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithUpserts;
@@ -32,6 +33,7 @@ class HandphoneImport implements ToModel, WithHeadingRow, WithBatchInserts, With
             'garansi'    => $row['Garansi Produk (Hari)'],
             'garansi_imei'    => $row['Garansi IMEI (Hari)'],
             'ppn'    => $row['PPN 11%'],
+            'created_at'    => $row['Tgl Masuk'],
         ]);
     }
 

@@ -29,6 +29,7 @@ class Product extends Model
         'model_series_id',
         'ram',
         'capacities_id',
+        'created_at'
     ];
 
     public function subCategory()
