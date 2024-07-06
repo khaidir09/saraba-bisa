@@ -141,7 +141,11 @@
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->total) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->sub_total - $item->total) }}</td>
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->profit) }}</td>
-					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->profit / 100 * $item->persen_sales) }}</td>
+					@if ($hitung_bonus === "profit")
+						<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->profit / 100 * $item->persen_sales) }}</td>
+					@else
+						<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->total / 100 * $item->persen_sales) }}</td>
+					@endif
 				</tr>
 			@endforeach
 		</tbody>

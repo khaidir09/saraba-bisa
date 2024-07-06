@@ -96,6 +96,13 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1">Hitung bonus berdasarkan</label>
+                                            <select name="hitung_bonus" class="form-select text-sm py-1 w-full">
+                                                <option value="profit">Profit</option>
+                                                <option value="hargajual">Harga Jual</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Modal footer -->

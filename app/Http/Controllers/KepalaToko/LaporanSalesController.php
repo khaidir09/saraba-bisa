@@ -31,6 +31,7 @@ class LaporanSalesController extends Controller
         // Filter tanggal
         $start_date = $request->start_date;
         $end_date = $request->end_date;
+        $hitung_bonus = $request->hitung_bonus;
 
         // Mengambil data penjualan
         $orders = OrderDetail::with('order')->where('users_id', $request->users_id)
@@ -57,7 +58,12 @@ class LaporanSalesController extends Controller
             ->whereDate('created_at', '<=', $end_date)
             ->sum('quantity');;
 
-        $total_bonus = $total_profit / 100 * $sales->persen;
+        if ($hitung_bonus === "profit") {
+            $total_bonus = $total_profit / 100 * $sales->persen;
+        } else {
+            $total_bonus = $total_biaya / 100 * $sales->persen;
+        }
+
 
         $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-sales', [
             'users' => $users,
@@ -70,6 +76,7 @@ class LaporanSalesController extends Controller
             'total_profit' => $total_profit,
             'total_penjualan' => $total_penjualan,
             'total_bonus' => $total_bonus,
+            'hitung_bonus' => $hitung_bonus,
         ]);
 
         $filename = 'Laporan Sales ' . '' . $sales->name . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
