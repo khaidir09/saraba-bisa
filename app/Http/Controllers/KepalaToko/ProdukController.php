@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\User;
 use App\Models\Product;
+use App\Models\Category;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Exports\ProdukExport;
 use App\Imports\ProdukImport;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukController extends Controller
@@ -105,6 +107,52 @@ class ProdukController extends Controller
     public function export()
     {
         return Excel::download(new ProdukExport, 'produk.xlsx');
+    }
+
+    public function cetak(Request $request)
+    {
+        // Mengambil logo dan nama toko
+        $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        $pilihan = $request->stok;
+
+        // Mengambil data produk habis
+        $empty_products = Product::where('stok', 0)->get();
+
+        // Menghitung data produk habis
+        $jumlah_item_habis = Product::where('stok', 0)->count();
+
+        // Mengambil data produk tersedia
+        $available_products = Product::where('stok', '>', 0)->get();
+
+        // Menghitung data produk tersedia
+        $jumlah_item_tersedia = Product::where('stok', '>', 0)->count();
+
+        // Menghitung stok produk tersedia
+        $jumlah_stok_tersedia = Product::where('stok', '>', 0)->sum('stok');
+
+        if ($pilihan === "tersedia") {
+            $products = $available_products;
+        } else {
+            $products = $empty_products;
+        }
+
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-produk', [
+            'users' => $users,
+            'imagePath' => $imagePath,
+            'products' => $products,
+            'pilihan' => $pilihan,
+            'jumlah_item_habis' => $jumlah_item_habis,
+            'jumlah_item_tersedia' => $jumlah_item_tersedia,
+            'jumlah_stok_tersedia' => $jumlah_stok_tersedia,
+        ]);
+
+        $filename = 'Laporan Produk.pdf';
+
+        return $pdf->stream($filename);
     }
 
     /**
