@@ -135,7 +135,13 @@
 			@foreach ($orders as $item)
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
-					<td class="text-center" style="width: 60px;">{{ $item->order->invoice_no }}</td>
+					<td class="text-center" style="width: 60px;">
+						@if ($item->order != null)
+							{{ $item->order->invoice_no }}
+						@else
+							-
+						@endif
+					</td>
 					@if ($item->user)
 						<td style="text-align: left; width: 90px;" class="capital">
 							{{ $item->user->name }}
@@ -149,7 +155,13 @@
 							-
 						</td>
 					@endif
-					<td style="text-align: left; width: 90px;" class="capital">{{ $item->order->nama_pelanggan }}</td>
+					<td style="text-align: left; width: 90px;" class="capital">
+						@if ($item->order != null)
+							{{ $item->order->nama_pelanggan }}
+						@else
+							-
+						@endif
+					</td>
 					<td style="text-align: left; width: 90px;">
 						@if ($item->product->categories_id == 1)
 							{{ $item->product->product_name }} {{ $item->product->kondisi }} {{ $item->product->warna }} {{ $item->product->ram }}/@if($item->product->capacity != null)
