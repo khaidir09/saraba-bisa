@@ -136,7 +136,7 @@
 							{{ $item->product->product_name }} {{ $item->product->keterangan }}
 						@endif
 					</td>
-					<td style="text-align: center; width: 80px;">{{ $item->quantity }}</td>
+					<td style="text-align: center; width: 40px;">{{ $item->quantity }}</td>
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->modal) }}</td>
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->total) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->sub_total - $item->total) }}</td>
