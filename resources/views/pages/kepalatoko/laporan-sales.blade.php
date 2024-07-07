@@ -103,6 +103,13 @@
                                                 <option value="hargajual">Harga Jual</option>
                                             </select>
                                         </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1">Metode Pembayaran</label>
+                                            <select name="metode_pembayaran" class="form-select text-sm py-1 w-full">
+                                                <option value="Non Kredit">Non Kredit</option>
+                                                <option value="Kredit">Kredit</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Modal footer -->

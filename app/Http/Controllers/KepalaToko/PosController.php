@@ -153,6 +153,7 @@ class PosController extends Controller
             $pdata['persen_sales'] = $persen_sales->persen;
             $pdata['created_at'] = Carbon::now();
             $pdata['updated_at'] = Carbon::now();
+            $pdata['payment_method'] = $request->payment_method;
 
             OrderDetail::insert($pdata);
         } // end foreach

@@ -27,7 +27,8 @@ class OrderDetail extends Model
         'created_at',
         'updated_at',
         'garansi',
-        'garansi_imei'
+        'garansi_imei',
+        'payment_method'
     ];
 
     public function order()

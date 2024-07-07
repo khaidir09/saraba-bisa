@@ -81,7 +81,8 @@
 		<h4 style="margin-bottom: 6px; margin-top: 5px;">
 			Laporan Sales {{ $sales->name }}
 		</h4>
-		<p style="margin-top: 0">Periode : {{ \Carbon\Carbon::parse($start_date)->format('d-m-Y') }} s/d {{ \Carbon\Carbon::parse($end_date)->format('d-m-Y') }}</p>
+		<p style="margin-top: 0; margin-bottom: 0;">Periode : {{ \Carbon\Carbon::parse($start_date)->format('d-m-Y') }} s/d {{ \Carbon\Carbon::parse($end_date)->format('d-m-Y') }}</p>
+		<p style="margin-top: 0;">Metode Pembayaran : {{ $metode_pembayaran }}</p>
 	</div>
 	
 	<h4 style="margin-bottom: 6px; text-decoration: underline;">
@@ -127,8 +128,20 @@
 			@foreach ($orders as $item)
 				<tr>
 					<td style="width: 10px;">{{ $i++ }}</td>
-					<td class="text-center" style="width: 60px;">{{ $item->order->invoice_no }}</td>
-					<td style="text-align: left; width: 90px;" class="capital">{{ $item->order->nama_pelanggan }}</td>
+					<td class="text-center" style="width: 60px;">
+						@if ($item->order != null)
+							{{ $item->order->invoice_no }}
+						@else
+							-
+						@endif
+					</td>
+					<td style="text-align: left; width: 90px;" class="capital">
+						@if ($item->order != null)
+							{{ $item->order->nama_pelanggan }}
+						@else
+							-
+						@endif
+					</td>
 					<td style="text-align: left; width: 80px;">
 						@if ($item->product->categories_id == 1)
 							{{ $item->product->product_name }} {{ $item->product->kondisi }} {{ $item->product->warna }} {{ $item->product->ram }}/{{ $item->product->capacity->name }} {{ $item->product->keterangan }} (IMEI {{ $item->product->nomor_seri }})

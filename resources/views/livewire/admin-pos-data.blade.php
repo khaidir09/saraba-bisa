@@ -260,6 +260,7 @@
                                                 <select id="payment_method" name="payment_method" class="form-select text-sm py-2 w-full">
                                                     <option value="Tunai">Tunai</option>
                                                     <option value="Transfer">Transfer</option>
+                                                    <option value="Kredit">Kredit</option>
                                                 </select>
                                             </div>
                                             <div>
