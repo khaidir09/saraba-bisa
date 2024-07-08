@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Laporan Produk</title>
+    <title>Laporan Produk Sparepart</title>
 	<style>
 		@page {
             margin: 3mm 4mm 10mm 3mm; /* Atur margin atas, kanan, bawah, dan kiri */
@@ -79,7 +79,7 @@
 
 	<div class="text-center">
 		<h4 style="margin-bottom: 6px; margin-top: 5px;">
-			Laporan Produk
+			Laporan Produk Sparepart
 		</h4>
 	</div>
 	

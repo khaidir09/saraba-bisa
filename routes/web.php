@@ -332,6 +332,8 @@ Route::middleware(['ensureUserRole:KepalaToko', 'checkSubscription'])->group(fun
     Route::get('cetak-laporan-admin', [KepalaTokoLaporanAdminController::class, 'cetak'])->name('cetak-laporan-admin');
     Route::post('cetak-label-inventaris', [KepalaTokoInventarisController::class, 'printSelected'])->name('cetak-label-inventaris');
     Route::get('cetak-laporan-produk', [KepalaTokoProdukController::class, 'cetak'])->name('cetak-laporan-produk');
+    Route::get('cetak-laporan-produk-handphone', [KepalaTokoProdukHandphoneController::class, 'cetak'])->name('cetak-laporan-produk-handphone');
+    Route::get('cetak-laporan-produk-sparepart', [KepalaTokoProdukSparepartController::class, 'cetak'])->name('cetak-laporan-produk-sparepart');
 
     Route::get('pengaturan/profil', [KepalaTokoInformasiTokoController::class, 'index'])->name('informasi-toko');
     Route::post('pengaturan/profil', [KepalaTokoInformasiTokoController::class, 'update'])->name('informasi-toko-update');

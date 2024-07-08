@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
+use App\Models\User;
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Category;
 use App\Models\ModelSerie;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\HandphoneExport;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\KepalaToko\HandphoneRequest;
-use App\Http\Requests\KepalaToko\ProductRequest;
 use App\Imports\HandphoneImport;
-use App\Models\Color;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\KepalaToko\HandphoneRequest;
 
 class ProdukHandphoneController extends Controller
 {
@@ -146,6 +147,55 @@ class ProdukHandphoneController extends Controller
             'colors' => $colors,
             'toko' => $toko
         ]);
+    }
+
+    public function cetak(Request $request)
+    {
+        // Mengambil logo dan nama toko
+        $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        $pilihan = $request->stok;
+
+        // Mengambil data produk habis
+        $empty_products = Product::where('categories_id', 1)->where('stok', 0)->get();
+
+        // Menghitung data produk habis
+        $jumlah_item_habis = Product::where('categories_id', 1)->where('stok', 0)->count();
+
+        // Mengambil data produk tersedia
+        $available_products = Product::where('categories_id', 1)->where('stok', '>', 0)->get();
+
+        // Menghitung data produk tersedia
+        $jumlah_item_tersedia = Product::where('categories_id', 1)->where('stok', '>', 0)->count();
+
+        $modal_stok_tersedia = Product::where('categories_id', 1)->where('stok', '>', 0)->sum('harga_modal');
+
+        // Menghitung stok produk tersedia
+        $jumlah_stok_tersedia = Product::where('categories_id', 1)->where('stok', '>', 0)->sum('stok');
+
+        if ($pilihan === "tersedia") {
+            $products = $available_products;
+        } else {
+            $products = $empty_products;
+        }
+
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-produk-handphone', [
+            'users' => $users,
+            'imagePath' => $imagePath,
+            'products' => $products,
+            'pilihan' => $pilihan,
+            'jumlah_item_habis' => $jumlah_item_habis,
+            'jumlah_item_tersedia' => $jumlah_item_tersedia,
+            'jumlah_stok_tersedia' => $jumlah_stok_tersedia,
+            'modal_stok_tersedia' => $modal_stok_tersedia,
+        ]);
+
+        $filename = 'Laporan Produk Handphone.pdf';
+
+        return $pdf->stream($filename);
     }
 
     /**

@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\KepalaToko;
 
-use App\Exports\SparepartExport;
+use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ModelSerie;
 use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\KepalaToko\ProductRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\SparepartExport;
 use App\Imports\SparepartImport;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\KepalaToko\ProductRequest;
 
 class ProdukSparepartController extends Controller
 {
@@ -107,6 +109,55 @@ class ProdukSparepartController extends Controller
     public function export()
     {
         return Excel::download(new SparepartExport, 'sparepart.xlsx');
+    }
+
+    public function cetak(Request $request)
+    {
+        // Mengambil logo dan nama toko
+        $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        $pilihan = $request->stok;
+
+        // Mengambil data produk habis
+        $empty_products = Product::where('categories_id', 2)->where('stok', 0)->get();
+
+        // Menghitung data produk habis
+        $jumlah_item_habis = Product::where('categories_id', 2)->where('stok', 0)->count();
+
+        // Mengambil data produk tersedia
+        $available_products = Product::where('categories_id', 2)->where('stok', '>', 0)->get();
+
+        // Menghitung data produk tersedia
+        $jumlah_item_tersedia = Product::where('categories_id', 2)->where('stok', '>', 0)->count();
+
+        $modal_stok_tersedia = Product::where('categories_id', 2)->where('stok', '>', 0)->sum('harga_modal');
+
+        // Menghitung stok produk tersedia
+        $jumlah_stok_tersedia = Product::where('categories_id', 2)->where('stok', '>', 0)->sum('stok');
+
+        if ($pilihan === "tersedia") {
+            $products = $available_products;
+        } else {
+            $products = $empty_products;
+        }
+
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-produk-sparepart', [
+            'users' => $users,
+            'imagePath' => $imagePath,
+            'products' => $products,
+            'pilihan' => $pilihan,
+            'jumlah_item_habis' => $jumlah_item_habis,
+            'jumlah_item_tersedia' => $jumlah_item_tersedia,
+            'jumlah_stok_tersedia' => $jumlah_stok_tersedia,
+            'modal_stok_tersedia' => $modal_stok_tersedia,
+        ]);
+
+        $filename = 'Laporan Produk Sparepart.pdf';
+
+        return $pdf->stream($filename);
     }
 
     /**

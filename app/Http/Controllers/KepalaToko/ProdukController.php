@@ -131,6 +131,8 @@ class ProdukController extends Controller
         // Menghitung data produk tersedia
         $jumlah_item_tersedia = Product::where('stok', '>', 0)->count();
 
+        $modal_stok_tersedia = Product::where('stok', '>', 0)->sum('harga_modal');
+
         // Menghitung stok produk tersedia
         $jumlah_stok_tersedia = Product::where('stok', '>', 0)->sum('stok');
 
@@ -148,6 +150,7 @@ class ProdukController extends Controller
             'jumlah_item_habis' => $jumlah_item_habis,
             'jumlah_item_tersedia' => $jumlah_item_tersedia,
             'jumlah_stok_tersedia' => $jumlah_stok_tersedia,
+            'modal_stok_tersedia' => $modal_stok_tersedia,
         ]);
 
         $filename = 'Laporan Produk.pdf';
