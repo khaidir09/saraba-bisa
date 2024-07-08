@@ -157,7 +157,7 @@ class ProdukSparepartController extends Controller
 
         $filename = 'Laporan Produk Sparepart.pdf';
 
-        return $pdf->stream($filename);
+        return $pdf->download($filename);
     }
 
     /**

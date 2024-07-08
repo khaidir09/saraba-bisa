@@ -195,7 +195,7 @@ class ProdukHandphoneController extends Controller
 
         $filename = 'Laporan Produk Handphone.pdf';
 
-        return $pdf->stream($filename);
+        return $pdf->download($filename);
     }
 
     /**

@@ -155,7 +155,7 @@ class ProdukController extends Controller
 
         $filename = 'Laporan Produk.pdf';
 
-        return $pdf->stream($filename);
+        return $pdf->download($filename);
     }
 
     /**
