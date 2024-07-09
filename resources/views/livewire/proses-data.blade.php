@@ -838,29 +838,16 @@
                                             @mouseenter="open = true"
                                             @mouseleave="open = false"
                                         >
-                                            @if ($process->estimasi_biaya != null)
-                                                <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20{{ $process->type->name }}%20{{ $process->brand->name }}%20{{ $process->modelserie->name }}%20telah%20diterima%20oleh%20*{{ $process->penerima }}*%20dengan%20No.%20Servis%20*{{ $process->nomor_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($process->created_at)->translatedFormat('d F Y h:i') }}%20dan%20Estimasi%20Biaya%20Servis%20*{{ number_format($process->estimasi_biaya) }}*%20.%20Untuk%20Cek%20Status%20(Tracking)%20Servis%20barang%20Anda,%20silahkan%20buka%20Link%20berikut%20ini%20{{ $toko->link_toko }}/tracking.%20Terima%20Kasih." target="__blank">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                                                    <line x1="9" y1="7" x2="10" y2="7" />
-                                                    <line x1="9" y1="13" x2="15" y2="13" />
-                                                    <line x1="13" y1="17" x2="15" y2="17" />
-                                                    </svg>
-                                                </a>
-                                            @else
-                                                <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20{{ $process->type->name }}%20{{ $process->brand->name }}%20{{ $process->modelserie->name }}%20telah%20diterima%20oleh%20*{{ $process->penerima }}*%20dengan%20No.%20Servis%20*{{ $process->nomor_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($process->created_at)->translatedFormat('d F Y h:i') }}.%20Untuk%20Cek%20Status%20(Tracking)%20Servis%20barang%20Anda,%20silahkan%20buka%20Link%20berikut%20ini%20{{ $toko->link_toko }}/tracking.%20Terima%20Kasih." target="__blank">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                                                    <line x1="9" y1="7" x2="10" y2="7" />
-                                                    <line x1="9" y1="13" x2="15" y2="13" />
-                                                    <line x1="13" y1="17" x2="15" y2="17" />
-                                                    </svg>
-                                                </a>
-                                            @endif
+                                            <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20Service*%0A{{ $toko->nama_toko }}%0A%0ANo.%20Service%20:%20{{ $process->nomor_servis }}%0ANama%20user%20:%20{{ $process->nama_pelanggan }}%0AUnit%20:%20{{ $process->nama_barang }}%0ADiterima%20:%20{{ $process->penerima }}%0ATanggal%20:%20{{ \Carbon\Carbon::parse($process->created_at)->translatedFormat('d F Y h:i') }}%0AKerusakan%20:%20{{ $process->kerusakan }}%0ALink%20tracking%20:%20{{ $toko->link_toko }}/tracking%0ATerimakasih" target="__blank">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                                <line x1="9" y1="7" x2="10" y2="7" />
+                                                <line x1="9" y1="13" x2="15" y2="13" />
+                                                <line x1="13" y1="17" x2="15" y2="17" />
+                                                </svg>
+                                            </a>
                                             <div class="z-10 absolute bottom-full left-1/2 -translate-x-1/2">
                                                 <div
                                                     class="min-w-56 bg-slate-800 p-2 rounded overflow-hidden mb-2"
