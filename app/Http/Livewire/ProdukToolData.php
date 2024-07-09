@@ -33,10 +33,20 @@ class ProdukToolData extends Component
         $tools = SubCategory::where('categories_id', '=', '4')->get();
         $toko = StoreSetting::find(1);
         $tools_count = Product::where('categories_id', '=', '4')->count();
+        $toolitemready = Product::where('categories_id', 4)->where('stok', '>', 0)->count();
+        $toolstokready = Product::where('categories_id', 4)->where('stok', '>', 0)->sum('stok');
+        $toolmodalready = Product::where('categories_id', 4)->where('stok', '>', 0)->sum('harga_modal');
+        $toolstokhabis = Product::where('categories_id', 4)->where('stok', 0)->count();
+        $toolnominalterjual = Product::where('categories_id', 4)->where('stok', 0)->sum('harga_jual');
         return view('livewire.produk-tool-data', [
             'toko' => $toko,
             'tools' => $tools,
             'tools_count' => $tools_count,
+            'toolitemready' => $toolitemready,
+            'toolstokready' => $toolstokready,
+            'toolmodalready' => $toolmodalready,
+            'toolstokhabis' => $toolstokhabis,
+            'toolnominalterjual' => $toolnominalterjual,
             'products' => $this->search === null ?
                 Product::latest()->where('categories_id', '=', '4')->paginate($this->paginate) :
                 Product::latest()->where('categories_id', '=', '4')->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)

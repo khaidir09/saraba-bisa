@@ -36,11 +36,21 @@ class ProdukAksesorisData extends Component
         $model_series = ModelSerie::all();
         $toko = StoreSetting::find(1);
         $accessories_count = Product::where('categories_id', '=', '3')->count();
+        $aksesorisitemready = Product::where('categories_id', 3)->where('stok', '>', 0)->count();
+        $aksesorisstokready = Product::where('categories_id', 3)->where('stok', '>', 0)->sum('stok');
+        $aksesorismodalready = Product::where('categories_id', 3)->where('stok', '>', 0)->sum('harga_modal');
+        $aksesorisstokhabis = Product::where('categories_id', 3)->where('stok', 0)->count();
+        $aksesorisnominalterjual = Product::where('categories_id', 3)->where('stok', 0)->sum('harga_jual');
         return view('livewire.produk-aksesoris-data', [
             'toko' => $toko,
             'accessories' => $accessories,
             'model_series' => $model_series,
             'accessories_count' => $accessories_count,
+            'aksesorisitemready' => $aksesorisitemready,
+            'aksesorisstokready' => $aksesorisstokready,
+            'aksesorismodalready' => $aksesorismodalready,
+            'aksesorisstokhabis' => $aksesorisstokhabis,
+            'aksesorisnominalterjual' => $aksesorisnominalterjual,
             'products' => $this->search === null ?
                 Product::latest()->where('categories_id', '=', '3')->paginate($this->paginate) :
                 Product::latest()->where('categories_id', '=', '3')->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)

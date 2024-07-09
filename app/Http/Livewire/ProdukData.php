@@ -44,6 +44,11 @@ class ProdukData extends Component
         $colors = Color::all();
         $products_count = Product::all()->count();
         $toko = StoreSetting::find(1);
+        $itemready = Product::where('stok', '>', 0)->count();
+        $stokready = Product::where('stok', '>', 0)->sum('stok');
+        $modalready = Product::where('stok', '>', 0)->sum('harga_modal');
+        $stokhabis = Product::where('stok', 0)->count();
+        $nominalterjual = Product::where('stok', 0)->sum('harga_jual');
         return view('livewire.produk-data', [
             'brands' => $brands,
             'capacities' => $capacities,
@@ -55,6 +60,11 @@ class ProdukData extends Component
             'accessories' => $accessories,
             'tools' => $tools,
             'products_count' => $products_count,
+            'itemready' => $itemready,
+            'stokready' => $stokready,
+            'modalready' => $modalready,
+            'stokhabis' => $stokhabis,
+            'nominalterjual' => $nominalterjual,
             'products' => $this->search === null ?
                 Product::latest()->paginate($this->paginate) :
                 Product::latest()->where('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)

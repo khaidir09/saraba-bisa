@@ -1,4 +1,8 @@
 <div>
+    <div class="grid grid-cols-12 gap-6 mb-4">
+        <x-produk.card-stok-ready :itemready="$itemready" :stokready="$stokready" :modalready="$modalready"/>
+        <x-produk.card-stok-habis :stokhabis="$stokhabis" :nominalterjual="$nominalterjual"/>
+    </div>
     <!-- Page header -->
     <div class="sm:flex sm:justify-between sm:items-center mb-3">
 
