@@ -79,8 +79,8 @@
                     <form action="{{ route('ubah-sudah-diambil-update', $item->id) }}" method="post">
                         @csrf
                         <input type="hidden" name="status_servis" value="Sudah Diambil"/>
-                        <input type="hidden" name="tgl_ambil" value="<?php echo date('Y/m/d') ?>"/>
-                        <input type="hidden" name="tgl_disetujui" value="<?php echo date('Y/m/d') ?>"/>
+                        <input type="hidden" name="tgl_ambil" value="<?php echo date('Y-m-d H:i:s') ?>"/>
+                        <input type="hidden" name="tgl_disetujui" value="<?php echo date('Y-m-d') ?>"/>
                         <input type="hidden" name="modal_sparepart" value="{{ $item->modal_sparepart }}"/>
                         <input type="hidden" name="biaya" value="{{ $item->biaya }}"/>
                         <div class="px-5 py-4">

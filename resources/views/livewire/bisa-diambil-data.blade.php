@@ -571,7 +571,7 @@
                                             @mouseenter="open = true"
                                             @mouseleave="open = false"
                                         >
-                                            <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20*{{ $transaction->type->name }}%20{{ $transaction->brand->name }}%20{{ $transaction->modelserie->name }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20kondisinya%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_selesai)->translatedFormat('d F Y') }}%20dan%20*{{ $transaction->status_servis }}*%20dengan%20biaya%20Rp.%20{{ number_format($transaction->biaya) }}.%20Terima%20Kasih." target="__blank">
+                                            <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20|%20{{ $toko->nama_toko }}*%20Barang%20Servis%20*{{ $transaction->nama_barang }}*%20dengan%20No.%20Servis%20*{{ $transaction->nomor_servis }}*%20kondisinya%20*{{ $transaction->kondisi_servis }}*%20pada%20tanggal%20{{ \Carbon\Carbon::parse($transaction->tgl_selesai)->translatedFormat('d F Y') }}%20dan%20*{{ $transaction->status_servis }}*%20dengan%20biaya%20Rp.%20{{ number_format($transaction->biaya) }}.%20Terima%20Kasih." target="__blank">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                 <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -601,7 +601,7 @@
                                     </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $transaction->type->name }} {{ $transaction->brand->name }} {{ $transaction->modelserie->name }}</div>
+                                    <div class="font-medium">{{ $transaction->nama_barang }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium capitalize">{{ $transaction->kerusakan }}</div>

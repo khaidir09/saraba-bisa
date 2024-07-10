@@ -516,7 +516,8 @@
                                                         x-transition:leave-end="opacity-0"
                                                         x-cloak
                                                     >
-                                                        <div class="text-xs text-slate-200 whitespace-nowrap">Kirim pesan melalui Whatsapp</div>
+                                                        <div class="text-xs text-slate-
+                                                        200 whitespace-nowrap">Kirim pesan melalui Whatsapp</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -530,7 +531,7 @@
                                                 @mouseleave="open = false"
                                             >
                                                 @if ($transaction->exp_garansi != null)
-                                                    <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20Service*%0A{{ $toko->nama_toko }}%0A%0ANo.%20Service%20:%20{{ $transaction->nomor_servis }}%0ANama%20user%20:%20{{ $transaction->nama_pelanggan }}%0AUnit%20:%20{{ $transaction->nama_barang }}%0ADiambil%20:%20{{ $transaction->pengambil }}%0ATanggal%20:%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y') }}%0AStatus%20:%20{{ $transaction->kondisi_servis }}%0AGaransi%20:%20{{ \Carbon\Carbon::parse($transaction->exp_garansi)->translatedFormat('d F Y') }}%0APembayaran%20:%20{{ $transaction->cara_pembayaran }}%0ALink%20tracking%20:%20{{ $toko->link_toko }}/tracking%0A%0ATerimakasih" target="__blank">
+                                                    <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20Service*%0A{{ $toko->nama_toko }}%0A%0ANo.%20Service%20:%20{{ $transaction->nomor_servis }}%0ANama%20user%20:%20*{{ $transaction->nama_pelanggan }}*%0AUnit%20:%20{{ $transaction->nama_barang }}%0ADiambil%20:%20{{ $transaction->pengambil }}%0ATanggal%20:%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y (H:i)') }}%0AStatus%20:%20{{ $transaction->kondisi_servis }}%0AGaransi%20sampai%20:%20{{ \Carbon\Carbon::parse($transaction->exp_garansi)->translatedFormat('d F Y') }}%0APembayaran%20:%20{{ $transaction->cara_pembayaran }}%0A%0ALink%20tracking%20:%20{{ $toko->link_toko }}/tracking%0A%0ATerimakasih" target="__blank">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                         <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -541,7 +542,7 @@
                                                         </svg>
                                                     </a>
                                                 @else
-                                                    <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20Service*%0A{{ $toko->nama_toko }}%0A%0ANo.%20Service%20:%20{{ $transaction->nomor_servis }}%0ANama%20user%20:%20{{ $transaction->nama_pelanggan }}%0AUnit%20:%20{{ $transaction->nama_barang }}%0ADiambil%20:%20{{ $transaction->pengambil }}%0ATanggal%20:%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y') }}%0AStatus%20:%20{{ $transaction->kondisi_servis }}%0AGaransi%20:%20Tidak%20ada%20garansi%0APembayaran%20:%20{{ $transaction->cara_pembayaran }}%0ALink%20tracking%20:%20{{ $toko->link_toko }}/tracking%0A%0ATerimakasih" target="__blank">
+                                                    <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20Service*%0A{{ $toko->nama_toko }}%0A%0ANo.%20Service%20:%20{{ $transaction->nomor_servis }}%0ANama%20user%20:%20*{{ $transaction->nama_pelanggan }}*%0AUnit%20:%20{{ $transaction->nama_barang }}%0ADiambil%20:%20{{ $transaction->pengambil }}%0ATanggal%20:%20{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->translatedFormat('d F Y (H:i)') }}%0AStatus%20:%20{{ $transaction->kondisi_servis }}%0AGaransi%20sampai%20:%20Tidak%20ada%20garansi%0APembayaran%20:%20{{ $transaction->cara_pembayaran }}%0A%0ALink%20tracking%20:%20{{ $toko->link_toko }}/tracking%0A%0ATerimakasih" target="__blank">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                         <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -677,7 +678,7 @@
                                     <div class="font-medium">{{ $transaction->cara_pembayaran }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $transaction->tgl_ambil }}</div>
+                                    <div class="font-medium">{{ \Carbon\Carbon::parse($transaction->tgl_ambil)->format('d/m/Y H:i') }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $transaction->pengambil }}</div>

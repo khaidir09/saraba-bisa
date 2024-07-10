@@ -84,7 +84,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="tgl_ambil">Tgl. Ambil </label>
-                                    <input id="tgl_ambil" name="tgl_ambil" class="form-input w-full px-2 py-1" type="date" value="{{ \Carbon\Carbon::parse($item->tgl_ambil)->format('Y-m-d') }}"/>
+                                    <input id="tgl_ambil" name="tgl_ambil" class="form-input w-full px-2 py-1" type="datetime" value="{{ $item->tgl_ambil }}"/>
                                 </div>
                                 @if ($item->is_approve != null)
                                 <div>
