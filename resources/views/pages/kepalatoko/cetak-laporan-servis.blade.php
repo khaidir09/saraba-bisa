@@ -139,7 +139,13 @@
 					<td style="width: 10px;">{{ $i++ }}</td>
 					<td class="text-center" style="width: 60px;">{{ $item->nomor_servis }}</td>
 					<td style="text-align: left; width: 70px;" class="capital">{{ $item->nama_pelanggan }}</td>
-					<td style="text-align: left; width: 70px;">{{ $item->modelserie->name }}</td>
+					<td style="text-align: left; width: 70px;">
+						@if ($item->modelserie)
+							{{ $item->modelserie->name }}
+						@else
+							-
+						@endif
+					</td>
 					<td class="capital" style="text-align: left; width: 80px;">
 						@if ($item->kondisi_servis != 'Sudah jadi')
 							{{ $item->kondisi_servis }}
@@ -156,7 +162,7 @@
 							{{ $item->user()->withTrashed()->first()->name }}
 						</td>
 					@else
-						<td style="text-align: center; width: 70px;">
+						<td style="text-align: left; width: 70px;">
 							-
 						</td>
 					@endif

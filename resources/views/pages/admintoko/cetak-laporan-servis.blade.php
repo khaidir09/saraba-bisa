@@ -51,6 +51,18 @@
 			word-wrap: break-word;
 		}
 
+		#analisis td,
+		th,
+		tr,
+		table {
+			border-collapse: collapse;
+			font-size: 14px;
+			line-height: 1em;
+			width: 100%;
+			padding: 4px 0 4px 0;
+			text-align: left;
+		}
+
 		#data {
 			border-bottom: 1px solid #ddd;
 		}
@@ -81,20 +93,12 @@
 	<table id="ringkasan">
 		<tbody>
 			<tr>
-				<th>Total Modal Sparepart</th>
-				<th>: Rp. {{ number_format($total_modal) }}</th>
-				<th class="text-right">Total Biaya Servis</th>
-				<th class="text-right">: Rp. {{ number_format($total_biaya) }}</th>
-			</tr>
-			<tr>
-				<th>Total Diskon</th>
-				<th>: Rp. {{ number_format($total_diskon) }}</th>
-				<th class="text-right">Total Profit</th>
-				<th class="text-right">: Rp. {{ number_format($total_profit) }}</th>
-			</tr>
-			<tr>
 				<th>Total Item Servis</th>
 				<th>: {{ $total_servis }} Item</th>
+				<th>Total Biaya Servis</th>
+				<th>: Rp. {{ number_format($total_biaya) }}</th>
+				<th class="text-right">Total Diskon</th>
+				<th class="text-right">: Rp. {{ number_format($total_diskon) }}</th>
 			</tr>
 		</tbody>
 	</table>
@@ -127,7 +131,13 @@
 					<td style="width: 10px;">{{ $i++ }}</td>
 					<td class="text-center" style="width: 60px;">{{ $item->nomor_servis }}</td>
 					<td style="text-align: left; width: 70px;" class="capital">{{ $item->nama_pelanggan }}</td>
-					<td style="text-align: left; width: 70px;">{{ $item->modelserie->name }}</td>
+					<td style="text-align: left; width: 70px;">
+						@if ($item->modelserie)
+							{{ $item->modelserie->name }}
+						@else
+							-
+						@endif
+					</td>
 					<td class="capital" style="text-align: left; width: 80px;">
 						@if ($item->kondisi_servis != 'Sudah jadi')
 							{{ $item->kondisi_servis }}
