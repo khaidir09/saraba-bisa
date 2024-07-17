@@ -57,6 +57,8 @@
         
         @livewireScripts
 
+        <x-livewire-alert::scripts />
+
         @stack('scripts')
     </body>
 </html>

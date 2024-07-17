@@ -1,0 +1,85 @@
+<div class="relative mt-8">
+    <div class="mb-3 px-2">
+        <div class="mb-2 w-full relative text-gray-600 focus-within:text-gray-400 px-2">
+            <x-input wire:keydown.escape="resetQuery" wire:model.debounce.500ms="query" type="search"
+                minlength="4" placeholder="{{ __('Cari produk berdasarkan nama atau kode produk') }}" autofocus />
+            <div class="absolute right-0 top-0 mt-2 mr-4 text-purple-lighter">
+                <button wire:click="resetQuery" type="button">X</button>
+            </div>
+        </div>
+        
+        <div class="flex flex-wrap -mx-2 mb-3">
+            
+            <div class="lg:w-1/2 md:w-1/2 sm:w-1/2 px-2">
+                <label class="block text-sm font-medium mb-1">Kategori Produk</label>
+                <x-select-list :options="$this->categories" wire:model="categories_id" name="categories_id" id="categories_id" />
+            </div>
+
+            <div class="lg:w-1/2 md:w-1/2 sm:w-1/2 px-2">
+                <label class="block text-sm font-medium mb-1">Jumlah produk</label>
+                <x-label for="showCount" :value="__('Product per page')" />
+                <select wire:model="showCount"
+                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
+                    <option value="9">9</option>
+                    <option value="15">15</option>
+                    <option value="21">21</option>
+                    <option value="30">30</option>
+                    <option value="">{{ __('Semua') }}</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    
+    <div class="w-full px-2 mb-4 bg-white">
+        <div class="flex flex-wrap w-full">
+            <div
+                class="w-full grid gap-3 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 px-2 mt-5 overflow-y-auto">
+                @forelse($products as $product)
+                    <div wire:click.prevent="selectProduct({{ $product }})"
+                        class="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg w-full py-8 relative border border-green-400">
+                        <div
+                            class="inline-block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-blue-400 mb-3 absolute top-0 right-0">
+                            {{ __('Stock') }}: 1
+
+                        </div>
+                        <div class="pb-3 px-3 text-sm -mt-3">
+                            <h6 class="text-md text-center font-semibold mb-3 md:mb-0">
+                                {{ $product->product_name }}
+                            </h6>
+                            <p class="mb-0 text-center font-bold">
+                                 Rp. {{ number_format($product->harga_jual) }}
+                            </p>
+                        </div>
+                        <span
+                            class="block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-green-400 absolute bottom-0">
+                            {{ $product->product_code }}
+                        </span>
+                    </div>
+                @empty
+                    <div class="col-span-full w-full px-2 py-3 mb-4 border rounded">
+                        <span class="inline-block align-middle mr-8">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11a1 1 0 11-2 0 1 1 0 012 0zm-1-3a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                        <span class="inline-block align-middle mr-8">
+                            {{ __('No product found') }}
+                        </span>
+                    </div>
+                @endforelse
+            </div>
+            <div class="my-3 mx-auto">
+                @if ($products->count() >= $showCount)
+                    <x-button wire:click.prevent="loadMore" primary type="button">
+                        {{ __('Load More') }} <i class="bi bi-arrow-down-circle"></i>
+                    </x-button>
+                @endif
+            </div>
+        </div>
+    </div>
+
+</div>
