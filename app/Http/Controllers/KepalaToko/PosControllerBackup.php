@@ -21,7 +21,7 @@ class PosController extends Controller
      */
     public function index()
     {
-        return view('pages/kepalatoko/pos/index');
+        return view('pages/kepalatoko/produk/pos');
     }
 
     public function addcart(Request $request)
