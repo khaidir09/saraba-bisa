@@ -10,11 +10,11 @@ class OrderDetail extends Model
     use SoftDeletes;
     protected $fillable = [
         'orders_id',
+        'users_id',
         'products_id',
         'product_name',
         'quantity',
         'price',
-        'total',
         'sub_total',
         'ppn',
         'modal',
@@ -28,7 +28,9 @@ class OrderDetail extends Model
         'updated_at',
         'garansi',
         'garansi_imei',
-        'payment_method'
+        'payment_method',
+        'total',
+        'product_discount_amount',
     ];
 
     public function order()

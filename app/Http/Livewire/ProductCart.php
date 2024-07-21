@@ -15,7 +15,7 @@ class ProductCart extends Component
 
     /** @var array<string> */
     public $listeners = [
-        'productSelected', 'discountModalRefresh',
+        'productSelected',
     ];
 
     public $cart_instance;
@@ -24,11 +24,9 @@ class ProductCart extends Component
 
     public $global_tax = 0;
 
-    public $discountModal = false;
-
     public $quantity = [];
 
-    public $harga_jual;
+    public $price;
 
     public $check_quantity = [];
 
@@ -81,7 +79,7 @@ class ProductCart extends Component
         $exists = $cart->search(fn ($cartItem) => $cartItem->id === $product['id']);
 
         if ($exists->isNotEmpty()) {
-            $this->alert('error', __('Product already added to cart!'));
+            $this->alert('error', __('Produk sudah ditambahkan ke keranjang'));
 
             return;
         }
@@ -135,10 +133,14 @@ class ProductCart extends Component
             'price'   => $product['harga_jual'],
             'weight'  => 1,
             'options' => array_merge($calculation, [
-                'product_discount'      => 0.00,
+                'product_discount'      => 0,
                 'product_discount_type' => 'fixed',
                 'code'                  => $product['product_code'],
                 'stock'                 => $product['stok'],
+                'modal'                 => $product['harga_modal'],
+                'garansi'                 => $product['garansi'],
+                'garansi_imei'                 => $product['garansi_imei'],
+                'ppn'                 => $product['ppn'],
             ]),
         ];
     }
@@ -159,6 +161,7 @@ class ProductCart extends Component
                 'unit'                  => $cart_item->options->unit,
                 'product_tax'           => $cart_item->options->product_tax,
                 'unit_price'            => $cart_item->price,
+                'modal'      => $cart_item->options->modal,
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
             ],
@@ -175,18 +178,11 @@ class ProductCart extends Component
         Cart::instance($this->cart_instance)->setGlobalDiscount((int) $this->global_discount);
     }
 
-    public function discountModal($product_id, $row_id): void
-    {
-        $this->updateQuantity($row_id, $product_id);
-
-        $this->discountModal = true;
-    }
-
     public function updateQuantity($row_id, $product_id)
     {
         if ($this->cart_instance === 'sale' || $this->cart_instance === 'purchase_return') {
             if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
-                $this->alert('error', 'Quantity is greater than in stock!');
+                $this->alert('error', 'Nilai Jumlah lebih banyak dari stok yang tersedia!');
 
                 return;
             }
@@ -206,6 +202,7 @@ class ProductCart extends Component
                 'unit_price'            => $cart_item->options->unit_price,
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
+                'modal'      => $cart_item->options->modal,
             ],
         ]);
     }
@@ -243,9 +240,7 @@ class ProductCart extends Component
 
             $this->updateCartOptions($row_id, $product_id, $cart_item, $discount_amount);
         }
-        $this->alert('success', __('Product discount set successfully!'));
-
-        $this->discountModal = false;
+        $this->alert('success', __('Diskon produk berhasil diterapkan!'));
     }
 
     public function updateCartOptions($row_id, $product_id, $cart_item, $discount_amount)
@@ -260,6 +255,7 @@ class ProductCart extends Component
                 'unit_price'            => $cart_item->options->unit_price,
                 'product_discount'      => $discount_amount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
+                'modal'      => $cart_item->options->modal,
             ],
         ]);
     }

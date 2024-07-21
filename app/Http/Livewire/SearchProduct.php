@@ -56,7 +56,7 @@ class SearchProduct extends Component
 
     public function render()
     {
-        $query = Product::with('category')
+        $query = Product::latest()->with('category')
             ->when($this->query, function ($query) {
                 $query->where(function ($query) {
                     $query->where('product_name', 'like', '%' . $this->query . '%')->orWhere('product_code', 'like', '%' . $this->query . '%');

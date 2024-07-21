@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Pos;
 
-use App\Enums\MovementType;
-use App\Enums\PaymentStatus;
-use App\Enums\SaleStatus;
-use App\Jobs\PaymentNotification;
-use App\Models\Customer;
-use App\Models\Warehouse;
-use App\Models\Movement;
+use Carbon\Carbon;
 use App\Models\Order;
-use App\Models\OrderDetail;
 use App\Models\Product;
-use App\Models\Sale;
-use Illuminate\Support\Facades\DB;
-use App\Models\ProductWarehouse;
-use App\Models\SaleDetails;
-use App\Models\SalePayment;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Auth;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use App\Models\Customer;
+use App\Enums\SaleStatus;
+use App\Enums\MovementType;
+use App\Models\OrderDetail;
+use App\Models\SalePayment;
+use App\Enums\PaymentStatus;
+use App\Models\StoreSetting;
+use App\Jobs\PaymentNotification;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Index extends Component
 {
@@ -77,6 +74,7 @@ class Index extends Component
     public $payment_method;
 
     public $note;
+    public $tgl_disetujui;
 
     public $refreshCustomers;
 
@@ -84,12 +82,10 @@ class Index extends Component
     {
         return [
             'customer_id'         => 'required|numeric',
-            'tax_percentage'      => 'required|integer|min:0|max:100',
-            'discount_percentage' => 'required|integer|min:0|max:100',
             'total_amount'        => 'required|numeric',
             'paid_amount'         => 'nullable|numeric',
-            'note'                => 'nullable|string|max:1000',
             'price'               => 'nullable|numeric',
+            'note'                => 'nullable|string|max:1000',
         ];
     }
 
@@ -103,16 +99,15 @@ class Index extends Component
         $this->quantity = [];
         $this->discount_type = [];
         $this->item_discount = [];
-        $this->payment_method = 'cash';
+        $this->payment_method = 'Tunai';
 
         $this->tax_percentage = 0;
-        $this->discount_percentage = 0;
         $this->paid_amount = 0;
     }
 
     public function hydrate(): void
     {
-        if ($this->payment_method === 'cash') {
+        if ($this->payment_method === 'Tunai') {
             $this->paid_amount = $this->total_amount;
         }
         $this->total_amount = $this->calculateTotal();
@@ -121,9 +116,11 @@ class Index extends Component
     public function render()
     {
         $cart_items = Cart::instance($this->cart_instance)->content();
+        $toko = StoreSetting::find(1);
 
         return view('livewire.pos.index', [
             'cart_items' => $cart_items,
+            'toko' => $toko,
         ]);
     }
 
@@ -143,43 +140,74 @@ class Index extends Component
                 $payment_status = PaymentStatus::PAID;
             }
 
+            $nama_pelanggan = Customer::find($this->customer_id);
+
             $sale = Order::create([
-                'date'                => date('Y-m-d'),
-                'customer_id'         => $this->customer_id,
-                'user_id'             => Auth::user()->id,
-                'tax_percentage'      => $this->tax_percentage,
-                'discount_percentage' => $this->discount_percentage,
-                'paid_amount'         => $this->paid_amount * 100,
-                'total_amount'        => $this->total_amount * 100,
-                'due_amount'          => $due_amount * 100,
-                'status'              => SaleStatus::COMPLETED,
+                'order_date'          => \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y'),
+                'customers_id'         => $this->customer_id,
+                'users_id'             => Auth::user()->id,
+                'discount_amount'     => Cart::instance('sale')->discount(),
+                'pay'             => $this->paid_amount,
+                'due'          => $due_amount,
+                'sub_total'        => $this->total_amount,
+                'total_products'          => Cart::instance($this->cart_instance)->count(),
+                'invoice_no'          => intval(date('Ymd') . mt_rand(0, 999)),
+                'nama_pelanggan'          => $nama_pelanggan->nama,
                 'payment_status'      => $payment_status,
                 'payment_method'      => $this->payment_method,
                 'note'                => $this->note,
-                'tax_amount'          => Cart::instance('sale')->tax() * 100,
-                'discount_amount'     => Cart::instance('sale')->discount() * 100,
+                'is_approve'      => 'Setuju',
+                'tgl_disetujui'      => date('Y-m-d'),
             ]);
 
             // foreach ($this->cart_instance as cart_items) {}
             foreach (Cart::instance('sale')->content() as $cart_item) {
+
+                $garansi = Carbon::now();
+                if ($cart_item->options->garansi != null) {
+                    $expired = $garansi->addDays(
+                        $cart_item->options->garansi
+                    );
+                } else {
+                    $expired = null;
+                }
+
+                $garansi_imei = Carbon::now();
+                if ($cart_item->options->garansi_imei != null) {
+                    $expired_imei = $garansi_imei->addDays(
+                        $cart_item->options->garansi_imei
+                    );
+                } else {
+                    $expired_imei = null;
+                }
+
                 OrderDetail::create([
-                    'sale_id'                 => $sale->id,
-                    'warehouse_id'            => $this->warehouse_id,
-                    'product_id'              => $cart_item->id,
-                    'name'                    => $cart_item->name,
-                    'code'                    => $cart_item->options->code,
+                    'orders_id'                 => $sale->id,
+                    'users_id'            => Auth::user()->id,
+                    'products_id'              => $cart_item->id,
+                    'product_name'                    => $cart_item->name,
                     'quantity'                => $cart_item->qty,
-                    'price'                   => $cart_item->price * 100,
-                    'unit_price'              => $cart_item->options->unit_price * 100,
-                    'sub_total'               => $cart_item->options->sub_total * 100,
-                    'product_discount_amount' => $cart_item->options->product_discount * 100,
-                    'product_discount_type'   => $cart_item->options->product_discount_type,
-                    'product_tax_amount'      => $cart_item->options->product_tax * 100,
+                    'price'                   => $cart_item->price,
+                    'modal'               => $cart_item->options->modal * $cart_item->qty,
+                    'profit'               => $cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty),
+                    'profit_toko'               => $cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty),
+                    // 'profit_toko'               => ($cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty)) - ($cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty)) / 100 * ,
+                    'sub_total'               => $cart_item->options->unit_price * $cart_item->qty,
+                    'total'               => $cart_item->options->sub_total,
+                    'product_discount_amount' => $cart_item->options->product_discount,
+                    'ppn'      => $cart_item->options->product_tax,
+                    'garansi'      => $expired,
+                    'garansi_imei'      => $expired_imei,
+                    'payment_method'      => $this->payment_method,
                 ]);
 
                 $product = Product::findOrFail($cart_item->id);
 
-                $new_quantity = $cart_item->qty;
+                $new_quantity = $product->stok - $cart_item->qty;
+
+                $product->update([
+                    'stok' => $new_quantity,
+                ]);
             }
 
             Cart::instance('sale')->destroy();
@@ -188,9 +216,9 @@ class Index extends Component
                 SalePayment::create([
                     'date'           => date('Y-m-d'),
                     'amount'         => $sale->paid_amount,
-                    'sale_id'        => $sale->id,
+                    'orders_id'        => $sale->id,
                     'payment_method' => $this->payment_method,
-                    'user_id'        => Auth::user()->id,
+                    'users_id'        => Auth::user()->id,
                 ]);
             }
 
@@ -200,7 +228,7 @@ class Index extends Component
 
             Cart::instance('sale')->destroy();
 
-            return redirect()->route('app.pos.index');
+            return redirect()->route('pos');
         });
     }
 

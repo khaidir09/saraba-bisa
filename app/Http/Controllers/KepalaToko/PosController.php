@@ -21,6 +21,8 @@ class PosController extends Controller
      */
     public function index()
     {
+        Cart::instance('sale')->destroy();
+
         return view('pages/kepalatoko/pos/index');
     }
 

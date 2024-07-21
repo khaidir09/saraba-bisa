@@ -1,6 +1,6 @@
 <div class="relative mt-8">
-    <div class="mb-3 px-2">
-        <div class="mb-2 w-full relative text-gray-600 focus-within:text-gray-400 px-2">
+    <div class="mb-3 px-4">
+        <div class="mb-2 w-full relative text-gray-600 focus-within:text-gray-400">
             <x-input wire:keydown.escape="resetQuery" wire:model.debounce.500ms="query" type="search"
                 minlength="4" placeholder="{{ __('Cari produk berdasarkan nama atau kode produk') }}" autofocus />
             <div class="absolute right-0 top-0 mt-2 mr-4 text-purple-lighter">
@@ -10,7 +10,7 @@
         
         <div class="flex flex-wrap -mx-2 mb-3">
             
-            <div class="lg:w-1/2 md:w-1/2 sm:w-1/2 px-2">
+            <div class="lg:w-1/2 md:w-1/2 sm:w-1/2 px-2 mb-2">
                 <label class="block text-sm font-medium mb-1">Kategori Produk</label>
                 <x-select-list :options="$this->categories" wire:model="categories_id" name="categories_id" id="categories_id" />
             </div>
@@ -41,7 +41,7 @@
                         class="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg w-full py-8 relative border border-green-400">
                         <div
                             class="inline-block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-blue-400 mb-3 absolute top-0 right-0">
-                            {{ __('Stock') }}: 1
+                            {{ __('Stok') }}: {{ $product->stok }}
 
                         </div>
                         <div class="pb-3 px-3 text-sm -mt-3">
@@ -67,16 +67,16 @@
                             </svg>
                         </span>
                         <span class="inline-block align-middle mr-8">
-                            {{ __('No product found') }}
+                            {{ __('Tidak ada produk yang ditemukan') }}
                         </span>
                     </div>
                 @endforelse
             </div>
             <div class="my-3 mx-auto">
                 @if ($products->count() >= $showCount)
-                    <x-button wire:click.prevent="loadMore" primary type="button">
-                        {{ __('Load More') }} <i class="bi bi-arrow-down-circle"></i>
-                    </x-button>
+                    <button wire:click.prevent="loadMore" class="btn bg-white border-slate-200 hover:border-slate-300 text-indigo-500" type="button">
+                        Tampilkan lebih banyak
+                    </button>
                 @endif
             </div>
         </div>
