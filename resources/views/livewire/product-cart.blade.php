@@ -145,7 +145,7 @@
             </x-table.tbody>
         </x-table>
     </div>
-    <div class="flex flex-wrap md:justify-end">
+    <div class="flex flex-wrap md:justify-end mb-2">
         <div class="w-full">
             <div class="w-full py-2">
                 <x-table-responsive>
@@ -155,10 +155,10 @@
                         <x-table.td>(+) Rp. {{ number_format(Cart::instance($cart_instance)->tax()) }}</x-table.td>
                     </x-table.tr>
                     @endif --}}
-                    <x-table.tr>
+                    {{-- <x-table.tr>
                         <x-table.th>{{ __('Diskon') }} ({{ $global_discount }}%)</x-table.th>
                         <x-table.td>(-) Rp. {{ number_format(Cart::instance($cart_instance)->discount()) }}</x-table.td>
-                    </x-table.tr>
+                    </x-table.tr> --}}
                     <x-table.tr>
                         <x-table.th>{{ __('Jumlah Total') }}</x-table.th>
                         @php
@@ -175,20 +175,20 @@
 
     <input type="hidden" name="total_amount" value="{{ $total_with_shipping }}">
 
-    <div class="flex flex-wrap my-2">
-        {{-- @if ($toko->is_tax == 1)
+    {{-- <div class="flex flex-wrap my-2">
+        @if ($toko->is_tax == 1)
         <div class="w-full md:w-1/3 mb-4 md:mb-0">
             <div class="mb-4">
                 <label for="tax_percentage">{{ __('Order Tax (%)') }}</label>
                 <x-input wire:model.lazy="global_tax" name="tax_percentage" value="{{ $global_tax }}" />
             </div>
         </div>
-        @endif --}}
+        @endif
         <div class="w-full md:w-1/3 mb-4 md:mb-0">
             <div class="mb-4">
                 <label for="discount_percentage">{{ __('Diskon Global (%)') }}</label>
                 <x-input wire:model.lazy="global_discount" name="discount_percentage" value="{{ $global_discount }}" />
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>

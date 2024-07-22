@@ -109,14 +109,14 @@
                                             </x-table.td>
                                         </x-table.tr>
                                     @endif --}}
-                                    <x-table.tr>
+                                    {{-- <x-table.tr>
                                         <x-table.th>
                                             {{ __('Diskon') }} ({{ $global_discount }}%)
                                         </x-table.th>
                                         <x-table.td>
                                             (-) Rp. {{ number_format(Cart::instance($cart_instance)->discount()) }}
                                         </x-table.td>
-                                    </x-table.tr>
+                                    </x-table.tr> --}}
                                     <x-table.tr>
                                         <x-table.th>
                                             {{ __('Total') }}
