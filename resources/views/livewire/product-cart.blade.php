@@ -9,12 +9,12 @@
         </div>
         <x-table>
             <x-slot name="thead">
-                <x-table.th>{{ __('Produk') }}</x-table.th>
-                <x-table.th>{{ __('Harga') }}</x-table.th>
-                <x-table.th>{{ __('Stok') }}</x-table.th>
-                <x-table.th>{{ __('Jumlah') }}</x-table.th>
-                <x-table.th>{{ __('Sub Total') }}</x-table.th>
-                <x-table.th>{{ __('Aksi') }}</x-table.th>
+                <x-table.th>Produk</x-table.th>
+                <x-table.th>Harga</x-table.th>
+                <x-table.th>Stok</x-table.th>
+                <x-table.th>Jumlah</x-table.th>
+                <x-table.th>Sub Total</x-table.th>
+                <x-table.th>Aksi</x-table.th>
             </x-slot>
             <x-table.tbody>
                 @if ($cart_items->isNotEmpty())
@@ -74,16 +74,16 @@
                                                     <x-validation-errors class="mb-4" :errors="$errors" />
                                                     <div class="grid grid-cols-2 gap-4 my-4">
                                                         <div>
-                                                            <label>{{ __('Tipe Diskon') }}</label>
+                                                            <label>Tipe Diskon</label>
                                                             <select wire:model="discount_type.{{ $cart_item->id }}"
                                                                 class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                                                 required>
-                                                                <option value="fixed">{{ __('Fixed') }}</option>
-                                                                {{-- <option value="percentage">{{ __('Percentage') }}</option> --}}
+                                                                <option value="fixed">Fixed</option>
+                                                                <option value="percentage">Percentage</option>
                                                             </select>
                                                         </div>
                                                         <div>
-                                                            <label>{{ __('Nilai Diskon') }}</label>
+                                                            <label>Nilai Diskon</label>
                                                             <x-input wire:model.defer="item_discount.{{ $cart_item->id }}" type="text"
                                                             value="{{ $item_discount[$cart_item->id] }}" class="mt-1"/>
                                                         </div>
@@ -137,7 +137,7 @@
                     <x-table.tr>
                         <x-table.td colspan="8" class="text-center">
                             <span class="text-red-500">
-                                {{ __('Silahkan cari dan pilih produk!') }}
+                                Silahkan cari dan pilih produk!
                             </span>
                         </x-table.td>
                     </x-table.tr>
@@ -160,7 +160,7 @@
                         <x-table.td>(-) Rp. {{ number_format(Cart::instance($cart_instance)->discount()) }}</x-table.td>
                     </x-table.tr> --}}
                     <x-table.tr>
-                        <x-table.th>{{ __('Jumlah Total') }}</x-table.th>
+                        <x-table.th>Jumlah Total</x-table.th>
                         @php
                             $total_with_shipping = Cart::instance($cart_instance)->total();
                         @endphp

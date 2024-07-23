@@ -301,7 +301,7 @@ Route::middleware(['ensureUserRole:KepalaToko', 'checkSubscription'])->group(fun
     Route::patch('/due-product-transactions/update', [KepalaTokoTransaksiProdukDueController::class, 'approveSelected']);
     Route::patch('/due-product-transactions/reject', [KepalaTokoTransaksiProdukDueController::class, 'rejectSelected']);
 
-    Route::resource('laporan/harian', KepalaTokoLaporanHarianController::class);
+    // Route::resource('laporan/harian', KepalaTokoLaporanHarianController::class);
 
     Route::get('/order/due/{id}', [KepalaTokoTransaksiProdukController::class, 'OrderDueAjax']);
     Route::post('produk/update-due', [KepalaTokoTransaksiProdukController::class, 'UpdateDue'])->name('produk.updateDue');
@@ -313,8 +313,9 @@ Route::middleware(['ensureUserRole:KepalaToko', 'checkSubscription'])->group(fun
     Route::get('produk/cart-remove/{rowId}', [KepalaTokoPosController::class, 'CartRemove']);
     Route::post('produk/create-invoice', [KepalaTokoPosController::class, 'CreateInvoice']);
     Route::post('produk/complete-order', [KepalaTokoPosController::class, 'CompleteOrder']);
+    Route::get('produk/pos/{id}', [KepalaTokoPosController::class, 'show'])->name('show-print-order');
 
-    Route::get('transaksi-produk-inkjet/{orders_id}', [KepalaTokoTransaksiProdukController::class, 'cetakinkjet'])->name('lunas-cetak-inkjet');
+    Route::get('transaksi-produk-inkjet/{id}', [KepalaTokoTransaksiProdukController::class, 'cetakinkjet'])->name('lunas-cetak-inkjet');
     Route::get('transaksi-produk-termal/{orders_id}', [KepalaTokoTransaksiProdukController::class, 'cetaktermal'])->name('cetak-termal');
 
     Route::get('laporan/laporan-servis', [KepalaTokoLaporanServisController::class, 'index'])->name('laporan-servis');

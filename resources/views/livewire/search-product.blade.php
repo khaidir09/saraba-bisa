@@ -2,7 +2,7 @@
     <div class="mb-3 px-4">
         <div class="mb-2 w-full relative text-gray-600 focus-within:text-gray-400">
             <x-input wire:keydown.escape="resetQuery" wire:model.debounce.500ms="query" type="search"
-                minlength="4" placeholder="{{ __('Cari produk berdasarkan nama atau kode produk') }}" autofocus />
+                minlength="4" placeholder="Cari produk berdasarkan nama atau kode produk" autofocus />
             <div class="absolute right-0 top-0 mt-2 mr-4 text-purple-lighter">
                 <button wire:click="resetQuery" type="button">X</button>
             </div>
@@ -17,14 +17,14 @@
 
             <div class="lg:w-1/2 md:w-1/2 sm:w-1/2 px-2">
                 <label class="block text-sm font-medium mb-1">Jumlah produk</label>
-                <x-label for="showCount" :value="__('Product per page')" />
+                <x-label for="showCount" :value="'Product per page'" />
                 <select wire:model="showCount"
                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
                     <option value="9">9</option>
                     <option value="15">15</option>
                     <option value="21">21</option>
                     <option value="30">30</option>
-                    <option value="">{{ __('Semua') }}</option>
+                    <option value="">Semua</option>
                 </select>
             </div>
 
@@ -41,7 +41,7 @@
                         class="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg w-full py-8 relative border border-green-400">
                         <div
                             class="inline-block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-blue-400 mb-3 absolute top-0 right-0">
-                            {{ __('Stok') }}: {{ $product->stok }}
+                            Stok: {{ $product->stok }}
 
                         </div>
                         <div class="pb-3 px-3 text-sm -mt-3">
@@ -67,7 +67,7 @@
                             </svg>
                         </span>
                         <span class="inline-block align-middle mr-8">
-                            {{ __('Tidak ada produk yang ditemukan') }}
+                            Tidak ada produk yang ditemukan
                         </span>
                     </div>
                 @endforelse

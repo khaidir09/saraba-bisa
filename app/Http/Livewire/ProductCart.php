@@ -70,7 +70,7 @@ class ProductCart extends Component
     public function productSelected($product): void
     {
         if (empty($product)) {
-            $this->alert('error', __('Something went wrong!'));
+            $this->alert('error', 'Terjadi kesalahan!');
 
             return;
         }
@@ -79,7 +79,7 @@ class ProductCart extends Component
         $exists = $cart->search(fn ($cartItem) => $cartItem->id === $product['id']);
 
         if ($exists->isNotEmpty()) {
-            $this->alert('error', __('Produk sudah ditambahkan ke keranjang'));
+            $this->alert('error', 'Produk sudah ditambahkan ke keranjang');
 
             return;
         }
@@ -240,7 +240,7 @@ class ProductCart extends Component
 
             $this->updateCartOptions($row_id, $product_id, $cart_item, $discount_amount);
         }
-        $this->alert('success', __('Diskon produk berhasil diterapkan!'));
+        $this->alert('success', 'Diskon produk berhasil diterapkan!');
     }
 
     public function updateCartOptions($row_id, $product_id, $cart_item, $discount_amount)

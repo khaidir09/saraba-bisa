@@ -26,6 +26,13 @@ class PosController extends Controller
         return view('pages/kepalatoko/pos/index');
     }
 
+    public function show($id)
+    {
+        $order = Order::with('customer', 'detailOrders')->where('id', $id)->first();
+
+        return view('pages/kepalatoko/pos/cetak', compact('order'));
+    }
+
     public function addcart(Request $request)
     {
         Cart::add([

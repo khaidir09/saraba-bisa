@@ -165,10 +165,10 @@ class TransaksiProdukController extends Controller
         return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
-    public function cetakinkjet($orders_id)
+    public function cetakinkjet($orderId)
     {
-        $order = Order::with('customer')->where('id', $orders_id)->first();
-        $orderItem = OrderDetail::with('product')->where('orders_id', $orders_id)->orderBy('id', 'DESC')->get();
+        $order = Order::with('customer')->where('id', $orderId)->first();
+        $orderItem = OrderDetail::with('product')->where('orders_id', $orderId)->orderBy('id', 'DESC')->get();
         $total = $orderItem->sum('total');
         $subtotal = $orderItem->sum('sub_total');
         $users = User::find(1);

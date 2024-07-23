@@ -222,13 +222,13 @@ class Index extends Component
                 ]);
             }
 
-            $this->alert('success', __('Sale created successfully!'));
+            $this->alert('success', 'Transaksi penjualan berhasil dibuat!');
 
             $this->checkoutModal = false;
 
             Cart::instance('sale')->destroy();
 
-            return redirect()->route('pos');
+            return redirect()->route('show-print-order', $sale->id);
         });
     }
 
@@ -240,7 +240,7 @@ class Index extends Component
             $this->checkoutModal = true;
             $this->cart_instance = 'sale';
         } else {
-            $this->alert('error', __('Please select a customer!'));
+            $this->alert('error', 'Please select a customer!');
         }
     }
 
