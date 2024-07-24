@@ -7,7 +7,7 @@
                 <select required id="customer_id" name="customer_id" wire:model="customer_id" class="form-select text-sm block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md">
                     <option value="">Pilih Pelanggan</option>
                     @foreach ($this->customers as $customer)
-                        <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
+                        <option value="{{ $customer->id }}">{{ $customer->nama }} ({{ $customer->nomor_hp }})</option>
                     @endforeach
                 </select>
             </div>
@@ -17,7 +17,7 @@
 
         <button
             class="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150 bg-green-500 hover:bg-green-700"
-            type="submit" wire:click="proceed" wire:loading.attr="disabled" {{ $total_amount == 0 ? 'disabled' : '' }}>
+            type="submit" wire:click="proceed">
             Proses Pembayaran
         </button>
 
@@ -53,12 +53,22 @@
         >
             <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
                 <div class="px-5 py-4">
-                    <div class="text-center text-xl">
+                    <div class="text-center text-xl mb-5">
                         Pembayaran
                     </div>
                     <form id="checkout-form" wire:submit.prevent="store">
                         <input type="hidden" wire:model="order_date" name="order_date" value="{{ \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y') }}">
                         <div class="space-y-3">
+                            <div class="w-full px-2">
+                                <label class="block text-sm font-medium" for="users_id" :value="User ID">Sales <span class="text-rose-500">*</span></label>
+                                <select wire:model="users_id" name="users_id" id="users_id" required
+                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
+                                    <option value="">Pilih Sales</option>
+                                    @foreach ($users as $sales)
+                                        <option value="{{ $sales->id }}">{{ $sales->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="w-full px-2">
                                 <label class="block text-sm font-medium mb-1" for="total_amount" :value="Total Amount">Jumlah Total <span class="text-rose-500">*</span></label>
                                 <input id="total_amount" type="text" wire:model="total_amount"
@@ -126,7 +136,7 @@
                                         </x-table.td>
                                     </x-table.tr>
                                 </x-table-responsive>
-                                <div class="float-left py-4">
+                                <div class="float-right py-4">
                                     <button type="submit" x-on:click="modalOpen = false" class="btn border-slate-200 hover:border-slate-300 text-slate-600 mr-2">
                                         Batal
                                     </button>

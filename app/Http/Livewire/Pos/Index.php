@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Pos;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use Livewire\Component;
@@ -50,6 +51,8 @@ class Index extends Component
     public $item_discount;
 
     public $data;
+
+    public $users_id;
 
     public $customer_id;
 
@@ -117,10 +120,12 @@ class Index extends Component
     {
         $cart_items = Cart::instance($this->cart_instance)->content();
         $toko = StoreSetting::find(1);
+        $users = User::where('role', 'Sales')->get();
 
         return view('livewire.pos.index', [
             'cart_items' => $cart_items,
             'toko' => $toko,
+            'users' => $users,
         ]);
     }
 
@@ -145,7 +150,7 @@ class Index extends Component
             $sale = Order::create([
                 'order_date'          => \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y'),
                 'customers_id'         => $this->customer_id,
-                'users_id'             => Auth::user()->id,
+                'users_id'             => $this->users_id,
                 'discount_amount'     => Cart::instance('sale')->discount(),
                 'pay'             => $this->paid_amount,
                 'due'          => $due_amount,
@@ -162,6 +167,8 @@ class Index extends Component
 
             // foreach ($this->cart_instance as cart_items) {}
             foreach (Cart::instance('sale')->content() as $cart_item) {
+
+                $persen_sales = User::find($this->users_id);
 
                 $garansi = Carbon::now();
                 if ($cart_item->options->garansi != null) {
@@ -183,7 +190,8 @@ class Index extends Component
 
                 OrderDetail::create([
                     'orders_id'                 => $sale->id,
-                    'users_id'            => Auth::user()->id,
+                    'users_id'            => $sale->users_id,
+                    'persen_sales'      => $persen_sales->persen,
                     'products_id'              => $cart_item->id,
                     'product_name'                    => $cart_item->name,
                     'quantity'                => $cart_item->qty,
@@ -193,7 +201,7 @@ class Index extends Component
                     'product_discount_amount' => $cart_item->options->product_discount,
                     'modal'               => $cart_item->options->modal * $cart_item->qty,
                     'profit'               => $cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty),
-                    'profit_toko'               => $cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty),
+                    'profit_toko'               => ($cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty)) - ($cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty)) / 100 * $persen_sales->persen,
                     // 'profit_toko'               => ($cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty)) - ($cart_item->options->sub_total - ($cart_item->options->modal * $cart_item->qty)) / 100 * ,
                     'ppn'      => $cart_item->options->product_tax,
                     'garansi'      => $expired,
@@ -217,7 +225,7 @@ class Index extends Component
                     'date'           => date('Y-m-d'),
                     'amount'         => $sale->paid_amount,
                     'orders_id'        => $sale->id,
-                    'payment_method' => $this->payment_method,
+                    'payment_method' => $this->users_id,
                     'users_id'        => Auth::user()->id,
                 ]);
             }
@@ -240,7 +248,7 @@ class Index extends Component
             $this->checkoutModal = true;
             $this->cart_instance = 'sale';
         } else {
-            $this->alert('error', 'Please select a customer!');
+            $this->alert('error', 'Pilih pelanggan terlebih dahulu!');
         }
     }
 
@@ -256,6 +264,6 @@ class Index extends Component
 
     public function getCustomersProperty()
     {
-        return Customer::select(['nama', 'id'])->get();
+        return Customer::select(['nama', 'id', 'nomor_hp'])->get();
     }
 }
