@@ -52,7 +52,7 @@
                 x-transition:leave-end="opacity-0 translate-y-4"
                 x-cloak
             >
-                <div class="bg-white rounded shadow-lg overflow-auto max-w-3xl w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                <div class="bg-white rounded shadow-lg overflow-auto max-w-3xl w-full max-h-full">
                     <div class="p-6">
                         <div class="relative">
                             <!-- Close button -->

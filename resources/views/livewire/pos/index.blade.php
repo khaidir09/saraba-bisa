@@ -70,28 +70,67 @@
                                 </select>
                             </div>
                             <div class="w-full px-2">
+                                <label class="block text-sm font-medium" for="payment_method" :value="Payment Method">Metode Pembayaran <span class="text-rose-500">*</span></label>
+                                <small class="mb-1">Jika jumlah pembayaran kurang dari jumlah total maka pilih Kredit</small>
+                                <select wire:model="payment_method" id="payment_method" name="payment_method" required
+                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
+                                    <option value="">Pilih Metode Pembayaran</option>
+                                    <option value="Tunai">Tunai</option>
+                                    <option value="Transfer">Transfer</option>
+                                    <option value="Kredit">Kredit</option>
+                                    <option value="Split">Split</option>
+                                </select>
+                            </div>
+                            <div class="w-full px-2">
                                 <label class="block text-sm font-medium mb-1" for="total_amount" :value="Total Amount">Jumlah Total <span class="text-rose-500">*</span></label>
-                                <input id="total_amount" type="text" wire:model="total_amount"
+                                <input id="total_amount" type="number" wire:model="total_amount"
                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                     name="total_amount" readonly required>
                             </div>
                             <div class="w-full px-2">
                                 <label class="block text-sm font-medium mb-1" for="paid_amount" :value="Paid Amount">Jumlah Pembayaran <span class="text-rose-500">*</span></label>
-                                <input id="paid_amount" type="text" wire:model="paid_amount"
+                                <input id="paid_amount" type="number" wire:model="paid_amount"
                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                     name="paid_amount" required>
                             </div>
-                            <div class="w-full px-2">
-                                <label class="block text-sm font-medium" for="payment_method" :value="Payment Method">Metode Pembayaran <span class="text-rose-500">*</span></label>
-                                <small class="mb-1">Jika jumlah pembayaran kurang dari jumlah total maka pilih Kredit</small>
-                                <select wire:model="payment_method" id="payment_method" required
-                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
-                                    <option value="Tunai">Tunai</option>
-                                    <option value="Bank Transfer">Bank Transfer</option>
-                                    <option value="Kredit">Kredit</option>
-                                    <option value="Lainnya">Lainnya</option>
-                                </select>
-                            </div>
+                            @if ($payment_method === 'Kredit')
+                                <div class="w-full px-2">
+                                    <label class="block text-sm font-medium" for="tempo" :value="Payment Method">Waktu Tempo <span class="text-rose-500">*</span></label>
+                                    <select wire:model="tempo" id="tempo" name="tempo" required
+                                        class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
+                                        <option value="">Pilih Waktu Tempo</option>
+                                        <option value="1">Tempo 1 Hari</option>
+                                        <option value="2">Tempo 2 Hari</option>
+                                        <option value="3">Tempo 3 Hari</option>
+                                        <option value="4">Tempo 4 Hari</option>
+                                        <option value="5">Tempo 5 Hari</option>
+                                        <option value="6">Tempo 6 Hari</option>
+                                        <option value="7">Tempo 1 Minggu</option>
+                                        <option value="14">Tempo 2 Minggu</option>
+                                        <option value="21">Tempo 3 Minggu</option>
+                                        <option value="30">Tempo 1 Bulan</option>
+                                        <option value="60">Tempo 2 Bulan</option>
+                                        <option value="90">Tempo 3 Bulan</option>
+                                    </select>
+                                </div>
+                            @endif
+                            @if ($payment_method === 'Split')
+                                <label class="block text-sm font-medium px-2 text-indigo-500">Silahkan isi hanya pada salah satu input saja: Tunai / Transfer</label>
+                                <div class="flex flex-row">
+                                    <div class="w-1/2 mb-3 md:mb-0 px-2">
+                                        <label class="block text-sm font-medium mb-1">Tunai</label>
+                                        <input type="number" wire:model="tunai"
+                                        class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                                        name="tunai">
+                                    </div>
+                                    <div class="w-1/2 mb-3 md:mb-0 px-2">
+                                        <label class="block text-sm font-medium mb-1">Transfer</label>
+                                        <input type="number" wire:model="transfer"
+                                        class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                                        name="transfer">
+                                    </div>
+                                </div>
+                            @endif
                             <div class="mb-4 w-full px-2">
                                 <label class="block text-sm font-medium mb-1" for="note" :value="Note">Catatan</label>
                                 <textarea name="note" id="note" rows="5" wire:model="note"

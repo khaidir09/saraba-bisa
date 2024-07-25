@@ -74,12 +74,15 @@ class Index extends Component
 
     public $grand_total;
 
-    public $payment_method;
-
     public $note;
     public $tgl_disetujui;
 
     public $refreshCustomers;
+
+    public $payment_method;
+    public $tempo;
+    public $tunai = 0;
+    public $transfer = 0;
 
     public function rules(): array
     {
@@ -102,17 +105,36 @@ class Index extends Component
         $this->quantity = [];
         $this->discount_type = [];
         $this->item_discount = [];
-        $this->payment_method = 'Tunai';
 
         $this->tax_percentage = 0;
         $this->paid_amount = 0;
     }
 
-    public function hydrate(): void
+    public function updatedPaymentMethod($value): void
     {
-        if ($this->payment_method === 'Tunai') {
+        if ($value === 'Kredit') {
+            $this->paid_amount = 0;
+        } else {
             $this->paid_amount = $this->total_amount;
         }
+    }
+
+    // public function updatedCashPayment($value): void
+    // {
+    //     if ($this->payment_method === 'Split') {
+    //         $this->transfer = $this->total_amount - $value;
+    //     }
+    // }
+
+    // public function updatedTransferPayment($value): void
+    // {
+    //     if ($this->payment_method === 'Split') {
+    //         $this->tunai = $this->total_amount - $value;
+    //     }
+    // }
+
+    public function hydrate(): void
+    {
         $this->total_amount = $this->calculateTotal();
     }
 
@@ -147,6 +169,23 @@ class Index extends Component
 
             $nama_pelanggan = Customer::find($this->customer_id);
 
+            if ($this->payment_method === 'Split') {
+                if ($this->tunai != 0) {
+                    $this->transfer = $this->total_amount - $this->tunai;
+                } else {
+                    $this->tunai = $this->total_amount - $this->transfer;
+                }
+            }
+
+            $waktu = Carbon::today();
+            if ($this->tempo != null) {
+                $tempo = $waktu->addDays(
+                    $this->tempo
+                );
+            } else {
+                $tempo = null;
+            }
+
             $sale = Order::create([
                 'order_date'          => \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y'),
                 'customers_id'         => $this->customer_id,
@@ -154,12 +193,15 @@ class Index extends Component
                 'discount_amount'     => Cart::instance('sale')->discount(),
                 'pay'             => $this->paid_amount,
                 'due'          => $due_amount,
+                'tempo'          => $tempo,
                 'sub_total'        => $this->total_amount,
                 'total_products'          => Cart::instance($this->cart_instance)->count(),
                 'invoice_no'          => intval(date('Ymd') . mt_rand(0, 999)),
                 'nama_pelanggan'          => $nama_pelanggan->nama,
                 'payment_status'      => $payment_status,
                 'payment_method'      => $this->payment_method,
+                'tunai'      => $this->tunai,
+                'transfer'      => $this->transfer,
                 'note'                => $this->note,
                 'is_approve'      => 'Setuju',
                 'tgl_disetujui'      => date('Y-m-d'),
