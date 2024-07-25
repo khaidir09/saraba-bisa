@@ -78,7 +78,7 @@
                                     <option value="Tunai">Tunai</option>
                                     <option value="Transfer">Transfer</option>
                                     <option value="Kredit">Kredit</option>
-                                    <option value="Split">Split</option>
+                                    <option value="Campuran">Campuran</option>
                                 </select>
                             </div>
                             <div class="w-full px-2">
@@ -114,7 +114,7 @@
                                     </select>
                                 </div>
                             @endif
-                            @if ($payment_method === 'Split')
+                            @if ($payment_method === 'Campuran')
                                 <label class="block text-sm font-medium px-2 text-indigo-500">Silahkan isi hanya pada salah satu input saja: Tunai / Transfer</label>
                                 <div class="flex flex-row">
                                     <div class="w-1/2 mb-3 md:mb-0 px-2">

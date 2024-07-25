@@ -137,12 +137,40 @@
         <td>Metode Pembayaran</td>
         <td>: {{ $order->payment_method }}</td>
     </tr>
+    <tr>
+        <td>Alamat</td>
+        <td>: {{ $order->customer->alamat }}</td>
+        <td>Jumlah Pembayaran</td>
+        <td>: Rp. {{ number_format($order->pay) }}</td>
+    </tr>
+    @if ($order->payment_method === 'Campuran')
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Tunai</td>
+            <td>: Rp. {{ number_format($order->tunai) }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Transfer</td>
+            <td>: Rp. {{ number_format($order->transfer) }}</td>
+        </tr>
+    @endif
     @if ($order->due > 0)
         <tr>
             <td></td>
             <td></td>
             <td>Sisa Pembayaran</td>
             <td>: Rp. {{ number_format($order->due) }}</td>
+        </tr>
+    @endif
+    @if ($order->payment_method === 'Kredit')
+      <tr>
+            <td></td>
+            <td></td>
+            <td>Waktu Tempo</td>
+            <td>: {{ \Carbon\Carbon::parse($order->tempo)->locale('id')->translatedFormat('d F Y') }}</td>
         </tr>
     @endif
   </table>
