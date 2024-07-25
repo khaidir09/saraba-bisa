@@ -177,6 +177,24 @@ class Index extends Component
                 }
             }
 
+            if ($this->payment_method === 'Tunai') {
+                $this->tunai = $this->paid_amount;
+            }
+
+            if ($this->payment_method === 'Transfer') {
+                $this->transfer = $this->paid_amount;
+            }
+
+            if ($this->payment_method === 'Kredit') {
+                if ($this->tunai) {
+                    $this->tunai = $this->paid_amount;
+                    $this->transfer = 0;
+                } elseif ($this->transfer) {
+                    $this->transfer = $this->paid_amount;
+                    $this->tunai = 0;
+                }
+            }
+
             $waktu = Carbon::today();
             if ($this->tempo != null) {
                 $tempo = $waktu->addDays(

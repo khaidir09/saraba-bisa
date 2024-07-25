@@ -95,7 +95,26 @@
                             </div>
                             @if ($payment_method === 'Kredit')
                                 <div class="w-full px-2">
-                                    <label class="block text-sm font-medium" for="tempo" :value="Payment Method">Waktu Tempo <span class="text-rose-500">*</span></label>
+                                    <div class="flex flex-wrap items-center -m-3">
+                                        <div class="m-3">
+                                            <!-- Start -->
+                                            <label class="flex items-center">
+                                                <input wire:model="tunai" name="tunai" type="checkbox" class="form-checkbox" required/>
+                                                <span class="text-sm ml-2">Tunai</span>
+                                            </label>
+                                            <!-- End -->
+                                        </div>
+
+                                        <div class="m-3">
+                                            <!-- Start -->
+                                            <label class="flex items-center">
+                                                <input wire:model="transfer" name="transfer" type="checkbox" class="form-checkbox" />
+                                                <span class="text-sm ml-2">Transfer</span>
+                                            </label>
+                                            <!-- End -->
+                                        </div>
+                                    </div>
+                                    <label class="block text-sm font-medium mt-3" for="tempo" :value="Payment Method">Waktu Tempo <span class="text-rose-500">*</span></label>
                                     <select wire:model="tempo" id="tempo" name="tempo" required
                                         class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
                                         <option value="">Pilih Waktu Tempo</option>
