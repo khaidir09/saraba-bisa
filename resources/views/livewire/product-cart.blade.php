@@ -24,9 +24,9 @@
                                 {{ $cart_item->name }} @if ($cart_item->options->code != null)
                                     ({{ $cart_item->options->code }})
                                 @endif
-                                <div x-data="{ modalDiskonOpen: false }">
+                                <div x-data="{ modalDiskon: @entangle('discountModal') }">
                                     <!-- Button trigger Discount Modal -->
-                                    <button type="button" @click.prevent="modalDiskonOpen = true" aria-controls="modal-discount"
+                                    <button type="button" @click.prevent="modalDiskon = true" aria-controls="modal-discount"
                                         class="border border-red-500 text-red-500 hover:text-reg-800">
                                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-percentage"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M7 7m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M6 18l12 -12" /></svg>
                                     </button>
@@ -34,7 +34,7 @@
                                     <!-- Modal backdrop -->
                                     <div
                                         class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                        x-show="modalDiskonOpen"
+                                        x-show="modalDiskon"
                                         x-transition:enter="transition ease-out duration-200"
                                         x-transition:enter-start="opacity-0"
                                         x-transition:enter-end="opacity-100"
@@ -51,7 +51,7 @@
                                         class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                                         role="dialog"
                                         aria-modal="true"
-                                        x-show="modalDiskonOpen"
+                                        x-show="modalDiskon"
                                         x-transition:enter="transition ease-in-out duration-200"
                                         x-transition:enter-start="opacity-0 translate-y-4"
                                         x-transition:enter-end="opacity-100 translate-y-0"
@@ -60,7 +60,7 @@
                                         x-transition:leave-end="opacity-0 translate-y-4"
                                         x-cloak
                                     >
-                                        <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalDiskonOpen = false" @keydown.escape.window="modalDiskonOpen = false">
+                                        <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalDiskon = false" @keydown.escape.window="modalDiskon = false">
                                             <form wire:submit.prevent="productDiscount('{{ $cart_item->rowId }}', '{{ $cart_item->id }}')" method="post">
                                                 <div class="px-5 py-4">
                                                     <div class="text-center text-xl">
@@ -89,9 +89,6 @@
                                                         </div>
                                                     </div>
                                                     <button type="submit" class="w-full btn bg-rose-500 hover:bg-rose-600 text-white">Terapkan Diskon</button>
-                                                    <div class="mt-3">
-                                                        <button @click.prevent="modalDiskonOpen = false" class="w-full btn border-slate-200 hover:border-slate-300 text-slate-600">Tutup</button>
-                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
