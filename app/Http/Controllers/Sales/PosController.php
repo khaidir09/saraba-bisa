@@ -21,7 +21,14 @@ class PosController extends Controller
      */
     public function index()
     {
-        return view('pages/sales/produk/pos');
+        return view('pages/sales/pos/index');
+    }
+
+    public function show($id)
+    {
+        $order = Order::with('customer', 'detailOrders')->where('id', $id)->first();
+
+        return view('pages/sales/pos/cetak', compact('order'));
     }
 
     public function addcart(Request $request)

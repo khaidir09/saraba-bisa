@@ -449,6 +449,7 @@ Route::middleware(['ensureAdminRole:AdminToko', 'checkSubscription'])->group(fun
     Route::get('produk/admin-cart-remove/{rowId}', [AdminTokoPosController::class, 'CartRemove']);
     Route::post('produk/admin-create-invoice', [AdminTokoPosController::class, 'CreateInvoice']);
     Route::post('produk/admin-complete-order', [AdminTokoPosController::class, 'CompleteOrder']);
+    Route::get('produk/admin-pos/{id}', [AdminTokoPosController::class, 'show'])->name('admin-show-print-order');
 
     Route::get('admin-transaksi-produk-inkjet/{orders_id}', [AdminTokoTransaksiProdukController::class, 'cetakinkjet'])->name('admin-lunas-cetak-inkjet');
     Route::get('admin-transaksi-produk-termal/{orders_id}', [AdminTokoTransaksiProdukController::class, 'cetaktermal'])->name('admin-cetak-termal-produk');
@@ -509,6 +510,7 @@ Route::middleware(['ensureSalesRole:Sales', 'checkSubscription'])->group(
         Route::get('produk/sales-cart-remove/{rowId}', [SalesPosController::class, 'CartRemove']);
         Route::post('produk/sales-create-invoice', [SalesPosController::class, 'CreateInvoice']);
         Route::post('produk/sales-complete-order', [SalesPosController::class, 'CompleteOrder']);
+        Route::get('produk/sales-pos/{id}', [SalesPosController::class, 'show'])->name('sales-show-print-order');
 
         Route::get('sales-transaksi-produk-inkjet/{orders_id}', [SalesTransaksiProdukController::class, 'cetakinkjet'])->name('sales-lunas-cetak-inkjet');
         Route::get('sales-transaksi-produk-termal/{orders_id}', [SalesTransaksiProdukController::class, 'cetaktermal'])->name('sales-cetak-termal-produk');
