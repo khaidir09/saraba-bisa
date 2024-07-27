@@ -151,7 +151,7 @@ class AdminIndex extends Component
 
             $nama_pelanggan = Customer::find($this->customer_id);
 
-            if ($this->payment_method === 'Campuran') {
+            if ($this->payment_method === 'Tunai & Transfer') {
                 if ($this->tunai != 0) {
                     $this->transfer = $this->total_amount - $this->tunai;
                 } else {

@@ -143,7 +143,7 @@
         <td>Jumlah Pembayaran</td>
         <td>: Rp. {{ number_format($order->pay) }}</td>
     </tr>
-    @if ($order->payment_method === 'Campuran')
+    @if ($order->payment_method === 'Tunai & Transfer')
         <tr>
             <td></td>
             <td></td>
