@@ -57,7 +57,12 @@ class ServiceTransaction extends Model
         'profittoko',
         'persen_admin',
         'persen_teknisi',
-        'penyerah'
+        'penyerah',
+        'pay',
+        'due',
+        'tempo',
+        'tunai',
+        'transfer'
     ];
 
     public function getActivitylogOptions(): LogOptions

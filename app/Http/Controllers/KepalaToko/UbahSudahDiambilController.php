@@ -129,6 +129,54 @@ class UbahSudahDiambilController extends Controller
             $persen_teknisi = null;
         }
 
+        if ($request->cara_pembayaran === 'Tunai & Transfer') {
+            $due = 0;
+            if ($request->tunai != 0) {
+                $transfer = $item->biaya - $request->tunai;
+                $pay = $item->biaya;
+                $tunai = $request->tunai;
+            } else {
+                $tunai = $item->biaya - $request->transfer;
+                $pay = $item->biaya;
+                $transfer = $request->transfer;
+            }
+        }
+
+        if ($request->cara_pembayaran === 'Tunai') {
+            $tunai = $item->biaya;
+            $transfer = 0;
+            $due = 0;
+            $pay = $item->biaya;
+        }
+
+        if ($request->cara_pembayaran === 'Transfer') {
+            $transfer = $item->biaya;
+            $tunai = 0;
+            $due = 0;
+            $pay = $item->biaya;
+        }
+
+        if ($request->cara_pembayaran === 'Kredit') {
+            $pay = $request->pay;
+            $due = $item->biaya - $request->pay;
+            if ($request->tunai) {
+                $tunai = $request->pay;
+                $transfer = 0;
+            } elseif ($request->transfer) {
+                $transfer = $request->pay;
+                $tunai = 0;
+            }
+        }
+
+        $waktu = Carbon::today();
+        if ($request->tempo != null) {
+            $tempo = $waktu->addDays(
+                $request->tempo
+            );
+        } else {
+            $tempo = null;
+        }
+
         // Transaction create
         $item->update([
             'qc_keluar' => $request->qc_keluar,
@@ -148,6 +196,11 @@ class UbahSudahDiambilController extends Controller
             'profit' => $profittransaksi,
             'profittoko' => $profittransaksi - ($bagihasil *= $persen_teknisi),
             'penyerah' => Auth::user()->name,
+            'pay' => $pay,
+            'due' => $due,
+            'tempo' => $tempo,
+            'tunai' => $tunai,
+            'transfer' => $transfer,
         ]);
 
         return redirect()->route('transaksi-servis-sudah-diambil.index');
