@@ -83,6 +83,24 @@ class LaporanServisController extends Controller
             ->orderBy('tgl_ambil', 'asc')
             ->get()->count();
 
+        // Menghitung total pembayaran tunai
+        $total_tunai = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
+            ->sum('tunai');
+
+        // Menghitung total pembayaran transfer
+        $total_transfer = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
+            ->sum('transfer');
+
+        // Menghitung total pembayaran kredit
+        $total_kredit = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+            ->whereDate('tgl_ambil', '>=', $start_date)
+            ->whereDate('tgl_ambil', '<=', $end_date)
+            ->sum('due');
+
         // Mengambil data insiden
         $incidents = Incident::with('worker')->whereDate('created_at', '>=', $start_date)
             ->whereDate('created_at', '<=', $end_date)
@@ -183,7 +201,10 @@ class LaporanServisController extends Controller
             'topbrands' => $topbrands,
             'topmodelseries' => $topmodelseries,
             'topactions' => $topactions,
-            'total_servis' => $total_servis
+            'total_servis' => $total_servis,
+            'total_tunai' => $total_tunai,
+            'total_transfer' => $total_transfer,
+            'total_kredit' => $total_kredit
         ]);
 
         $filename = 'Laporan Transaksi Servis' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';

@@ -95,18 +95,32 @@
 			<tr>
 				<th>Total Modal Sparepart</th>
 				<th>: Rp. {{ number_format($total_modal) }}</th>
-				<th class="text-right">Total Biaya Servis</th>
-				<th class="text-right">: Rp. {{ number_format($total_biaya) }}</th>
+				<th>Total Pembayaran Tunai</th>
+				<th>: Rp. {{ number_format($total_tunai) }}</th>
+			</tr>
+			<tr>
+				<th>Total Biaya Servis</th>
+				<th>: Rp. {{ number_format($total_biaya) }}</th>
+				<th>Total Pembayaran Transfer</th>
+				<th>: Rp. {{ number_format($total_transfer) }}</th>
 			</tr>
 			<tr>
 				<th>Total Diskon</th>
 				<th>: Rp. {{ number_format($total_diskon) }}</th>
-				<th class="text-right">Total Profit</th>
-				<th class="text-right">: Rp. {{ number_format($total_profit) }}</th>
+				<th>Total Pembayaran Tempo</th>
+				<th>: Rp. {{ number_format($total_kredit) }}</th>
+			</tr>
+			<tr>
+				<th>Total Profit</th>
+				<th>: Rp. {{ number_format($total_profit) }}</th>
+				<th></th>
+				<th></th>
 			</tr>
 			<tr>
 				<th>Total Item Servis</th>
 				<th>: {{ $total_servis }} Item</th>
+				<th></th>
+				<th></th>
 			</tr>
 		</tbody>
 	</table>

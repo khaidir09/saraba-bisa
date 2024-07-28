@@ -95,10 +95,20 @@
 			<tr>
 				<th>Total Item Servis</th>
 				<th>: {{ $total_servis }} Item</th>
+				<th>Total Pembayaran Tunai</th>
+				<th>: Rp. {{ number_format($total_tunai) }}</th>
+			</tr>
+			<tr>
 				<th>Total Biaya Servis</th>
 				<th>: Rp. {{ number_format($total_biaya) }}</th>
-				<th class="text-right">Total Diskon</th>
-				<th class="text-right">: Rp. {{ number_format($total_diskon) }}</th>
+				<th>Total Pembayaran Transfer</th>
+				<th>: Rp. {{ number_format($total_transfer) }}</th>
+			</tr>
+			<tr>
+				<th>Total Diskon</th>
+				<th>: Rp. {{ number_format($total_diskon) }}</th>
+				<th>Total Pembayaran Tempo</th>
+				<th>: Rp. {{ number_format($total_kredit) }}</th>
 			</tr>
 		</tbody>
 	</table>
