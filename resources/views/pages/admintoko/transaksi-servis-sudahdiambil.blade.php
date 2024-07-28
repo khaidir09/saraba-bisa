@@ -123,24 +123,71 @@
                                 @if ($item->kondisi_servis != "Sudah jadi")
 
                                 @else
-                                <div>
+                                <div x-data="{ caraPembayaran: 'Tunai' }">
                                     <label class="block text-sm font-medium mb-1" for="cara_pembayaran">Cara Pembayaran</label>
-                                    <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full">
+                                    <select id="cara_pembayaran" name="cara_pembayaran" class="form-select text-sm py-1 w-full" x-model="caraPembayaran">
                                         <option selected value="Tunai">Tunai</option>
                                         <option value="Transfer">Transfer</option>
-                                        <option value="Tempo 1 Hari">Tempo 1 Hari</option>
-                                        <option value="Tempo 2 Hari">Tempo 2 Hari</option>
-                                        <option value="Tempo 3 Hari">Tempo 3 Hari</option>
-                                        <option value="Tempo 4 Hari">Tempo 4 Hari</option>
-                                        <option value="Tempo 5 Hari">Tempo 5 Hari</option>
-                                        <option value="Tempo 6 Hari">Tempo 6 Hari</option>
-                                        <option value="Tempo 1 Minggu">Tempo 1 Minggu</option>
-                                        <option value="Tempo 2 Minggu">Tempo 2 Minggu</option>
-                                        <option value="Tempo 3 Minggu">Tempo 3 Minggu</option>
-                                        <option value="Tempo 1 Bulan">Tempo 1 Bulan</option>
-                                        <option value="Tempo 2 Bulan">Tempo 2 Bulan</option>
-                                        <option value="Tempo 3 Bulan">Tempo 3 Bulan</option>
+                                        <option value="Kredit">Kredit</option>
+                                        <option value="Tunai & Transfer">Tunai & Transfer</option>
                                     </select>
+
+                                    <div x-show="caraPembayaran === 'Tunai & Transfer'" class="mt-3">
+                                        <label class="block text-sm font-medium text-indigo-500">Silahkan isi hanya pada salah satu input saja: Tunai / Transfer</label>
+                                        <div class="flex flex-row gap-3">
+                                            <div class="w-1/2 mb-3 md:mb-0">
+                                                <label class="block text-sm font-medium mb-1" for="tunai">Tunai</label>
+                                                <input class="form-input w-full py-1" type="number" name="tunai" id="tunai" value="0"/>
+                                            </div>
+                                            <div class="w-1/2 mb-3 md:mb-0">
+                                                <label class="block text-sm font-medium mb-1" for="transfer">Transfer</label>
+                                                <input class="form-input w-full py-1" type="number" name="transfer" id="transfer" value="0"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div x-show="caraPembayaran === 'Kredit'" class="mt-3">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-1" for="pay">Jumlah Pembayaran <span class="text-rose-500">*</span></label>
+                                            <input id="pay" name="pay" class="form-input w-full px-2 py-1" type="number"/>
+                                        </div>
+                                        <div class="flex flex-wrap items-center -m-3 mt-0">
+                                            <div class="m-3">
+                                                <!-- Start -->
+                                                <label class="flex items-center">
+                                                    <input name="tunai" type="checkbox" class="form-checkbox"/>
+                                                    <span class="text-sm ml-2">Tunai</span>
+                                                </label>
+                                                <!-- End -->
+                                            </div>
+
+                                            <div class="m-3">
+                                                <!-- Start -->
+                                                <label class="flex items-center">
+                                                    <input name="transfer" type="checkbox" class="form-checkbox" />
+                                                    <span class="text-sm ml-2">Transfer</span>
+                                                </label>
+                                                <!-- End -->
+                                            </div>
+                                        </div>
+                                        <label class="block text-sm font-medium mt-3" for="tempo">Waktu Tempo <span class="text-rose-500">*</span></label>
+                                        <select id="tempo" name="tempo"
+                                            class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
+                                            <option value="">Pilih Waktu Tempo</option>
+                                            <option value="1">Tempo 1 Hari</option>
+                                            <option value="2">Tempo 2 Hari</option>
+                                            <option value="3">Tempo 3 Hari</option>
+                                            <option value="4">Tempo 4 Hari</option>
+                                            <option value="5">Tempo 5 Hari</option>
+                                            <option value="6">Tempo 6 Hari</option>
+                                            <option value="7">Tempo 1 Minggu</option>
+                                            <option value="14">Tempo 2 Minggu</option>
+                                            <option value="21">Tempo 3 Minggu</option>
+                                            <option value="30">Tempo 1 Bulan</option>
+                                            <option value="60">Tempo 2 Bulan</option>
+                                            <option value="90">Tempo 3 Bulan</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 @endif
                                 @if ($item->kondisi_servis != "Sudah jadi")

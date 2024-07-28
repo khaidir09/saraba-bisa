@@ -55,6 +55,54 @@ class TransaksiServisLangsungController extends Controller
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
         $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
 
+        if ($request->cara_pembayaran === 'Tunai & Transfer') {
+            $due = 0;
+            if ($request->tunai != 0) {
+                $transfer = $request->biaya - $request->tunai;
+                $pay = $request->biaya;
+                $tunai = $request->tunai;
+            } else {
+                $tunai = $request->biaya - $request->transfer;
+                $pay = $request->biaya;
+                $transfer = $request->transfer;
+            }
+        }
+
+        if ($request->cara_pembayaran === 'Tunai') {
+            $tunai = $request->biaya;
+            $transfer = 0;
+            $due = 0;
+            $pay = $request->biaya;
+        }
+
+        if ($request->cara_pembayaran === 'Transfer') {
+            $transfer = $request->biaya;
+            $tunai = 0;
+            $due = 0;
+            $pay = $request->biaya;
+        }
+
+        if ($request->cara_pembayaran === 'Kredit') {
+            $pay = $request->pay;
+            $due = $request->biaya - $request->pay;
+            if ($request->tunai) {
+                $tunai = $request->pay;
+                $transfer = 0;
+            } elseif ($request->transfer) {
+                $transfer = $request->pay;
+                $tunai = 0;
+            }
+        }
+
+        $waktu = Carbon::today();
+        if ($request->tempo != null) {
+            $tempo = $waktu->addDays(
+                $request->tempo
+            );
+        } else {
+            $tempo = null;
+        }
+
         // Transaction create
         ServiceTransaction::create([
             'nomor_servis' => $nomor_servis,
@@ -95,6 +143,11 @@ class TransaksiServisLangsungController extends Controller
             'admin_id' => Auth::user()->id,
             'persen_admin' => Auth::user()->persen,
             'penyerah' => Auth::user()->name,
+            'pay' => $pay,
+            'due' => $due,
+            'tempo' => $tempo,
+            'tunai' => $tunai,
+            'transfer' => $transfer,
         ]);
 
         if ($request->products_id != null) {
