@@ -3,14 +3,15 @@
 namespace App\Http\Livewire;
 
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Category;
-use App\Models\Color;
 use App\Models\ModelSerie;
 use App\Models\StoreSetting;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class ProdukHandphoneData extends Component
 {
@@ -41,7 +42,7 @@ class ProdukHandphoneData extends Component
         $colors = Color::all();
         $handphoneitemready = Product::where('categories_id', 1)->where('stok', '>', 0)->count();
         $handphonestokready = Product::where('categories_id', 1)->where('stok', '>', 0)->sum('stok');
-        $handphonemodalready = Product::where('categories_id', 1)->where('stok', '>', 0)->sum('harga_modal');
+        $handphonemodalready = Product::where('categories_id', 1)->where('stok', '>', 0)->sum(DB::raw('stok * harga_modal'));
         $handphonestokhabis = Product::where('categories_id', 1)->where('stok', 0)->count();
         $handphonenominalterjual = Product::where('categories_id', 1)->where('stok', 0)->sum('harga_jual');
 

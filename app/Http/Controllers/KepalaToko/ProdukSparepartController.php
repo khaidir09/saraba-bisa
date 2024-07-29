@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\SparepartExport;
 use App\Imports\SparepartImport;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\ProductRequest;
@@ -133,7 +134,7 @@ class ProdukSparepartController extends Controller
         // Menghitung data produk tersedia
         $jumlah_item_tersedia = Product::where('categories_id', 2)->where('stok', '>', 0)->count();
 
-        $modal_stok_tersedia = Product::where('categories_id', 2)->where('stok', '>', 0)->sum('harga_modal');
+        $modal_stok_tersedia = Product::where('categories_id', 2)->where('stok', '>', 0)->sum(DB::raw('stok * harga_modal'));
 
         // Menghitung stok produk tersedia
         $jumlah_stok_tersedia = Product::where('categories_id', 2)->where('stok', '>', 0)->sum('stok');

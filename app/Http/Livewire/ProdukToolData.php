@@ -8,6 +8,7 @@ use App\Models\ModelSerie;
 use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class ProdukToolData extends Component
 {
@@ -35,7 +36,7 @@ class ProdukToolData extends Component
         $tools_count = Product::where('categories_id', '=', '4')->count();
         $toolitemready = Product::where('categories_id', 4)->where('stok', '>', 0)->count();
         $toolstokready = Product::where('categories_id', 4)->where('stok', '>', 0)->sum('stok');
-        $toolmodalready = Product::where('categories_id', 4)->where('stok', '>', 0)->sum('harga_modal');
+        $toolmodalready = Product::where('categories_id', 4)->where('stok', '>', 0)->sum(DB::raw('stok * harga_modal'));
         $toolstokhabis = Product::where('categories_id', 4)->where('stok', 0)->count();
         $toolnominalterjual = Product::where('categories_id', 4)->where('stok', 0)->sum('harga_jual');
         return view('livewire.produk-tool-data', [

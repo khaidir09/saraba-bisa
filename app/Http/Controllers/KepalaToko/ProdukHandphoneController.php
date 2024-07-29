@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\HandphoneExport;
 use App\Imports\HandphoneImport;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\KepalaToko\HandphoneRequest;
@@ -171,7 +172,7 @@ class ProdukHandphoneController extends Controller
         // Menghitung data produk tersedia
         $jumlah_item_tersedia = Product::where('categories_id', 1)->where('stok', '>', 0)->count();
 
-        $modal_stok_tersedia = Product::where('categories_id', 1)->where('stok', '>', 0)->sum('harga_modal');
+        $modal_stok_tersedia = Product::where('categories_id', 1)->where('stok', '>', 0)->sum(DB::raw('stok * harga_modal'));
 
         // Menghitung stok produk tersedia
         $jumlah_stok_tersedia = Product::where('categories_id', 1)->where('stok', '>', 0)->sum('stok');

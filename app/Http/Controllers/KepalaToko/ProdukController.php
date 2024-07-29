@@ -5,12 +5,13 @@ namespace App\Http\Controllers\KepalaToko;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Exports\ProdukExport;
 use App\Imports\ProdukImport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -131,7 +132,7 @@ class ProdukController extends Controller
         // Menghitung data produk tersedia
         $jumlah_item_tersedia = Product::where('stok', '>', 0)->count();
 
-        $modal_stok_tersedia = Product::where('stok', '>', 0)->sum('harga_modal');
+        $modal_stok_tersedia = Product::where('stok', '>', 0)->sum(DB::raw('stok * harga_modal'));
 
         // Menghitung stok produk tersedia
         $jumlah_stok_tersedia = Product::where('stok', '>', 0)->sum('stok');

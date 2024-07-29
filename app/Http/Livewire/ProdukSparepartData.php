@@ -38,7 +38,7 @@ class ProdukSparepartData extends Component
         $spareparts_count = Product::where('categories_id', '=', '2')->count();
         $sparepartitemready = Product::where('categories_id', 2)->where('stok', '>', 0)->count();
         $sparepartstokready = Product::where('categories_id', 2)->where('stok', '>', 0)->sum('stok');
-        $sparepartmodalready = Product::where('categories_id', 2)->where('stok', '>', 0)->sum('harga_modal');
+        $sparepartmodalready = Product::where('categories_id', 2)->where('stok', '>', 0)->sum(DB::raw('stok * harga_modal'));
         $sparepartstokhabis = Product::where('categories_id', 2)->where('stok', 0)->count();
         $sparepartnominalterjual = Product::where('categories_id', 2)->where('stok', 0)->sum('harga_jual');
         return view('livewire.produk-sparepart-data', [

@@ -38,7 +38,7 @@ class ProdukAksesorisData extends Component
         $accessories_count = Product::where('categories_id', '=', '3')->count();
         $aksesorisitemready = Product::where('categories_id', 3)->where('stok', '>', 0)->count();
         $aksesorisstokready = Product::where('categories_id', 3)->where('stok', '>', 0)->sum('stok');
-        $aksesorismodalready = Product::where('categories_id', 3)->where('stok', '>', 0)->sum('harga_modal');
+        $aksesorismodalready = Product::where('categories_id', 3)->where('stok', '>', 0)->sum(DB::raw('stok * harga_modal'));
         $aksesorisstokhabis = Product::where('categories_id', 3)->where('stok', 0)->count();
         $aksesorisnominalterjual = Product::where('categories_id', 3)->where('stok', 0)->sum('harga_jual');
         return view('livewire.produk-aksesoris-data', [

@@ -12,6 +12,7 @@ use App\Models\ModelSerie;
 use App\Models\SubCategory;
 use App\Models\StoreSetting;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class ProdukData extends Component
 {
@@ -46,7 +47,7 @@ class ProdukData extends Component
         $toko = StoreSetting::find(1);
         $itemready = Product::where('stok', '>', 0)->count();
         $stokready = Product::where('stok', '>', 0)->sum('stok');
-        $modalready = Product::where('stok', '>', 0)->sum('harga_modal');
+        $modalready = Product::where('stok', '>', 0)->sum(DB::raw('stok * harga_modal'));
         $stokhabis = Product::where('stok', 0)->count();
         $nominalterjual = Product::where('stok', 0)->sum('harga_jual');
         return view('livewire.produk-data', [
