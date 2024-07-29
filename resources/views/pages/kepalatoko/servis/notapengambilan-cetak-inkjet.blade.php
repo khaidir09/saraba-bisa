@@ -148,16 +148,16 @@
 				<td id="data" class="capital">: {{ $items->kerusakan }}</td>
 				<td id="data" scope="row" style="border-left-style: solid;">Fungsi (Masuk)</th>
 				<td id="data" class="capital">: {{ $items->qc_masuk }}</td>
-				<td id="data" scope="row" style="border-left-style: solid;">Metode Pembayaran</td>
-				<td id="data" class="capital">: {{ $items->cara_pembayaran }}</td>
+				<td id="data" scope="row" style="border-left-style: solid;">Biaya Servis</td>
+				<td id="data">: Rp. {{ number_format($items->biaya) }}</td>
 			</tr>
 			<tr style="border-right-style: solid;">
 				<td id="data" scope="row" style="border-left-style: solid;">Kondisi Servis</th>
 				<td id="data" class="capital">: {{ $items->kondisi_servis }}</td>
 				<td id="data" scope="row" style="border-left-style: solid;">Fungsi (Keluar)</th>
 				<td id="data" class="capital">: {{ $items->qc_keluar }}</td>
-				<td id="data" scope="row" style="border-left-style: solid;">Biaya Servis</td>
-				<td id="data">: Rp. {{ number_format($items->biaya) }}</td>
+				<td id="data" scope="row" style="border-left-style: solid;">Metode Pembayaran</td>
+				<td id="data" class="capital">: {{ $items->cara_pembayaran }}</td>
 			</tr>
 			@if ($items->uang_muka != null && $items->diskon != null)
 				<tr style="border-right-style: solid;">
@@ -224,8 +224,13 @@
 					<td id="data" class="capital">: {{ $items->tindakan_servis }}</td>
 					<td id="data" scope="row" style="border-left-style: solid;"></td>
 					<td id="data"></td>
-					<td id="data" scope="row" style="border-left-style: solid;"></td>
-					<td id="data"></td>
+					@if ($items->cara_pembayaran === 'Tunai & Transfer')
+						<td id="data" scope="row" style="border-left-style: solid;">Jumlah Pembayaran</td>
+						<td id="data">: Tunai Rp. {{ number_format($items->tunai) }} & Transfer Rp. {{ number_format($items->transfer) }} </td>
+					@elseif ($items->cara_pembayaran === 'Kredit')
+						<td id="data" scope="row" style="border-left-style: solid;">Tempo</td>
+						<td id="data">: Rp. {{ number_format($items->due) }} ({{ \Carbon\Carbon::parse($items->tempo)->locale('id')->translatedFormat('d F Y') }})</td>
+					@endif
 				</tr>
 			@endif
 		</tbody>
