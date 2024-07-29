@@ -915,7 +915,7 @@
                                     </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $process->type->name }} {{ $process->brand->name }} {{ $process->modelserie->name }}</div>
+                                    <div class="font-medium">{{ $process->nama_barang }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">
