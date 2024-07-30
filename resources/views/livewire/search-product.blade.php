@@ -35,27 +35,35 @@
     <div class="w-full px-2 mb-4 bg-white">
         <div class="flex flex-wrap w-full">
             <div
-                class="w-full grid gap-3 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 px-2 mt-5 overflow-y-auto">
+                class="w-full grid gap-3 md:grid-cols-2 lg:grid-cols-3 px-2 mt-5 overflow-y-auto">
                 @forelse($products as $product)
                     <div wire:click.prevent="selectProduct({{ $product }})"
                         class="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg w-full py-8 relative border border-green-400">
                         <div
-                            class="inline-block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-blue-400 mb-3 absolute top-0 right-0">
+                            class="inline-block p-1 text-center font-semibold text-xs align-baseline leading-none bg-blue-100 text-blue-600  mb-3 absolute top-0 right-0">
                             Stok: {{ $product->stok }}
 
                         </div>
                         <div class="pb-3 px-3 text-sm -mt-3">
-                            <h6 class="text-md text-center font-semibold mb-3 md:mb-0">
-                                {{ $product->product_name }}
+                            <h6 class="text-md text-center font-semibold my-3 md:mb-0">
+                                {{ $product->product_name }} @if ($product->categories_id === 1)
+                                    {{ $product->nomor_seri }}
+                                @endif
                             </h6>
                             <p class="mb-0 text-center font-bold">
                                  Rp. {{ number_format($product->harga_jual) }}
                             </p>
                         </div>
                         <span
-                            class="block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-green-400 absolute bottom-0">
+                            class="block p-1 text-center font-semibold text-xs align-baseline leading-none bg-emerald-100 text-emerald-600 absolute bottom-0">
                             {{ $product->product_code }}
                         </span>
+                        @if ($product->categories_id === 1)
+                            <span
+                                class="block p-1 text-center font-semibold text-xs align-baseline leading-none bg-emerald-100 text-emerald-600  absolute bottom-0">
+                                {{ $product->kondisi }} {{ $product->warna }} ({{ $product->ram }}/{{ $product->capacity->name }})
+                            </span>
+                        @endif
                     </div>
                 @empty
                     <div class="col-span-full w-full px-2 py-3 mb-4 border rounded">
