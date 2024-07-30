@@ -103,7 +103,7 @@
         <!-- Right side -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
             <!-- Start Export Excel -->
-            <a href="{{ route('merek-export') }}" class="hidden lg:block">
+            <a href="{{ route('merek-export') }}">
                 <button class="btn bg-white border-blue-200 hover:border-blue-300 text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-export" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2563eb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -116,7 +116,7 @@
             <!-- End Export Excel-->
 
             <!-- Start Import Excel -->
-            <div x-data="{ modalOpen: false }" class="hidden lg:block">
+            <div x-data="{ modalOpen: false }">
                 <button class="btn bg-white border-emerald-200 hover:border-emerald-300 text-emerald-700" @click.prevent="modalOpen = true" aria-controls="tambah-modal">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-import" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#047857" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

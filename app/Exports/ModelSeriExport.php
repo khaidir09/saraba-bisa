@@ -23,6 +23,7 @@ class ModelSeriExport implements FromCollection, WithMapping, WithHeadings, Shou
     public function map($modelserie): array
     {
         return [
+            $modelserie->id,
             $modelserie->name,
             $modelserie->brands_id,
         ];
@@ -31,6 +32,7 @@ class ModelSeriExport implements FromCollection, WithMapping, WithHeadings, Shou
     public function headings(): array
     {
         return [
+            'ID Model Seri',
             'Nama Model Seri',
             'ID Merek'
         ];
