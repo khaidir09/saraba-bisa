@@ -61,7 +61,11 @@
                         @if ($product->categories_id === 1)
                             <span
                                 class="block p-1 text-center font-semibold text-xs align-baseline leading-none bg-emerald-100 text-emerald-600  absolute bottom-0">
-                                {{ $product->kondisi }} {{ $product->warna }} ({{ $product->ram }}/{{ $product->capacity->name }})
+                                {{ $product->kondisi }} {{ $product->warna }} ({{ $product->ram }} /@if($product->capacity != null)
+                                    {{ $product->capacity->name }}
+                                @else
+                                    -
+                                @endif)
                             </span>
                         @endif
                     </div>
