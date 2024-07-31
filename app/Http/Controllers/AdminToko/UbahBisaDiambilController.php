@@ -70,6 +70,13 @@ class UbahBisaDiambilController extends Controller
 
         $profittransaksi = $request->biaya - $request->modal_sparepart;
         $bagihasil = ($request->biaya - $request->modal_sparepart) / 100;
+
+        if ($request->biaya != null) {
+            $biaya = $request->biaya;
+        } else {
+            $biaya = 0;
+        }
+
         // Transaction create
         $item->update([
             'users_id' => $request->users_id,
@@ -80,7 +87,7 @@ class UbahBisaDiambilController extends Controller
             'products_id' => $request->products_id,
             'tindakan_servis' => $tindakan_servis,
             'modal_sparepart' => $request->modal_sparepart,
-            'biaya' => $request->biaya,
+            'biaya' => $biaya,
             'catatan' => $request->catatan,
             'is_admin_toko' => $request->is_admin_toko,
             'admin_id' => $request->admin_id,

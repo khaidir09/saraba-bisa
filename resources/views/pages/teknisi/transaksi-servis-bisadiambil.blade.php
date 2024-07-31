@@ -207,7 +207,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="modal_sparepart">Modal Sparepart <span class="text-rose-500">*</span></label>
-                                    <input class="form-input w-full px-2 py-1" type="number" name="modal_sparepart" id="modal_sparepart"/>
+                                    <input class="form-input w-full px-2 py-1" type="number" name="modal_sparepart" id="modal_sparepart" required/>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="catatan">Catatan <small>(Kosongkan jika tidak perlu)</small></label>

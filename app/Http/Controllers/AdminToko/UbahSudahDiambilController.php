@@ -183,6 +183,14 @@ class UbahSudahDiambilController extends Controller
             $tempo = null;
         }
 
+        if ($item->kondisi_servis === 'Tidak bisa' || $item->kondisi_servis === 'Dibatalkan') {
+            $pay = 0;
+            $due = 0;
+            $tunai = 0;
+            $transfer = 0;
+            $tempo = null;
+        }
+
         // Transaction create
         $item->update([
             'qc_keluar' => $request->qc_keluar,
