@@ -112,6 +112,7 @@ use App\Http\Controllers\Sales\TransaksiProdukPaidController as SalesTransaksiPr
 use App\Http\Controllers\AdminToko\LaporanPenjualanController as AdminTokoLaporanPenjualanController;
 use App\Http\Controllers\AdminToko\UbahSudahDiambilController as AdminTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\MasterKapasitasController as KepalaTokoMasterKapasitasController;
+use App\Http\Controllers\AdminToko\PurchaseProductController as AdminTokoPurchaseProductController;
 // Teknisi
 use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
 use App\Http\Controllers\KepalaToko\ProdukAksesorisController as KepalaTokoProdukAksesorisController;
@@ -166,6 +167,7 @@ Route::get('/get-sparepart/{products_id}', [AutoModalSparepartController::class,
 // Default All Route 
 Route::controller(DefaultController::class)->group(function () {
     Route::get('/get-modelserie', 'GetModelSerie')->name('get-modelserie');
+    Route::get('/get-product', 'GetProduct')->name('get-product');
 });
 
 // Keranjang Sampah
@@ -440,6 +442,7 @@ Route::middleware(['ensureAdminRole:AdminToko', 'checkSubscription'])->group(fun
     Route::resource('produk/admin-transaksi-produk', AdminTokoTransaksiProdukController::class);
     Route::resource('produk/admin-transaksi-produk-paid', AdminTokoTransaksiProdukPaidController::class);
     Route::resource('produk/admin-transaksi-produk-due', AdminTokoTransaksiProdukDueController::class);
+    Route::resource('produk/admin-purchase', AdminTokoPurchaseProductController::class);
 
     Route::get('produk/admin-pos', [AdminTokoPosController::class, 'index'])->name('admin-pos');
     Route::get('produk/admin-allitem', [AdminTokoPosController::class, 'AllItem']);

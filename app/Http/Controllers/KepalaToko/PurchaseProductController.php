@@ -7,6 +7,7 @@ use App\Models\Purchase;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class PurchaseProductController extends Controller
 {
@@ -47,7 +48,8 @@ class PurchaseProductController extends Controller
     {
         $suppliers = Supplier::all();
         $products = Product::all();
-        return view('pages/kepalatoko/pembelian/create', compact('suppliers', 'products'));
+        $categories = Category::all();
+        return view('pages/kepalatoko/pembelian/create', compact('suppliers', 'products', 'categories'));
     }
 
     /**
