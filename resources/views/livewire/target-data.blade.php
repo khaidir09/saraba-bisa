@@ -107,7 +107,7 @@
                                     <!-- Modal footer -->
                                     <div class="pt-4 border-t border-slate-200 mt-4">
                                         <div class="flex flex-wrap justify-end space-x-2">
-                                            <a href="{{ route('bonus.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                            <a href="{{ route('target.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                                 Batal
                                             </a>
                                             <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Salary;
 use App\Models\Target;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -28,7 +27,7 @@ class TargetData extends Component
 
     public function render()
     {
-        $targets_count = Salary::all()->count();
+        $targets_count = Target::all()->count();
         return view('livewire.target-data', [
             'targets_count' => $targets_count,
             'targets' => $this->search === null ?

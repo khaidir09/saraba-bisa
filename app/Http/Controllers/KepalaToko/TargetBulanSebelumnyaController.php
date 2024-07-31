@@ -18,18 +18,20 @@ class TargetBulanSebelumnyaController extends Controller
 
         $lastMonth = now()->subMonth(); // Mendapatkan tanggal bulan sebelumnya
 
+        $year = $lastMonth->year;
+        $month = $lastMonth->month;
+
         $date = $lastMonth->endOfMonth(); // Set the value of $date to the last date of the previous month
 
-        $bulanprofitbersihservis = ServiceTransaction::whereYear('tgl_ambil', now()->year)
-            ->whereMonth('tgl_ambil', $lastMonth)
+        $bulanprofitbersihservis = ServiceTransaction::whereYear('tgl_ambil', $year)
+            ->whereMonth('tgl_ambil', $month)
             ->where('is_approve', 'Setuju')
             ->get()
             ->sum('profittoko');
 
-        $profitpenjualan = Order::whereHas('detailOrders', function ($query) {
-            $lastMonth = now()->subMonth();
-            $query->whereYear('created_at', now()->year)
-                ->whereMonth('created_at', $lastMonth)
+        $profitpenjualan = Order::whereHas('detailOrders', function ($query) use ($year, $month) {
+            $query->whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
                 ->where('is_approve', 'Setuju');
         })
             ->with(['detailOrders' => function ($query) {
