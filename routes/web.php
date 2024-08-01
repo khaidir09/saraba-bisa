@@ -113,6 +113,7 @@ use App\Http\Controllers\AdminToko\LaporanPenjualanController as AdminTokoLapora
 use App\Http\Controllers\AdminToko\UbahSudahDiambilController as AdminTokoUbahSudahDiambilController;
 use App\Http\Controllers\KepalaToko\MasterKapasitasController as KepalaTokoMasterKapasitasController;
 use App\Http\Controllers\AdminToko\PurchaseProductController as AdminTokoPurchaseProductController;
+use App\Http\Controllers\AdminToko\ReturProductController as AdminTokoReturProductController;
 // Teknisi
 use App\Http\Controllers\KepalaToko\MasterModelSeriController as KepalaTokoMasterModelSeriController;
 use App\Http\Controllers\KepalaToko\ProdukAksesorisController as KepalaTokoProdukAksesorisController;
@@ -443,6 +444,7 @@ Route::middleware(['ensureAdminRole:AdminToko', 'checkSubscription'])->group(fun
     Route::resource('produk/admin-transaksi-produk-paid', AdminTokoTransaksiProdukPaidController::class);
     Route::resource('produk/admin-transaksi-produk-due', AdminTokoTransaksiProdukDueController::class);
     Route::resource('produk/admin-purchase', AdminTokoPurchaseProductController::class);
+    Route::resource('produk/admin-retur', AdminTokoReturProductController::class);
 
     Route::get('produk/admin-pos', [AdminTokoPosController::class, 'index'])->name('admin-pos');
     Route::get('produk/admin-allitem', [AdminTokoPosController::class, 'AllItem']);

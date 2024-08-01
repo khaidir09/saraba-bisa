@@ -2,7 +2,7 @@
     Tambah Pembelian Produk
 @endsection
 
-<x-toko-layout background="bg-white">
+<x-admin-layout background="bg-white">
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
      
         <!-- Page header -->
@@ -75,7 +75,7 @@
                                     <!-- Modal footer -->
                                     <div class="flex flex-wrap justify-end space-x-2">
                                         <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="modalOpen = false">Tetap Disini</button>
-                                        <a href="{{ route('purchase.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
+                                        <a href="{{ route('admin-purchase.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
                                             Keluar
                                         </a>
                                     </div>
@@ -152,7 +152,7 @@
             </button>
         </div>
 
-        <form method="post" action="{{ route('purchase.store') }}">
+        <form method="post" action="{{ route('admin-purchase.store') }}">
             @csrf
             <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5 mb-8">
                 <header class="px-5 py-4">
@@ -361,4 +361,4 @@
             });
         </script>
     @endpush
-</x-toko-layout>
+</x-admin-layout>

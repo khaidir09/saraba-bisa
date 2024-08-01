@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\KepalaToko;
+namespace App\Http\Controllers\AdminToko;
 
 use App\Models\Product;
 use App\Models\Purchase;
@@ -18,7 +18,7 @@ class PurchaseProductController extends Controller
      */
     public function index()
     {
-        return view('pages/kepalatoko/pembelian/index');
+        return view('pages/admintoko/pembelian/index');
     }
 
     public function deleteSelected(Request $request)
@@ -49,7 +49,7 @@ class PurchaseProductController extends Controller
         $suppliers = Supplier::all();
         $products = Product::all();
         $categories = Category::all();
-        return view('pages/kepalatoko/pembelian/create', compact('suppliers', 'products', 'categories'));
+        return view('pages/admintoko/pembelian/create', compact('suppliers', 'products', 'categories'));
     }
 
     /**
@@ -96,7 +96,7 @@ class PurchaseProductController extends Controller
             }
         }
 
-        return redirect()->route('purchase.index');
+        return redirect()->route('admin-purchase.index');
     }
 
     /**
@@ -146,10 +146,8 @@ class PurchaseProductController extends Controller
         $item->delete();
 
         $products = Product::find($item->products_id);
-        if ($products != null) {
-            $products->stok -= $item->quantity;
-            $products->save();
-        }
+        $products->stok -= $item->quantity;
+        $products->save();
 
         return redirect()->back();
     }
