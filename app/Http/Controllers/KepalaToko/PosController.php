@@ -28,9 +28,24 @@ class PosController extends Controller
 
     public function show($id)
     {
-        $order = Order::with('customer', 'detailOrders')->where('id', $id)->first();
+        $toko = User::find(1);
+        $order = Order::with('customer')->where('id', $id)->first();
 
-        return view('pages/kepalatoko/pos/cetak', compact('order'));
+        $orderItem = OrderDetail::with('product')->where('orders_id', $id)->orderBy('id', 'DESC')->get();
+
+        // Buat string detail produk
+        $produkDetails = '';
+        foreach ($orderItem as $item) {
+
+            // Tambahkan nomor seri jika kategori produk adalah 1
+            if ($item->product->categories_id === 1) {
+                $produkDetails .= $item->product_name . ' IMEI ' . $item->product->nomor_seri . ' (Rp ' . number_format($item->price, 0, ',', '.') . ' x ' . $item->quantity . ' pcs)%0A';
+            } else {
+                $produkDetails .= $item->product_name . ' (Rp ' . number_format($item->price, 0, ',', '.') . ' x ' . $item->quantity . ' pcs)%0A';
+            }
+        }
+
+        return view('pages/kepalatoko/pos/cetak', compact('order', 'toko', 'orderItem', 'produkDetails'));
     }
 
     public function addcart(Request $request)
