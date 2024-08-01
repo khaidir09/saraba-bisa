@@ -59,7 +59,7 @@ class SearchProduct extends Component
         $query = Product::latest()->with('category')->where('stok', '>=', '1')
             ->when($this->query, function ($query) {
                 $query->where(function ($query) {
-                    $query->where('product_name', 'like', '%' . $this->query . '%')->orWhere('product_code', 'like', '%' . $this->query . '%');
+                    $query->where('product_name', 'like', '%' . $this->query . '%')->orWhere('product_code', 'like', '%' . $this->query . '%')->orWhere('nomor_seri', 'like', '%' . $this->query . '%');
                 });
             })
             ->when($this->categories_id, function ($query) {
