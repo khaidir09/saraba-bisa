@@ -60,7 +60,7 @@
                         <input type="hidden" wire:model="order_date" name="order_date" value="{{ \Carbon\Carbon::today()->locale('id')->translatedFormat('d F Y') }}">
                         <div class="space-y-3">
                             <div class="w-full px-2">
-                                <label class="block text-sm font-medium" for="payment_method" :value="Payment Method">Metode Pembayaran <span class="text-rose-500">*</span></label>
+                                <label class="block text-sm font-medium" for="payment_method">Metode Pembayaran <span class="text-rose-500">*</span></label>
                                 <small class="mb-1">Jika jumlah pembayaran kurang dari jumlah total maka pilih Kredit</small>
                                 <select wire:model="payment_method" id="payment_method" name="payment_method" required
                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
@@ -72,13 +72,13 @@
                                 </select>
                             </div>
                             <div class="w-full px-2">
-                                <label class="block text-sm font-medium mb-1" for="total_amount" :value="Total Amount">Jumlah Total <span class="text-rose-500">*</span></label>
+                                <label class="block text-sm font-medium mb-1" for="total_amount">Jumlah Total <span class="text-rose-500">*</span></label>
                                 <input id="total_amount" type="number" wire:model="total_amount"
                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                     name="total_amount" readonly required>
                             </div>
                             <div class="w-full px-2">
-                                <label class="block text-sm font-medium mb-1" for="paid_amount" :value="Paid Amount">Jumlah Pembayaran <span class="text-rose-500">*</span></label>
+                                <label class="block text-sm font-medium mb-1" for="paid_amount">Jumlah Pembayaran <span class="text-rose-500">*</span></label>
                                 <input id="paid_amount" type="number" wire:model="paid_amount"
                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                     name="paid_amount" required>
@@ -104,7 +104,7 @@
                                             <!-- End -->
                                         </div>
                                     </div>
-                                    <label class="block text-sm font-medium" for="tempo" :value="Payment Method">Waktu Tempo <span class="text-rose-500">*</span></label>
+                                    <label class="block text-sm font-medium" for="tempo">Waktu Tempo <span class="text-rose-500">*</span></label>
                                     <select wire:model="tempo" id="tempo" name="tempo" required
                                         class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
                                         <option value="">Pilih Waktu Tempo</option>
@@ -141,7 +141,7 @@
                                 </div>
                             @endif
                             <div class="mb-4 w-full px-2">
-                                <label class="block text-sm font-medium mb-1" for="note" :value="Note">Catatan</label>
+                                <label class="block text-sm font-medium mb-1" for="note">Catatan</label>
                                 <textarea name="note" id="note" rows="5" wire:model="note"
                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"></textarea>
                             </div>
