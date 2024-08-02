@@ -10,13 +10,10 @@ use App\Models\Order;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Customer;
-use App\Enums\SaleStatus;
-use App\Enums\MovementType;
 use App\Models\OrderDetail;
 use App\Models\SalePayment;
 use App\Enums\PaymentStatus;
 use App\Models\StoreSetting;
-use App\Jobs\PaymentNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -54,6 +51,7 @@ class Index extends Component
 
     public $users_id;
 
+    public $customers;
     public $customer_id;
 
     public $total_amount;
@@ -108,6 +106,13 @@ class Index extends Component
 
         $this->tax_percentage = 0;
         $this->paid_amount = 0;
+
+        $this->customers = Customer::all();
+    }
+
+    public function updatedCustomerId($value)
+    {
+        $this->customer_id = $value;
     }
 
     public function updatedPaymentMethod($value): void
@@ -320,10 +325,5 @@ class Index extends Component
     public function resetCart(): void
     {
         Cart::instance($this->cart_instance)->destroy();
-    }
-
-    public function getCustomersProperty()
-    {
-        return Customer::select(['nama', 'id', 'nomor_hp'])->get();
     }
 }

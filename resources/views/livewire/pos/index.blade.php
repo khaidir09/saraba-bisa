@@ -4,9 +4,15 @@
 
         <div class="flex gap-4">
             <div class="w-full relative inline-flex">
-                <select required id="customer_id" name="customer_id" wire:model="customer_id" class="form-select text-sm block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md">
+                {{-- <select required id="customer_id" name="customer_id" wire:model="customer_id" class="form-select text-sm block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md">
                     <option value="">Pilih Pelanggan</option>
                     @foreach ($this->customers as $customer)
+                        <option value="{{ $customer->id }}">{{ $customer->nama }} ({{ $customer->nomor_hp }})</option>
+                    @endforeach
+                </select> --}}
+                <select id="customer_id" name="customer_id" wire:model="customer_id" class="form-select text-sm block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md">
+                    <option value="">Pilih Pelanggan</option>
+                    @foreach ($customers as $customer)
                         <option value="{{ $customer->id }}">{{ $customer->nama }} ({{ $customer->nomor_hp }})</option>
                     @endforeach
                 </select>
@@ -210,3 +216,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('livewire:load', function () {
+        $('#customer_id').select2();
+        $('#customer_id').on('change', function (e) {
+            var data = $('#customer_id').select2("val");
+            @this.set('customer_id', data);
+        });
+    });
+
+    document.addEventListener('livewire:update', function () {
+        $('#customer_id').select2();
+    });
+</script>
