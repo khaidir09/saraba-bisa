@@ -50,6 +50,7 @@ class SalesIndex extends Component
 
     public $users_id;
 
+    public $customers;
     public $customer_id;
 
     public $total_amount;
@@ -104,6 +105,13 @@ class SalesIndex extends Component
 
         $this->tax_percentage = 0;
         $this->paid_amount = 0;
+
+        $this->customers = Customer::all();
+    }
+
+    public function updatedCustomerId($value)
+    {
+        $this->customer_id = $value;
     }
 
     public function updatedPaymentMethod($value): void
