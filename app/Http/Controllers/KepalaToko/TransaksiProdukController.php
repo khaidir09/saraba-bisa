@@ -89,13 +89,25 @@ class TransaksiProdukController extends Controller
      */
     public function show($orders_id)
     {
+        $toko = User::find(1);
         $order = Order::with('customer')->where('id', $orders_id)->first();
-
         $orderItem = OrderDetail::with('product')->where('orders_id', $orders_id)->orderBy('id', 'DESC')->get();
+
+        $produkDetails = '';
+        foreach ($orderItem as $item) {
+
+            // Tambahkan nomor seri jika kategori produk adalah 1
+            if ($item->product->categories_id === 1) {
+                $produkDetails .= $item->product_name . ' IMEI ' . $item->product->nomor_seri . ' (Rp ' . number_format($item->price, 0, ',', '.') . ' x ' . $item->quantity . ' pcs)%0A';
+            } else {
+                $produkDetails .= $item->product_name . ' (Rp ' . number_format($item->price, 0, ',', '.') . ' x ' . $item->quantity . ' pcs)%0A';
+            }
+        }
+
         $total = $orderItem->sum('total');
         $subtotal = $orderItem->sum('sub_total');
         $totalTax = $orderItem->sum('ppn');
-        return view('pages.kepalatoko.produk.transaksi-detail', compact('order', 'orderItem', 'total', 'subtotal', 'totalTax'));
+        return view('pages.kepalatoko.produk.transaksi-detail', compact('order', 'orderItem', 'total', 'subtotal', 'totalTax', 'toko', 'produkDetails'));
     }
 
     public function OrderDueAjax($id)

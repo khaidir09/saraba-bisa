@@ -175,7 +175,7 @@
                             aria-controls="basic-modal"
                             class="btn w-full bg-indigo-500 hover:bg-indigo-600 text-white"
                         >
-                        Cetak Invoice
+                        Cetak Nota
                         </button>
                             <!-- Modal backdrop -->
                             <div
@@ -261,7 +261,24 @@
                                 </div>
                             </div>                                            
                     </div>
-                    {{-- <div class="text-xs text-slate-500 italic text-center">Should you ever change your mind, we offer a 14-day, no-questions-asked refund policy.</div> --}}
+                    @php
+                        if ($order->customer != null) {
+                            $nomor = $order->customer->nomor_hp;
+                            $nomorwa = preg_replace('/^08/', 628, $nomor);
+                        }
+                    @endphp
+                    <a href="https://wa.me/{{ $nomorwa }}/?text=*Notifikasi%20Penjualan*%0A{{ $toko->nama_toko }}%0A%0ANo.%20Nota%20:%20{{ $order->invoice_no }}%0ANama%20pelanggan%20:%20*{{ $order->nama_pelanggan }}*%0AProduk%20:%0A{{ $produkDetails }}%0APembayaran%20:%20{{ $order->payment_method }}%0A%0ALink%20garansi%20:%20{{ $toko->link_toko }}/garansi%0A%0ATerimakasih" target="__blank">
+                        <button class="btn w-full bg-emerald-500 hover:bg-emerald-600 text-white mt-3">
+                            <span class="mr-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-whatsapp" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                                    <path d="M9 10a0.5 .5 0 0 0 1 0v-1a0.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a0.5 .5 0 0 0 0 -1h-1a0.5 .5 0 0 0 0 1" />
+                                </svg>
+                            </span>
+                            Kirim Nota
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
