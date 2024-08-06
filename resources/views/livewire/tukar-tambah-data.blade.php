@@ -11,100 +11,16 @@
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="No.Referensi/Nama Produk/Nama Supplier" />
+            <x-search-form placeholder="Nama Produk" />
 
             <!-- Create invoice button -->
-            <div x-data="{ modalOpen: false }">
-                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="modalOpen = true" aria-controls="tambah-modal">
-                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                    </svg>
-                    <span class="hidden xs:block ml-2">Retur Produk</span>
-                </button>
-                <!-- Modal backdrop -->
-                <div
-                    class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                    x-show="modalOpen"
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="transition ease-out duration-100"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    aria-hidden="true"
-                    x-cloak
-                ></div>
-                <!-- Modal dialog -->
-                <div
-                    id="tambah-modal"
-                    class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                    role="dialog"
-                    aria-modal="true"
-                    x-show="modalOpen"
-                    x-transition:enter="transition ease-in-out duration-200"
-                    x-transition:enter-start="opacity-0 translate-y-4"
-                    x-transition:enter-end="opacity-100 translate-y-0"
-                    x-transition:leave="transition ease-in-out duration-200"
-                    x-transition:leave-start="opacity-100 translate-y-0"
-                    x-transition:leave-end="opacity-0 translate-y-4"
-                    x-cloak
-                >
-                    <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
-                        <!-- Modal header -->
-                        <div class="px-5 py-3 border-b border-slate-200">
-                            <div class="flex justify-between items-center">
-                                <div class="font-semibold text-slate-800">Retur Produk</div>
-                                <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
-                                    <div class="sr-only">Close</div>
-                                    <svg class="w-4 h-4 fill-current">
-                                        <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Modal content -->
-                        <form action="{{ route('retur.store') }}" method="post">
-                            @csrf
-                            <input type="hidden" name="status" value="Masih Proses">
-                            <div class="px-5 py-4">
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="purchases_id">Pilih Data Pembelian <span class="text-rose-500">*</span></label>
-                                        <select id="purchases_id" name="purchases_id" class="form-select text-sm py-1 w-full selectjs" required style="width: 100%">
-                                            <option selected="">Pilih Data Pembelian</option>
-                                            @foreach ($purchases as $item)
-                                                <option value="{{ $item->id }}">({{ $item->reference_number }}) {{ $item->product_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="retur_quantity">Jumlah Item Retur <span class="text-rose-500">*</span></label>
-                                        <input id="retur_quantity" name="retur_quantity" class="form-input w-full px-2 py-1" type="number" required/>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="keterangan">Keterangan Retur</label>
-                                        <input id="keterangan" name="keterangan" class="form-input w-full px-2 py-1" type="text" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="date">Tanggal</label>
-                                        <input id="date" name="date" class="form-input w-full px-2 py-1" type="date" value="<?php echo date('Y-m-d'); ?>" />
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="px-5 py-4 border-t border-slate-200">
-                                <div class="flex flex-wrap justify-end space-x-2">
-                                    <a href="{{ route('purchase.index') }}" class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600">
-                                        Batal
-                                    </a>
-                                    <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Simpan</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        
+            <a href="{{ route('tukar-tambah.create') }}" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                </svg>
+                <span class="hidden xs:block ml-2">Input Tukar Tambah</span>
+            </a>
+            
         </div>
 
     </div>
@@ -121,12 +37,12 @@
                 </li>
                 <li class="m-1">
                     <a href="{{ route('retur.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Retur <span class="ml-1 text-indigo-200">{{ $returs_count }}</span></button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Retur <span class="ml-1 text-slate-400">{{ $returs_count }}</span></button>
                     </a>
                 </li>
                 <li class="m-1">
                     <a href="{{ route('tukar-tambah.index') }}">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Tukar Tambah <span class="ml-1 text-slate-400">{{ $trade_ins_count }}</span></button>
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm  bg-indigo-500 text-white duration-150 ease-in-out">Tukar Tambah <span class="ml-1 text-indigo-200">{{ $trade_ins_count }}</span></button>
                     </a>
                 </li>
             </ul>
@@ -149,7 +65,7 @@
         <div x-data="handleSelect">
             <div class="sm:flex sm:justify-between sm:items-center px-5 py-4">
                 {{-- Left side --}}
-                <h2 class="font-semibold text-slate-800">Semua Data Retur <span class="text-slate-400 font-medium">{{ $returs_count }}</span></h2>
+                <h2 class="font-semibold text-slate-800">Semua Data Tukar Tambah <span class="text-slate-400 font-medium">{{ $trade_ins_count }}</span></h2>
                 {{-- Right side --}}
                 <div class="relative inline-flex">
                     <div class="table-items-action hidden">
@@ -178,10 +94,10 @@
                                 <div class="font-semibold text-left">Tanggal</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">No. Referensi</div>
+                                <div class="font-semibold text-left">No. Nota</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Nama Supplier</div>
+                                <div class="font-semibold text-left">Nama Pelanggan</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Nama Produk</div>
@@ -190,13 +106,7 @@
                                 <div class="font-semibold text-left">Keterangan</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Kuantitas Produk</div>
-                            </th>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Harga Produk</div>
-                            </th>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Total Harga</div>
+                                <div class="font-semibold text-left">Harga Tukar</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Aksi</div>
@@ -209,7 +119,7 @@
                         @php
                             $i = 1
                         @endphp
-                        @foreach($returs as $item)                  
+                        @foreach($tradeins as $item)                  
                             <tr>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                     <div class="flex items-center">
@@ -223,25 +133,29 @@
                                     <div class="font-medium">{{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->purchase->reference_number }}</div>
+                                    <div class="font-medium">{{ $item->reference_number }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->purchase->suppliers_name }}</div>
+                                    <div class="font-medium">
+                                        @if ($item->customer != null)
+                                            {{ $item->customer->nama }}
+                                        @else
+                                            -
+                                        @endif
+                                    </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->purchase->product_name }}</div>
+                                    @if ($item->product != null)
+                                        <div class="font-medium">{{ $item->product->product_name }}</div>
+                                    @else
+                                        <div class="font-medium text-red-600">Data produk sudah dihapus</div>
+                                    @endif
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $item->keterangan }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->retur_quantity }}</div>
-                                </td>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">Rp. {{ number_format($item->purchase->product_price) }}</div>
-                                </td>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">Rp. {{ number_format($item->retur_credit) }}</div>
+                                    <div class="font-medium">Rp. {{ number_format($item->total_price) }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                     <div class="space-x-1 flex">
@@ -299,13 +213,13 @@
                                                             <!-- Modal content -->
                                                             <div class="text-sm mb-10">
                                                                 <div class="space-y-2">
-                                                                    <p>Jika sudah terhapus, maka stok produk akan dikembalikan <br> ke jumlah sebelumnya.</p>
+                                                                    <p>Jika sudah terhapus, maka data produk ini akan hilang.</p>
                                                                 </div>
                                                             </div>
                                                             <!-- Modal footer -->
                                                             <div class="flex flex-wrap justify-end space-x-2">
                                                                 <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                                <form action="{{ route('retur.destroy', $item->id) }}" method="post">
+                                                                <form action="{{ route('tukar-tambah.destroy', $item->id) }}" method="post">
                                                                     @method('delete')
                                                                     @csrf
                                                                     <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -325,6 +239,11 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-8">
+        {{ $tradeins->links() }}
     </div>
 
     <script>
@@ -360,7 +279,7 @@
                     const selectedIds = [...checkboxes].map((checkbox) => checkbox.value);
 
                     // Kirim permintaan penghapusan ke server
-                    fetch('/returs/delete', {
+                    fetch('/tukartambah/delete', {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
@@ -381,9 +300,4 @@
             }))
         })    
     </script>
-
-    <!-- Pagination -->
-    <div class="mt-8">
-        {{ $returs->links() }}
-    </div>
 </div>

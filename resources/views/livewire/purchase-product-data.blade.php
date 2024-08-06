@@ -40,6 +40,11 @@
                         <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Retur <span class="ml-1 text-slate-400">{{ $returs_count }}</span></button>
                     </a>
                 </li>
+                <li class="m-1">
+                    <a href="{{ route('tukar-tambah.index') }}">
+                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Tukar Tambah <span class="ml-1 text-slate-400">{{ $trade_ins_count }}</span></button>
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -134,7 +139,13 @@
                                     <div class="font-medium">{{ $item->reference_number }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $item->supplier->name }}</div>
+                                    <div class="font-medium">
+                                        @if ($item->supplier != null)
+                                            {{ $item->supplier->name }}
+                                        @else
+                                            -
+                                        @endif
+                                    </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     @if ($item->product != null)

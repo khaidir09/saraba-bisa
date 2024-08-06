@@ -37,6 +37,15 @@
                     </div>
                     <div class="text-sm font-semibold text-slate-800">Pengeluaran</div>
                 </div>
+                <div class="hidden md:block w-px h-8 bg-slate-200 mr-5" aria-hidden="true"></div>
+            </div>
+            <div class="flex items-center py-2">
+                <div class="mr-5">
+                    <div class="flex items-center">
+                        <div class="text-3xl font-bold text-indigo-800 mr-2">Rp. {{ number_format($haripembelian) }}</div>
+                    </div>
+                    <div class="text-sm font-semibold text-slate-800">Pembelian</div>
+                </div>
             </div>
         </div>
         </div>

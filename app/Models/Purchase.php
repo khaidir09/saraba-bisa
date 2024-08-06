@@ -9,6 +9,7 @@ class Purchase extends Model
 {
     protected $fillable = [
         'reference_number',
+        'customers_id',
         'suppliers_id',
         'suppliers_name',
         'keterangan',

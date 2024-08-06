@@ -12,6 +12,7 @@ use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AutoBiayaServisController;
 use App\Http\Controllers\AutoModalSparepartController;
+use App\Http\Controllers\AutoHargaJualController;
 use App\Http\Controllers\KepalaToko\DataServisController;
 use App\Http\Controllers\KepalaToko\DataTargetController;
 use App\Http\Controllers\KepalaToko\RecycleBinController;
@@ -69,6 +70,7 @@ use App\Http\Controllers\KepalaToko\InventarisController as KepalaTokoInventaris
 use App\Http\Controllers\Sales\ProdukAksesorisController as SalesProdukAksesorisController;
 use App\Http\Controllers\Sales\ProdukHandphoneController as SalesProdukHandphoneController;
 use App\Http\Controllers\Sales\ProdukSparepartController as SalesProdukSparepartController;
+use App\Http\Controllers\KepalaToko\TukarTambahController as KepalaTokoTukarTambahController;
 // Admin Toko
 use App\Http\Controllers\Sales\TransaksiProdukController as SalesTransaksiProdukController;
 use App\Http\Controllers\AdminToko\SudahDiambilController as AdminTokoSudahDiambilController;
@@ -164,6 +166,7 @@ Route::get('/garansi', [GaransiController::class, 'index'])->name('garansi');
 Route::get('/garansi-data', [GaransiController::class, 'data'])->name('garansi-data');
 Route::get('/get-action/{service_actions_id}', [AutoBiayaServisController::class, 'getAction']);
 Route::get('/get-sparepart/{products_id}', [AutoModalSparepartController::class, 'getSparepart']);
+Route::get('/get-product/{products_id}', [AutoHargaJualController::class, 'getProduct']);
 
 // Default All Route 
 Route::controller(DefaultController::class)->group(function () {
@@ -289,6 +292,7 @@ Route::middleware(['ensureUserRole:KepalaToko', 'checkSubscription'])->group(fun
     Route::delete('/purchases/delete', [KepalaTokoPurchaseProductController::class, 'deleteSelected']);
     Route::resource('produk/retur', KepalaTokoReturProductController::class);
     Route::delete('/returs/delete', [KepalaTokoReturProductController::class, 'deleteSelected']);
+    Route::resource('produk/tukar-tambah', KepalaTokoTukarTambahController::class);
     Route::resource('produk/pos', KepalaTokoPosController::class);
     Route::resource('produk/transaksi-penjualan-approve', KepalaTokoApprovePenjualanController::class);
     Route::resource('produk/transaksi-produk', KepalaTokoTransaksiProdukController::class);

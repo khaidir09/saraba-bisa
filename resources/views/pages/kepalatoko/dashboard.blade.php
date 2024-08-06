@@ -6,7 +6,7 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         
         <!-- Welcome banner -->
-        <x-dashboard.welcome-banner :haritotalomzet="$haritotalomzet" :haritotalprofitkotor="$haritotalprofitkotor" :haripengeluaran="$haripengeluaran"/>
+        <x-dashboard.welcome-banner :haritotalomzet="$haritotalomzet" :haritotalprofitkotor="$haritotalprofitkotor" :haripengeluaran="$haripengeluaran" :haripembelian="$haripembelian"/>
 
         <!-- Banner -->
         <div class="mb-6">
@@ -120,7 +120,7 @@
 
         <div class="grid grid-cols-12 gap-6">
             <!-- Card Keuangan -->
-            <x-kepalatoko.keuangan-card :bulantotalprofitbersih="$bulantotalprofitbersih" :bulantotalprofitkotor="$bulantotalprofitkotor" :pengeluaran="$pengeluaran" :totalpengeluaran="$totalpengeluaran" :totalinsiden="$totalinsiden"/>
+            <x-kepalatoko.keuangan-card :bulantotalprofitbersih="$bulantotalprofitbersih" :bulantotalprofitkotor="$bulantotalprofitkotor" :totalpengeluaran="$totalpengeluaran" :totalinsiden="$totalinsiden" :totalpembelian="$totalpembelian"/>
 
             {{-- Progres --}}
             <div class="flex flex-col col-span-full xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200">

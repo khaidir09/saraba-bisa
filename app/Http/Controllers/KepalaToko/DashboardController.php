@@ -17,6 +17,7 @@ use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
+use App\Models\Purchase;
 
 class DashboardController extends Controller
 {
@@ -43,10 +44,6 @@ class DashboardController extends Controller
             ];
         }
 
-        $pengeluaran = Expense::where('is_approve', 'Setuju')
-            ->whereYear('tgl_disetujui', now()->year)
-            ->whereMonth('tgl_disetujui', $currentMonth)
-            ->count();
         $totalpengeluaran = Expense::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->where('is_approve', 'Setuju')
@@ -54,6 +51,9 @@ class DashboardController extends Controller
         $totalinsiden = Incident::whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->sum('biaya_toko');
+        $totalpembelian = Purchase::whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)
+            ->sum('total_price');
 
         // Ambil data transaksi servis yang memiliki status "Belum cek"
         $transactions = ServiceTransaction::where('status_servis', 'Belum cek')->get();
@@ -122,6 +122,10 @@ class DashboardController extends Controller
 
         $bulantotalprofitkotor = ($bulanprofitkotorservis + $bulanprofitkotorpenjualan);
 
+        $haripembelian = Purchase::whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)
+            ->whereDate('created_at', today())
+            ->sum('total_price');
         $haripengeluaran = Expense::where('is_approve', 'Setuju')
             ->whereYear('tgl_disetujui', now()->year)
             ->whereMonth('tgl_disetujui', now()->month)
@@ -162,13 +166,14 @@ class DashboardController extends Controller
             'categorySales',
             'totalpengeluaran',
             'totalinsiden',
-            'pengeluaran',
+            'totalpembelian',
             'approveservis',
             'approvepenjualan',
             'approvekasbon',
             'approvepengeluaran',
             'totalbudgets',
             'haripengeluaran',
+            'haripembelian',
             'haritotalomzet',
             'haritotalprofitkotor',
             'bulantotalprofitbersih',
