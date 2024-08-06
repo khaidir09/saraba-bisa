@@ -222,9 +222,9 @@
         @else
           <td align="center">-</td>
         @endif
-        <td align="center">Rp. {{ number_format($item->product->harga_jual) }}</td>
+        <td align="center">Rp. {{ number_format($item->price) }}</td>
         <td align="center">{{ $item->quantity }}</td>
-        <td align="center">Rp. {{ number_format($item->product->harga_jual * $item->quantity) }}</td>
+        <td align="center">Rp. {{ number_format($item->price * $item->quantity) }}</td>
         @if ($item->sub_total === $item->total)
             <td align="center">-</td>
         @else
