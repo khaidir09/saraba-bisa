@@ -293,6 +293,9 @@ Route::middleware(['ensureUserRole:KepalaToko', 'checkSubscription'])->group(fun
     Route::resource('produk/retur', KepalaTokoReturProductController::class);
     Route::delete('/returs/delete', [KepalaTokoReturProductController::class, 'deleteSelected']);
     Route::resource('produk/tukar-tambah', KepalaTokoTukarTambahController::class);
+
+    Route::get('nota-tukar-tambah/{id}', [KepalaTokoTukarTambahController::class, 'cetakinkjet'])->name('nota-tukar-tambah');
+
     Route::resource('produk/pos', KepalaTokoPosController::class);
     Route::resource('produk/transaksi-penjualan-approve', KepalaTokoApprovePenjualanController::class);
     Route::resource('produk/transaksi-produk', KepalaTokoTransaksiProdukController::class);

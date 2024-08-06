@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\KepalaToko;
 
 use Carbon\Carbon;
+use App\Models\Term;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Color;
@@ -10,11 +11,13 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Capacity;
 use App\Models\Customer;
+use App\Models\Purchase;
 use App\Models\ModelSerie;
 use App\Models\OrderDetail;
+use App\Models\StoreSetting;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
-use App\Models\Purchase;
 
 class TukarTambahController extends Controller
 {
@@ -175,6 +178,53 @@ class TukarTambahController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function cetakinkjet($reference_number)
+    {
+        $order = Order::with('customer')->where('invoice_no', $reference_number)->first();
+
+        // Ambil orders_id dari order yang ditemukan
+        $ordersId = $order->id;
+
+        // Ambil data order detail berdasarkan orders_id yang ditemukan
+        $orderItem = OrderDetail::with('product', 'order')
+            ->where('orders_id', $ordersId)
+            ->get();
+
+        $total = $orderItem->sum('total');
+        $subtotal = $orderItem->sum('sub_total');
+
+        $produkTukarTambah = Purchase::with('product')->where('reference_number', $reference_number)->get();
+        $hargaTukar = Purchase::where('reference_number', $reference_number)->sum('product_price');
+
+        $users = User::find(1);
+        $terms = Term::find(3);
+        $toko = StoreSetting::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Ambil nomor invoice dari database
+        $invoiceNumber = $order->invoice_no;
+        $namaPelanggan = $order->customer->nama;
+
+        $pdf = PDF::loadView('pages.kepalatoko.produk.tukar-tambah-cetak-inkjet', [
+            'order' => $order,
+            'users' => $users,
+            'terms' => $terms,
+            'orderItem' => $orderItem,
+            'produkTukarTambah' => $produkTukarTambah,
+            'hargaTukar' => $hargaTukar,
+            'imagePath' => $imagePath,
+            'total' => $total,
+            'subtotal' => $subtotal,
+            'toko' => $toko,
+        ]);
+
+        $filename = 'Nota Penjualan Tukar Tambah ' . $invoiceNumber . ' ' . '(' . $namaPelanggan . ')' . '.pdf';
+
+        return $pdf->setOption('isRemoteEnabled', true)->stream($filename);
     }
 
     /**
