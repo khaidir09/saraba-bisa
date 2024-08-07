@@ -112,6 +112,7 @@ class TukarTambahController extends Controller
         OrderDetail::create([
             'orders_id' => $sale->id,
             'users_id' => $request->users_id,
+            'persen_sales' => $persen_sales->persen,
             'products_id' => $request->product_sale_id,
             'product_name' => $produk_jual->product_name,
             'quantity' => 1,
