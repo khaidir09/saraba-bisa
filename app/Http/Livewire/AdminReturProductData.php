@@ -30,12 +30,16 @@ class AdminReturProductData extends Component
     {
         $purchases = Purchase::all();
         $returs_count = Retur::all()->count();
-        $purchases_count = Purchase::all()->count();
+        $purchases_count = Purchase::whereNull('keterangan')
+            ->orWhere('keterangan', '!=', 'Tukar Tambah')->count();
+        $returs_count = Retur::all()->count();
+        $trade_ins_count = Purchase::where('keterangan', '=', 'Tukar Tambah')->count();
 
         return view('livewire.admin-retur-product-data', [
             'purchases' => $purchases,
             'returs_count' => $returs_count,
             'purchases_count' => $purchases_count,
+            'trade_ins_count' => $trade_ins_count,
             'returs' => $this->search === null ?
                 Retur::latest()->paginate($this->paginate) :
                 Retur::latest()->where('reference_number', 'like', '%' . $this->search . '%')->orWhere('suppliers_name', 'like', '%' . $this->search . '%')->orWhere('product_name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
