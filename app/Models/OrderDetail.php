@@ -31,6 +31,7 @@ class OrderDetail extends Model
         'payment_method',
         'total',
         'product_discount_amount',
+        'note'
     ];
 
     public function order()
