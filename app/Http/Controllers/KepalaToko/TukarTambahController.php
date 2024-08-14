@@ -17,6 +17,7 @@ use App\Models\OrderDetail;
 use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class TukarTambahController extends Controller
@@ -125,7 +126,8 @@ class TukarTambahController extends Controller
             'modal' => $produk_jual->harga_modal,
             'profit' => $request->price - $produk_jual->harga_modal,
             'profit_toko' => ($request->price - $produk_jual->harga_modal) - ($request->price - $produk_jual->harga_modal) / 100 * $persen_sales->persen,
-            'payment_method' => $request->payment_method
+            'payment_method' => $request->payment_method,
+            'note' => 'Tukar Tambah',
         ]);
 
         $merek = Brand::find($request->brands_id);
@@ -179,6 +181,66 @@ class TukarTambahController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function cetak(Request $request)
+    {
+        // Mengambil logo dan nama toko
+        $users = User::find(1);
+
+        $logo = $users->profile_photo_path;
+        $imagePath = public_path('storage/' . $logo);
+
+        // Filter tanggal
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $tradeInReports = DB::table('order_details')
+            ->join('orders', 'order_details.orders_id', '=', 'orders.id')
+            ->join('purchases', 'purchases.reference_number', '=', 'orders.invoice_no')
+            ->join('products as sold_products', 'order_details.products_id', '=', 'sold_products.id')
+            ->join('products as traded_products', 'purchases.products_id', '=', 'traded_products.id')
+            ->select(
+                'orders.invoice_no as invoice',
+                'orders.nama_pelanggan as pelanggan',
+                'order_details.product_name as produk_dijual',
+                'order_details.price as harga_jual',
+                'sold_products.nomor_seri as NomorSeriDijual',  // Nomor seri dari produk yang dijual
+                'purchases.product_name as produk_ditukar',
+                'purchases.product_price as harga_tukar',
+                'traded_products.nomor_seri as NomorSeriDitukar',  // Nomor seri dari produk yang ditukar
+                DB::raw('order_details.price - purchases.product_price as sisa_pembayaran')
+            )
+            ->whereNotNull('purchases.reference_number')
+            ->whereBetween('orders.created_at', [$start_date, $end_date])
+            ->get();
+
+        // Menghitung total item penjualan
+        $total_item = Purchase::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->where('keterangan', 'Tukar Tambah')
+            ->sum('quantity');
+        // Menghitung total biaya
+        $total_pembelian =
+            Purchase::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->where('keterangan', 'Tukar Tambah')
+            ->sum('product_price');
+
+
+        $pdf = Pdf::loadView('pages.kepalatoko.cetak-laporan-tukar-tambah', [
+            'users' => $users,
+            'imagePath' => $imagePath,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'total_item' => $total_item,
+            'total_pembelian' => $total_pembelian,
+            'tradeInReports' => $tradeInReports,
+        ]);
+
+        $filename = 'Laporan Tukar Tambah' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
+
+        return $pdf->stream($filename);
     }
 
     public function cetakinkjet($reference_number)

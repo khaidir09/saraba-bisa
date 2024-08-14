@@ -296,6 +296,7 @@ Route::middleware(['ensureUserRole:KepalaToko', 'checkSubscription'])->group(fun
     Route::resource('produk/tukar-tambah', KepalaTokoTukarTambahController::class);
 
     Route::get('nota-tukar-tambah/{id}', [KepalaTokoTukarTambahController::class, 'cetakinkjet'])->name('nota-tukar-tambah');
+    Route::get('cetak-laporan-tukar-tambah', [KepalaTokoTukarTambahController::class, 'cetak'])->name('cetak-laporan-tukar-tambah');
 
     Route::resource('produk/pos', KepalaTokoPosController::class);
     Route::resource('produk/transaksi-penjualan-approve', KepalaTokoApprovePenjualanController::class);
@@ -454,6 +455,7 @@ Route::middleware(['ensureAdminRole:AdminToko', 'checkSubscription'])->group(fun
     Route::resource('produk/admin-purchase', AdminTokoPurchaseProductController::class);
     Route::resource('produk/admin-retur', AdminTokoReturProductController::class);
     Route::resource('produk/admin-tukar-tambah', AdminTokoTukarTambahController::class);
+    Route::get('admin-cetak-laporan-tukar-tambah', [AdminTokoTukarTambahController::class, 'cetak'])->name('admin-cetak-laporan-tukar-tambah');
 
     Route::get('produk/admin-pos', [AdminTokoPosController::class, 'index'])->name('admin-pos');
     Route::get('produk/admin-allitem', [AdminTokoPosController::class, 'AllItem']);
