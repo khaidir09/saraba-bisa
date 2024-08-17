@@ -130,7 +130,7 @@
                     x-transition:leave-end="opacity-0 translate-y-4"
                     x-cloak
                 >
-                    <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                    <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full">
                         <!-- Modal header -->
                         <div class="px-5 py-3 border-b border-slate-200">
                             <div class="flex justify-between items-center">
