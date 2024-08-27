@@ -168,6 +168,21 @@ class LaporanPenjualanController extends Controller
             ->sum('sub_total');
         $total_diskon = $sub_total - $total;
 
+        // Menghitung total pembayaran tunai
+        $total_tunai = Order::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('tunai');
+
+        // Menghitung total pembayaran transfer
+        $total_transfer = Order::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('transfer');
+
+        // Menghitung total pembayaran kredit
+        $total_kredit = Order::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('due');
+
         $pdf = Pdf::loadView('pages.admintoko.cetak-laporan-penjualan', [
             'users' => $users,
             'imagePath' => $imagePath,
@@ -179,6 +194,9 @@ class LaporanPenjualanController extends Controller
             'total_biaya' => $total_biaya,
             'total_profit' => $total_profit,
             'total_diskon' => $total_diskon,
+            'total_tunai' => $total_tunai,
+            'total_transfer' => $total_transfer,
+            'total_kredit' => $total_kredit,
         ]);
 
         $filename = 'Laporan Transaksi Penjualan' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';

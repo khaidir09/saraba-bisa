@@ -91,20 +91,34 @@
 	<table id="ringkasan">
 		<tbody>
 			<tr>
-				<th>Total Profit</th>
-				<th>: Rp. {{ number_format($total_profit) }}</th>
-				<th class="text-right">Total Omzet</th>
-				<th class="text-right">: Rp. {{ number_format($total_biaya) }}</th>
-			</tr>
-			<tr>
 				<th>Total Modal</th>
 				<th>: Rp. {{ number_format($total_modal) }}</th>
-				<th class="text-right">Total Diskon</th>
-				<th class="text-right">: Rp. {{ number_format($total_diskon) }}</th>
+				<th>Total Pembayaran Tunai</th>
+				<th>: Rp. {{ number_format($total_tunai) }}</th>
+			</tr>
+			<tr>
+				<th>Total Omzet</th>
+				<th>: Rp. {{ number_format($total_biaya) }}</th>
+				<th>Total Pembayaran Transfer</th>
+				<th>: Rp. {{ number_format($total_transfer) }}</th>
+			</tr>
+			<tr>
+				<th>Total Diskon</th>
+				<th>: Rp. {{ number_format($total_diskon) }}</th>
+				<th>Total Pembayaran Tempo</th>
+				<th>: Rp. {{ number_format($total_kredit) }}</th>
+			</tr>
+			<tr>
+				<th>Total Profit</th>
+				<th>: Rp. {{ number_format($total_profit) }}</th>
+				<th></th>
+				<th></th>
 			</tr>
 			<tr>
 				<th>Total Item Penjualan</th>
-				<th>: {{ $total_penjualan }} Item</th>
+				<th>: {{ $total_penjualan }} item</th>
+				<th></th>
+				<th></th>
 			</tr>
 		</tbody>
 	</table>
