@@ -62,7 +62,7 @@ class ServiceTransaction extends Model
         'due',
         'tempo',
         'tunai',
-        'transfer'
+        'transfer',
     ];
 
     public function getActivitylogOptions(): LogOptions

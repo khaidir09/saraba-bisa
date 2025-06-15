@@ -109,6 +109,7 @@ class UbahBisaDiambilController extends Controller
             $order->due = 0;
             $order->is_approve = 'Setuju';
             $order->tgl_disetujui = Carbon::today();
+            $order->payment_status = 1;
             $order->save();
 
             // Menambahkan data detail transaksi produk sparepart
@@ -141,6 +142,7 @@ class UbahBisaDiambilController extends Controller
             $orderDetail->persen_sales = $persen_sales;
             $orderDetail->profit_toko = ($spareparts->harga_jual - $spareparts->harga_modal) - ($spareparts->harga_jual - $spareparts->harga_modal) / 100 * $persen_sales;
             $orderDetail->garansi = $expired;
+            $orderDetail->product_discount_amount = 0;
             $orderDetail->save();
         }
 

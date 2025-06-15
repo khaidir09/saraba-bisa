@@ -166,8 +166,10 @@ class TransaksiServisLangsungController extends Controller
             $order->invoice_no = '' . mt_rand(date('Ymd00'), date('Ymd99'));
             $order->nama_pelanggan = $nama_pelanggan;
             $order->payment_method = "Tunai";
+            $order->payment_status = 1;
             $order->pay = $spareparts->harga_jual;
             $order->due = 0;
+            $order->discount_amount = 0;
             $order->is_approve = 'Setuju';
             $order->tgl_disetujui = Carbon::today();
             $order->save();
@@ -203,6 +205,7 @@ class TransaksiServisLangsungController extends Controller
             $orderDetail->persen_sales = $persen_sales;
             $orderDetail->profit_toko = ($spareparts->harga_jual - $spareparts->harga_modal) - ($spareparts->harga_jual - $spareparts->harga_modal) / 100 * $persen_sales;
             $orderDetail->garansi = $expired;
+            $orderDetail->product_discount_amount = 0;
             $orderDetail->save();
         }
 

@@ -114,6 +114,8 @@ class UbahBisaDiambilController extends Controller
             $order->invoice_no = '' . mt_rand(date('Ymd00'), date('Ymd99'));
             $order->nama_pelanggan = $nama_pelanggan;
             $order->payment_method = "Tunai";
+            $order->payment_status = 1;
+            $order->discount_amount = 0;
             $order->pay = $spareparts->harga_jual;
             $order->due = 0;
             $order->save();
@@ -151,6 +153,7 @@ class UbahBisaDiambilController extends Controller
             $orderDetail->is_admin_toko = "Admin";
             $orderDetail->admin_id = Auth::user()->id;
             $orderDetail->persen_admin = Auth::user()->persen;
+            $orderDetail->product_discount_amount = 0;
             $orderDetail->save();
         }
 

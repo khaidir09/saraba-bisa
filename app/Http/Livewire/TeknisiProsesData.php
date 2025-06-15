@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Product;
 use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
@@ -20,6 +21,13 @@ class TeknisiProsesData extends Component
 
     public $paginate = 10;
     public $search;
+    public $type;
+
+    public function mount()
+    {
+        $this->type = Type::pluck('id')->toArray();
+    }
+
     public $status = [
         'Belum cek',
         'Sedang Tes',
@@ -43,12 +51,19 @@ class TeknisiProsesData extends Component
     {
         $toko = User::find(1);
         $processes_count = ServiceTransaction::whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->count();
+        $sales = User::where('role', 'Sales')->get();
         $customers = Customer::all();
         $types = Type::all();
         $brands = Brand::all();
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         $actions = ServiceAction::all();
+        $products = Product::whereHas('subCategory', function ($query) {
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('category_name', 'Sparepart');
+            });
+        })->where('stok', '>=', 1)->get();
+
         return view('livewire.teknisi-proses-data', [
             'toko' => $toko,
             'processes_count' => $processes_count,
@@ -58,6 +73,8 @@ class TeknisiProsesData extends Component
             'model_series' => $model_series,
             'capacities' => $capacities,
             'actions' => $actions,
+            'products' => $products,
+            'sales' => $sales,
             'processes' =>
             ServiceTransaction::when($this->search, function ($q) {
                 $q->where('nama_pelanggan', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orWhere('nomor_servis', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orWhere('nama_barang', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil'])->orWhere('imei', 'like', '%' . $this->search . '%')->whereNotIn('status_servis', ['Bisa Diambil', 'Sudah Diambil']);

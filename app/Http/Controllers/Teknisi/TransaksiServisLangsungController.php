@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\KepalaToko;
+namespace App\Http\Controllers\Teknisi;
 
 use Carbon\Carbon;
 use App\Models\Type;
@@ -30,23 +30,16 @@ class TransaksiServisLangsungController extends Controller
     {
         $nomor_servis = '' . mt_rand(date('Ymd00'), date('Ymd99'));
         $nama_pelanggan = Customer::find($request->customers_id);
-
         $nama_tipe = Type::find($request->types_id);
         $nama_merek = Brand::find($request->brands_id);
         $nama_model = ModelSerie::find($request->model_series_id);
         $nama_barang = '' . $nama_tipe->name . ' ' . $nama_merek->name . ' ' . $nama_model->name;
+        $persen_teknisi = User::find($request->users_id)->persen;
 
-        if ($request->users_id != null) {
-            $persen_teknisi = User::find($request->users_id)->persen;
-        } else {
-            $persen_teknisi = null;
-        }
         if ($request->service_actions_id != null) {
             $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
-        } elseif ($request->tindakan_servis != null) {
-            $tindakan_servis = $request->tindakan_servis;
         } else {
-            $tindakan_servis = null;
+            $tindakan_servis = $request->tindakan_servis;
         }
 
         $garansi = Carbon::now();
@@ -125,7 +118,7 @@ class TransaksiServisLangsungController extends Controller
             'kelengkapan' => $request->kelengkapan,
             'qc_masuk' => $request->qc_masuk,
             'status_servis' => "Sudah Diambil",
-            'penerima' => $request->penerima,
+            'penerima' => Auth::user()->worker->name,
             'users_id' => $request->users_id,
             'kondisi_servis' => "Sudah jadi",
             'service_actions_id' => $request->service_actions_id,
@@ -137,14 +130,12 @@ class TransaksiServisLangsungController extends Controller
             'persen_teknisi' => $persen_teknisi,
             'omzet' => $request->biaya,
             'profit' => $profittransaksi,
-            'profittoko' => $profittransaksi - ($bagihasil * $persen_teknisi),
+            'profittoko' => $profittransaksi - ($bagihasil *= Auth::user()->persen + $persen_teknisi),
             'qc_keluar' => $request->qc_keluar,
             'cara_pembayaran' => $request->cara_pembayaran,
             'diskon' => $request->diskon,
             'garansi' => $request->garansi,
             'exp_garansi' => $expired,
-            'is_approve' => 'Setuju',
-            'tgl_disetujui' => $request->tgl_disetujui,
             'tgl_ambil' => $request->tgl_ambil,
             'pengambil' => $nama_pelanggan->nama,
             'penyerah' => Auth::user()->name,
@@ -174,8 +165,6 @@ class TransaksiServisLangsungController extends Controller
             $order->payment_status = 1;
             $order->pay = $spareparts->harga_jual;
             $order->due = 0;
-            $order->is_approve = 'Setuju';
-            $order->tgl_disetujui = Carbon::today();
             $order->discount_amount = 0;
             $order->save();
 
@@ -201,6 +190,7 @@ class TransaksiServisLangsungController extends Controller
             $orderDetail->users_id = $request->sales_id;
             $orderDetail->products_id = $request->products_id;
             $orderDetail->product_name = $spareparts->product_name;
+            $orderDetail->product_discount_amount = 0;
             $orderDetail->quantity = 1;
             $orderDetail->price = $spareparts->harga_jual;
             $orderDetail->total = $spareparts->harga_jual;
@@ -210,10 +200,9 @@ class TransaksiServisLangsungController extends Controller
             $orderDetail->persen_sales = $persen_sales;
             $orderDetail->profit_toko = ($spareparts->harga_jual - $spareparts->harga_modal) - ($spareparts->harga_jual - $spareparts->harga_modal) / 100 * $persen_sales;
             $orderDetail->garansi = $expired;
-            $orderDetail->product_discount_amount = 0;
             $orderDetail->save();
         }
 
-        return redirect()->route('transaksi-servis-sudah-diambil.index');
+        return redirect()->route('teknisi-transaksi-servis.index');
     }
 }
