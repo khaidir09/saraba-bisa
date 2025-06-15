@@ -9,7 +9,7 @@
         <div class="grid grid-cols-12 gap-6">
 
             <!-- Page Intro -->                     
-             <x-sales.header-sales :totalbonus="$totalbonus" :target="$target" :result="$result" :reward="$reward"/>
+             <x-sales.header-sales :totalbonus="$totalbonus" :target="$target" :result="$result" :reward="$reward" :toko="$toko"/>
 
             @if ($target != 0)
                 <div class="flex flex-col col-span-full xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">

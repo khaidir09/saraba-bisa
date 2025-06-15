@@ -13,8 +13,12 @@
                 </div>
                 <!-- User info -->
                 <div>
-                    <div class="mb-2">Halo <strong class="font-medium text-slate-800">{{ Auth::user()->name }}</strong> 👋, ini adalah ringkasan bonus kamu sebagai Admin bulan ini:</div>
-                    <div class="text-3xl font-bold text-emerald-500">Rp. {{ number_format($totalbonus) }}</div>
+                    @if ($toko->is_bonus === 1)
+                        <div class="mb-2">Halo, <strong class="font-medium text-slate-800">{{ Auth::user()->name }}</strong> 👋, ini adalah ringkasan bonus kamu sebagai Admin bulan ini:</div>
+                        <div class="text-3xl font-bold text-emerald-500">Rp. {{ number_format($totalbonus) }}</div>
+                    @else
+                        <div class="mb-2">Halo, <strong class="font-medium text-slate-800">{{ Auth::user()->name }}</strong> 👋</div>
+                    @endif
                 </div>
             </div>
         </div>

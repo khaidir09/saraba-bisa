@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Teknisi;
 
 use Carbon\Carbon;
+use App\Models\StoreSetting;
+use App\Models\TeknisiTarget;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\TeknisiTarget;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -57,12 +58,15 @@ class DashboardController extends Controller
             $reward = 0; // Atau nilai default lainnya
         }
 
+        $toko = StoreSetting::find(1);
+
         return view('pages/teknisi/dashboard', compact(
             'totalbonus',
             'reminders',
             'target',
             'result',
-            'reward'
+            'reward',
+            'toko'
         ));
     }
 }

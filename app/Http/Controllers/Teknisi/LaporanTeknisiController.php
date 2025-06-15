@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Teknisi;
 
+use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use App\Models\ServiceTransaction;
 use App\Http\Controllers\Controller;
@@ -49,6 +50,8 @@ class LaporanTeknisiController extends Controller
             ->whereYear('tgl_disetujui', $currentYear)
             ->get()
             ->sum('profit');
-        return view('pages/teknisi/laporan-teknisi', compact('services', 'services_count', 'servishari', 'profithari', 'servisbulan', 'profitbulan', 'servistahun', 'profittahun'));
+
+        $toko = StoreSetting::find(1);
+        return view('pages/teknisi/laporan-teknisi', compact('services', 'services_count', 'servishari', 'profithari', 'servisbulan', 'profitbulan', 'servistahun', 'profittahun', 'toko'));
     }
 }

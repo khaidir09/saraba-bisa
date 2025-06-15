@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Sales;
 use App\Models\Order;
 use App\Models\Budget;
 use App\Models\OrderDetail;
+use App\Models\SalesTarget;
+use App\Models\StoreSetting;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\SalesTarget;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -55,11 +56,14 @@ class DashboardController extends Controller
             $reward = 0; // Atau nilai default lainnya
         }
 
+        $toko = StoreSetting::find(1);
+
         return view('pages/sales/dashboard', compact(
             'totalbonus',
             'target',
             'result',
-            'reward'
+            'reward',
+            'toko'
         ));
     }
 }

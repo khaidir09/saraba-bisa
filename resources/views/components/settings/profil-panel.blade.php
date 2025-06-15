@@ -63,7 +63,6 @@
                     </textarea>
                 </div>
             </section>
-            <livewire:toggle-tax></livewire:toggle-tax>
         </div>
 
         <!-- Panel footer -->

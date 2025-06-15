@@ -1,10 +1,10 @@
 <div>
     <h3 class="text-xl leading-snug text-slate-800 font-bold mb-1">Penerapan Pajak</h3>
-    <div class="text-sm">Dengan meangktifkan penerapan pajak maka menu, inputan, dan perhitungan pajak akan dimunculkan pada sistem.</div>
-    <div class="flex items-center mt-5">
+    <div class="text-sm">Dengan meangktifkan penerapan pajak maka menu inputan dan perhitungan pajak akan dimunculkan pada sistem.</div>
+    <div class="flex items-center mt-3">
         <div class="form-switch">
-            <input type="checkbox" id="toggle" class="sr-only" wire:model="taxApplied" />
-            <label class="bg-slate-400" for="toggle">
+            <input type="checkbox" id="toggleTax" class="sr-only" wire:model="taxApplied" />
+            <label class="bg-slate-400" for="toggleTax">
                 <span class="bg-white shadow-sm" aria-hidden="true"></span>
                 <span class="sr-only">Penerapan Pajak</span>
             </label>

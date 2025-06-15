@@ -11,6 +11,7 @@
                 <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Jumlah Produk</div>
                 <div class="text-2xl font-bold text-blue-500">{{ $penjualanhari }}</div>
             </div>
+            @if ($toko->is_bonus === 1)
             <div>
                 <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Bonus</div>
                 <div class="text-2xl font-bold text-emerald-500">
@@ -21,6 +22,7 @@
                     Rp. {{ number_format($bonus) }}    
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

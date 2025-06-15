@@ -31,6 +31,7 @@ use App\Http\Controllers\Teknisi\ProdukController as TeknisiProdukController;
 use App\Http\Controllers\KepalaToko\AkunController as KepalaTokoAkunController;
 use App\Http\Controllers\KepalaToko\GajiController as KepalaTokoGajiController;
 use App\Http\Controllers\KepalaToko\TermController as KepalaTokoTermController;
+use App\Http\Controllers\KepalaToko\SistemController as KepalaTokoSistemController;
 use App\Http\Controllers\Sales\DashboardController as SalesDashboardController;
 use App\Http\Controllers\Sales\PelangganController as SalesPelangganController;
 use App\Http\Controllers\Teknisi\ExpenseController as TeknisiExpenseController;
@@ -145,6 +146,7 @@ use App\Http\Controllers\KepalaToko\TargetBulanSebelumnyaController as KepalaTok
 use App\Http\Controllers\AdminToko\TransaksiServisLangsungController as AdminTokoTransaksiServisLangsungController;
 use App\Http\Controllers\KepalaToko\UbahStatusProsesServisController as KepalaTokoUbahStatusProsesServisController;
 use App\Http\Controllers\KepalaToko\TransaksiServisLangsungController as KepalaTokoTransaksiServisLangsungController;
+use App\Http\Controllers\Teknisi\TransaksiServisLangsungController as TeknisiTransaksiServisLangsungController;
 use App\Http\Controllers\KepalaToko\ServisBelumDisetujuiApproveController as KepalaTokoServisBelumDisetujuiApproveController;
 
 /*
@@ -350,6 +352,8 @@ Route::middleware(['ensureUserRole:KepalaToko', 'checkSubscription'])->group(fun
 
     Route::get('pengaturan/profil', [KepalaTokoInformasiTokoController::class, 'index'])->name('informasi-toko');
     Route::post('pengaturan/profil', [KepalaTokoInformasiTokoController::class, 'update'])->name('informasi-toko-update');
+    Route::get('pengaturan/sistem', [KepalaTokoSistemController::class, 'index'])->name('sistem');
+    Route::post('pengaturan/sistem', [KepalaTokoSistemController::class, 'update'])->name('sistem-update');
     Route::get('pengaturan/syarat-ketentuan', [KepalaTokoTermController::class, 'index'])->name('syarat-ketentuan');
     Route::post('pengaturan/syarat-ketentuan-terima', [KepalaTokoTermController::class, 'updateterima'])->name('ketentuan-terima-update');
     Route::post('pengaturan/syarat-ketentuan-pengambilan', [KepalaTokoTermController::class, 'updatepengambilan'])->name('ketentuan-pengambilan-update');
@@ -486,6 +490,7 @@ Route::middleware(['ensureTeknisiRole:Teknisi', 'checkSubscription'])->group(fun
     Route::resource('teknisi-pelanggan', TeknisiPelangganController::class);
     Route::resource('teknisi-tindakan-servis', TeknisiTindakanServisController::class);
     Route::resource('teknisi-transaksi-servis', TeknisiTransaksiServisController::class);
+    Route::post('/teknisi-transaksi-servis-langsung', [TeknisiTransaksiServisLangsungController::class, 'store'])->name('teknisi-servis-langsung');
     Route::resource('master/teknisi-master-model-seri', TeknisiMasterModelSeriController::class);
     Route::get('teknisi/tandaterima-inkjet/{id}', [TeknisiTransaksiServisController::class, 'cetakinkjet'])->name('teknisi-cetak-tanda-terima');
     Route::get('teknisi/tandaterima-termal/{id}', [TeknisiTransaksiServisController::class, 'cetaktermal'])->name('teknisi-cetak-termal');

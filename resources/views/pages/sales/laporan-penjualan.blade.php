@@ -16,9 +16,9 @@
         </div>
 
         <div class="grid grid-cols-12 gap-6">
-            <x-sales.card-laporan-hari :penjualanhari="$penjualanhari" :bonushari="$bonushari"/>
-            <x-sales.card-laporan-bulan :penjualanbulan="$penjualanbulan" :bonusbulan="$bonusbulan"/>
-            <x-sales.card-laporan-tahun :penjualantahun="$penjualantahun" :bonustahun="$bonustahun"/>
+            <x-sales.card-laporan-hari :penjualanhari="$penjualanhari" :bonushari="$bonushari" :toko="$toko"/>
+            <x-sales.card-laporan-bulan :penjualanbulan="$penjualanbulan" :bonusbulan="$bonusbulan" :toko="$toko"/>
+            <x-sales.card-laporan-tahun :penjualantahun="$penjualantahun" :bonustahun="$bonustahun" :toko="$toko"/>
         </div>
      
         <!-- Table -->

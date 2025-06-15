@@ -8,6 +8,7 @@ use App\Models\Budget;
 use App\Models\Product;
 use App\Models\Inventory;
 use App\Models\OrderDetail;
+use App\Models\StoreSetting;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -85,6 +86,8 @@ class DashboardController extends Controller
 
         $inventories = Inventory::where('masa_penggantian', '<', $currentDate)->count();
 
+        $toko = StoreSetting::find(1);
+
         return view('pages/admintoko/dashboard', compact(
             'totalbiayaservis',
             'totalbudgets',
@@ -93,7 +96,8 @@ class DashboardController extends Controller
             'totalbonus',
             'reminders',
             'stokhabis',
-            'inventories'
+            'inventories',
+            'toko'
         ));
     }
 }

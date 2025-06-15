@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\OrderDetail;
+use App\Models\StoreSetting;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,9 +32,10 @@ class SalesLaporanPenjualanData extends Component
         $jumlah = OrderDetail::where('users_id', Auth::user()->id)->whereHas('order', function ($query) {
             $query->where('is_approve', 'Setuju');
         })->sum('quantity');
-
+        $toko = StoreSetting::find(1);
         return view('livewire.sales-laporan-penjualan-data', [
             'jumlah' => $jumlah,
+            'toko' => $toko,
             'product_transactions' => $this->search === null ?
                 OrderDetail::where('users_id', Auth::user()->id)->whereHas('order', function ($query) {
                     $query->where('is_approve', 'Setuju');

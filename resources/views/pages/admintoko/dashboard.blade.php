@@ -6,7 +6,7 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page Intro -->                     
-        <x-admintoko.header-admin :totalbonus="$totalbonus" />
+        <x-admintoko.header-admin :totalbonus="$totalbonus" :toko="$toko"/>
 
         <div class="space-y-3 my-6">
             @if ($stokhabis != null)

@@ -16,9 +16,9 @@
         </div>
 
         <div class="grid grid-cols-12 gap-6">
-            <x-teknisi.card-laporan-hari :servishari="$servishari" :services="$services" :profithari="$profithari"  />
-            <x-teknisi.card-laporan-bulan :servisbulan="$servisbulan" :services="$services" :profitbulan="$profitbulan" />
-            <x-teknisi.card-laporan-tahun :servistahun="$servistahun" :services="$services" :profittahun="$profittahun" />
+            <x-teknisi.card-laporan-hari :servishari="$servishari" :services="$services" :profithari="$profithari" :toko="$toko"/>
+            <x-teknisi.card-laporan-bulan :servisbulan="$servisbulan" :services="$services" :profitbulan="$profitbulan" :toko="$toko"/>
+            <x-teknisi.card-laporan-tahun :servistahun="$servistahun" :services="$services" :profittahun="$profittahun" :toko="$toko"/>
         </div>
      
         <!-- Table -->

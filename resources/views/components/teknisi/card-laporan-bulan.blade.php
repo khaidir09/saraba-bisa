@@ -11,17 +11,18 @@
                 <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Servis Selesai</div>
                 <div class="text-2xl font-bold text-blue-500">{{ $servisbulan }}</div>
             </div>
+            @if ($toko->is_bonus === 1)
             <div>
                 <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Bonus</div>
-                
                 <div class="text-2xl font-bold text-emerald-500">
                     @php
                         $bonus = $profitbulan/100;
                         $bonus *= Auth::user()->persen;
                     @endphp
-                    Rp. {{ number_format($bonus) }}
+                    Rp. {{ number_format($bonus) }}  
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

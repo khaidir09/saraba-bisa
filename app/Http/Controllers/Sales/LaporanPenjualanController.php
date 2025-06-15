@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Sales;
 
-use App\Http\Controllers\Controller;
 use App\Models\OrderDetail;
+use App\Models\StoreSetting;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LaporanPenjualanController extends Controller
@@ -56,6 +57,9 @@ class LaporanPenjualanController extends Controller
             })
             ->get()
             ->sum('profit');
-        return view('pages/sales/laporan-penjualan', compact('penjualanhari', 'bonushari', 'penjualanbulan', 'bonusbulan', 'penjualantahun', 'bonustahun'));
+
+        $toko = StoreSetting::find(1);
+
+        return view('pages/sales/laporan-penjualan', compact('penjualanhari', 'bonushari', 'penjualanbulan', 'bonusbulan', 'penjualantahun', 'bonustahun', 'toko'));
     }
 }

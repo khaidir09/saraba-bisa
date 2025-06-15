@@ -35,9 +35,11 @@
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Tindakan</div>
                         </th>
+                        @if ($toko->is_bonus === 1)
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Bonus</div>
                         </th>
+                        @endif
                     </tr>
                 </thead>
                 <!-- Table body -->
@@ -58,6 +60,7 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->tindakan_servis }}</div>
                             </td>
+                            @if ($toko->is_bonus === 1)
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">
                                     @php
@@ -67,6 +70,7 @@
                                     Rp. {{ number_format($bonus) }}
                                 </div>
                             </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

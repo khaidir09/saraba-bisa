@@ -9,6 +9,7 @@ use Livewire\Component;
 use App\Models\Capacity;
 use App\Models\Customer;
 use App\Models\ModelSerie;
+use App\Models\StoreSetting;
 use Livewire\WithPagination;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,7 @@ class TeknisiLaporanServisData extends Component
         $capacities = Capacity::all();
         $model_series = ModelSerie::all();
         $jumlah = ServiceTransaction::where('is_approve', 'Setuju')->where('users_id', Auth::user()->id)->count();
+        $toko = StoreSetting::find(1);
         return view('livewire.teknisi-laporan-servis-data', [
             'jumlah' => $jumlah,
             'users' => $users,
@@ -49,6 +51,7 @@ class TeknisiLaporanServisData extends Component
             'brands' => $brands,
             'capacities' => $capacities,
             'model_series' => $model_series,
+            'toko' => $toko,
             'services' => $this->search === null ?
                 ServiceTransaction::latest()->where('is_approve', 'Setuju')->where('users_id', Auth::user()->id)->paginate($this->paginate) :
                 ServiceTransaction::latest()->where('is_approve', 'Setuju')->where('users_id', Auth::user()->id)->where('created_at', 'like', '%' . $this->search . '%')->paginate($this->paginate)
