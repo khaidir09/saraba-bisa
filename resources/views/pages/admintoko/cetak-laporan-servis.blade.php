@@ -129,7 +129,9 @@
 				<th>Modal Sparepart</th>
 				<th>Biaya Servis</th>
 				<th>Diskon</th>
+				@if ($toko->is_bonus === 1)
 				<th>Profit</th>
+				@endif
 			</tr>
 		</thead>
 		<tbody>
@@ -171,7 +173,9 @@
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
 					<td style="width: 50px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
+					@if ($toko->is_bonus === 1)
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->profit) }}</td>
+					@endif
 				</tr>
 			@endforeach
 		</tbody>

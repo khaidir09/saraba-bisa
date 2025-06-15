@@ -109,8 +109,10 @@
 				<th>: Rp. {{ number_format($total_kredit) }}</th>
 			</tr>
 			<tr>
+				@if ($toko->is_bonus === 1)
 				<th>Total Profit</th>
 				<th>: Rp. {{ number_format($total_profit) }}</th>
+				@endif
 				<th></th>
 				<th></th>
 			</tr>
@@ -139,7 +141,9 @@
 				<th>Modal</th>
 				<th>Harga Jual</th>
 				<th>Diskon</th>
+				@if ($toko->is_bonus === 1)
 				<th>Profit</th>
+				@endif
 			</tr>
 		</thead>
 		<tbody>
@@ -179,7 +183,9 @@
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->modal) }}</td>
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->total) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->sub_total - $item->total) }}</td>
+					@if ($toko->is_bonus === 1)
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->profit) }}</td>
+					@endif
 				</tr>
 			@endforeach
 		</tbody>

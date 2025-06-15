@@ -1,6 +1,6 @@
 <div>
     <h3 class="text-xl leading-snug text-slate-800 font-bold mb-1">Informasi Bonus</h3>
-    <div class="text-sm">Dengan meangktifkan ini maka informasi bonus pada akun Admin, Teknisi, Sales akan dimunculkan pada sistem.</div>
+    <div class="text-sm">Dengan meangktifkan ini maka informasi profit & bonus pada akun Admin, Teknisi, Sales akan dimunculkan pada sistem.</div>
     <div class="flex items-center mt-3">
         <div class="form-switch">
             <input type="checkbox" id="toggleBonus" class="sr-only" wire:model="bonusApplied" />

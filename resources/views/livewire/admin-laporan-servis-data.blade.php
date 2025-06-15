@@ -169,9 +169,11 @@
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Diskon</div>
                         </th>
+                        @if ($toko->is_bonus === 1)
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Profit Toko</div>
                         </th>
+                        @endif
                     </tr>
                 </thead>
                 <!-- Table body -->
@@ -206,11 +208,13 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ number_format($item->diskon) }}</div>
                             </td>
+                            @if ($toko->is_bonus === 1)
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">
                                     {{ number_format($item->profittoko) }}
                                 </div>
                             </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

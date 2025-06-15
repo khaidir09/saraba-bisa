@@ -4,9 +4,10 @@ namespace App\Http\Controllers\AdminToko;
 
 use App\Models\User;
 use App\Models\Order;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\OrderDetail;
+use App\Models\StoreSetting;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -118,7 +119,9 @@ class LaporanPenjualanController extends Controller
             return $order->detailOrders->sum('total_profit');
         });
 
-        return view('pages/admintoko/laporan-penjualan', compact('product_transactions', 'count', 'omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));
+        $toko = StoreSetting::find(1);
+
+        return view('pages/admintoko/laporan-penjualan', compact('product_transactions', 'count', 'omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun', 'toko'));
     }
 
     public function cetak(Request $request)

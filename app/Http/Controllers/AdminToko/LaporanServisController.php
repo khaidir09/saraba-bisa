@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminToko;
 
 use App\Models\User;
+use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
@@ -46,13 +47,17 @@ class LaporanServisController extends Controller
             ->whereYear('tgl_disetujui', $currentYear)
             ->get()
             ->sum('profittoko');
-        return view('pages/admintoko/laporan-servis', compact('omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));
+
+        $toko = StoreSetting::find(1);
+
+        return view('pages/admintoko/laporan-servis', compact('omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun', 'toko'));
     }
 
     public function cetak(Request $request)
     {
         // Mengambil logo dan nama toko
         $users = User::find(1);
+        $toko = StoreSetting::find(1);
 
         $logo = $users->profile_photo_path;
         $imagePath = public_path('storage/' . $logo);
@@ -170,7 +175,8 @@ class LaporanServisController extends Controller
             'total_servis' => $total_servis,
             'total_tunai' => $total_tunai,
             'total_transfer' => $total_transfer,
-            'total_kredit' => $total_kredit
+            'total_kredit' => $total_kredit,
+            'toko' => $toko
         ]);
 
         $filename = 'Laporan Transaksi Servis' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';
