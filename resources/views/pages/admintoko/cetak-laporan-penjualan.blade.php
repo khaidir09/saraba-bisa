@@ -91,8 +91,10 @@
 	<table id="ringkasan">
 		<tbody>
 			<tr>
+				@if ($toko->is_bonus === 1)
 				<th>Total Modal</th>
 				<th>: Rp. {{ number_format($total_modal) }}</th>
+				@endif
 				<th>Total Pembayaran Tunai</th>
 				<th>: Rp. {{ number_format($total_tunai) }}</th>
 			</tr>
@@ -138,7 +140,9 @@
 				<th>Pelanggan</th>
 				<th>Nama Produk</th>
 				<th>Jumlah</th>
+				@if ($toko->is_bonus === 1)
 				<th>Modal</th>
+				@endif
 				<th>Harga Jual</th>
 				<th>Diskon</th>
 				@if ($toko->is_bonus === 1)
@@ -180,7 +184,9 @@
 						@endif
 					</td>
 					<td style="text-align: center; width: 40px;">{{ $item->quantity }}</td>
+					@if ($toko->is_bonus === 1)
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->modal) }}</td>
+					@endif
 					<td style="width: 70px; text-align: right;">Rp. {{ number_format($item->total) }}</td>
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->sub_total - $item->total) }}</td>
 					@if ($toko->is_bonus === 1)

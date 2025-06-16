@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\ServiceAction;
@@ -32,8 +33,10 @@ class TeknisiServiceActionData extends Component
     public function render()
     {
         $service_actions_count = ServiceAction::all()->count();
+        $toko = User::find(1);
         return view('livewire.teknisi-service-action-data', [
             'service_actions_count' => $service_actions_count,
+            'toko' => $toko,
             'service_actions' => $this->search === null ?
                 ServiceAction::latest()->paginate($this->paginate) :
                 ServiceAction::latest()->where('nama_tindakan', 'like', '%' . $this->search . '%')->paginate($this->paginate)

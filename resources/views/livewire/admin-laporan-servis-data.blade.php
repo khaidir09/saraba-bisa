@@ -160,9 +160,11 @@
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Tindakan</div>
                         </th>
+                        @if ($toko->is_bonus === 1)
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Modal Sparepart</div>
                         </th>
+                        @endif
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Biaya Servis</div>
                         </th>
@@ -199,9 +201,11 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $item->tindakan_servis }}</div>
                             </td>
+                            @if ($toko->is_bonus === 1)
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ number_format($item->modal_sparepart) }}</div>
                             </td>
+                            @endif
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ number_format($item->biaya) }}</div>
                             </td>

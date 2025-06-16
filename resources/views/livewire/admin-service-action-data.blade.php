@@ -331,9 +331,11 @@
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Nama Tindakan</div>
                             </th>
+                            @if ($toko->is_bonus === 1)
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Modal Sparepart</div>
                             </th>
+                            @endif
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Harga Toko</div>
                             </th>
@@ -370,9 +372,11 @@
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">{{ $action->nama_tindakan }}</div>
                                 </td>
+                                @if ($toko->is_bonus === 1)
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">Rp. {{ number_format($action->modal_sparepart) }}</div>
                                 </td>
+                                @endif
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium">Rp. {{ number_format($action->harga_toko) }}</div>
                                 </td>

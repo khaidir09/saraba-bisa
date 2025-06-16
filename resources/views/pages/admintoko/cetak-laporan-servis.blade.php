@@ -126,7 +126,9 @@
 				<th>Model Seri</th>
 				<th>Tindakan</th>
 				<th>Teknisi</th>
+				@if ($toko->is_bonus === 1)
 				<th>Modal Sparepart</th>
+				@endif
 				<th>Biaya Servis</th>
 				<th>Diskon</th>
 				@if ($toko->is_bonus === 1)
@@ -170,7 +172,9 @@
 							-
 						</td>
 					@endif
+					@if ($toko->is_bonus === 1)
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->modal_sparepart) }}</td>
+					@endif
 					<td style="width: 60px; text-align: right;">Rp. {{ number_format($item->biaya) }}</td>
 					<td style="width: 50px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
 					@if ($toko->is_bonus === 1)
