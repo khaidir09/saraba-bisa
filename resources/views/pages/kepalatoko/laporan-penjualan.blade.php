@@ -16,9 +16,9 @@
         </div>
 
         <div class="grid grid-cols-12 gap-6">
-            <x-penjualan.card-laporan-hari :omzethari="$omzethari" :profithari="$profithari"/>
-            <x-penjualan.card-laporan-bulan :omzetbulan="$omzetbulan" :profitbulan="$profitbulan"/>
-            <x-penjualan.card-laporan-tahun :omzettahun="$omzettahun" :profittahun="$profittahun"/>
+            <x-kepalatoko.card-laporan-penjualan-hari :omzethari="$omzethari" :profithari="$profithari"/>
+            <x-kepalatoko.card-laporan-penjualan-bulan :omzetbulan="$omzetbulan" :profitbulan="$profitbulan"/>
+            <x-kepalatoko.card-laporan-penjualan-tahun :omzettahun="$omzettahun" :profittahun="$profittahun"/>
         </div>
      
         <!-- Table -->
