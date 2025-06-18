@@ -83,6 +83,26 @@ class UbahBisaDiambilController extends Controller
             $biaya = 0;
         }
 
+        $garansi = Carbon::now();
+        if ($request->garansi != null) {
+            $expired = $garansi->addDays(
+                $request->garansi
+            );
+        } else {
+            $expired = null;
+        }
+
+        $expired = [];
+        if (count($request->garansi) > 0) {
+            foreach ($request->garansi as $val) {
+                array_push($expired, Carbon::now()->addDays(
+                    $val
+                ));
+            }
+        } else {
+            $expired = null;
+        }
+
         // Transaction create
         $item->update([
             'users_id' => $request->users_id,
@@ -105,7 +125,10 @@ class UbahBisaDiambilController extends Controller
             'service_actions' => json_encode($request->service_actions_id),
             'products' => json_encode($request->products_id),
             'biaya_j' => json_encode($request->biaya_servis),
-            'modal_j' => json_encode($request->modal_sparepart)
+            'modal_j' => json_encode($request->modal_sparepart),
+            'garansi' => $request->garansi[0],
+            'exp_garansi' => $expired[0],
+            'exp_garansi_j' => json_encode($expired),
         ]);
 
         if (count($request->products_id) > 0) {

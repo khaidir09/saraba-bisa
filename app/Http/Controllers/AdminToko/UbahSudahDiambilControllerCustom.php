@@ -110,22 +110,9 @@ class UbahSudahDiambilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         $item = ServiceTransaction::findOrFail($id);
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
         $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
-
-        // $garansi = Carbon::now();
-        $expired = [];
-        if (count($request->garansi) > 0) {
-            foreach ($request->garansi as $val) {
-                array_push($expired, Carbon::now()->addDays(
-                    $val
-                ));
-            }
-        } else {
-            $expired = null;
-        }
 
         if ($item->user != null) {
             $persen_teknisi = $item->user->persen;
@@ -200,9 +187,6 @@ class UbahSudahDiambilController extends Controller
             'qc_keluar' => $request->qc_keluar,
             'cara_pembayaran' => $request->cara_pembayaran,
             'diskon' => $request->diskon,
-            'garansi' => $request->garansi[0],
-            'exp_garansi' => $expired[0],
-            'exp_garansi_j' => json_encode($expired),
             'status_servis' => $request->status_servis,
             'tgl_ambil' => $request->tgl_ambil,
             'pengambil' => $request->pengambil,

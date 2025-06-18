@@ -63,11 +63,6 @@ class ServiceTransaction extends Model
         'tempo',
         'tunai',
         'transfer',
-        'service_actions',
-        'products',
-        'exp_garansi_j',
-        'biaya_j',
-        "modal_j"
     ];
 
     public function getActivitylogOptions(): LogOptions
