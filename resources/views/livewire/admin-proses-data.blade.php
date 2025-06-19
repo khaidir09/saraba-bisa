@@ -415,7 +415,7 @@
                                             <div x-show="showDetails" class="mt-3">
                                                 <label class="block text-sm font-medium mb-1"
                                                     for="products_id[]">Sparepart Toko yg Digunakan</label>
-                                                <select id="selectjs6" name="products_id"
+                                                <select id="selectjs6" name="products_id[]"
                                                     class="form-select text-sm py-1 w-full" style="width: 100%;">
                                                     <option selected value="">Pilih Sparepart</option>
                                                     @foreach ($products as $item)
@@ -475,14 +475,14 @@
                                                     for="modal_sparepart">Modal Sparepart <span
                                                         class="text-rose-500">*</span></label>
                                                 <input class="form-input w-full px-2 py-1 modal_sparepart"
-                                                    type="number" name="modal_sparepart" required />
+                                                    type="number" name="modal_sparepart[]" required />
                                             </div>
 
                                             <div class="mt-3">
                                                 <label class="block text-sm font-medium mb-1" for="biaya_servis">Biaya
                                                     Servis <span class="text-rose-500">*</span></label>
                                                 <input class="form-input w-full px-2 py-1 biaya_servis" type="number"
-                                                    name="biaya_servis" required />
+                                                    name="biaya_servis[]" required />
                                             </div>
                                         </div>
                                         <div id="servis-lain"></div>

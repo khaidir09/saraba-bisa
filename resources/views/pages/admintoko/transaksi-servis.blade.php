@@ -260,34 +260,107 @@
                             for="modal_sparepart">Modal Sparepart <span
                                 class="text-rose-500">*</span></label>
                         <input class="form-input modal_sparepart w-full px-2 py-1" type="number" value="0"
-                            name="modal_sparepart" required />
+                            name="modal_sparepart[]" required />
                     </div>
                     <div class="mt-3">
                         <label class="block text-sm font-medium mb-1" for="biaya_servis">Biaya
                             Servis <span class="text-rose-500">*</span></label>
                         <input class="form-input w-full px-2 py-1 biaya_servis" type="number"
-                            name="biaya_servis" required />
+                            name="biaya_servis[]" required />
                     </div>
                 </div>`
 
-                $('#tambah-servis').click(function() {
-                    const parent = $("<div></div>")
-                    $(pilihTindakanEl).appendTo(parent)
-                    const cloned = $(konfirSparepartEl)
-                    let newName = getRandomName();
+                $(document).on('change', '.pilih-tindakan select', function() {
+                var serviceActionId = $(this).val();
+                const myEl = $(this)
+                if (serviceActionId) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/get-action/' + serviceActionId,
+                        dataType: 'json',
+                        success: function(data) {
+                            const curBiaya = $('#biaya').val() || 0;
+                            const curModal = $('#total_modal_sparepart').val() || 0;
+                            const prevModal = myEl.parent().parent().parent().find(
+                                '[name="prev_modal"]:first');
+                            const prevBiaya = myEl.parent().parent().parent().find(
+                                '[name="prev_biaya"]:first');
 
-                    cloned.find('input[type="radio"]').each(function() {
-                        $(this).attr('name', newName);
+                            $('#biaya').val((parseInt(curBiaya) - parseInt(prevBiaya.val()) + parseInt(data
+                                .biaya)).toString());
+                            $('#total_modal_sparepart').val((parseInt(curModal) - parseInt(prevModal
+                                    .val()) + parseInt(data
+                                    .modal_sparepart))
+                                .toString());
+                            prevModal.val(data.modal_sparepart)
+                            prevBiaya.val(data.biaya)
+                            myEl.parent().parent().parent().find('[name="modal_sparepart[]"]:first').val(
+                                data
+                                .modal_sparepart)
+                            myEl.parent().parent().parent().find('[name="biaya_servis[]"]:first').val(data
+                                .biaya)
+                        }
                     });
-                    cloned.appendTo(parent)
-                    parent.appendTo('#servis-lain')
-                    $('.selectAction').select2();
-                    $('.selectAction2').select2();
-                })
-
-                function getRandomName() {
-                    return 'radio_' + Math.random().toString(36).substr(2, 9);
+                } else {
+                    $('#biaya').val('');
+                    $('#modal_sparepart').val('');
                 }
+            });
+
+            $(document).on('change', '.modal_sparepart', function(e) {
+                const myEl = $(this);
+                const curModal = $('#total_modal_sparepart').val() || 0;
+                const prevModal = myEl.parent().parent().parent().find('[name="prev_modal"]:first');
+                $('#total_modal_sparepart').val((parseInt(curModal) - parseInt(prevModal.val()) + parseInt(myEl.val()))
+                    .toString());
+                prevModal.val(myEl.val())
+            })
+
+            $(document).on('change', '.biaya_servis', function(e) {
+                const myEl = $(this);
+                const curModal = $('#biaya').val() || 0;
+                const prevModal = myEl.parent().parent().parent().find('[name="prev_biaya"]:first');
+                $('#biaya').val((parseInt(curModal) - parseInt(prevModal.val()) + parseInt(myEl.val()))
+                    .toString());
+                prevModal.val(myEl.val())
+            })
+
+            $(document).on('change', '.selectAction2', function() {
+                var productId = $(this).val();
+                if (productId) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/get-sparepart/' + productId,
+                        dataType: 'json',
+                        success: function(data) {
+                            const prev = $('#modal_sparepart').val() || 0;
+                            $('#modal_sparepart').val((parseInt(prev) + parseInt(data.modal_sparepart))
+                                .toString());
+                        }
+                    });
+                } else {
+                    $('#modal_sparepart').val('');
+                }
+            });
+
+            function getRandomName() {
+                return 'radio_' + Math.random().toString(36).substr(2, 9);
+            }
+
+            $('#tambah-servis').click(function() {
+                const parent = $("<div></div>")
+                $(pilihTindakanEl).appendTo(parent)
+                const cloned = $(konfirSparepartEl)
+                let newName = getRandomName();
+
+                cloned.find('input[type="radio"]').each(function() {
+                    $(this).attr('name', newName);
+                });
+                cloned.appendTo(parent)
+                parent.appendTo('#servis-lain')
+                $('.selectAction').select2();
+                $('.selectAction2').select2();
+            })
             });
         </script>
     @endpush

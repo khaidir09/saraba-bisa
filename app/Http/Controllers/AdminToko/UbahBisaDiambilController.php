@@ -55,17 +55,34 @@ class UbahBisaDiambilController extends Controller
             $persen_teknisi = null;
         }
 
-        if (count($request->service_actions_id) > 1) {
-            $tindakan_servis = [];
-            foreach ($request->service_actions_id as $key => $servis) {
-                $tindakan = $servis ? ServiceAction::find($servis)->nama_tindakan : $request->tindakan_servis[$key];
-                array_push($tindakan_servis, $tindakan);
+        // --- BLOK LOGIKA YANG DIPERBAIKI ---
+        $tindakan_servis = []; // 1. Inisialisasi sebagai array kosong
+
+        // Pastikan request memiliki inputnya untuk menghindari error
+        if ($request->has('service_actions_id')) {
+            // 2. Lakukan loop pada semua tindakan yang dikirim
+            foreach ($request->service_actions_id as $key => $servis_id) {
+                $tindakan = null; // Reset untuk setiap iterasi
+
+                // 3. Cek apakah tindakan dipilih dari dropdown
+                if (!empty($servis_id)) {
+                    $action = ServiceAction::find($servis_id);
+                    if ($action) {
+                        $tindakan = $action->nama_tindakan;
+                    }
+                }
+                // 4. Jika tidak, cek apakah diisi manual
+                elseif (!empty($request->tindakan_servis[$key])) {
+                    $tindakan = $request->tindakan_servis[$key];
+                }
+
+                // 5. Tambahkan ke array jika ada tindakan yang valid
+                if ($tindakan !== null) {
+                    array_push($tindakan_servis, $tindakan);
+                }
             }
-        } elseif (count($request->tindakan_servis) === 1) {
-            $tindakan_servis = $request->tindakan_servis[0];
-        } else {
-            $tindakan_servis = null;
         }
+        // --- AKHIR BLOK LOGIKA YANG DIPERBAIKI ---
 
         if ($request->kondisi_servis === "Sudah jadi") {
             $persen_admin = Auth::user()->persen;
@@ -74,14 +91,9 @@ class UbahBisaDiambilController extends Controller
         }
 
         $modalSparepart = array_sum($request->modal_sparepart);
-        $profittransaksi = $request->biaya - $modalSparepart;
-        $bagihasil = ($request->biaya - $modalSparepart) / 100;
-
-        if ($request->biaya != null) {
-            $biaya = $request->biaya;
-        } else {
-            $biaya = 0;
-        }
+        $biaya = $request->biaya ?? 0;
+        $profittransaksi = $biaya - $modalSparepart;
+        $bagihasil = ($biaya - $modalSparepart) / 100;
 
         // Transaction create
         $item->update([
@@ -89,10 +101,10 @@ class UbahBisaDiambilController extends Controller
             'status_servis' => $request->status_servis,
             'tgl_selesai' => $request->tgl_selesai,
             'kondisi_servis' => $request->kondisi_servis,
-            'service_actions_id' => $request->service_actions_id[0],
-            'products_id' => $request->products_id[0],
-            'tindakan_servis' => json_encode($tindakan_servis),
-            'modal_sparepart' => $request->modal_sparepart[0],
+            // 'service_actions_id' => $request->service_actions_id[0],
+            'products_id' => $request->products_id[0] ?? null,
+            'tindakan_servis' => count($tindakan_servis) > 0 ? json_encode($tindakan_servis) : null,
+            'modal_sparepart' => $modalSparepart,
             'biaya' => $biaya,
             'catatan' => $request->catatan,
             'is_admin_toko' => $request->is_admin_toko,
@@ -119,7 +131,6 @@ class UbahBisaDiambilController extends Controller
 
                 // Menambahkan data transaksi produk sparepart
                 $nama_pelanggan = Customer::find($item->customers_id)->nama;
-
                 $order = new Order();
                 $order->customers_id = $item->customers_id;
                 $order->users_id = $request->sales_id[$key];
