@@ -160,7 +160,9 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 @if ($item->tindakan_servis != null)
-                                    <div class="font-medium">{{ $item->tindakan_servis }}</div>
+                                    <div class="font-medium">
+                                        {{ implode(', ', json_decode($item->tindakan_servis) ?? []) }}
+                                    </div>
                                 @else
                                     <div class="font-medium">-</div>
                                 @endif

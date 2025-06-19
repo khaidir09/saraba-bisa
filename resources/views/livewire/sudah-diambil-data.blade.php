@@ -656,7 +656,9 @@
                                     <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 {{$status_color}}">{{ $transaction->kondisi_servis }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ $transaction->tindakan_servis }}</div>
+                                    <div class="font-medium">
+                                        {{ implode(', ', json_decode($transaction->tindakan_servis) ?? []) }}
+                                    </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     @if ($transaction->user)

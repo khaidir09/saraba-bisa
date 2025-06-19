@@ -199,7 +199,9 @@
                                 </td>
                             @endif
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $item->tindakan_servis }}</div>
+                                <div class="font-medium">
+                                    {{ implode(', ', json_decode($item->tindakan_servis) ?? []) }}
+                                </div>
                             </td>
                             @if ($toko->is_bonus === 1)
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
