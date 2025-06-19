@@ -114,11 +114,14 @@ class UbahSudahDiambilController extends Controller
         $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
         $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
 
-        $garansi = Carbon::now();
-        if ($request->garansi != null) {
-            $expired = $garansi->addDays(
-                $request->garansi
-            );
+        // $garansi = Carbon::now();
+        $expired = [];
+        if (count($request->garansi) > 0) {
+            foreach ($request->garansi as $val) {
+                array_push($expired, Carbon::now()->addDays(
+                    $val
+                ));
+            }
         } else {
             $expired = null;
         }
@@ -190,8 +193,9 @@ class UbahSudahDiambilController extends Controller
             'qc_keluar' => $request->qc_keluar,
             'cara_pembayaran' => $request->cara_pembayaran,
             'diskon' => $request->diskon,
-            'garansi' => $request->garansi,
-            'exp_garansi' => $expired,
+            'garansi' => $request->garansi[0],
+            'exp_garansi' => $expired[0],
+            'exp_garansi_j' => json_encode($expired),
             'status_servis' => $request->status_servis,
             'is_approve' => 'Setuju',
             'tgl_disetujui' => $request->tgl_disetujui,

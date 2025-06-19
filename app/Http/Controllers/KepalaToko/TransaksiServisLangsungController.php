@@ -41,13 +41,35 @@ class TransaksiServisLangsungController extends Controller
         } else {
             $persen_teknisi = null;
         }
-        if ($request->service_actions_id != null) {
-            $tindakan_servis = ServiceAction::find($request->service_actions_id)->nama_tindakan;
-        } elseif ($request->tindakan_servis != null) {
-            $tindakan_servis = $request->tindakan_servis;
-        } else {
-            $tindakan_servis = null;
+
+        // --- BLOK LOGIKA YANG DIPERBAIKI ---
+        $tindakan_servis = []; // 1. Inisialisasi sebagai array kosong
+
+        // Pastikan request memiliki inputnya untuk menghindari error
+        if ($request->has('service_actions_id')) {
+            // 2. Lakukan loop pada semua tindakan yang dikirim
+            foreach ($request->service_actions_id as $key => $servis_id) {
+                $tindakan = null; // Reset untuk setiap iterasi
+
+                // 3. Cek apakah tindakan dipilih dari dropdown
+                if (!empty($servis_id)) {
+                    $action = ServiceAction::find($servis_id);
+                    if ($action) {
+                        $tindakan = $action->nama_tindakan;
+                    }
+                }
+                // 4. Jika tidak, cek apakah diisi manual
+                elseif (!empty($request->tindakan_servis[$key])) {
+                    $tindakan = $request->tindakan_servis[$key];
+                }
+
+                // 5. Tambahkan ke array jika ada tindakan yang valid
+                if ($tindakan !== null) {
+                    array_push($tindakan_servis, $tindakan);
+                }
+            }
         }
+        // --- AKHIR BLOK LOGIKA YANG DIPERBAIKI ---
 
         $garansi = Carbon::now();
         if ($request->garansi != null) {
@@ -58,8 +80,10 @@ class TransaksiServisLangsungController extends Controller
             $expired = null;
         }
 
-        $profittransaksi = $request->biaya - $request->modal_sparepart - $request->diskon;
-        $bagihasil = ($request->biaya - $request->modal_sparepart - $request->diskon) / 100;
+        $modalSparepart = array_sum($request->modal_sparepart);
+        $biaya = $request->biaya ?? 0;
+        $profittransaksi = $biaya - $modalSparepart - $request->diskon;
+        $bagihasil = ($biaya - $modalSparepart - $request->diskon) / 100;
 
         if ($request->cara_pembayaran === 'Tunai & Transfer') {
             $due = 0;
@@ -109,6 +133,17 @@ class TransaksiServisLangsungController extends Controller
             $tempo = null;
         }
 
+        $expired = [];
+        if (count($request->garansi) > 0) {
+            foreach ($request->garansi as $val) {
+                array_push($expired, Carbon::now()->addDays(
+                    $val
+                ));
+            }
+        } else {
+            $expired = null;
+        }
+
         // Transaction create
         ServiceTransaction::create([
             'nomor_servis' => $nomor_servis,
@@ -128,10 +163,10 @@ class TransaksiServisLangsungController extends Controller
             'penerima' => $request->penerima,
             'users_id' => $request->users_id,
             'kondisi_servis' => "Sudah jadi",
-            'service_actions_id' => $request->service_actions_id,
-            'products_id' => $request->products_id,
-            'tindakan_servis' => $tindakan_servis,
-            'modal_sparepart' => $request->modal_sparepart,
+            // 'service_actions_id' => $request->service_actions_id,
+            'products_id' => $request->products_id[0],
+            'tindakan_servis' => count($tindakan_servis) > 0 ? json_encode($tindakan_servis) : null,
+            'modal_sparepart' => $modalSparepart,
             'biaya' => $request->biaya,
             'catatan' => $request->catatan,
             'persen_teknisi' => $persen_teknisi,
@@ -141,8 +176,9 @@ class TransaksiServisLangsungController extends Controller
             'qc_keluar' => $request->qc_keluar,
             'cara_pembayaran' => $request->cara_pembayaran,
             'diskon' => $request->diskon,
-            'garansi' => $request->garansi,
-            'exp_garansi' => $expired,
+            'garansi' => $request->garansi[0],
+            'exp_garansi' => $expired[0],
+            'exp_garansi_j' => json_encode($expired),
             'is_approve' => 'Setuju',
             'tgl_disetujui' => $request->tgl_disetujui,
             'tgl_ambil' => $request->tgl_ambil,
@@ -153,65 +189,59 @@ class TransaksiServisLangsungController extends Controller
             'tempo' => $tempo,
             'tunai' => $tunai,
             'transfer' => $transfer,
+            'service_actions' => json_encode($request->service_actions_id),
+            'products' => json_encode($request->products_id),
+            'biaya_j' => json_encode($request->biaya_servis),
+            'modal_j' => json_encode($request->modal_sparepart)
         ]);
 
-        if ($request->products_id != null) {
-            $spareparts = Product::find($request->products_id);
-            $spareparts->stok -= 1;
-            $spareparts->save();
+        if (count($request->products_id) > 0) {
 
-            // Menambahkan data transaksi produk sparepart
-            $nama_pelanggan = Customer::find($request->customers_id)->nama;
-            $order = new Order();
-            $order->customers_id = $request->customers_id;
-            $order->users_id = $request->sales_id;
-            $order->order_date = Carbon::today()->locale('id')->translatedFormat('d F Y');
-            $order->total_products = 1;
-            $order->sub_total = $spareparts->harga_jual;
-            $order->invoice_no = '' . mt_rand(date('Ymd00'), date('Ymd99'));
-            $order->nama_pelanggan = $nama_pelanggan;
-            $order->payment_method = "Tunai";
-            $order->payment_status = 1;
-            $order->pay = $spareparts->harga_jual;
-            $order->due = 0;
-            $order->is_approve = 'Setuju';
-            $order->tgl_disetujui = Carbon::today();
-            $order->discount_amount = 0;
-            $order->save();
+            foreach ($request->products_id as $key => $product) {
+                if (!$product) continue;
+                $spareparts = Product::find($request->products_id);
+                $spareparts->stok -= 1;
+                $spareparts->save();
 
-            // Menambahkan data detail transaksi produk sparepart
-            $garansi = Carbon::now();
-            if (
-                $spareparts->garansi != null
-            ) {
-                $expired = $garansi->addDays(
-                    $spareparts->garansi
-                );
-            } else {
-                $expired = null;
+                // Menambahkan data transaksi produk sparepart
+                $nama_pelanggan = Customer::find($request->customers_id)->nama;
+                $order = new Order();
+                $order->customers_id = $request->customers_id;
+                $order->users_id = $request->sales_id[$key];
+                $order->order_date = Carbon::today()->locale('id')->translatedFormat('d F Y');
+                $order->total_products = 1;
+                $order->sub_total = $spareparts->harga_jual;
+                $order->invoice_no = '' . mt_rand(date('Ymd00'), date('Ymd99'));
+                $order->nama_pelanggan = $nama_pelanggan;
+                $order->payment_method = "Tunai";
+                $order->pay = $spareparts->harga_jual;
+                $order->due = 0;
+                $order->is_approve = 'Setuju';
+                $order->tgl_disetujui = Carbon::today();
+                $order->save();
+
+                if ($request->sales_id[$key] != 1) {
+                    $persen_sales = User::find($request->sales_id[$key])->persen;
+                } else {
+                    $persen_sales = null;
+                }
+
+                $orderDetail = new OrderDetail();
+                $orderDetail->orders_id = $order->id;
+                $orderDetail->users_id = $request->sales_id[$key];
+                $orderDetail->products_id = $request->products_id[$key];
+                $orderDetail->product_name = $spareparts->product_name;
+                $orderDetail->quantity = 1;
+                $orderDetail->price = $spareparts->harga_jual;
+                $orderDetail->total = $spareparts->harga_jual;
+                $orderDetail->sub_total = $spareparts->harga_jual;
+                $orderDetail->modal = $spareparts->harga_modal;
+                $orderDetail->profit = $spareparts->harga_jual - $spareparts->harga_modal;
+                $orderDetail->persen_sales = $persen_sales;
+                $orderDetail->profit_toko = ($spareparts->harga_jual - $spareparts->harga_modal) - ($spareparts->harga_jual - $spareparts->harga_modal) / 100 * $persen_sales;
+                $orderDetail->garansi = $expired[$key];
+                $orderDetail->save();
             }
-            if ($request->sales_id != 1) {
-                $persen_sales = User::find($request->sales_id)->persen;
-            } else {
-                $persen_sales = null;
-            }
-
-            $orderDetail = new OrderDetail();
-            $orderDetail->orders_id = $order->id;
-            $orderDetail->users_id = $request->sales_id;
-            $orderDetail->products_id = $request->products_id;
-            $orderDetail->product_name = $spareparts->product_name;
-            $orderDetail->quantity = 1;
-            $orderDetail->price = $spareparts->harga_jual;
-            $orderDetail->total = $spareparts->harga_jual;
-            $orderDetail->sub_total = $spareparts->harga_jual;
-            $orderDetail->modal = $spareparts->harga_modal;
-            $orderDetail->profit = $spareparts->harga_jual - $spareparts->harga_modal;
-            $orderDetail->persen_sales = $persen_sales;
-            $orderDetail->profit_toko = ($spareparts->harga_jual - $spareparts->harga_modal) - ($spareparts->harga_jual - $spareparts->harga_modal) / 100 * $persen_sales;
-            $orderDetail->garansi = $expired;
-            $orderDetail->product_discount_amount = 0;
-            $orderDetail->save();
         }
 
         return redirect()->route('transaksi-servis-sudah-diambil.index');
