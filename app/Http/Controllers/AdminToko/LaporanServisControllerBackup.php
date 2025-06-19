@@ -47,7 +47,9 @@ class LaporanServisController extends Controller
             ->whereYear('tgl_disetujui', $currentYear)
             ->get()
             ->sum('profittoko');
+
         $toko = StoreSetting::find(1);
+
         return view('pages/admintoko/laporan-servis', compact('omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun', 'toko'));
     }
 
@@ -72,17 +74,11 @@ class LaporanServisController extends Controller
             ->get();
 
         // Menghitung total item servis
-        $daftar_servis = ServiceTransaction::select('tindakan_servis')->where('status_servis', 'Sudah Diambil')
+        $total_servis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->orderBy('tgl_ambil', 'asc')
-            ->get();
-
-        $total_servis = 0;
-        foreach ($daftar_servis as $v) {
-            $json = json_decode($v['tindakan_servis']) ? json_decode($v['tindakan_servis']) : [];
-            $total_servis += count($json) == 0 ? 1 : count($json);
-        }
+            ->get()->count();
 
         // Menghitung total pembayaran tunai
         $total_tunai = ServiceTransaction::where('status_servis', 'Sudah Diambil')
@@ -165,7 +161,6 @@ class LaporanServisController extends Controller
 
         $pdf = PDF::loadView('pages.admintoko.cetak-laporan-servis', [
             'users' => $users,
-            'toko' => $toko,
             'imagePath' => $imagePath,
             'services' => $services,
             'start_date' => $start_date,
@@ -180,7 +175,8 @@ class LaporanServisController extends Controller
             'total_servis' => $total_servis,
             'total_tunai' => $total_tunai,
             'total_transfer' => $total_transfer,
-            'total_kredit' => $total_kredit
+            'total_kredit' => $total_kredit,
+            'toko' => $toko
         ]);
 
         $filename = 'Laporan Transaksi Servis' . ' ' . $start_date . ' ' . 'sd' . ' ' . $end_date . '.pdf';

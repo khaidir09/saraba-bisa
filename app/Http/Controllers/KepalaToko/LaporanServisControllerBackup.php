@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\AdminToko;
+namespace App\Http\Controllers\KepalaToko;
 
 use App\Models\User;
-use App\Models\StoreSetting;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\ServiceTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Expense;
+use App\Models\Incident;
 
 class LaporanServisController extends Controller
 {
@@ -19,21 +20,27 @@ class LaporanServisController extends Controller
 
         $omzethari = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->whereDate('tgl_disetujui', today())
             ->get()
             ->sum('omzet');
         $profithari = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
+            ->whereMonth('tgl_disetujui', $currentMonth)
             ->whereDate('tgl_disetujui', today())
             ->get()
             ->sum('profittoko');
         $omzetbulan = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('omzet');
         $profitbulan = ServiceTransaction::with('serviceaction')
             ->where('is_approve', 'Setuju')
+            ->whereYear('tgl_disetujui', $currentYear)
             ->whereMonth('tgl_disetujui', $currentMonth)
             ->get()
             ->sum('profittoko');
@@ -47,15 +54,13 @@ class LaporanServisController extends Controller
             ->whereYear('tgl_disetujui', $currentYear)
             ->get()
             ->sum('profittoko');
-        $toko = StoreSetting::find(1);
-        return view('pages/admintoko/laporan-servis', compact('omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun', 'toko'));
+        return view('pages/kepalatoko/laporan-servis', compact('omzethari', 'profithari', 'omzetbulan', 'profitbulan', 'omzettahun', 'profittahun'));
     }
 
     public function cetak(Request $request)
     {
         // Mengambil logo dan nama toko
         $users = User::find(1);
-        $toko = StoreSetting::find(1);
 
         $logo = $users->profile_photo_path;
         $imagePath = public_path('storage/' . $logo);
@@ -72,17 +77,11 @@ class LaporanServisController extends Controller
             ->get();
 
         // Menghitung total item servis
-        $daftar_servis = ServiceTransaction::select('tindakan_servis')->where('status_servis', 'Sudah Diambil')
+        $total_servis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->orderBy('tgl_ambil', 'asc')
-            ->get();
-
-        $total_servis = 0;
-        foreach ($daftar_servis as $v) {
-            $json = json_decode($v['tindakan_servis']) ? json_decode($v['tindakan_servis']) : [];
-            $total_servis += count($json) == 0 ? 1 : count($json);
-        }
+            ->get()->count();
 
         // Menghitung total pembayaran tunai
         $total_tunai = ServiceTransaction::where('status_servis', 'Sudah Diambil')
@@ -101,6 +100,18 @@ class LaporanServisController extends Controller
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('due');
+
+        // Mengambil data insiden
+        $incidents = Incident::with('worker')->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // Mengambil data pengeluaran
+        $expenses = Expense::with('user')->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->orderBy('created_at', 'asc')
+            ->get();
 
         // Mengambil data brand terbanyak
         $topbrands =
@@ -163,17 +174,30 @@ class LaporanServisController extends Controller
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->sum('profit');
 
-        $pdf = PDF::loadView('pages.admintoko.cetak-laporan-servis', [
+        // Menghitung total insiden
+        $total_insiden = Incident::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('biaya_toko');
+
+        // Menghitung total pengeluaran
+        $total_pengeluaran = Expense::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->sum('price');
+
+        $pdf = PDF::loadView('pages.kepalatoko.cetak-laporan-servis', [
             'users' => $users,
-            'toko' => $toko,
             'imagePath' => $imagePath,
             'services' => $services,
+            'incidents' => $incidents,
+            'expenses' => $expenses,
             'start_date' => $start_date,
             'end_date' => $end_date,
             'total_modal' => $total_modal,
             'total_biaya' => $total_biaya,
             'total_diskon' => $total_diskon,
             'total_profit' => $total_profit,
+            'total_insiden' => $total_insiden,
+            'total_pengeluaran' => $total_pengeluaran,
             'topbrands' => $topbrands,
             'topmodelseries' => $topmodelseries,
             'topactions' => $topactions,

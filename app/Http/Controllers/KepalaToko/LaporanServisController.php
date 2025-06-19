@@ -77,11 +77,17 @@ class LaporanServisController extends Controller
             ->get();
 
         // Menghitung total item servis
-        $total_servis = ServiceTransaction::where('status_servis', 'Sudah Diambil')
+        $daftar_servis = ServiceTransaction::select('tindakan_servis')->where('status_servis', 'Sudah Diambil')
             ->whereDate('tgl_ambil', '>=', $start_date)
             ->whereDate('tgl_ambil', '<=', $end_date)
             ->orderBy('tgl_ambil', 'asc')
-            ->get()->count();
+            ->get();
+
+        $total_servis = 0;
+        foreach ($daftar_servis as $v) {
+            $json = json_decode($v['tindakan_servis']) ? json_decode($v['tindakan_servis']) : [];
+            $total_servis += count($json) == 0 ? 1 : count($json);
+        }
 
         // Menghitung total pembayaran tunai
         $total_tunai = ServiceTransaction::where('status_servis', 'Sudah Diambil')
