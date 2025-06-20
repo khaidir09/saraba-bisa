@@ -186,8 +186,11 @@ class LaporanPenjualanController extends Controller
             ->whereDate('created_at', '<=', $end_date)
             ->sum('due');
 
+        $toko = StoreSetting::find(1);
+
         $pdf = Pdf::loadView('pages.admintoko.cetak-laporan-penjualan', [
             'users' => $users,
+            'toko' => $toko,
             'imagePath' => $imagePath,
             'start_date' => $start_date,
             'end_date' => $end_date,
