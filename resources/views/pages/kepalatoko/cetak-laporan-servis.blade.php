@@ -152,18 +152,18 @@
                 $i = 1;
             @endphp
             @foreach ($services as $item)
+                @php
+                    $tindakan_servis = json_decode($item->tindakan_servis);
+                    $biaya_j = json_decode($item->biaya_j);
+                    $modal_j = json_decode($item->modal_j);
+                @endphp
                 @if (json_decode($item->tindakan_servis))
-                    @php
-                        $tindakan_servis = json_decode($item->tindakan_servis);
-                        $biaya_j = json_decode($item->biaya_j);
-                        $modal_j = json_decode($item->modal_j);
-                    @endphp
                     <tr>
                         <td style="width: 10px;" rowspan="{{ count($tindakan_servis) }}">{{ $i++ }}</td>
                         <td class="text-center" style="width: 60px;" rowspan="{{ count($tindakan_servis) }}">
                             {{ $item->nomor_servis }}</td>
-                        <td style="text-align: left; width: 70px;" class="capital">{{ $item->nama_pelanggan }}</td>
-                        <td style="text-align: left; width: 70px;">
+                        <td style="text-align: left; width: 70px;" class="capital" rowspan="{{ count($tindakan_servis) }}">{{ $item->nama_pelanggan }}</td>
+                        <td style="text-align: left; width: 70px;" rowspan="{{ count($tindakan_servis) }}">
                             @if ($item->modelserie)
                                 {{ $item->modelserie->name }}
                             @else
@@ -178,7 +178,7 @@
                             @endif
                         </td>
                         @if ($item->user)
-                            <td style="text-align: left; width: 70px;">
+                            <td style="text-align: left; width: 70px;" rowspan="{{ count($tindakan_servis) }}">
                                 {{ $item->user->name }}
                             </td>
                         @elseif ($item->user()->withTrashed()->first())
@@ -197,44 +197,22 @@
                         <td style="width: 60px; text-align: right;">Rp.
                             {{ number_format($biaya_j[0] - $modal_j[0]) }}</td>
                     </tr>
-                    @for ($i = 1; $i < count($tindakan_servis); $i++)
+                    @for ($k = 1; $k < count($tindakan_servis); $k++)
                         <tr>
-
-                            <td style="text-align: left; width: 70px;" class="capital">{{ $item->nama_pelanggan }}</td>
-                            <td style="text-align: left; width: 70px;">
-                                @if ($item->modelserie)
-                                    {{ $item->modelserie->name }}
-                                @else
-                                    -
-                                @endif
-                            </td>
                             <td class="capital" style="text-align: left; width: 80px;">
                                 @if ($item->kondisi_servis != 'Sudah jadi')
                                     {{ $item->kondisi_servis }}
                                 @else
-                                    {{ $tindakan_servis[$i] }}
+                                    {{ $tindakan_servis[$k] }}
                                 @endif
                             </td>
-                            @if ($item->user)
-                                <td style="text-align: left; width: 70px;">
-                                    {{ $item->user->name }}
-                                </td>
-                            @elseif ($item->user()->withTrashed()->first())
-                                <td style="text-align: left; width: 70px;">
-                                    {{ $item->user()->withTrashed()->first()->name }}
-                                </td>
-                            @else
-                                <td style="text-align: center; width: 70px;">
-                                    -
-                                </td>
-                            @endif
                             <td style="width: 60px; text-align: right;">Rp.
-                                {{ number_format($modal_j[$i]) }}
+                                {{ number_format($modal_j[$k]) }}
                             </td>
-                            <td style="width: 60px; text-align: right;">Rp. {{ number_format($biaya_j[$i]) }}</td>
+                            <td style="width: 60px; text-align: right;">Rp. {{ number_format($biaya_j[$k]) }}</td>
                             <td style="width: 50px; text-align: right;">Rp. {{ number_format($item->diskon) }}</td>
                             <td style="width: 60px; text-align: right;">Rp.
-                                {{ number_format($biaya_j[$i] - $modal_j[$i]) }}</td>
+                                {{ number_format($biaya_j[$k] - $modal_j[$k]) }}</td>
                         </tr>
                     @endfor
                 @else
